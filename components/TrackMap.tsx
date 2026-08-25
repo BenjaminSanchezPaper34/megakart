@@ -3,7 +3,11 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
-import { TRACK_VIEWBOX, TRACK_OUTLINE, TRACK_CENTERLINE } from "@/lib/track";
+import {
+  TRACK_OUTLINE,
+  TRACK_CENTERLINE,
+  BABY_CENTERLINE,
+} from "@/lib/track";
 
 gsap.registerPlugin(MotionPathPlugin);
 
@@ -19,9 +23,15 @@ const RACERS = [
   { color: "#a855f7", lap: 17.8, start: 0.84, size: 0.88 }, // violet
 ];
 
+/** Les petits, sur leur piste dédiée — rythme tranquille. */
+const BABY_RACERS = [
+  { color: "#22d3ee", lap: 11.5, start: 0.0, size: 0.62 },
+  { color: "#fb7bc2", lap: 12.8, start: 0.5, size: 0.62 },
+];
+
 /**
- * Tracé officiel du circuit (dessin client) : ligne de course complète,
- * course de 5 karts en boucle continue (indépendant du scroll).
+ * Tracé officiel du circuit (dessin client) + piste Baby Kart :
+ * courses en boucle continue, indépendantes du scroll.
  */
 export default function TrackMap({ className = "" }: { className?: string }) {
   const ref = useRef<SVGSVGElement>(null);
@@ -31,21 +41,22 @@ export default function TrackMap({ className = "" }: { className?: string }) {
     if (!svg) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const line = svg.querySelector<SVGPathElement>("[data-track-line]");
-    if (!line) return;
-
     const ctx = gsap.context(() => {
-      svg.querySelectorAll<SVGGElement>("[data-track-kart]").forEach((kart, i) => {
-        const racer = RACERS[i];
-        const tween = gsap.to(kart, {
-          motionPath: { path: line, align: line, alignOrigin: [0.5, 0.5] },
-          duration: racer.lap,
-          repeat: -1,
-          ease: "none",
+      const race = (lineSel: string, kartSel: string, racers: { lap: number; start: number }[]) => {
+        const line = svg.querySelector<SVGPathElement>(lineSel);
+        if (!line) return;
+        svg.querySelectorAll<SVGGElement>(kartSel).forEach((kart, i) => {
+          const tween = gsap.to(kart, {
+            motionPath: { path: line, align: line, alignOrigin: [0.5, 0.5] },
+            duration: racers[i].lap,
+            repeat: -1,
+            ease: "none",
+          });
+          tween.progress(racers[i].start);
         });
-        // Position de départ échelonnée sur la grille
-        tween.progress(racer.start);
-      });
+      };
+      race("[data-track-line]", "[data-track-kart]", RACERS);
+      race("[data-baby-line]", "[data-baby-kart]", BABY_RACERS);
     }, svg);
 
     return () => ctx.revert();
@@ -54,12 +65,12 @@ export default function TrackMap({ className = "" }: { className?: string }) {
   return (
     <svg
       ref={ref}
-      viewBox={TRACK_VIEWBOX}
+      viewBox="0 0 206 103.83"
       className={className}
       role="img"
-      aria-label="Tracé officiel du circuit MegaKart avec une course de cinq karts en miniature"
+      aria-label="Les circuits MegaKart : le grand tracé de 1000 m avec une course de cinq karts, et la piste Baby Kart à côté"
     >
-      {/* Piste : le dessin officiel, en asphalte clair sur fond sombre */}
+      {/* Grand circuit : le dessin officiel, en asphalte clair */}
       <path
         d={TRACK_OUTLINE}
         fill="color-mix(in srgb, var(--color-chalk) 13%, transparent)"
@@ -88,6 +99,45 @@ export default function TrackMap({ className = "" }: { className?: string }) {
       {/* La grille — halos en cercles superposés (pas de filtre SVG) */}
       {RACERS.map((r, i) => (
         <g key={i} data-track-kart transform="translate(156.1 60.6)">
+          <circle r={4.4 * r.size} fill={r.color} opacity="0.14" />
+          <circle r={3 * r.size} fill={r.color} opacity="0.32" />
+          <circle r={2.2 * r.size} fill={r.color} />
+          <circle r={0.9 * r.size} fill="#fff" />
+        </g>
+      ))}
+
+      {/* ---- Piste Baby Kart ---- */}
+      <path
+        d={BABY_CENTERLINE}
+        fill="none"
+        stroke="color-mix(in srgb, var(--color-chalk) 13%, transparent)"
+        strokeWidth="7"
+        strokeLinejoin="round"
+      />
+      <path
+        data-baby-line
+        d={BABY_CENTERLINE}
+        fill="none"
+        stroke="#fb7bc2"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.5"
+      />
+      <text
+        x="182"
+        y="102.5"
+        textAnchor="middle"
+        fill="color-mix(in srgb, var(--color-chalk) 55%, transparent)"
+        style={{
+          font: "italic 800 4.6px var(--font-display, sans-serif)",
+          letterSpacing: "0.08em",
+        }}
+      >
+        BABY KART
+      </text>
+      {BABY_RACERS.map((r, i) => (
+        <g key={i} data-baby-kart transform="translate(182 60)">
           <circle r={4.4 * r.size} fill={r.color} opacity="0.14" />
           <circle r={3 * r.size} fill={r.color} opacity="0.32" />
           <circle r={2.2 * r.size} fill={r.color} />
