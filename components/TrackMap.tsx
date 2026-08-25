@@ -63,16 +63,6 @@ export default function TrackMap({ className = "" }: { className?: string }) {
       role="img"
       aria-label="Tracé stylisé du circuit MegaKart : 1000 mètres d'esses, d'épingles et de lignes droites"
     >
-      <defs>
-        <filter id="track-glow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="6" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-
       {/* Piste (fond) */}
       <path
         d={TRACK_PATH}
@@ -100,8 +90,11 @@ export default function TrackMap({ className = "" }: { className?: string }) {
         <rect x="0" y="14" width="7" height="7" fill="var(--color-chalk)" opacity="0.4" />
       </g>
 
-      {/* Kart */}
-      <g data-track-kart transform="translate(150 470)" filter="url(#track-glow)">
+      {/* Kart — halo en cercles superposés : un filtre SVG gaussien
+          recalculé à chaque frame de scrub faisait ramer le scroll */}
+      <g data-track-kart transform="translate(150 470)">
+        <circle r="18" fill="var(--color-race)" opacity="0.15" />
+        <circle r="12" fill="var(--color-race)" opacity="0.35" />
         <circle r="9" fill="var(--color-race)" />
         <circle r="4" fill="#fff" />
       </g>
