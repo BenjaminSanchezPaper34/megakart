@@ -26,7 +26,21 @@ export default function KartCard({ kart }: { kart: Kart }) {
 
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <h3 className="display text-2xl text-chalk">{kart.name}</h3>
+          {kart.slug === "baby-kart" ? (
+            <h3 className="display text-2xl text-chalk">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/BABYKART-MEGAKART.svg"
+                alt=""
+                width={187}
+                height={90}
+                className="h-12 w-auto"
+              />
+              <span className="sr-only">{kart.name}</span>
+            </h3>
+          ) : (
+            <h3 className="display text-2xl text-chalk">{kart.name}</h3>
+          )}
           <p className="mt-1 text-sm leading-snug text-chalk-60">{kart.tagline}</p>
         </div>
         {kart.badge && (

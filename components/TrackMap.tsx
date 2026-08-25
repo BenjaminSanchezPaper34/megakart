@@ -26,7 +26,7 @@ const RACERS = [
 /** Les petits, sur leur piste dédiée — rythme tranquille. */
 const BABY_RACERS = [
   { color: "#22d3ee", lap: 11.5, start: 0.0, size: 0.62 },
-  { color: "#fb7bc2", lap: 12.8, start: 0.5, size: 0.62 },
+  { color: "#e30a6a", lap: 12.8, start: 0.5, size: 0.62 },
 ];
 
 /**
@@ -118,26 +118,22 @@ export default function TrackMap({ className = "" }: { className?: string }) {
         data-baby-line
         d={BABY_CENTERLINE}
         fill="none"
-        stroke="#fb7bc2"
+        stroke="#e30a6a"
         strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"
         opacity="0.5"
       />
-      <text
-        x="195"
-        y="100.5"
-        textAnchor="middle"
-        fill="color-mix(in srgb, var(--color-chalk) 55%, transparent)"
-        style={{
-          font: "italic 800 4.6px var(--font-display, sans-serif)",
-          letterSpacing: "0.08em",
-        }}
-      >
-        BABY KART
-      </text>
+      {/* Logo officiel Baby Kart sous l'ovale */}
+      <image
+        href="/images/BABYKART-MEGAKART.svg"
+        x="184"
+        y="93"
+        width="22"
+        height="10.6"
+      />
       {BABY_RACERS.map((r, i) => (
-        <g key={i} data-baby-kart transform="translate(195 64)">
+        <g key={i} data-baby-kart transform="translate(205 65)">
           <circle r={4.4 * r.size} fill={r.color} opacity="0.14" />
           <circle r={3 * r.size} fill={r.color} opacity="0.32" />
           <circle r={2.2 * r.size} fill={r.color} />
