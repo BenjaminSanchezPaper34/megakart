@@ -84,7 +84,7 @@ export default function Footer() {
             aria-label="Site réalisé par Paper34 — studio web"
           >
             <span className="inline-flex items-baseline gap-2">
-              <span className="text-chalk-60/80 transition-colors group-hover:text-chalk">
+              <span className="whitespace-nowrap text-chalk-60/80 transition-colors group-hover:text-chalk">
                 Réalisé par
               </span>
               {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -228,7 +228,7 @@ body {
   border-radius: 9999px;
   background: var(--color-race);
   box-shadow: 0 0 6px color-mix(in srgb, var(--color-race) 80%, transparent);
-  transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: left 0.7s cubic-bezier(0.65, 0, 0.35, 1);
 }
 .signature:hover .signature-trail,
 .signature:focus-visible .signature-trail {
@@ -236,10 +236,7 @@ body {
 }
 .signature:hover .signature-kart,
 .signature:focus-visible .signature-kart {
-  transform: translateX(calc(100cqw + 12px));
-}
-.signature {
-  container-type: inline-size;
+  left: calc(100% + 6px);
 }
 
 /* Carrousels scrollables : masquer la barre de défilement */
