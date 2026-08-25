@@ -6,7 +6,9 @@
  */
 export const PRE_PROD = true;
 
-export const SITE_URL = "https://megakart.vercel.app";
+// URL de pré-prod ("megakart.vercel.app" est pris par un autre projet).
+// À remplacer par le domaine définitif au moment de la bascule.
+export const SITE_URL = "https://megakart-kohl.vercel.app";
 
 export const SITE = {
   name: "MegaKart",
