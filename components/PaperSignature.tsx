@@ -23,6 +23,7 @@ export default function PaperSignature() {
   const [active, setActive] = useState(false);
   const logoRef = useRef<HTMLAnchorElement>(null);
   const emitRef = useRef(true);
+  const api = useRef<{ splashAt: (x: number, y: number) => void } | null>(null);
   const stopTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const offTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const reduced = useRef(false);
@@ -31,26 +32,18 @@ export default function PaperSignature() {
     reduced.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
 
-  // Éruption : une volée de faux mousemove en spirale autour du logo,
-  // que le moteur de fluide interprète comme des coups de pinceau.
-  const burst = useCallback(() => {
+  // Éruption : une seule onde circulaire (splash radial simultané)
+  // au centre du logo — ensuite le mousemove naturel prend le relais.
+  const burst = useCallback((retry = 3) => {
     const el = logoRef.current;
     if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    for (let i = 0; i < 10; i++) {
-      setTimeout(() => {
-        const angle = (i / 10) * Math.PI * 2 + Math.random();
-        const radius = 20 + i * 14;
-        window.dispatchEvent(
-          new MouseEvent("mousemove", {
-            clientX: cx + Math.cos(angle) * radius,
-            clientY: cy + Math.sin(angle) * radius * 0.6,
-          })
-        );
-      }, i * 45);
+    if (!api.current) {
+      // Le moteur n'a pas encore fini de monter : on repasse un peu après
+      if (retry > 0) setTimeout(() => burst(retry - 1), 120);
+      return;
     }
+    const rect = el.getBoundingClientRect();
+    api.current.splashAt(rect.left + rect.width / 2, rect.top + rect.height / 2);
   }, []);
 
   const onEnter = useCallback(() => {
@@ -90,6 +83,7 @@ export default function PaperSignature() {
           <SplashCursor
             colors={SMOKE}
             emitRef={emitRef}
+            apiRef={api}
             densityDissipation={1.6}
             velocityDissipation={1.6}
             curl={8}

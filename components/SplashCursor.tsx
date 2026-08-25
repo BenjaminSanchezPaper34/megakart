@@ -28,6 +28,9 @@ type Props = {
    *  nouvelles vagues sans démonter le canvas (la fumée existante
    *  continue de se dissiper naturellement). */
   emitRef?: React.RefObject<boolean>;
+  /** Rempli par le moteur : splashAt(clientX, clientY) déclenche une
+   *  onde circulaire unique (splats radiaux simultanés) à cet endroit. */
+  apiRef?: React.RefObject<{ splashAt: (x: number, y: number) => void } | null>;
 };
 
 export default function SplashCursor({
@@ -40,6 +43,7 @@ export default function SplashCursor({
   splatForce = 6000,
   hover = true,
   emitRef,
+  apiRef,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -938,8 +942,32 @@ export default function SplashCursor({
     window.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("touchstart", onTouchStart, { passive: true });
 
+    /* ─── API programmatique : onde circulaire unique ─── */
+    if (apiRef) {
+      apiRef.current = {
+        splashAt(clientX: number, clientY: number) {
+          const rect = container!.getBoundingClientRect();
+          if (rect.width === 0 || rect.height === 0) return;
+          const cx = (clientX - rect.left) / rect.width;
+          const cy = 1.0 - (clientY - rect.top) / rect.height;
+          const count = 14;
+          for (let i = 0; i < count; i++) {
+            const angle = (i / count) * Math.PI * 2;
+            splat(
+              cx,
+              cy,
+              Math.cos(angle) * config.SPLAT_FORCE * 0.55,
+              Math.sin(angle) * config.SPLAT_FORCE * 0.55,
+              getColor()
+            );
+          }
+        },
+      };
+    }
+
     /* ─── Cleanup ─── */
     return () => {
+      if (apiRef) apiRef.current = null;
       cancelAnimationFrame(rafId);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("touchmove", onTouchMove);
