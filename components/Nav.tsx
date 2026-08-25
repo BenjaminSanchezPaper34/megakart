@@ -12,6 +12,7 @@ const LINKS = [
   { href: "/la-piste", label: "La piste" },
   { href: "/anniversaires", label: "Anniversaires" },
   { href: "/evenements", label: "Événements" },
+  { href: "/photos", label: "Photos" },
   { href: "/contact", label: "Contact" },
 ];
 

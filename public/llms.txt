@@ -50,6 +50,7 @@
 - /la-piste : caractéristiques techniques, sécurité, chrono, histoire depuis 1992
 - /anniversaires : anniversaires enfants sur circuit — déroulé, FAQ parents, dès 7 participants
 - /evenements : EVG/EVJF, team building entreprise, privatisation
+- /photos : galerie officielle — sessions jour et nocturnes, Baby Kart, vues aériennes
 - /contact : adresse, horaires, accès, réseaux sociaux
 - /en : English summary — prices, opening hours, directions (tourist-friendly)
 

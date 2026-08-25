@@ -34,17 +34,17 @@ export default function PistePage() {
       <section className="relative flex min-h-[72svh] items-end overflow-hidden">
         <div data-hero-bg className="absolute inset-0">
           <Image
-            src="/images/hero-drone.jpg"
-            alt="Le circuit MegaKart vu du ciel, au cœur de la zone de loisirs de Vias-plage"
+            src="/images/galerie-23-aerien-nuit.jpg"
+            alt="Le circuit MegaKart illuminé de nuit, vu du ciel au cœur de la zone de loisirs de Vias-plage"
             fill
             priority
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-asphalt/65 via-asphalt/30 to-asphalt" />
+          <div className="absolute inset-0 bg-gradient-to-b from-asphalt/55 via-asphalt/25 to-asphalt" />
         </div>
         <div data-hero-content className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-44 md:px-8">
-          <p className="display mb-3 text-lg text-flag">Homologué FFSA &amp; Préfecture</p>
+          <p className="display mb-3 text-lg text-flag">Homologué FFSA &amp; Préfecture · éclairé en nocturne</p>
           <h1 className="display text-[clamp(2.8rem,7vw,6rem)] text-chalk">
             La piste.
           </h1>

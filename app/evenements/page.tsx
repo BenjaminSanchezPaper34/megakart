@@ -61,12 +61,12 @@ export default function EvenementsPage() {
       <section className="relative flex min-h-[72svh] items-end overflow-hidden">
         <div data-hero-bg className="absolute inset-0">
           <Image
-            src="/images/racer-adult.jpg"
-            alt="Pilote en course sur le circuit MegaKart lors d'un événement"
+            src="/images/galerie-03-drapeau-damier.jpg"
+            alt="Le drapeau à damier s'abaisse en fin de course chez MegaKart"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_35%]"
+            className="object-cover object-[center_30%]"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-asphalt/65 via-asphalt/35 to-asphalt" />
         </div>

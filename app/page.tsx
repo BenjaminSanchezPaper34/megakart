@@ -3,6 +3,7 @@ import Link from "next/link";
 import Marquee from "@/components/Marquee";
 import HeroVideo from "@/components/HeroVideo";
 import Reviews from "@/components/Reviews";
+import PhotoMosaic from "@/components/PhotoMosaic";
 import TrackMap from "@/components/TrackMap";
 import KartCard from "@/components/KartCard";
 import OpenBadge from "@/components/OpenBadge";
@@ -242,27 +243,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ========== PHOTOS PILOTES ========== */}
-      <section className="grid gap-1 md:grid-cols-2">
-        <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto md:min-h-[560px]">
-          <Image
-            src="/images/racer-adult.jpg"
-            alt="Pilote adulte en plein virage sur le circuit MegaKart"
-            fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-cover transition-transform duration-700 hover:scale-105"
-          />
-        </div>
-        <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto md:min-h-[560px]">
-          <Image
-            src="/images/racer-kid.jpg"
-            alt="Enfant au volant d'un Baby Kart électrique chez MegaKart"
-            fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-cover transition-transform duration-700 hover:scale-105"
-          />
-        </div>
-      </section>
+      {/* ========== MOSAÏQUE PHOTOS ========== */}
+      <PhotoMosaic />
 
       {/* ========== LE STAND (pause fraîcheur) ========== */}
       <section className="bg-chalk py-20 text-asphalt md:py-28">
@@ -293,21 +275,21 @@ export default function HomePage() {
             </ul>
           </div>
           <div data-stagger className="grid grid-cols-2 items-center gap-6">
-            <div className="overflow-hidden rounded-sm bg-white p-4 shadow-[0_18px_48px_rgb(0_0_0/0.12)]">
+            <div className="overflow-hidden rounded-sm shadow-[0_18px_48px_rgb(0_0_0/0.18)]">
               <Image
-                src="/images/granites.jpg"
-                alt="Granités bleu, rouge et jaune et boisson fraîche servis au stand MegaKart"
-                width={520}
-                height={676}
+                src="/images/galerie-09-terrasse.jpg"
+                alt="La terrasse et le stand du circuit MegaKart"
+                width={900}
+                height={600}
                 sizes="(min-width: 1024px) 22vw, 45vw"
-                className="h-auto w-full"
+                className="h-full w-full object-cover"
               />
             </div>
             <div className="mt-10 overflow-hidden rounded-sm bg-white p-4 shadow-[0_18px_48px_rgb(0_0_0/0.12)]">
               <Image
-                src="/images/glaces.jpg"
-                alt="Glaces à l'eau multicolores du stand MegaKart"
-                width={523}
+                src="/images/granites.jpg"
+                alt="Granités bleu, rouge et jaune et boisson fraîche servis au stand MegaKart"
+                width={520}
                 height={676}
                 sizes="(min-width: 1024px) 22vw, 45vw"
                 className="h-auto w-full"

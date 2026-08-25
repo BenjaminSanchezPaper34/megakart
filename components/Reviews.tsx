@@ -21,12 +21,57 @@ const REVIEWS = [
   {
     author: "Damien D.",
     when: "août 2026",
-    text: "J'ai très bien aimé la possibilité de pouvoir louer plusieurs types de kart allant du 13 jusqu'au 30 chevaux, car très peu de pistes le font. La piste est technique et demande un pilotage minutieux pour optimiser un tour chrono ou pour doubler d'autres pilotes.",
+    text: "J'ai très bien aimé la possibilité de pouvoir louer plusieurs types de kart allant du 13 jusqu'au 30 chevaux, car très peu de pistes le font. La piste est technique et demande un pilotage minutieux pour optimiser un tour chrono ou pour doubler d'autres pilotes. Le personnel est très accueillant, dont le gérant qui est ultra passionné !",
   },
   {
     author: "Jean-Philippe",
     when: "août 2026",
     text: "Un super moment passé, un accueil chaleureux et souriant. Un circuit qui fait monter l'adrénaline. Que du bonheur !",
+  },
+  {
+    author: "Mehdi E.",
+    when: "août 2026",
+    text: "La piste est incroyable, les karts sont vraiment trop bien. Si t'es en vacances et que tu te demandes si ce karting est bien, je te conseille vraiment d'y aller.",
+  },
+  {
+    author: "Jérôme L.",
+    when: "août 2026",
+    text: "Karting double : enfant + adulte, c'est génial. Tout le monde peut en profiter.",
+  },
+  {
+    author: "Ophélie S.",
+    when: "août 2026",
+    text: "Super soirée, photos souvenir à la fin, photographe très agréable. Je vous recommande.",
+  },
+  {
+    author: "Moina DS",
+    when: "août 2026",
+    text: "Super expérience. Tout est très bien organisé et l'équipe est accueillante. La piste est géniale. On espère avoir le temps d'y retourner avant notre départ. Je recommande sans hésiter !",
+  },
+  {
+    author: "Ismaël B.",
+    when: "août 2026",
+    text: "La demoiselle au snack est très accueillante et a la joie de vivre, merci à elle pour son service et son accueil.",
+  },
+  {
+    author: "Calli",
+    when: "août 2026",
+    text: "Une jeune femme adorable au snack. Merci beaucoup Rania pour ton service et ta joie de vivre.",
+  },
+  {
+    author: "Max F.",
+    when: "août 2026",
+    text: "Accueil super, tous pros, on reviendra !",
+  },
+  {
+    author: "Céline D.",
+    when: "août 2026",
+    text: "De supers photos pour de magnifiques souvenirs. Merci !",
+  },
+  {
+    author: "Alexandre V.",
+    when: "août 2026",
+    text: "Excellente expérience et personnes adorables. Merci à Théo et Vincent pour leur bienveillance : ils ont su s'adapter et m'ont permis d'avoir des sensations et de la vitesse, en faisant un tour de karting malgré mon handicap.",
   },
   {
     author: "Omar M.",
