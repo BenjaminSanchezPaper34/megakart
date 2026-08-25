@@ -232,12 +232,24 @@ body {
   }
 }
 
-/* Navigation : fond en dégradé fondu (safe area mobile) */
-.nav-fade {
+/* Navigation : voile fondu + flou progressif.
+   Démarre au-dessus du bord du navigateur (overscroll inclus) et
+   floute ce qui passe dessous — le contenu "glisse sous" la nav. */
+.nav-veil {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  right: 0;
+  bottom: -55%;
+  pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgb(6 7 10 / 0.92) 0%,
-    rgb(6 7 10 / 0.68) 55%,
+    rgb(6 7 10 / 0.92) 40px,
+    rgb(6 7 10 / 0.55) 65%,
     transparent 100%
   );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  mask-image: linear-gradient(to bottom, black 45%, transparent 96%);
+  -webkit-mask-image: linear-gradient(to bottom, black 45%, transparent 96%);
 }

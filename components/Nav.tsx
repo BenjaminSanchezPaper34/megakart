@@ -30,8 +30,9 @@ export default function Nav() {
   }, [open]);
 
   return (
-    <header className="nav-fade fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)]">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-4 md:px-8">
+    <header className="fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)]">
+      <div className="nav-veil" aria-hidden="true" />
+      <nav className="relative mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-3 md:px-8">
         <Logo className="relative z-50" />
 
         {/* Desktop */}
