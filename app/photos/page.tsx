@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
+import GalleryGrid from "@/components/GalleryGrid";
 import { SITE, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 
@@ -81,23 +81,9 @@ export default function PhotosPage() {
         </p>
       </section>
 
-      {/* Grille masonry (colonnes CSS) */}
+      {/* Grille masonry + lightbox plein écran */}
       <section className="mx-auto max-w-7xl px-5 pb-24 md:px-8">
-        <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
-          {PHOTOS.map((p, i) => (
-            <div key={p.src} className="card overflow-hidden !p-0">
-              <Image
-                src={`/images/${p.src}`}
-                alt={p.alt}
-                width={1200}
-                height={800}
-                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                priority={i < 3}
-                className="h-auto w-full transition-transform duration-700 hover:scale-105"
-              />
-            </div>
-          ))}
-        </div>
+        <GalleryGrid photos={PHOTOS} />
 
         <div className="mt-12 flex flex-wrap gap-4">
           <a href={SITE.phoneHref} className="btn btn-race">

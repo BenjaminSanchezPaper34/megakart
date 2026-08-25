@@ -45,6 +45,9 @@ export default function HomePage() {
         </div>
 
         <div data-hero-content className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-24 pt-40 md:px-8">
+          <div className="mb-5 inline-flex rounded-full border border-white/15 bg-asphalt/50 px-4 py-2 backdrop-blur-sm">
+            <OpenBadge />
+          </div>
           <p className="display mb-4 text-lg text-flag md:text-xl">
             Vias-plage · Hérault — entre Fabrikus &amp; Europark Indoor
           </p>

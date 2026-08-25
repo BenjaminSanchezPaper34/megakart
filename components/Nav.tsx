@@ -54,9 +54,6 @@ export default function Nav() {
               </li>
             ))}
           </ul>
-          <div className="hidden xl:block">
-            <OpenBadge />
-          </div>
           <a href={SITE.phoneHref} className="btn btn-race !py-2.5 !px-5 text-sm">
             {SITE.phone}
           </a>
