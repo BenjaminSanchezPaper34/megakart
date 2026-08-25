@@ -9,3 +9,5 @@ next-env.d.ts
 
 # vidéos sources non optimisées (local uniquement)
 public/videos/*.mov
+node_modules.nosync
+.next.nosync

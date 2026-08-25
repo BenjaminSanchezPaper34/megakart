@@ -60,7 +60,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-5 text-xs text-chalk-60/80 md:flex-row md:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-5 text-xs text-chalk-60/80 md:flex-row md:px-8">
           <p>© {new Date().getFullYear()} {SITE.name} — Tous droits réservés</p>
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-1">
             <li>
@@ -73,18 +73,34 @@ export default function Footer() {
                 Confidentialité
               </Link>
             </li>
-            <li>
-              Site conçu par{" "}
-              <a
-                href="https://www.paper34.fr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-chalk"
-              >
-                Paper34
-              </a>
-            </li>
           </ul>
+
+          {/* Signature Paper34 — au survol, le kart trace son passage */}
+          <a
+            href="https://www.paper34.fr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="signature group inline-flex flex-col gap-1.5"
+            aria-label="Site réalisé par Paper34 — studio web"
+          >
+            <span className="inline-flex items-baseline gap-2">
+              <span className="text-chalk-60/80 transition-colors group-hover:text-chalk">
+                Réalisé par
+              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/logo-paper34.svg"
+                alt="Paper34"
+                width={78}
+                height={14}
+                className="h-3.5 w-auto opacity-70 transition-opacity group-hover:opacity-100"
+              />
+            </span>
+            <span className="signature-track" aria-hidden="true">
+              <span className="signature-trail" />
+              <span className="signature-kart" />
+            </span>
+          </a>
         </div>
       </div>
     </footer>

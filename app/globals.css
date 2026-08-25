@@ -195,6 +195,53 @@ body {
   .marquee-track { animation: none; }
 }
 
+/* ---------- Signature Paper34 (footer) ----------
+   Au survol : un kart (point rouge) traverse le soulignement en
+   laissant sa trace — clin d'œil au tracé animé du circuit. */
+.signature-track {
+  position: relative;
+  display: block;
+  height: 5px;
+  width: 100%;
+  overflow: hidden;
+}
+.signature-track::before {
+  content: "";
+  position: absolute;
+  inset: 2px 0;
+  background: color-mix(in srgb, var(--color-chalk) 15%, transparent);
+}
+.signature-trail {
+  position: absolute;
+  inset: 2px 0;
+  background: linear-gradient(to right, transparent, var(--color-race));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.signature-kart {
+  position: absolute;
+  top: 0;
+  left: -6px;
+  height: 5px;
+  width: 5px;
+  border-radius: 9999px;
+  background: var(--color-race);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--color-race) 80%, transparent);
+  transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.signature:hover .signature-trail,
+.signature:focus-visible .signature-trail {
+  transform: scaleX(1);
+}
+.signature:hover .signature-kart,
+.signature:focus-visible .signature-kart {
+  transform: translateX(calc(100cqw + 12px));
+}
+.signature {
+  container-type: inline-size;
+}
+
 /* Carrousels scrollables : masquer la barre de défilement */
 .no-scrollbar {
   scrollbar-width: none;
