@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
+import PaperSignature from "./PaperSignature";
 import { SITE } from "@/lib/site";
 
 const SOCIALS = [
@@ -75,26 +76,8 @@ export default function Footer() {
             </li>
           </ul>
 
-          {/* Signature Paper34 — sobre, comme sur les autres sites du studio */}
-          <a
-            href="https://www.paper34.fr"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-baseline gap-2"
-            aria-label="Site réalisé par Paper34 — studio design & web"
-          >
-            <span className="whitespace-nowrap transition-colors group-hover:text-chalk">
-              Réalisé par
-            </span>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/logo-paper34.svg"
-              alt="Paper34"
-              width={78}
-              height={14}
-              className="h-3 w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
-            />
-          </a>
+          {/* Signature Paper34 — sobre au repos, fumée fluide au survol */}
+          <PaperSignature />
         </div>
       </div>
     </footer>
