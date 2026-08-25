@@ -75,30 +75,67 @@ export default function Footer() {
             </li>
           </ul>
 
-          {/* Signature Paper34 — au survol, le kart trace son passage */}
+          {/* Sceau Paper34 — cachet d'atelier rotatif, identique sur tous les sites */}
           <a
             href="https://www.paper34.fr"
             target="_blank"
             rel="noopener noreferrer"
-            className="signature group inline-flex flex-col gap-1.5"
-            aria-label="Site réalisé par Paper34 — studio web"
+            className="seal group relative -my-2 block h-[104px] w-[104px] shrink-0"
+            aria-label="Site réalisé par Paper34 — studio design & web"
           >
-            <span className="inline-flex items-baseline gap-2">
-              <span className="whitespace-nowrap text-chalk-60/80 transition-colors group-hover:text-chalk">
-                Réalisé par
-              </span>
+            <svg
+              viewBox="0 0 100 100"
+              className="seal-ring h-full w-full"
+              aria-hidden="true"
+            >
+              <defs>
+                <path
+                  id="seal-circle"
+                  d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"
+                />
+              </defs>
+              <circle
+                cx="50"
+                cy="50"
+                r="48.5"
+                fill="none"
+                stroke="color-mix(in srgb, var(--color-chalk) 25%, transparent)"
+                strokeWidth="1"
+              />
+              <circle
+                cx="50"
+                cy="50"
+                r="27"
+                fill="none"
+                stroke="color-mix(in srgb, var(--color-chalk) 25%, transparent)"
+                strokeWidth="1"
+              />
+              <text
+                fill="color-mix(in srgb, var(--color-chalk) 85%, transparent)"
+                fontSize="9.2"
+                fontWeight="700"
+                letterSpacing="1.6"
+                style={{ fontFamily: "var(--font-body, sans-serif)" }}
+              >
+                <textPath
+                  href="#seal-circle"
+                  textLength="238"
+                  lengthAdjust="spacingAndGlyphs"
+                >
+                  STUDIO PAPER34 · DESIGN &amp; WEB ·&nbsp;
+                </textPath>
+              </text>
+            </svg>
+            {/* Logo au centre (fixe, seul l'anneau tourne) */}
+            <span className="absolute inset-0 flex items-center justify-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/logo-paper34.svg"
                 alt="Paper34"
-                width={78}
-                height={14}
-                className="h-3.5 w-auto opacity-70 transition-opacity group-hover:opacity-100"
+                width={44}
+                height={8}
+                className="h-auto w-[44px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
               />
-            </span>
-            <span className="signature-track" aria-hidden="true">
-              <span className="signature-trail" />
-              <span className="signature-kart" />
             </span>
           </a>
         </div>
