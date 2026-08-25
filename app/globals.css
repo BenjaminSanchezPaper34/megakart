@@ -195,6 +195,14 @@ body {
   .marquee-track { animation: none; }
 }
 
+/* Variante avis : défilement lent, pause au survol */
+.marquee-reviews {
+  animation-duration: 45s;
+}
+.marquee-pausable:hover .marquee-track {
+  animation-play-state: paused;
+}
+
 /* ---------- Badge « ouvert » ---------- */
 .pulse-dot {
   position: relative;
