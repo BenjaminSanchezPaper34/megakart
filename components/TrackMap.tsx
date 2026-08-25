@@ -65,7 +65,7 @@ export default function TrackMap({ className = "" }: { className?: string }) {
   return (
     <svg
       ref={ref}
-      viewBox="0 0 206 103.83"
+      viewBox="0 0 218 103.83"
       className={className}
       role="img"
       aria-label="Les circuits MegaKart : le grand tracé de 1000 m avec une course de cinq karts, et la piste Baby Kart à côté"
@@ -125,8 +125,8 @@ export default function TrackMap({ className = "" }: { className?: string }) {
         opacity="0.5"
       />
       <text
-        x="182"
-        y="102.5"
+        x="195"
+        y="100.5"
         textAnchor="middle"
         fill="color-mix(in srgb, var(--color-chalk) 55%, transparent)"
         style={{
@@ -137,7 +137,7 @@ export default function TrackMap({ className = "" }: { className?: string }) {
         BABY KART
       </text>
       {BABY_RACERS.map((r, i) => (
-        <g key={i} data-baby-kart transform="translate(182 60)">
+        <g key={i} data-baby-kart transform="translate(195 64)">
           <circle r={4.4 * r.size} fill={r.color} opacity="0.14" />
           <circle r={3 * r.size} fill={r.color} opacity="0.32" />
           <circle r={2.2 * r.size} fill={r.color} />
