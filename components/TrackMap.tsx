@@ -7,11 +7,21 @@ import { TRACK_VIEWBOX, TRACK_OUTLINE, TRACK_CENTERLINE } from "@/lib/track";
 
 gsap.registerPlugin(MotionPathPlugin);
 
-const LAP_SECONDS = 16;
+/**
+ * La grille : 5 karts aux couleurs différentes, chacun son rythme de
+ * tour et sa position de départ — les dépassements arrivent tout seuls.
+ */
+const RACERS = [
+  { color: "#e3051b", lap: 15.2, start: 0.0, size: 1 },     // rouge — le leader
+  { color: "#fbba00", lap: 15.8, start: 0.96, size: 0.88 }, // jaune
+  { color: "#2e7cf6", lap: 16.4, start: 0.92, size: 0.88 }, // bleu
+  { color: "#2ec27e", lap: 17.1, start: 0.88, size: 0.88 }, // vert
+  { color: "#f4f3ef", lap: 17.8, start: 0.84, size: 0.88 }, // blanc
+];
 
 /**
  * Tracé officiel du circuit (dessin client) : ligne de course complète,
- * kart qui tourne en boucle en continu (indépendant du scroll).
+ * course de 5 karts en boucle continue (indépendant du scroll).
  */
 export default function TrackMap({ className = "" }: { className?: string }) {
   const ref = useRef<SVGSVGElement>(null);
@@ -22,15 +32,19 @@ export default function TrackMap({ className = "" }: { className?: string }) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const line = svg.querySelector<SVGPathElement>("[data-track-line]");
-    const kart = svg.querySelector<SVGGElement>("[data-track-kart]");
-    if (!line || !kart) return;
+    if (!line) return;
 
     const ctx = gsap.context(() => {
-      gsap.to(kart, {
-        motionPath: { path: line, align: line, alignOrigin: [0.5, 0.5] },
-        duration: LAP_SECONDS,
-        repeat: -1,
-        ease: "none",
+      svg.querySelectorAll<SVGGElement>("[data-track-kart]").forEach((kart, i) => {
+        const racer = RACERS[i];
+        const tween = gsap.to(kart, {
+          motionPath: { path: line, align: line, alignOrigin: [0.5, 0.5] },
+          duration: racer.lap,
+          repeat: -1,
+          ease: "none",
+        });
+        // Position de départ échelonnée sur la grille
+        tween.progress(racer.start);
       });
     }, svg);
 
@@ -43,7 +57,7 @@ export default function TrackMap({ className = "" }: { className?: string }) {
       viewBox={TRACK_VIEWBOX}
       className={className}
       role="img"
-      aria-label="Tracé officiel du circuit MegaKart : 1000 mètres d'esses, d'épingles et de lignes droites"
+      aria-label="Tracé officiel du circuit MegaKart avec une course de cinq karts en miniature"
     >
       {/* Piste : le dessin officiel, en asphalte clair sur fond sombre */}
       <path
@@ -60,6 +74,7 @@ export default function TrackMap({ className = "" }: { className?: string }) {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        opacity="0.55"
       />
 
       {/* Ligne départ/arrivée (petit damier au point de départ) */}
@@ -70,13 +85,15 @@ export default function TrackMap({ className = "" }: { className?: string }) {
         <rect x="1.7" y="0" width="1.7" height="1.7" fill="var(--color-chalk)" />
       </g>
 
-      {/* Kart — halo en cercles superposés (pas de filtre SVG, trop coûteux) */}
-      <g data-track-kart transform="translate(156.1 60.6)">
-        <circle r="4.6" fill="var(--color-race)" opacity="0.15" />
-        <circle r="3.2" fill="var(--color-race)" opacity="0.35" />
-        <circle r="2.3" fill="var(--color-race)" />
-        <circle r="1" fill="#fff" />
-      </g>
+      {/* La grille — halos en cercles superposés (pas de filtre SVG) */}
+      {RACERS.map((r, i) => (
+        <g key={i} data-track-kart transform="translate(156.1 60.6)">
+          <circle r={4.4 * r.size} fill={r.color} opacity="0.14" />
+          <circle r={3 * r.size} fill={r.color} opacity="0.32" />
+          <circle r={2.2 * r.size} fill={r.color} />
+          <circle r={0.9 * r.size} fill={i === 4 ? "#0b0d12" : "#fff"} />
+        </g>
+      ))}
     </svg>
   );
 }
