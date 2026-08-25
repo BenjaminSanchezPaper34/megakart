@@ -2,15 +2,16 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { TRACK_VIEWBOX, TRACK_OUTLINE, TRACK_CENTERLINE } from "@/lib/track";
 
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+gsap.registerPlugin(MotionPathPlugin);
+
+const LAP_SECONDS = 16;
 
 /**
- * Tracé officiel du circuit (dessin client) : la piste en fond,
- * la ligne de course dessinée au scroll et un kart qui la parcourt.
+ * Tracé officiel du circuit (dessin client) : ligne de course complète,
+ * kart qui tourne en boucle en continu (indépendant du scroll).
  */
 export default function TrackMap({ className = "" }: { className?: string }) {
   const ref = useRef<SVGSVGElement>(null);
@@ -18,34 +19,18 @@ export default function TrackMap({ className = "" }: { className?: string }) {
   useEffect(() => {
     const svg = ref.current;
     if (!svg) return;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const line = svg.querySelector<SVGPathElement>("[data-track-line]");
     const kart = svg.querySelector<SVGGElement>("[data-track-kart]");
     if (!line || !kart) return;
 
-    const length = line.getTotalLength();
-    line.style.strokeDasharray = `${length}`;
-
-    if (reduced) {
-      line.style.strokeDashoffset = "0";
-      return;
-    }
-
-    line.style.strokeDashoffset = `${length}`;
-
     const ctx = gsap.context(() => {
-      const st = {
-        trigger: svg,
-        start: "top 80%",
-        end: "bottom 20%",
-        scrub: 1.2,
-      };
-      gsap.to(line, { strokeDashoffset: 0, ease: "none", scrollTrigger: st });
       gsap.to(kart, {
         motionPath: { path: line, align: line, alignOrigin: [0.5, 0.5] },
+        duration: LAP_SECONDS,
+        repeat: -1,
         ease: "none",
-        scrollTrigger: st,
       });
     }, svg);
 
@@ -66,7 +51,7 @@ export default function TrackMap({ className = "" }: { className?: string }) {
         fill="color-mix(in srgb, var(--color-chalk) 13%, transparent)"
       />
 
-      {/* Ligne de course dessinée au scroll */}
+      {/* Ligne de course, entièrement tracée */}
       <path
         data-track-line
         d={TRACK_CENTERLINE}
