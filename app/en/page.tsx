@@ -140,7 +140,9 @@ export default function EnglishPage() {
               {SITE.address.zip} {SITE.address.city}, France
               <br />
               On the Vias-Plage road, between Fabrikus World and Europark
-              Indoor — minutes from the campsites. Free parking.
+              Indoor — minutes from the campsites. Free parking. Ice
+              creams, slushies and cold drinks at the trackside stand,
+              with a shaded terrace.
             </address>
           </div>
           <div data-reveal>

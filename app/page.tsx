@@ -264,6 +264,59 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ========== LE STAND (pause fraîcheur) ========== */}
+      <section className="bg-chalk py-20 text-asphalt md:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
+          <div>
+            <p data-reveal className="display text-lg text-race">
+              Le stand
+            </p>
+            <h2 data-reveal className="display mt-1 text-[clamp(2.2rem,5vw,4rem)] text-asphalt">
+              La pause
+              <br />
+              <span className="text-race">fraîcheur.</span>
+            </h2>
+            <p data-reveal className="mt-6 max-w-md text-base leading-relaxed text-asphalt/70">
+              Entre deux sessions, le stand du circuit sert glaces,
+              granités et boissons fraîches — à savourer sur la terrasse
+              ombragée, pendant que les chronos défilent sur l'écran géant.
+            </p>
+            <ul data-stagger className="mt-8 flex flex-wrap gap-3">
+              {["Glaces", "Granités", "Boissons fraîches", "Terrasse ombragée"].map((item) => (
+                <li
+                  key={item}
+                  className="display bg-asphalt px-4 py-2 text-base text-chalk"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div data-stagger className="grid grid-cols-2 items-center gap-6">
+            <div className="overflow-hidden rounded-sm bg-white p-4 shadow-[0_18px_48px_rgb(0_0_0/0.12)]">
+              <Image
+                src="/images/granites.jpg"
+                alt="Granités bleu, rouge et jaune et boisson fraîche servis au stand MegaKart"
+                width={520}
+                height={676}
+                sizes="(min-width: 1024px) 22vw, 45vw"
+                className="h-auto w-full"
+              />
+            </div>
+            <div className="mt-10 overflow-hidden rounded-sm bg-white p-4 shadow-[0_18px_48px_rgb(0_0_0/0.12)]">
+              <Image
+                src="/images/glaces.jpg"
+                alt="Glaces à l'eau multicolores du stand MegaKart"
+                width={523}
+                height={676}
+                sizes="(min-width: 1024px) 22vw, 45vw"
+                className="h-auto w-full"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ========== AVIS ========== */}
       <Reviews />
 

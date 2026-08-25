@@ -42,6 +42,11 @@ export function localBusinessJsonLd() {
       "EVG EVJF",
     ],
     areaServed: ["Vias", "Agde", "Cap d'Agde", "Béziers", "Hérault"],
+    amenityFeature: [
+      { "@type": "LocationFeatureSpecification", name: "Stand glaces, granités et boissons fraîches", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Terrasse ombragée", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Parking gratuit", value: true },
+    ],
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
