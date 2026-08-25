@@ -29,6 +29,10 @@ export const metadata: Metadata = {
   description:
     "Circuit de karting outdoor de 1000 m à Vias-plage (Hérault), homologué FFSA. Karts dès 3 ans, sessions sans réservation, anniversaires, EVG/EVJF et team building. Ouvert 7j/7 en été.",
   robots: PRE_PROD ? { index: false, follow: false } : { index: true, follow: true },
+  alternates: {
+    canonical: "/",
+    languages: { fr: "/", en: "/en" },
+  },
   openGraph: {
     type: "website",
     locale: "fr_FR",
@@ -36,7 +40,7 @@ export const metadata: Metadata = {
     title: "MegaKart — Karting à Vias-plage · Circuit outdoor 1000 m",
     description:
       "1000 m de piste homologuée FFSA entre Fabrikus et Europark Indoor. Karts dès 3 ans, sans réservation.",
-    images: [{ url: "/images/og.jpg", width: 1200, height: 630, alt: "Vue aérienne du circuit MegaKart à Vias" }],
+    // L'image OG est générée par app/opengraph-image.tsx (photo + logo).
   },
   twitter: {
     card: "summary_large_image",

@@ -7,7 +7,22 @@ import { getOpenStatus, type OpenStatus } from "@/lib/hours";
  * Badge « ouvert / fermé » calculé côté client (évite tout écart
  * d'hydratation serveur/client sur l'heure).
  */
-export default function OpenBadge({ withDetail = false }: { withDetail?: boolean }) {
+const EN_LABELS: Record<string, { label: string; detail: string }> = {
+  open: { label: "Open now", detail: "Summer season: every day, 10 am – 12:30 am, non-stop." },
+  closed: { label: "Opens at 10 am", detail: "Summer season: every day, 10 am – 12:30 am, non-stop." },
+  offseason: {
+    label: "Open weekends & holidays",
+    detail: "Off season: weekends and French school holidays — call us for today's hours.",
+  },
+};
+
+export default function OpenBadge({
+  withDetail = false,
+  en = false,
+}: {
+  withDetail?: boolean;
+  en?: boolean;
+}) {
   const [status, setStatus] = useState<OpenStatus | null>(null);
 
   useEffect(() => {
@@ -17,6 +32,12 @@ export default function OpenBadge({ withDetail = false }: { withDetail?: boolean
   }, []);
 
   if (!status) return null;
+
+  if (en) {
+    const key = status.open === true ? "open" : status.open === false ? "closed" : "offseason";
+    status.label = EN_LABELS[key].label;
+    status.detail = EN_LABELS[key].detail;
+  }
 
   const dot =
     status.open === true

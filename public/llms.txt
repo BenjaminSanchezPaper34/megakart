@@ -40,11 +40,13 @@
 - Entreprises & CE : team building, privatisation possible
 
 ## Pages
-- / : accueil — présentation du circuit, flotte, événements, infos pratiques
+- / : accueil — présentation du circuit, flotte, événements, avis, infos pratiques
 - /tarifs : les 7 karts avec prix et conditions d'accès + sélecteur par âge/taille + FAQ
 - /la-piste : caractéristiques techniques, sécurité, chrono, histoire depuis 1992
-- /evenements : anniversaires, EVG/EVJF, team building entreprise
+- /anniversaires : anniversaires enfants sur circuit — déroulé, FAQ parents, dès 7 participants
+- /evenements : EVG/EVJF, team building entreprise, privatisation
 - /contact : adresse, horaires, accès, réseaux sociaux
+- /en : English summary — prices, opening hours, directions (tourist-friendly)
 
 ## Réseaux sociaux
 - Instagram : https://www.instagram.com/karting_megakart/

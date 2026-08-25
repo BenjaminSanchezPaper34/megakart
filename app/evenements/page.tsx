@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 
@@ -20,6 +21,7 @@ const EVENTS = [
       "La terrasse ombragée et les tables de pique-nique accueillent le gâteau et les parents. Dès 7 participants, sur réservation.",
     ],
     facts: ["Dès 7 participants", "Courses & défis sur mesure", "Terrasse ombragée pour le goûter"],
+    cta: { href: "/anniversaires", label: "Tout sur les anniversaires" },
   },
   {
     id: "evg-evjf",
@@ -100,6 +102,11 @@ export default function EvenementsPage() {
                   {p}
                 </p>
               ))}
+              {"cta" in e && e.cta && (
+                <Link href={e.cta.href} data-reveal className="btn btn-ghost mt-7">
+                  {e.cta.label}
+                </Link>
+              )}
             </div>
             <ul data-stagger className="flex flex-col gap-4">
               {e.facts.map((f) => (

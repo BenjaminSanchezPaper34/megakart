@@ -10,6 +10,7 @@ import { SITE } from "@/lib/site";
 const LINKS = [
   { href: "/tarifs", label: "Karts & tarifs" },
   { href: "/la-piste", label: "La piste" },
+  { href: "/anniversaires", label: "Anniversaires" },
   { href: "/evenements", label: "Événements" },
   { href: "/contact", label: "Contact" },
 ];

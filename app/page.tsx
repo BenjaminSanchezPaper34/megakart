@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import Marquee from "@/components/Marquee";
+import HeroVideo from "@/components/HeroVideo";
+import Reviews from "@/components/Reviews";
 import TrackMap from "@/components/TrackMap";
 import KartCard from "@/components/KartCard";
 import OpenBadge from "@/components/OpenBadge";
@@ -37,6 +39,7 @@ export default function HomePage() {
             sizes="100vw"
             className="object-cover"
           />
+          <HeroVideo />
           <div className="absolute inset-0 bg-gradient-to-b from-asphalt/70 via-asphalt/35 to-asphalt" />
         </div>
 
@@ -229,9 +232,12 @@ export default function HomePage() {
           ))}
         </div>
 
-        <div data-reveal className="mt-10">
-          <Link href="/evenements" className="btn btn-race">
-            Organiser un événement
+        <div data-reveal className="mt-10 flex flex-wrap gap-4">
+          <Link href="/anniversaires" className="btn btn-race">
+            Anniversaires enfants
+          </Link>
+          <Link href="/evenements" className="btn btn-ghost">
+            EVG, EVJF &amp; entreprises
           </Link>
         </div>
       </section>
@@ -257,6 +263,11 @@ export default function HomePage() {
           />
         </div>
       </section>
+
+      {/* ========== AVIS ========== */}
+      <Reviews />
+
+      <div className="kerb" aria-hidden="true" />
 
       {/* ========== INFOS PRATIQUES ========== */}
       <section className="bg-asphalt-2 py-20 md:py-28">
