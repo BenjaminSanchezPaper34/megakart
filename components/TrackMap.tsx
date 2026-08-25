@@ -4,16 +4,13 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import { TRACK_VIEWBOX, TRACK_OUTLINE, TRACK_CENTERLINE } from "@/lib/track";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
-// Tracé stylisé du circuit (boucle fermée, esses + épingles)
-const TRACK_PATH =
-  "M150 470 C70 470 40 400 80 350 C110 315 180 320 210 280 C240 240 200 200 150 190 C90 178 80 110 150 95 C260 70 300 160 380 150 C450 142 470 80 560 80 C650 80 680 140 640 190 C610 227 540 210 510 260 C485 300 520 330 580 330 C660 330 700 280 760 300 C830 323 840 420 760 445 C680 470 620 420 540 440 C480 455 460 500 380 500 C300 500 290 470 150 470 Z";
-
 /**
- * Tracé du circuit dessiné au scroll, avec un kart (point rouge)
- * qui parcourt la piste en scrub.
+ * Tracé officiel du circuit (dessin client) : la piste en fond,
+ * la ligne de course dessinée au scroll et un kart qui la parcourt.
  */
 export default function TrackMap({ className = "" }: { className?: string }) {
   const ref = useRef<SVGSVGElement>(null);
@@ -58,45 +55,42 @@ export default function TrackMap({ className = "" }: { className?: string }) {
   return (
     <svg
       ref={ref}
-      viewBox="0 0 900 560"
+      viewBox={TRACK_VIEWBOX}
       className={className}
       role="img"
-      aria-label="Tracé stylisé du circuit MegaKart : 1000 mètres d'esses, d'épingles et de lignes droites"
+      aria-label="Tracé officiel du circuit MegaKart : 1000 mètres d'esses, d'épingles et de lignes droites"
     >
-      {/* Piste (fond) */}
+      {/* Piste : le dessin officiel, en asphalte clair sur fond sombre */}
       <path
-        d={TRACK_PATH}
-        fill="none"
-        stroke="color-mix(in srgb, var(--color-chalk) 12%, transparent)"
-        strokeWidth="26"
-        strokeLinecap="round"
+        d={TRACK_OUTLINE}
+        fill="color-mix(in srgb, var(--color-chalk) 13%, transparent)"
       />
+
       {/* Ligne de course dessinée au scroll */}
       <path
         data-track-line
-        d={TRACK_PATH}
+        d={TRACK_CENTERLINE}
         fill="none"
         stroke="var(--color-race)"
-        strokeWidth="5"
+        strokeWidth="1.5"
         strokeLinecap="round"
+        strokeLinejoin="round"
       />
 
-      {/* Ligne départ/arrivée (damier) */}
-      <g transform="translate(138 456) rotate(90)">
-        <rect x="0" y="0" width="7" height="7" fill="var(--color-chalk)" />
-        <rect x="7" y="7" width="7" height="7" fill="var(--color-chalk)" />
-        <rect x="14" y="0" width="7" height="7" fill="var(--color-chalk)" />
-        <rect x="7" y="-7" width="7" height="7" fill="var(--color-chalk)" opacity="0.4" />
-        <rect x="0" y="14" width="7" height="7" fill="var(--color-chalk)" opacity="0.4" />
+      {/* Ligne départ/arrivée (petit damier au point de départ) */}
+      <g transform="translate(156.1 60.6) rotate(78)">
+        <rect x="-3.4" y="-1.7" width="1.7" height="1.7" fill="var(--color-chalk)" />
+        <rect x="-1.7" y="0" width="1.7" height="1.7" fill="var(--color-chalk)" />
+        <rect x="0" y="-1.7" width="1.7" height="1.7" fill="var(--color-chalk)" />
+        <rect x="1.7" y="0" width="1.7" height="1.7" fill="var(--color-chalk)" />
       </g>
 
-      {/* Kart — halo en cercles superposés : un filtre SVG gaussien
-          recalculé à chaque frame de scrub faisait ramer le scroll */}
-      <g data-track-kart transform="translate(150 470)">
-        <circle r="18" fill="var(--color-race)" opacity="0.15" />
-        <circle r="12" fill="var(--color-race)" opacity="0.35" />
-        <circle r="9" fill="var(--color-race)" />
-        <circle r="4" fill="#fff" />
+      {/* Kart — halo en cercles superposés (pas de filtre SVG, trop coûteux) */}
+      <g data-track-kart transform="translate(156.1 60.6)">
+        <circle r="4.6" fill="var(--color-race)" opacity="0.15" />
+        <circle r="3.2" fill="var(--color-race)" opacity="0.35" />
+        <circle r="2.3" fill="var(--color-race)" />
+        <circle r="1" fill="#fff" />
       </g>
     </svg>
   );

@@ -7,9 +7,10 @@
   --color-asphalt-3: #1a1e28;
   --color-chalk: #f4f3ef;
   --color-chalk-60: #b9b8b2;
-  --color-race: #e62431;
+  /* Couleurs officielles du logo MegaKart */
+  --color-race: #e3051b;
   --color-race-deep: #b0111d;
-  --color-flag: #ffc72c;
+  --color-flag: #fbba00;
 
   --font-display: var(--font-saira), "Arial Narrow", sans-serif;
   --font-body: var(--font-archivo), system-ui, sans-serif;

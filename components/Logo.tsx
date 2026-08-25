@@ -1,24 +1,31 @@
 import Link from "next/link";
-import Image from "next/image";
 
 /**
- * Logo original MegaKart (MEGA rouge / KART blanc, bande damier jaune) —
- * fichier fourni par le client, version blanche pour fonds sombres.
+ * Logos officiels MegaKart (SVG fournis par le client) :
+ * - banner  : LOGOBAN, format horizontal pour la barre de navigation
+ * - stacked : LOGO, version empilée (footer, encarts)
  */
-export default function Logo({ className = "" }: { className?: string }) {
+export default function Logo({
+  variant = "banner",
+  className = "",
+}: {
+  variant?: "banner" | "stacked";
+  className?: string;
+}) {
+  const banner = variant === "banner";
   return (
     <Link
       href="/"
       aria-label="MegaKart — retour à l'accueil"
       className={`group inline-flex items-center ${className}`}
     >
-      <Image
-        src="/images/logo-megakart.png"
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={banner ? "/images/LOGOBAN-MEGAKART.svg" : "/images/LOGO-MEGAKART.svg"}
         alt="MegaKart"
-        width={421}
-        height={229}
-        priority
-        className="h-14 w-auto transition-transform duration-300 group-hover:scale-105"
+        width={banner ? 305 : 187}
+        height={banner ? 43 : 91}
+        className={`${banner ? "h-8 md:h-9" : "h-20"} w-auto transition-transform duration-300 group-hover:scale-105`}
       />
     </Link>
   );

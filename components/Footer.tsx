@@ -15,7 +15,7 @@ export default function Footer() {
       <div className="kerb" aria-hidden="true" />
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-3 md:px-8">
         <div className="flex flex-col items-start gap-5">
-          <Logo />
+          <Logo variant="stacked" />
           <p className="max-w-xs text-sm leading-relaxed text-chalk-60">
             Circuit de karting outdoor de 1000 m à Vias-plage, homologué FFSA.
             Location dès 3 ans &amp; compétition, sans réservation.
