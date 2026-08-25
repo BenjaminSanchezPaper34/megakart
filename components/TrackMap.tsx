@@ -16,7 +16,7 @@ const RACERS = [
   { color: "#fbba00", lap: 15.8, start: 0.96, size: 0.88 }, // jaune
   { color: "#2e7cf6", lap: 16.4, start: 0.92, size: 0.88 }, // bleu
   { color: "#2ec27e", lap: 17.1, start: 0.88, size: 0.88 }, // vert
-  { color: "#f4f3ef", lap: 17.8, start: 0.84, size: 0.88 }, // blanc
+  { color: "#a855f7", lap: 17.8, start: 0.84, size: 0.88 }, // violet
 ];
 
 /**
@@ -91,7 +91,7 @@ export default function TrackMap({ className = "" }: { className?: string }) {
           <circle r={4.4 * r.size} fill={r.color} opacity="0.14" />
           <circle r={3 * r.size} fill={r.color} opacity="0.32" />
           <circle r={2.2 * r.size} fill={r.color} />
-          <circle r={0.9 * r.size} fill={i === 4 ? "#0b0d12" : "#fff"} />
+          <circle r={0.9 * r.size} fill="#fff" />
         </g>
       ))}
     </svg>
