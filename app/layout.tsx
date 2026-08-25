@@ -54,7 +54,8 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${barlow.variable} ${archivo.variable}`}>
-      <body className="grain">
+      {/* Test perf : grain désactivé (remettre className="grain" pour le réactiver) */}
+      <body>
         <FX />
         <Nav />
         <main>{children}</main>
