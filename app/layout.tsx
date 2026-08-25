@@ -46,6 +46,9 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#0b0d12",
+  // Nécessaire pour que le voile de nav couvre la zone de la barre
+  // d'état iOS (env(safe-area-inset-top)).
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

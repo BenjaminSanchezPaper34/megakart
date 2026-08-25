@@ -237,19 +237,21 @@ body {
    floute ce qui passe dessous — le contenu "glisse sous" la nav. */
 .nav-veil {
   position: absolute;
-  top: -40px;
+  /* Déborde largement au-dessus du viewport : couvre la barre d'état iOS
+     (safe area), l'overscroll et les barres d'outils qui se replient. */
+  top: calc(-140px - env(safe-area-inset-top, 0px));
   left: 0;
   right: 0;
   bottom: -55%;
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgb(6 7 10 / 0.92) 40px,
-    rgb(6 7 10 / 0.55) 65%,
+    rgb(6 7 10 / 0.92) calc(140px + env(safe-area-inset-top, 0px)),
+    rgb(6 7 10 / 0.55) 70%,
     transparent 100%
   );
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  mask-image: linear-gradient(to bottom, black 45%, transparent 96%);
-  -webkit-mask-image: linear-gradient(to bottom, black 45%, transparent 96%);
+  mask-image: linear-gradient(to bottom, black 55%, transparent 96%);
+  -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 96%);
 }
