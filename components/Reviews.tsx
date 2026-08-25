@@ -14,6 +14,21 @@ const GOOGLE_RATING = { score: "4,5", count: "1 227" };
 
 const REVIEWS = [
   {
+    author: "Amira B.",
+    when: "août 2026",
+    text: "Super moment en famille avec les kartings ! Merci au photographe d'avoir immortalisé ce moment avec de belles photos à moindre coût. On reviendra.",
+  },
+  {
+    author: "Damien D.",
+    when: "août 2026",
+    text: "J'ai très bien aimé la possibilité de pouvoir louer plusieurs types de kart allant du 13 jusqu'au 30 chevaux, car très peu de pistes le font. La piste est technique et demande un pilotage minutieux pour optimiser un tour chrono ou pour doubler d'autres pilotes.",
+  },
+  {
+    author: "Jean-Philippe",
+    when: "août 2026",
+    text: "Un super moment passé, un accueil chaleureux et souriant. Un circuit qui fait monter l'adrénaline. Que du bonheur !",
+  },
+  {
     author: "Omar M.",
     when: "août 2026",
     text: "Superbe équipe très réactive et qui gère très bien les adultes et les enfants. Le patron aussi est vraiment sympa.",
@@ -106,10 +121,8 @@ export default function Reviews() {
             data-review-card
             className="card flex w-[85vw] max-w-[420px] shrink-0 snap-start flex-col p-6 md:p-7"
           >
-            <span className="text-flag" aria-label="5 étoiles sur 5">
-              ★★★★★
-            </span>
-            <blockquote className="mt-3 flex-1 text-base leading-relaxed text-chalk">
+            <span className="checker-sm block h-4 w-8 opacity-50" aria-hidden="true" />
+            <blockquote className="mt-4 flex-1 text-base leading-relaxed text-chalk">
               « {r.text} »
             </blockquote>
             <figcaption className="mt-4 text-sm text-chalk-60">
