@@ -27,6 +27,7 @@ const RACERS = [
 const BABY_RACERS = [
   { color: "#22d3ee", lap: 11.5, start: 0.0, size: 0.62 },
   { color: "#e30a6a", lap: 12.8, start: 0.5, size: 0.62 },
+  { color: "#fdba74", lap: 12.1, start: 0.25, size: 0.62 }, // orange clair
 ];
 
 /**
@@ -124,6 +125,14 @@ export default function TrackMap({ className = "" }: { className?: string }) {
         strokeLinejoin="round"
         opacity="0.5"
       />
+      {/* Ligne d'arrivée de la piste Baby Kart (damier sur la droite) */}
+      <g transform="translate(205 64)">
+        <rect x="-2.4" y="-1.2" width="1.2" height="1.2" fill="var(--color-chalk)" />
+        <rect x="-1.2" y="0" width="1.2" height="1.2" fill="var(--color-chalk)" />
+        <rect x="0" y="-1.2" width="1.2" height="1.2" fill="var(--color-chalk)" />
+        <rect x="1.2" y="0" width="1.2" height="1.2" fill="var(--color-chalk)" />
+      </g>
+
       {/* Logo officiel Baby Kart sous l'ovale */}
       <image
         href="/images/BABYKART-MEGAKART.svg"
