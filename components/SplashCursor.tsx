@@ -24,6 +24,10 @@ type Props = {
   splatForce?: number;
   /** Émission constante au curseur (false = uniquement au mouvement) */
   hover?: boolean;
+  /** Robinet d'émission : mettre .current à false stoppe la création de
+   *  nouvelles vagues sans démonter le canvas (la fumée existante
+   *  continue de se dissiper naturellement). */
+  emitRef?: React.RefObject<boolean>;
 };
 
 export default function SplashCursor({
@@ -35,6 +39,7 @@ export default function SplashCursor({
   splatRadius = 0.2,
   splatForce = 6000,
   hover = true,
+  emitRef,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -895,6 +900,7 @@ export default function SplashCursor({
     }
 
     const onMouseMove = (e: MouseEvent) => {
+      if (emitRef && emitRef.current === false) return;
       if (hover) {
         const p = pointers[0];
         if (!p.color || p.color === palette[0]) p.color = getColor();
@@ -907,6 +913,7 @@ export default function SplashCursor({
     };
 
     const onTouchMove = (e: TouchEvent) => {
+      if (emitRef && emitRef.current === false) return;
       const touch = e.touches[0];
       if (!touch) return;
       const p = pointers[0];
@@ -915,6 +922,7 @@ export default function SplashCursor({
     };
 
     const onTouchStart = (e: TouchEvent) => {
+      if (emitRef && emitRef.current === false) return;
       const touch = e.touches[0];
       if (!touch) return;
       const p = pointers[0];

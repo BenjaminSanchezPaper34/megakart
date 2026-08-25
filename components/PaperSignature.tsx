@@ -11,17 +11,19 @@ import SplashCursor from "./SplashCursor";
  * canvas est démonté 3 s après la sortie (zéro coût GPU au repos).
  */
 
-// Rouge racing, jaune damier, blanc craie, orange chaud
+// Les bleus Paper34 — la DA du studio, pas celle du client
 const SMOKE = [
-  { r: 0.89, g: 0.02, b: 0.11 },
-  { r: 0.98, g: 0.73, b: 0.0 },
-  { r: 0.9, g: 0.88, b: 0.85 },
-  { r: 1.0, g: 0.38, b: 0.1 },
+  { r: 0, g: 0.45, b: 0.9 },
+  { r: 0.1, g: 0.6, b: 1.0 },
+  { r: 0.6, g: 0.4, b: 1.0 },
+  { r: 0.0, g: 0.3, b: 0.7 },
 ];
 
 export default function PaperSignature() {
   const [active, setActive] = useState(false);
   const logoRef = useRef<HTMLAnchorElement>(null);
+  const emitRef = useRef(true);
+  const stopTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const offTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const reduced = useRef(false);
 
@@ -54,17 +56,31 @@ export default function PaperSignature() {
   const onEnter = useCallback(() => {
     if (reduced.current) return;
     clearTimeout(offTimer.current);
+    clearTimeout(stopTimer.current);
+    emitRef.current = true;
     setActive(true);
     // Le canvas doit être monté avant l'éruption
     requestAnimationFrame(() => setTimeout(burst, 60));
   }, [burst]);
 
   const onLeave = useCallback(() => {
+    clearTimeout(stopTimer.current);
     clearTimeout(offTimer.current);
-    offTimer.current = setTimeout(() => setActive(false), 3000);
+    // On coupe le robinet peu après la sortie : plus aucune nouvelle
+    // vague, la dernière se désagrège tranquillement à l'écran…
+    stopTimer.current = setTimeout(() => (emitRef.current = false), 500);
+    // …et le canvas n'est démonté qu'une fois la fumée entièrement
+    // dissipée (silencieux, aucun fondu d'opacité).
+    offTimer.current = setTimeout(() => setActive(false), 10000);
   }, []);
 
-  useEffect(() => () => clearTimeout(offTimer.current), []);
+  useEffect(
+    () => () => {
+      clearTimeout(offTimer.current);
+      clearTimeout(stopTimer.current);
+    },
+    []
+  );
 
   return (
     <>
@@ -73,6 +89,7 @@ export default function PaperSignature() {
         <div className="absolute inset-0 z-10 overflow-hidden" aria-hidden="true">
           <SplashCursor
             colors={SMOKE}
+            emitRef={emitRef}
             densityDissipation={1.6}
             velocityDissipation={1.6}
             curl={8}
