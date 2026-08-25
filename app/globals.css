@@ -195,35 +195,6 @@ body {
   .marquee-track { animation: none; }
 }
 
-/* ---------- Sceau Paper34 (footer) ----------
-   Cachet d'atelier : l'anneau de texte tourne lentement en continu ;
-   au survol, le sceau se « tamponne » (pop) et l'anneau accélère. */
-.seal-ring {
-  animation: seal-spin 24s linear infinite;
-  transform-origin: 50% 50%;
-}
-.seal:hover .seal-ring,
-.seal:focus-visible .seal-ring {
-  animation-duration: 7s;
-}
-.seal {
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.seal:hover,
-.seal:focus-visible {
-  transform: scale(1.08) rotate(-4deg);
-}
-@keyframes seal-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .seal-ring {
-    animation: none;
-  }
-}
-
 /* Carrousels scrollables : masquer la barre de défilement */
 .no-scrollbar {
   scrollbar-width: none;
