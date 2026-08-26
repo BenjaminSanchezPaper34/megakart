@@ -6,11 +6,11 @@ const BADGE_STYLES: Record<NonNullable<Kart["badge"]>, string> = {
   Duo: "bg-chalk text-asphalt",
 };
 
-/* Halo de la vitrine visuelle, accordé au liseré du kart */
+/* Halo du coin machine, accordé au liseré du kart */
 const ACCENT_GLOW: Record<Kart["accent"], string> = {
-  red: "bg-[radial-gradient(ellipse_60%_55%_at_50%_62%,rgba(227,5,27,0.22),transparent_72%)]",
-  yellow: "bg-[radial-gradient(ellipse_60%_55%_at_50%_62%,rgba(251,186,0,0.20),transparent_72%)]",
-  white: "bg-[radial-gradient(ellipse_60%_55%_at_50%_62%,rgba(244,243,239,0.12),transparent_72%)]",
+  red: "bg-[radial-gradient(ellipse_65%_60%_at_82%_95%,rgba(227,5,27,0.20),transparent_70%)]",
+  yellow: "bg-[radial-gradient(ellipse_65%_60%_at_82%_95%,rgba(251,186,0,0.18),transparent_70%)]",
+  white: "bg-[radial-gradient(ellipse_65%_60%_at_82%_95%,rgba(244,243,239,0.10),transparent_70%)]",
 };
 
 /**
@@ -18,7 +18,11 @@ const ACCENT_GLOW: Record<Kart["accent"], string> = {
  */
 export default function KartCard({ kart }: { kart: Kart }) {
   return (
-    <article className="card group relative flex h-full flex-col overflow-hidden p-6 md:p-7">
+    <article
+      className={`card group relative flex h-full flex-col overflow-hidden p-6 md:p-7 ${
+        kart.image ? "pb-40 md:pb-44" : ""
+      }`}
+    >
       {/* Liseré accent */}
       <span
         aria-hidden="true"
@@ -31,25 +35,22 @@ export default function KartCard({ kart }: { kart: Kart }) {
         }`}
       />
 
-      {/* Vitrine visuelle pleine largeur : halo accent + damier + kart */}
+      {/* La machine en vedette : kart géant ancré au coin bas-droit,
+          coupé par les bords de la carte, nez vers le contenu */}
       {kart.image && (
-        <div className="relative -mx-6 -mt-6 mb-5 h-44 overflow-hidden bg-asphalt-3/50 md:-mx-7 md:-mt-7">
+        <>
           <div
             aria-hidden="true"
             className={`absolute inset-0 ${ACCENT_GLOW[kart.accent]}`}
-          />
-          <div
-            aria-hidden="true"
-            className="checker-sm absolute bottom-3 right-5 h-3 w-14 opacity-15"
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`/images/${kart.image}`}
             alt={`${kart.name} — vue 3/4`}
             loading="lazy"
-            className="absolute inset-x-6 inset-y-3 h-[calc(100%-1.5rem)] w-[calc(100%-3rem)] object-contain drop-shadow-[0_20px_18px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-[1.06]"
+            className="pointer-events-none absolute -bottom-10 -right-12 w-[112%] max-w-none object-contain drop-shadow-[0_22px_20px_rgba(0,0,0,0.55)] transition-transform duration-500 group-hover:-translate-x-1 group-hover:scale-[1.04]"
           />
-        </div>
+        </>
       )}
 
       <div className="mb-4 flex items-start justify-between gap-3">
