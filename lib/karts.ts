@@ -11,6 +11,8 @@ export type Kart = {
   engine: string;
   badge?: "Nouveauté" | "Compétition" | "Duo";
   note?: string;
+  /** Visuel détouré (PNG transparent, vue 3/4 uniforme) */
+  image?: string;
   accent: "yellow" | "red" | "white";
 };
 
@@ -25,6 +27,7 @@ export const KARTS: Kart[] = [
     minAge: 3,
     engine: "100 % électrique",
     badge: "Nouveauté",
+    image: "kart-baby.png",
     note: "Un adulte accompagne au bord de la piste dédiée.",
     accent: "yellow",
   },
@@ -38,6 +41,7 @@ export const KARTS: Kart[] = [
     minAge: 7,
     minHeight: 130,
     engine: "160 cm³ · 4 temps",
+    image: "kart-enfant.png",
     note: "Taille minimum : 1,30 m.",
     accent: "white",
   },
@@ -77,6 +81,7 @@ export const KARTS: Kart[] = [
     minAge: 18,
     adultsOnly: true,
     engine: "390 cm³ · 4 temps",
+    image: "kart-390.png",
     accent: "red",
   },
   {
@@ -103,6 +108,7 @@ export const KARTS: Kart[] = [
     adultsOnly: true,
     engine: "250 cm³ · injection · 30 cv",
     badge: "Compétition",
+    image: "kart-rx.png",
     note: "Accès sous conditions de chronos.",
     accent: "red",
   },

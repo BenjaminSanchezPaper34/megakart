@@ -24,6 +24,19 @@ export default function KartCard({ kart }: { kart: Kart }) {
         }`}
       />
 
+      {/* Visuel détouré du modèle (vue 3/4 uniforme) */}
+      {kart.image && (
+        <div className="relative -mx-2 -mt-2 mb-3 h-40">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`/images/${kart.image}`}
+            alt={`${kart.name} — vue 3/4`}
+            loading="lazy"
+            className="h-full w-full object-contain drop-shadow-[0_18px_20px_rgba(0,0,0,0.45)] transition-transform duration-500 group-hover:scale-[1.04]"
+          />
+        </div>
+      )}
+
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
           {kart.slug === "baby-kart" ? (
