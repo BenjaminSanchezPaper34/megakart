@@ -170,7 +170,7 @@ export default function PhotoMosaic() {
   );
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-asphalt via-asphalt-2 to-asphalt-2 py-20 md:py-28">
+    <section className="relative overflow-hidden bg-asphalt-2 py-20 md:py-28">
       {/* Halo d'ambiance */}
       <div
         aria-hidden="true"
