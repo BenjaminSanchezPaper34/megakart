@@ -4,6 +4,7 @@ import Marquee from "@/components/Marquee";
 import HeroVideo from "@/components/HeroVideo";
 import Reviews from "@/components/Reviews";
 import PhotoMosaic from "@/components/PhotoMosaic";
+import ReelCard from "@/components/ReelCard";
 import TrackMap from "@/components/TrackMap";
 import KartCard from "@/components/KartCard";
 import OpenBadge from "@/components/OpenBadge";
@@ -116,33 +117,40 @@ export default function HomePage() {
 
       {/* ========== EXPÉRIENCE ========== */}
       <section className="relative overflow-hidden bg-asphalt-2 py-20 md:py-28">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <h2 data-reveal className="display max-w-3xl text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-            Un vrai circuit,
-            <br />
-            <span className="display-outline">pas un manège.</span>
-          </h2>
-          <div data-stagger className="mt-14 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "Chrono comme les pros",
-                text: "Chronométrage Apex Timing au dixième, classement en direct sur écran LED géant. Chaque session a son podium — et vos temps vous attendent au tour suivant.",
-              },
-              {
-                title: "Sécurité niveau F1",
-                text: "Protections Tecpro dernière génération — les mêmes qu'en Formule 1 — circuit homologué FFSA et Préfecture, moniteurs diplômés au bord de la piste.",
-              },
-              {
-                title: "Zéro réservation",
-                text: "On ne bloque pas votre soirée trois semaines à l'avance : vous passez, vous choisissez votre kart, vous roulez. En été, jusqu'à minuit trente.",
-              },
-            ].map((f) => (
-              <article key={f.title} className="card p-7">
-                <span className="checker-sm mb-5 block h-5 w-10 opacity-60" aria-hidden="true" />
-                <h3 className="display text-2xl text-chalk">{f.title}</h3>
-                <p className="mt-3 text-base leading-relaxed text-chalk-60">{f.text}</p>
-              </article>
-            ))}
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-[1.5fr_1fr]">
+          <div>
+            <h2 data-reveal className="display max-w-3xl text-[clamp(2.2rem,5vw,4rem)] text-chalk">
+              Un vrai circuit,
+              <br />
+              <span className="display-outline">pas un manège.</span>
+            </h2>
+            <div data-stagger className="mt-12 grid gap-6">
+              {[
+                {
+                  title: "Chrono comme les pros",
+                  text: "Chronométrage Apex Timing au dixième, classement en direct sur écran LED géant. Chaque session a son podium — et vos temps vous attendent au tour suivant.",
+                },
+                {
+                  title: "Sécurité niveau F1",
+                  text: "Protections Tecpro dernière génération — les mêmes qu'en Formule 1 — circuit homologué FFSA et Préfecture, moniteurs diplômés au bord de la piste.",
+                },
+                {
+                  title: "Zéro réservation",
+                  text: "On ne bloque pas votre soirée trois semaines à l'avance : vous passez, vous choisissez votre kart, vous roulez. En été, jusqu'à minuit trente.",
+                },
+              ].map((f) => (
+                <article key={f.title} className="card p-7">
+                  <span className="checker-sm mb-4 block h-5 w-10 opacity-60" aria-hidden="true" />
+                  <h3 className="display text-2xl text-chalk">{f.title}</h3>
+                  <p className="mt-3 text-base leading-relaxed text-chalk-60">{f.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          {/* La preuve en vidéo : réel du circuit en autoplay à l'écran */}
+          <div data-reveal>
+            <ReelCard src="reel-1" />
           </div>
         </div>
       </section>
