@@ -115,43 +115,53 @@ export default function HomePage() {
         </dl>
       </section>
 
-      {/* ========== EXPÉRIENCE ========== */}
-      <section className="relative overflow-hidden bg-asphalt-2 py-20 md:py-28">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-[1.5fr_1fr]">
-          <div>
-            <h2 data-reveal className="display max-w-3xl text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-              Un vrai circuit,
-              <br />
-              <span className="display-outline">pas un manège.</span>
-            </h2>
-            <div data-stagger className="mt-12 grid gap-6">
-              {[
-                {
-                  title: "Chrono comme les pros",
-                  text: "Chronométrage Apex Timing au dixième, classement en direct sur écran LED géant. Chaque session a son podium — et vos temps vous attendent au tour suivant.",
-                },
-                {
-                  title: "Sécurité niveau F1",
-                  text: "Protections Tecpro dernière génération — les mêmes qu'en Formule 1 — circuit homologué FFSA et Préfecture, moniteurs diplômés au bord de la piste.",
-                },
-                {
-                  title: "Zéro réservation",
-                  text: "On ne bloque pas votre soirée trois semaines à l'avance : vous passez, vous choisissez votre kart, vous roulez. En été, jusqu'à minuit trente.",
-                },
-              ].map((f) => (
-                <article key={f.title} className="card p-7">
-                  <span className="checker-sm mb-4 block h-5 w-10 opacity-60" aria-hidden="true" />
-                  <h3 className="display text-2xl text-chalk">{f.title}</h3>
-                  <p className="mt-3 text-base leading-relaxed text-chalk-60">{f.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
+      {/* ========== EXPÉRIENCE (split-screen avec réel plein cadre) ========== */}
+      <section className="relative flex flex-col overflow-hidden bg-asphalt-2 lg:grid lg:grid-cols-[1.15fr_1fr] lg:grid-rows-[auto_1fr]">
+        {/* Titre */}
+        <div className="order-1 px-5 pt-20 md:px-8 md:pt-28 lg:col-start-1 lg:pl-12 xl:pl-[max(3rem,calc((100vw-80rem)/2+2rem))]">
+          <h2 data-reveal className="display max-w-2xl text-[clamp(2.2rem,5vw,4rem)] text-chalk">
+            Un vrai circuit,
+            <br />
+            <span className="display-outline">pas un manège.</span>
+          </h2>
+        </div>
 
-          {/* La preuve en vidéo : réel du circuit en autoplay à l'écran */}
-          <div data-reveal>
-            <ReelCard src="reel-1" />
-          </div>
+        {/* Réel plein cadre : pleine hauteur de section sur desktop,
+            bande immersive pleine largeur entre titre et cartes sur mobile */}
+        <div className="relative order-2 mt-10 h-[62svh] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:h-auto">
+          <ReelCard src="reel-4" flush />
+          {/* Fondu de raccord avec le fond de section */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-asphalt-2 to-transparent lg:inset-x-auto lg:inset-y-0 lg:left-0 lg:h-auto lg:w-20 lg:bg-gradient-to-r"
+          />
+        </div>
+
+        {/* Cartes */}
+        <div
+          data-stagger
+          className="order-3 grid gap-6 px-5 pb-20 pt-10 md:px-8 md:pb-28 lg:col-start-1 lg:pl-12 lg:pt-12 xl:pl-[max(3rem,calc((100vw-80rem)/2+2rem))] lg:pr-12"
+        >
+          {[
+            {
+              title: "Chrono comme les pros",
+              text: "Chronométrage Apex Timing au dixième, classement en direct sur écran LED géant. Chaque session a son podium — et vos temps vous attendent au tour suivant.",
+            },
+            {
+              title: "Sécurité niveau F1",
+              text: "Protections Tecpro dernière génération — les mêmes qu'en Formule 1 — circuit homologué FFSA et Préfecture, moniteurs diplômés au bord de la piste.",
+            },
+            {
+              title: "Zéro réservation",
+              text: "On ne bloque pas votre soirée trois semaines à l'avance : vous passez, vous choisissez votre kart, vous roulez. En été, jusqu'à minuit trente.",
+            },
+          ].map((f) => (
+            <article key={f.title} className="card max-w-2xl p-7">
+              <span className="checker-sm mb-4 block h-5 w-10 opacity-60" aria-hidden="true" />
+              <h3 className="display text-2xl text-chalk">{f.title}</h3>
+              <p className="mt-3 text-base leading-relaxed text-chalk-60">{f.text}</p>
+            </article>
+          ))}
         </div>
       </section>
 
