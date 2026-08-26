@@ -6,6 +6,13 @@ const BADGE_STYLES: Record<NonNullable<Kart["badge"]>, string> = {
   Duo: "bg-chalk text-asphalt",
 };
 
+/* Halo de la vitrine visuelle, accordé au liseré du kart */
+const ACCENT_GLOW: Record<Kart["accent"], string> = {
+  red: "bg-[radial-gradient(ellipse_60%_55%_at_50%_62%,rgba(227,5,27,0.22),transparent_72%)]",
+  yellow: "bg-[radial-gradient(ellipse_60%_55%_at_50%_62%,rgba(251,186,0,0.20),transparent_72%)]",
+  white: "bg-[radial-gradient(ellipse_60%_55%_at_50%_62%,rgba(244,243,239,0.12),transparent_72%)]",
+};
+
 /**
  * « Fiche pilote » d'un kart : prix en display géant, specs en liste.
  */
@@ -15,7 +22,7 @@ export default function KartCard({ kart }: { kart: Kart }) {
       {/* Liseré accent */}
       <span
         aria-hidden="true"
-        className={`absolute left-0 top-0 h-full w-1 ${
+        className={`absolute left-0 top-0 z-10 h-full w-1 ${
           kart.accent === "red"
             ? "bg-race"
             : kart.accent === "yellow"
@@ -24,15 +31,23 @@ export default function KartCard({ kart }: { kart: Kart }) {
         }`}
       />
 
-      {/* Visuel détouré du modèle (vue 3/4 uniforme) */}
+      {/* Vitrine visuelle pleine largeur : halo accent + damier + kart */}
       {kart.image && (
-        <div className="relative -mx-2 -mt-2 mb-3 h-40">
+        <div className="relative -mx-6 -mt-6 mb-5 h-44 overflow-hidden bg-asphalt-3/50 md:-mx-7 md:-mt-7">
+          <div
+            aria-hidden="true"
+            className={`absolute inset-0 ${ACCENT_GLOW[kart.accent]}`}
+          />
+          <div
+            aria-hidden="true"
+            className="checker-sm absolute bottom-3 right-5 h-3 w-14 opacity-15"
+          />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`/images/${kart.image}`}
             alt={`${kart.name} — vue 3/4`}
             loading="lazy"
-            className="h-full w-full object-contain drop-shadow-[0_18px_20px_rgba(0,0,0,0.45)] transition-transform duration-500 group-hover:scale-[1.04]"
+            className="absolute inset-x-6 inset-y-3 h-[calc(100%-1.5rem)] w-[calc(100%-3rem)] object-contain drop-shadow-[0_20px_18px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-[1.06]"
           />
         </div>
       )}
