@@ -128,7 +128,7 @@ export default function HomePage() {
 
         {/* Réel plein cadre : pleine hauteur de section sur desktop,
             bande immersive pleine largeur entre titre et cartes sur mobile */}
-        <div className="relative order-2 mt-10 h-[62svh] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:h-auto">
+        <div className="relative order-3 mt-6 h-[62svh] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:h-auto">
           <ReelCard src="reel-4" flush />
           {/* Fondu de raccord avec le fond de section */}
           <div
@@ -140,7 +140,7 @@ export default function HomePage() {
         {/* Cartes */}
         <div
           data-stagger
-          className="order-3 grid gap-6 px-5 pb-20 pt-10 md:px-8 md:pb-28 lg:col-start-1 lg:pl-12 lg:pt-12 xl:pl-[max(3rem,calc((100vw-80rem)/2+2rem))] lg:pr-12"
+          className="order-2 grid gap-6 px-5 pb-2 pt-10 md:px-8 lg:col-start-1 lg:pb-28 lg:pl-12 lg:pt-12 xl:pl-[max(3rem,calc((100vw-80rem)/2+2rem))] lg:pr-12"
         >
           {[
             {
