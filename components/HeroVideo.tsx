@@ -3,9 +3,11 @@
 import { useEffect, useState, useRef } from "react";
 
 /**
- * Vidéo drone du hero — chargée uniquement sur desktop et si l'usager
- * n'a pas demandé de réduire les animations. La photo reste le fond
- * (SSR + mobile) ; la vidéo apparaît en fondu quand elle est prête.
+ * Vidéo drone du hero — desktop et mobile (fichier léger, ~4,4 Mo),
+ * sauf si l'usager a demandé de réduire les animations. La photo reste
+ * le fond (SSR + fallback) ; la vidéo apparaît en fondu quand elle est
+ * prête. Si l'autoplay est bloqué (mode économie d'énergie iOS), la
+ * première image s'affiche par-dessus la photo — sans casse.
  */
 export default function HeroVideo() {
   const [enabled, setEnabled] = useState(false);
@@ -13,9 +15,8 @@ export default function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 768px)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (desktop && !reduced) setEnabled(true);
+    if (!reduced) setEnabled(true);
   }, []);
 
   if (!enabled) return null;
