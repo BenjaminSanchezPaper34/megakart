@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GalleryGrid from "@/components/GalleryGrid";
+import ReelsRow from "@/components/ReelsRow";
 import { SITE, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
-  title: "Photos — le circuit en plein jour et en nocturne",
+  title: "Photos & vidéos — le circuit en plein jour et en nocturne",
   description:
-    "Le circuit MegaKart en images : sessions de jour et nocturnes, Baby Kart, biplace, drapeau à damier, terrasse et vues aériennes du 1000 m de Vias-plage.",
+    "Le circuit MegaKart en images et en vidéo : réels du circuit, sessions de jour et nocturnes, Baby Kart, biplace, drapeau à damier et vues aériennes du 1000 m de Vias-plage.",
   alternates: { canonical: "/photos" },
 };
 
@@ -81,8 +82,29 @@ export default function PhotosPage() {
         </p>
       </section>
 
+      {/* Les réels du circuit (verticaux, lecture au survol/tap) */}
+      <section className="overflow-hidden pb-16 md:pb-20">
+        <div className="mx-auto mb-8 flex max-w-7xl flex-wrap items-end justify-between gap-4 px-5 md:px-8">
+          <h2 data-reveal className="display text-[clamp(1.8rem,4vw,2.8rem)] text-chalk">
+            Les réels <span className="text-race">du circuit</span>
+          </h2>
+          <a
+            href={SITE.social.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-under text-sm font-semibold text-chalk"
+          >
+            Suivre @karting_megakart
+          </a>
+        </div>
+        <ReelsRow />
+      </section>
+
       {/* Grille masonry + lightbox plein écran */}
       <section className="mx-auto max-w-7xl px-5 pb-24 md:px-8">
+        <h2 data-reveal className="display mb-8 text-[clamp(1.8rem,4vw,2.8rem)] text-chalk">
+          La galerie
+        </h2>
         <GalleryGrid photos={PHOTOS} />
 
         <div className="mt-12 flex flex-wrap gap-4">
