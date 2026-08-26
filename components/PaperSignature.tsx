@@ -23,7 +23,9 @@ export default function PaperSignature() {
   const [active, setActive] = useState(false);
   const logoRef = useRef<HTMLAnchorElement>(null);
   const emitRef = useRef(true);
-  const api = useRef<{ splashAt: (x: number, y: number) => void } | null>(null);
+  const api = useRef<{
+    splashAt: (x: number, y: number, intensity?: number) => void;
+  } | null>(null);
   const stopTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const offTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const reduced = useRef(false);
@@ -43,7 +45,8 @@ export default function PaperSignature() {
       return;
     }
     const rect = el.getBoundingClientRect();
-    api.current.splashAt(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    // Onde d'accueil adoucie — la pleine puissance reste dispo via intensity
+    api.current.splashAt(rect.left + rect.width / 2, rect.top + rect.height / 2, 0.45);
   }, []);
 
   const onEnter = useCallback(() => {

@@ -28,9 +28,12 @@ type Props = {
    *  nouvelles vagues sans démonter le canvas (la fumée existante
    *  continue de se dissiper naturellement). */
   emitRef?: React.RefObject<boolean>;
-  /** Rempli par le moteur : splashAt(clientX, clientY) déclenche une
-   *  onde circulaire unique (splats radiaux simultanés) à cet endroit. */
-  apiRef?: React.RefObject<{ splashAt: (x: number, y: number) => void } | null>;
+  /** Rempli par le moteur : splashAt(clientX, clientY, intensity?)
+   *  déclenche une onde circulaire unique (splats radiaux simultanés)
+   *  à cet endroit — intensity 0..1 module la violence de l'onde. */
+  apiRef?: React.RefObject<{
+    splashAt: (x: number, y: number, intensity?: number) => void;
+  } | null>;
 };
 
 export default function SplashCursor({
@@ -945,19 +948,20 @@ export default function SplashCursor({
     /* ─── API programmatique : onde circulaire unique ─── */
     if (apiRef) {
       apiRef.current = {
-        splashAt(clientX: number, clientY: number) {
+        splashAt(clientX: number, clientY: number, intensity = 1) {
           const rect = container!.getBoundingClientRect();
           if (rect.width === 0 || rect.height === 0) return;
           const cx = (clientX - rect.left) / rect.width;
           const cy = 1.0 - (clientY - rect.top) / rect.height;
           const count = 14;
+          const force = config.SPLAT_FORCE * 0.55 * intensity;
           for (let i = 0; i < count; i++) {
             const angle = (i / count) * Math.PI * 2;
             splat(
               cx,
               cy,
-              Math.cos(angle) * config.SPLAT_FORCE * 0.55,
-              Math.sin(angle) * config.SPLAT_FORCE * 0.55,
+              Math.cos(angle) * force,
+              Math.sin(angle) * force,
               getColor()
             );
           }
