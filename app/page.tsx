@@ -128,19 +128,20 @@ export default function HomePage() {
 
         {/* Réel plein cadre : pleine hauteur de section sur desktop,
             bande immersive pleine largeur entre titre et cartes sur mobile */}
-        <div className="relative order-3 mt-6 h-[62svh] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:h-auto">
+        <div className="relative order-3 -mt-52 h-[82svh] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:h-auto">
           <ReelCard src="reel-4" flush />
-          {/* Fondu de raccord avec le fond de section */}
+          {/* Fondu de raccord : long et progressif sur mobile (la vidéo
+              émerge de derrière les cartes), latéral sur desktop */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-asphalt-2 to-transparent lg:inset-x-auto lg:inset-y-0 lg:left-0 lg:h-auto lg:w-20 lg:bg-gradient-to-r"
+            className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-asphalt-2 from-15% via-asphalt-2/70 via-45% to-transparent lg:inset-x-auto lg:inset-y-0 lg:left-0 lg:h-auto lg:w-20 lg:bg-gradient-to-r lg:from-asphalt-2 lg:from-0% lg:via-transparent lg:via-100%"
           />
         </div>
 
         {/* Cartes */}
         <div
           data-stagger
-          className="order-2 grid gap-6 px-5 pb-2 pt-10 md:px-8 lg:col-start-1 lg:pb-28 lg:pl-12 lg:pt-12 xl:pl-[max(3rem,calc((100vw-80rem)/2+2rem))] lg:pr-12"
+          className="relative z-10 order-2 grid gap-6 px-5 pb-2 pt-10 md:px-8 lg:col-start-1 lg:pb-28 lg:pl-12 lg:pt-12 xl:pl-[max(3rem,calc((100vw-80rem)/2+2rem))] lg:pr-12"
         >
           {[
             {
