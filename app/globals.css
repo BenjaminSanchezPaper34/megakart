@@ -195,6 +195,13 @@ body {
   .marquee-track { animation: none; }
 }
 
+/* Coupe parallélogramme maison (même angle que les .btn) —
+   pour les médias : à poser sur l'élément clippé, l'ombre se met
+   en filter drop-shadow sur le PARENT pour suivre la coupe. */
+.clip-race {
+  clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+}
+
 /* Carrousels scrollables : masquer la barre de défilement */
 .no-scrollbar {
   scrollbar-width: none;

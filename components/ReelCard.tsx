@@ -82,11 +82,9 @@ export default function ReelCard({
     <Link
       href="/photos"
       aria-label="Voir toutes les photos et vidéos du circuit"
-      className="group relative mx-auto block w-[280px] rotate-2 transition-transform duration-500 hover:rotate-0 md:w-[320px]"
+      className="group relative mx-auto block w-[280px] drop-shadow-[0_24px_22px_rgba(0,0,0,0.5)] transition-transform duration-500 hover:scale-[1.02] md:w-[320px]"
     >
-      <div className="relative overflow-hidden rounded-2xl ring-1 ring-white/15 shadow-2xl shadow-black/50">
-        {media}
-      </div>
+      <div className="clip-race relative overflow-hidden">{media}</div>
     </Link>
   );
 }

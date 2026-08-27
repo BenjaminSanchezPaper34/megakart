@@ -37,18 +37,25 @@ const ROW_B: Tile[] = [
   { src: "galerie-20-famille.jpg", alt: "Sortie karting en famille", ratio: "aspect-[5/4]" },
 ];
 
-/* Rythme des tuiles : hauteur, décalage, inclinaison, plan (0=premier). */
+/* Rythme des tuiles : hauteur, décalage, plan (0=premier plan) —
+   plus de rotation : la coupe parallélogramme .clip-race porte
+   l'inclinaison, cohérente avec les boutons et l'italique du site. */
 const RHYTHM = [
-  { h: "h-52 md:h-72", offset: "mt-0", tilt: "-rotate-1", depth: 1 },
-  { h: "h-40 md:h-56", offset: "mt-8 md:mt-14", tilt: "rotate-1", depth: 2 },
-  { h: "h-60 md:h-80", offset: "mt-1 md:mt-3", tilt: "rotate-0", depth: 0 },
-  { h: "h-44 md:h-60", offset: "mt-10 md:mt-16", tilt: "-rotate-2", depth: 2 },
-  { h: "h-48 md:h-64", offset: "mt-4 md:mt-7", tilt: "rotate-2", depth: 1 },
-  { h: "h-56 md:h-72", offset: "mt-0", tilt: "-rotate-1", depth: 0 },
-  { h: "h-40 md:h-52", offset: "mt-9 md:mt-14", tilt: "rotate-1", depth: 2 },
+  { h: "h-52 md:h-72", offset: "mt-0", depth: 1 },
+  { h: "h-40 md:h-56", offset: "mt-8 md:mt-14", depth: 2 },
+  { h: "h-60 md:h-80", offset: "mt-1 md:mt-3", depth: 0 },
+  { h: "h-44 md:h-60", offset: "mt-10 md:mt-16", depth: 2 },
+  { h: "h-48 md:h-64", offset: "mt-4 md:mt-7", depth: 1 },
+  { h: "h-56 md:h-72", offset: "mt-0", depth: 0 },
+  { h: "h-40 md:h-52", offset: "mt-9 md:mt-14", depth: 2 },
 ];
 
-const DEPTH_SHADOW = ["shadow-2xl shadow-black/50", "shadow-lg shadow-black/25", ""];
+/* Ombres en filter (sur le parent) pour épouser la coupe clip-path */
+const DEPTH_SHADOW = [
+  "drop-shadow-[0_24px_22px_rgba(0,0,0,0.55)]",
+  "drop-shadow-[0_14px_14px_rgba(0,0,0,0.3)]",
+  "",
+];
 const DEPTH_Z = ["z-20", "z-10", "z-0"];
 
 const DRIFT_A = 0.45; // px/frame vers la gauche
@@ -149,10 +156,10 @@ export default function PhotoMosaic() {
             <div
               key={`${item.src}-${i}`}
               aria-hidden={i >= items.length}
-              className={`relative flex-shrink-0 ${r.offset} ${DEPTH_Z[r.depth]}`}
+              className={`relative flex-shrink-0 ${r.offset} ${DEPTH_Z[r.depth]} ${DEPTH_SHADOW[r.depth]}`}
             >
               <div
-                className={`relative overflow-hidden rounded-xl ring-1 ring-white/10 ${r.h} ${item.ratio} ${r.tilt} ${DEPTH_SHADOW[r.depth]}`}
+                className={`clip-race relative overflow-hidden ${r.h} ${item.ratio}`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
