@@ -13,6 +13,10 @@ export type Kart = {
   note?: string;
   /** Visuel détouré (PNG transparent, vue 3/4 uniforme) */
   image?: string;
+  /** Libellé de la ligne d'accès (défaut « Âge ») */
+  ageLabel?: string;
+  /** Repère de prix affiché sous le tarif */
+  priceHint?: string;
   accent: "yellow" | "red" | "white";
 };
 
@@ -28,6 +32,7 @@ export const KARTS: Kart[] = [
     engine: "100 % électrique",
     badge: "Nouveauté",
     image: "kart-baby.png",
+    priceHint: "La formule découverte de la flotte",
     note: "Un adulte accompagne au bord de la piste dédiée.",
     accent: "yellow",
   },
@@ -94,7 +99,8 @@ export const KARTS: Kart[] = [
     minAge: 18,
     adultsOnly: true,
     engine: "250 cm³ · injection · 16 cv",
-    note: "Chrono de référence obligatoire en 390cc.",
+    priceHint: "Les sessions loisir démarrent à 17 €",
+    note: "Chrono de référence à valider en 390cc auprès des moniteurs.",
     accent: "red",
   },
   {
@@ -104,12 +110,14 @@ export const KARTS: Kart[] = [
     price: 45,
     session: "8 min",
     age: "Pilotes confirmés",
+    ageLabel: "Accès",
     minAge: 18,
     adultsOnly: true,
     engine: "250 cm³ · injection · 30 cv",
     badge: "Compétition",
     image: "kart-rx.png",
-    note: "Accès sous conditions de chronos.",
+    priceHint: "Les sessions loisir démarrent à 17 €",
+    note: "Accès après un chrono de référence validé en 390cc — à voir avec les moniteurs sur place.",
     accent: "red",
   },
 ];

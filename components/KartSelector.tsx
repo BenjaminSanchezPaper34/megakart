@@ -100,7 +100,7 @@ export default function KartSelector() {
       {/* Résultat */}
       <div aria-live="polite" className="flex flex-col gap-4">
         <p className="text-base leading-relaxed text-chalk-60">{reco.message}</p>
-        <KartCard kart={reco.primary} />
+        <KartCard kart={reco.primary} cta={null} />
         {reco.alternatives.length > 0 && (
           <p className="text-sm text-chalk-60">
             Aussi possible :{" "}

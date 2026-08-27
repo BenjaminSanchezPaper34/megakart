@@ -90,7 +90,11 @@ export default function TarifsPage() {
         </h2>
         <div data-stagger className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {KARTS.map((k) => (
-            <KartCard key={k.slug} kart={k} />
+            <KartCard
+              key={k.slug}
+              kart={k}
+              cta={{ href: "#selecteur", label: "Ce kart me correspond ?" }}
+            />
           ))}
         </div>
         <p data-reveal className="mt-8 text-sm text-chalk-60">
