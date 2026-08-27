@@ -75,7 +75,7 @@ export default function KartCard({
                 alt=""
                 width={187}
                 height={90}
-                className="h-10 w-auto"
+                className="h-8 w-auto"
               />
               <span className="sr-only">{kart.name}</span>
             </h3>
@@ -91,7 +91,7 @@ export default function KartCard({
             </span>
           )}
         </div>
-        <p className="mt-1 text-sm leading-snug text-chalk-60">{kart.tagline}</p>
+        <p className="mt-1 min-h-[2.5rem] text-sm leading-snug text-chalk-60 line-clamp-2">{kart.tagline}</p>
 
         {/* 3. Je décide : prix resserré + repère */}
         <p className="display mt-4 flex items-baseline gap-2">
@@ -100,9 +100,7 @@ export default function KartCard({
           </span>
           <span className="text-base text-chalk-60">/ {kart.session}</span>
         </p>
-        {kart.priceHint && (
-          <p className="mt-1 text-xs text-chalk-60/80">{kart.priceHint}</p>
-        )}
+        <p className="mt-1 min-h-4 text-xs text-chalk-60/80">{kart.priceHint ?? "\u00a0"}</p>
 
         {/* Caractéristiques en tableau compact */}
         <ul className="mt-4 flex flex-col border-t border-white/10 text-sm text-chalk-60">
@@ -114,19 +112,21 @@ export default function KartCard({
             <span>Moteur</span>
             <span className="text-right font-medium text-chalk">{kart.engine}</span>
           </li>
-          {kart.note && (
-            <li className="pt-1.5 text-xs leading-relaxed text-chalk-60">{kart.note}</li>
-          )}
+          <li className="min-h-10 pt-1.5 text-xs leading-relaxed text-chalk-60">
+            {kart.note ?? "\u00a0"}
+          </li>
         </ul>
 
         {/* 4. J'agis : CTA pleine largeur */}
         {cta && (
-          <Link
-            href={cta.href}
-            className="btn btn-ghost mt-5 justify-center !px-4 !py-2.5 text-sm"
-          >
-            {cta.label}
-          </Link>
+          <div className="mt-auto pt-5">
+            <Link
+              href={cta.href}
+              className="btn btn-ghost w-full justify-center !px-4 !py-2.5 text-sm"
+            >
+              {cta.label}
+            </Link>
+          </div>
         )}
       </div>
     </article>
