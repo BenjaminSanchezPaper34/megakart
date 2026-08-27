@@ -66,7 +66,7 @@ export default function KartCard({
 
       <div className="flex flex-1 flex-col p-6">
         {/* 2. Je comprends : nom + description */}
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex min-h-8 items-center justify-between gap-3">
           {kart.slug === "baby-kart" ? (
             <h3 className="display text-2xl text-chalk">
               {/* eslint-disable-next-line @next/next/no-img-element */}
