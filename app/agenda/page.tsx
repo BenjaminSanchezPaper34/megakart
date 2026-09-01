@@ -11,7 +11,7 @@ const VISIBLE_DEALS = DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1");
 export const metadata: Metadata = {
   title: "Agenda — courses, trophées & offres de fin d'année 2026",
   description:
-    "Le programme MegaKart à Vias : Les 100 Tours, Trophée Plein Gaz, Women Cup, courses enfants, mercredis à volonté et promo 2 tickets = 1 offert. Toutes les dates de fin 2026.",
+    "Le programme MegaKart à Vias : Les 100 Tours, Trophée Plein Gaz, Women Cup, courses enfants, mercredis à volonté et Pack Découverte avec coaching. Le calendrier complet de fin 2026, jour par jour.",
   alternates: { canonical: "/agenda" },
 };
 
