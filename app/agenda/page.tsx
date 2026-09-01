@@ -155,7 +155,7 @@ export default function AgendaPage() {
                   {op && (
                     <a
                       href={`#${op.slug}`}
-                      className="link-under shrink-0 text-sm font-semibold text-chalk"
+                      className="link-under shrink-0 text-sm font-semibold text-chalk max-sm:basis-full"
                     >
                       Le détail
                     </a>
