@@ -11,8 +11,14 @@ import OpenBadge from "@/components/OpenBadge";
 import { KARTS, getKart } from "@/lib/karts";
 import { SITE } from "@/lib/site";
 import { localBusinessJsonLd } from "@/lib/jsonld";
+import { AGENDA, getOperation, formatDate } from "@/lib/agenda";
 
 const FEATURED_KARTS = ["baby-kart", "kart-enfant", "390cc", "250-rx-30"].map(getKart);
+
+/* Les trois grands rendez-vous confirmés de l'agenda, mis en avant sur l'accueil. */
+const HIGHLIGHTS = AGENDA.filter(
+  (a) => a.status === "confirme" && a.op && ["100-tours", "plein-gaz", "women-cup"].includes(a.op)
+);
 
 const STATS = [
   { value: 1000, suffix: " m", label: "de piste outdoor" },
@@ -220,6 +226,58 @@ export default function HomePage() {
             </Link>
           </div>
           <TrackMap className="w-full" />
+        </div>
+      </section>
+
+      <div className="kerb" aria-hidden="true" />
+
+      {/* ========== AGENDA (temps forts de fin d'année) ========== */}
+      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
+            Cet automne,
+            <br />
+            <span className="text-race">on court.</span>
+          </h2>
+          <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60">
+            Endurance, trophées, courses enfants, roulage à volonté :
+            le programme de fin d&rsquo;année est en piste.
+          </p>
+        </div>
+
+        <div data-stagger className="mt-12 grid gap-6 md:grid-cols-3">
+          {HIGHLIGHTS.map((item) => {
+            const f = formatDate(item.date);
+            const op = getOperation(item.op!);
+            return (
+              <Link
+                key={item.date}
+                href={`/agenda#${item.op}`}
+                className="card group flex items-center gap-5 p-6 transition-transform duration-300 hover:-translate-y-1"
+              >
+                <div className="[filter:drop-shadow(0_10px_10px_rgb(0_0_0/0.35))]">
+                  <div className="clip-race flex h-16 w-24 shrink-0 flex-col items-center justify-center bg-race text-white">
+                    <span className="display text-3xl leading-none">{f.day}</span>
+                    <span className="mt-0.5 text-xs font-semibold uppercase tracking-widest">
+                      {f.month}
+                    </span>
+                  </div>
+                </div>
+                <div className="min-w-0">
+                  <h3 className="display text-2xl text-chalk transition-colors duration-300 group-hover:text-race">
+                    {item.label}
+                  </h3>
+                  {op?.price && <p className="mt-0.5 text-sm text-chalk-60">{op.price}</p>}
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+
+        <div data-reveal className="mt-10 flex flex-wrap gap-4">
+          <Link href="/agenda" className="btn btn-race">
+            Tout l&rsquo;agenda de fin d&rsquo;année
+          </Link>
         </div>
       </section>
 

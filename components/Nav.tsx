@@ -10,6 +10,7 @@ import { SITE } from "@/lib/site";
 const LINKS = [
   { href: "/tarifs", label: "Karts & tarifs" },
   { href: "/la-piste", label: "La piste" },
+  { href: "/agenda", label: "Agenda" },
   { href: "/anniversaires", label: "Anniversaires" },
   { href: "/evenements", label: "Événements" },
   { href: "/photos", label: "Photos" },
@@ -38,13 +39,13 @@ export default function Nav() {
         <Logo className="relative z-50" />
 
         {/* Desktop */}
-        <div className="hidden items-center gap-8 lg:flex">
-          <ul className="flex items-center gap-7">
+        <div className="hidden items-center gap-6 lg:flex xl:gap-8">
+          <ul className="flex items-center gap-5 xl:gap-7">
             {LINKS.map((l) => (
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className={`link-under font-display text-[0.95rem] font-bold uppercase italic tracking-wide transition-colors ${
+                  className={`link-under font-display text-[0.85rem] font-bold uppercase italic tracking-wide transition-colors xl:text-[0.95rem] ${
                     pathname === l.href ? "text-race" : "text-chalk hover:text-white"
                   }`}
                   style={{ fontFamily: "var(--font-display)" }}

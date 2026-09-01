@@ -39,6 +39,22 @@
 - Terrasse ombragée et tables de pique-nique
 - Parking gratuit
 
+## Agenda fin d'année 2026 (courses sur réservation par téléphone)
+- Les 100 Tours : dimanche 4 octobre — endurance par équipes de 3 pilotes,
+  20 min essais/qualifications + 100 tours de course, 59 €/pilote (177 € l'équipe)
+- Course Enfant : dimanche 11 octobre — dès 7 ans et 1,30 m, essais + course + podium
+  (autres dates envisagées les 8 novembre et 13 décembre, à confirmer)
+- Trophée Plein Gaz : dimanche 1er novembre — 8 min essais, 8 min qualifications,
+  course de 12 tours + finale de 10 min, 85 €/pilote ; à gagner : un baptême en voiture Vortex
+- Women Cup : samedi 21 novembre — course réservée aux femmes, 6 min essais,
+  6 min qualifications, course de 14 tours, 48 €/pilote
+- Mercredi à volonté : tous les mercredis — roulage à volonté, 29 € enfant,
+  59 € en 280cc, 69 € en 390cc (selon conditions)
+- 2 tickets achetés = 1 offert : jeudis/vendredis de septembre, puis tous les jours
+  pendant les vacances de la Toussaint (17 oct. – 1er nov.) et de Noël (19 – 31 déc.)
+- Pack Découverte : le dimanche — 3 sessions de 8 min (390cc, 390cc, RX250 16 CV)
+  avec coaching privé offert par un moniteur, 49 € au lieu de 76 €
+
 ## Événements (sur réservation, dès 7 participants)
 - Anniversaires : courses et défis sur mesure, terrasse ombragée, tables de pique-nique
 - EVG / EVJF : défis d'équipe, endurance, remise de prix
@@ -47,6 +63,9 @@
 ## Pages
 - / : accueil — présentation du circuit, flotte, événements, avis, infos pratiques
 - /tarifs : les 7 karts avec prix et conditions d'accès + sélecteur par âge/taille + FAQ
+- /agenda : le programme de fin d'année 2026 — courses (100 Tours, Trophée Plein Gaz,
+  Women Cup, courses enfants) et offres (mercredi à volonté, 2 tickets = 1 offert,
+  Pack Découverte coaching), avec toutes les dates
 - /la-piste : caractéristiques techniques, sécurité, chrono, histoire depuis 1992
 - /anniversaires : anniversaires enfants sur circuit — déroulé, FAQ parents, dès 7 participants
 - /evenements : EVG/EVJF, team building entreprise, privatisation
@@ -60,4 +79,4 @@
 - YouTube : https://www.youtube.com/channel/UC-r14_i1pUWRY6-i0VbkI_g
 - TripAdvisor : https://www.tripadvisor.fr/Attraction_Review-g1080326-d8621170-Reviews-MegaKart-Vias_Herault_Occitanie.html
 
-Dernière mise à jour : 2026-08-25
+Dernière mise à jour : 2026-09-01

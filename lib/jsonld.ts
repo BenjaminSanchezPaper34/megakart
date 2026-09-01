@@ -85,6 +85,65 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   };
 }
 
+/**
+ * Événements datés de l'agenda (schema.org Event).
+ * Seuls les temps forts CONFIRMÉS à date unique sont publiés.
+ */
+export function agendaJsonLd(
+  items: {
+    date: string;
+    name: string;
+    slug?: string;
+    description: string;
+    price?: number;
+  }[]
+) {
+  const place = {
+    "@type": "Place",
+    name: SITE.name,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: SITE.address.street,
+      addressLocality: SITE.address.city,
+      postalCode: SITE.address.zip,
+      addressCountry: SITE.address.country,
+    },
+  };
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${SITE_URL}/agenda`,
+    name: "Agenda MegaKart — courses & offres de fin d'année 2026",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: items.map((e, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Event",
+          name: `${e.name} — MegaKart Vias`,
+          startDate: e.date,
+          eventStatus: "https://schema.org/EventScheduled",
+          eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+          location: place,
+          description: e.description,
+          organizer: { "@id": `${SITE_URL}/#business` },
+          url: `${SITE_URL}/agenda${e.slug ? `#${e.slug}` : ""}`,
+          ...(e.price !== undefined && {
+            offers: {
+              "@type": "Offer",
+              price: e.price,
+              priceCurrency: "EUR",
+              availability: "https://schema.org/InStock",
+              url: `${SITE_URL}/agenda${e.slug ? `#${e.slug}` : ""}`,
+            },
+          }),
+        },
+      })),
+    },
+  };
+}
+
 /** FAQPage — utilisé sur la page tarifs. */
 export function faqJsonLd(faq: { q: string; a: string }[]) {
   return {
