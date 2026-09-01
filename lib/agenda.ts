@@ -211,7 +211,15 @@ export const AGENDA: AgendaItem[] = [
   },
 ];
 
+/**
+ * Les promos datées (2 tickets = 1 offert) restent masquées tant que le
+ * client n'a pas validé leur annonce publique — risque que la clientèle
+ * décale sa venue vers les jours les moins chers. Passer à true après accord.
+ */
+export const SHOW_PROMOS = false;
+
 const MONTHS_SHORT = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
+const MONTHS_FULL = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
 const DAYS = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
 
 /** "2026-10-04" → { day: "4", month: "oct.", weekday: "dimanche" } — sans dépendre de l'ICU. */
@@ -223,4 +231,102 @@ export function formatDate(iso: string) {
     month: MONTHS_SHORT[m - 1],
     weekday: DAYS[date.getUTCDay()],
   };
+}
+
+/* ============================================================
+   Calendrier mensuel « Le mois en piste »
+   ============================================================ */
+
+/** Vacances scolaires Zone C (Montpellier) sur la période couverte. */
+const VACANCES: [string, string][] = [
+  ["2026-10-17", "2026-11-01"],
+  ["2026-12-19", "2026-12-31"],
+];
+
+const FERIES: Record<string, string> = {
+  "2026-11-01": "Toussaint",
+  "2026-11-11": "Armistice 1918",
+  "2026-12-25": "Noël",
+};
+
+/** Mercredis à volonté relevés sur le planning mural du client. */
+const A_VOLONTE_FROM = "2026-09-16";
+const A_VOLONTE_TO = "2026-12-30";
+
+/**
+ * Jours d'ouverture hors saison — HYPOTHÈSE À VALIDER PAR LE CLIENT :
+ * septembre du mercredi au dimanche, ensuite mercredi + week-end,
+ * et tous les jours pendant les vacances scolaires.
+ */
+function isOpen(iso: string, weekdayIdx: number, vacances: boolean): boolean {
+  if (vacances) return true;
+  if (iso < "2026-10-01") return weekdayIdx >= 2; // mer → dim
+  return weekdayIdx === 2 || weekdayIdx >= 5; // mer, sam, dim
+}
+
+export type CalendarDay = {
+  iso: string;
+  day: number;
+  /** 0 = lundi … 6 = dimanche */
+  weekdayIdx: number;
+  open: boolean;
+  vacances: boolean;
+  aVolonte: boolean;
+  promo: boolean;
+  ferie?: string;
+  event?: { label: string; op?: string; toConfirm: boolean };
+};
+
+export type CalendarMonth = {
+  year: number;
+  /** 1-12 */
+  month: number;
+  name: string;
+  /** Cases vides avant le 1er (grille lundi → dimanche). */
+  leading: number;
+  days: CalendarDay[];
+};
+
+const inRange = (iso: string, [a, b]: [string, string]) => iso >= a && iso <= b;
+
+/** Grille septembre → décembre 2026, dérivée des règles ci-dessus. */
+export function buildCalendar(): CalendarMonth[] {
+  const events = new Map(
+    AGENDA.filter((a) => !a.endDate).map((a) => [
+      a.date,
+      { label: a.label ?? getOperation(a.op ?? "")?.name ?? "", op: a.op, toConfirm: a.status === "a-confirmer" },
+    ])
+  );
+  const promoRanges = AGENDA.filter((a) => a.endDate).map(
+    (a) => [a.date, a.endDate!] as [string, string]
+  );
+
+  return [9, 10, 11, 12].map((month) => {
+    const year = 2026;
+    const count = new Date(Date.UTC(year, month, 0)).getUTCDate();
+    const days: CalendarDay[] = [];
+    for (let day = 1; day <= count; day++) {
+      const iso = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+      const weekdayIdx = (new Date(Date.UTC(year, month - 1, day)).getUTCDay() + 6) % 7;
+      const vacances = VACANCES.some((r) => inRange(iso, r));
+      const event = events.get(iso);
+      const aVolonte = weekdayIdx === 2 && iso >= A_VOLONTE_FROM && iso <= A_VOLONTE_TO;
+      days.push({
+        iso,
+        day,
+        weekdayIdx,
+        open: isOpen(iso, weekdayIdx, vacances) || Boolean(event) || aVolonte,
+        vacances,
+        aVolonte,
+        // En septembre la promo ne court que jeudi/vendredi ; en vacances, tous les jours.
+        promo:
+          SHOW_PROMOS &&
+          promoRanges.some((r) => inRange(iso, r)) &&
+          (vacances || weekdayIdx === 3 || weekdayIdx === 4),
+        ferie: FERIES[iso],
+        event,
+      });
+    }
+    return { year, month, name: MONTHS_FULL[month - 1], leading: days[0].weekdayIdx, days };
+  });
 }

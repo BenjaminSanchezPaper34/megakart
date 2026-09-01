@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import Marquee from "@/components/Marquee";
+import MonthPlanner from "@/components/MonthPlanner";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd, agendaJsonLd } from "@/lib/jsonld";
-import { RACES, DEALS, AGENDA, getOperation, formatDate, type Operation } from "@/lib/agenda";
+import { RACES, DEALS, AGENDA, SHOW_PROMOS, formatDate, type Operation } from "@/lib/agenda";
+
+/* Les promos datées attendent le feu vert du client (voir SHOW_PROMOS). */
+const VISIBLE_DEALS = DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1");
 
 export const metadata: Metadata = {
   title: "Agenda — courses, trophées & offres de fin d'année 2026",
@@ -86,8 +90,8 @@ export default function AgendaPage() {
             <span className="text-race">hors saison.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk-60">
-            Endurance, trophées, courses enfants, roulage à volonté et promos
-            de vacances : l&rsquo;automne et l&rsquo;hiver sont la vraie saison
+            Endurance, trophées, courses enfants, roulage à volonté et bons
+            plans : l&rsquo;automne et l&rsquo;hiver sont la vraie saison
             des pilotes. Toutes les dates sont ici — les courses se réservent
             par téléphone.
           </p>
@@ -97,73 +101,27 @@ export default function AgendaPage() {
       <Marquee
         items={[
           "Mercredi à volonté",
-          "2 tickets = 1 offert",
           "Les 100 Tours",
           "Trophée Plein Gaz",
           "Women Cup",
+          "Pack Découverte",
           "Chrono Apex Timing",
         ]}
       />
 
-      {/* ========== LES TEMPS FORTS (calendrier) ========== */}
+      {/* ========== LE MOIS EN PISTE (calendrier mensuel) ========== */}
       <section className="bg-asphalt-2 py-16 md:py-24">
         <div className="mx-auto max-w-5xl px-5 md:px-8">
           <h2 data-reveal className="display text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
-            Les temps forts, <span className="text-flag">date par date</span>
+            Le mois en piste, <span className="text-flag">en un coup d&rsquo;œil</span>
           </h2>
-          <ol data-stagger className="mt-10 flex flex-col gap-4">
-            {AGENDA.map((item) => {
-              const f = formatDate(item.date);
-              const op = item.op ? getOperation(item.op) : undefined;
-              const isRange = Boolean(item.endDate);
-              return (
-                <li
-                  key={`${item.date}-${item.label}`}
-                  className="card flex flex-wrap items-center gap-x-6 gap-y-3 p-5"
-                >
-                  <div className="[filter:drop-shadow(0_10px_10px_rgb(0_0_0/0.35))]">
-                    <div
-                      className={`clip-race flex h-16 w-24 shrink-0 flex-col items-center justify-center ${
-                        item.status === "confirme"
-                          ? "bg-race text-white"
-                          : "bg-asphalt-3 text-chalk-60"
-                      }`}
-                    >
-                      <span className="display text-3xl leading-none">
-                        {f.day}
-                        {isRange && <span className="text-xl">&nbsp;→</span>}
-                      </span>
-                      <span className="mt-0.5 text-xs font-semibold uppercase tracking-widest">
-                        {f.month}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="display text-2xl text-chalk">{item.label}</p>
-                    <p className="mt-0.5 text-sm text-chalk-60">
-                      {item.note ?? `${f.weekday} ${f.day} ${f.month}`}
-                      {op?.price && !isRange && (
-                        <span className="text-chalk"> · {op.price}</span>
-                      )}
-                    </p>
-                  </div>
-                  {item.status === "a-confirmer" && (
-                    <span className="display shrink-0 border border-flag/60 px-2.5 py-1 text-xs tracking-wider text-flag">
-                      Date à confirmer
-                    </span>
-                  )}
-                  {op && (
-                    <a
-                      href={`#${op.slug}`}
-                      className="link-under shrink-0 text-sm font-semibold text-chalk max-sm:basis-full"
-                    >
-                      Le détail
-                    </a>
-                  )}
-                </li>
-              );
-            })}
-          </ol>
+          <p data-reveal className="mt-3 max-w-xl text-base text-chalk-60">
+            Ouvert, fermé, à volonté ou jour de course : touchez un jour pour
+            le détail.
+          </p>
+          <div data-reveal className="mt-8">
+            <MonthPlanner />
+          </div>
           <p data-reveal className="mt-8 text-sm text-chalk-60">
             Les dates « à confirmer » seront validées ici et sur{" "}
             <a
@@ -273,8 +231,13 @@ export default function AgendaPage() {
             <br />
             <span className="text-flag">qui reviennent.</span>
           </h2>
-          <div data-stagger className="mt-12 grid gap-6 md:grid-cols-3">
-            {DEALS.map((deal) => (
+          <div
+            data-stagger
+            className={`mt-12 grid gap-6 ${
+              VISIBLE_DEALS.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"
+            }`}
+          >
+            {VISIBLE_DEALS.map((deal) => (
               <article
                 key={deal.slug}
                 id={deal.slug}
@@ -321,7 +284,7 @@ export default function AgendaPage() {
           </h2>
           <p data-reveal className="mx-auto mt-5 max-w-md text-lg text-chalk-60">
             Les courses et le Pack Découverte se réservent par téléphone —
-            le roulage à volonté et les promos, c&rsquo;est sans réservation.
+            le roulage à volonté, c&rsquo;est sans réservation.
           </p>
           <div data-reveal className="mt-9">
             <a href={SITE.phoneHref} className="btn btn-race glow-race text-lg">
