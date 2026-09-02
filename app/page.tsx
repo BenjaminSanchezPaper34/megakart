@@ -393,8 +393,8 @@ export default function HomePage() {
               <OpenBadge withDetail />
             </div>
             <p className="mt-4 text-base leading-relaxed text-chalk-60">
-              Hors saison, ouvert les week-ends et vacances scolaires —
-              appelez-nous pour les horaires du jour.
+              Hors saison, ouvert tous les jours de 14 h à 19 h — et jusqu&rsquo;à
+              minuit trente en été.
             </p>
           </div>
           <div data-reveal>

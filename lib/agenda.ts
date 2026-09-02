@@ -254,14 +254,12 @@ const A_VOLONTE_FROM = "2026-09-16";
 const A_VOLONTE_TO = "2026-12-30";
 
 /**
- * Jours d'ouverture hors saison — HYPOTHÈSE À VALIDER PAR LE CLIENT :
- * septembre du mercredi au dimanche, ensuite mercredi + week-end,
- * et tous les jours pendant les vacances scolaires.
+ * Jours d'ouverture hors saison : tous les jours, 14 h – 19 h, conformément
+ * à la fiche Google du circuit (septembre 2026). Si le client annonce des
+ * fermetures hebdomadaires à partir d'octobre, c'est ici que ça se règle.
  */
-function isOpen(iso: string, weekdayIdx: number, vacances: boolean): boolean {
-  if (vacances) return true;
-  if (iso < "2026-10-01") return weekdayIdx >= 2; // mer → dim
-  return weekdayIdx === 2 || weekdayIdx >= 5; // mer, sam, dim
+function isOpen(): boolean {
+  return true;
 }
 
 export type CalendarDay = {
@@ -315,7 +313,7 @@ export function buildCalendar(): CalendarMonth[] {
         iso,
         day,
         weekdayIdx,
-        open: isOpen(iso, weekdayIdx, vacances) || Boolean(event) || aVolonte,
+        open: isOpen() || Boolean(event) || aVolonte,
         vacances,
         aVolonte,
         // En septembre la promo ne court que jeudi/vendredi ; en vacances, tous les jours.

@@ -27,7 +27,7 @@ const FAQ = [
   },
   {
     q: "L'anniversaire est-il possible toute l'année ?",
-    a: "Oui, sur réservation : tous les jours en saison estivale, et les week-ends et vacances scolaires le reste de l'année.",
+    a: "Oui, sur réservation : le circuit est ouvert tous les jours, de 10 h à minuit trente en saison estivale et de 14 h à 19 h le reste de l'année.",
   },
 ];
 

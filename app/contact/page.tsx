@@ -60,8 +60,8 @@ export default function ContactPage() {
             <h2 className="display text-2xl text-chalk">Horaires</h2>
             <OpenBadge withDetail />
             <p className="text-sm leading-relaxed text-chalk-60">
-              Hors saison : week-ends et vacances scolaires, horaires
-              annoncés sur nos réseaux.
+              Hors saison : tous les jours de 14 h à 19 h. Courses et
+              journées spéciales annoncées dans l&rsquo;agenda et sur nos réseaux.
             </p>
           </div>
 

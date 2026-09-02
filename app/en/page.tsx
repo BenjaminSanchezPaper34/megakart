@@ -129,7 +129,7 @@ export default function EnglishPage() {
             <div className="mt-4"><OpenBadge withDetail en /></div>
             <p className="mt-4 text-base leading-relaxed text-chalk-60">
               Summer season: every day, 10 am to 12:30 am, non-stop.
-              Rest of the year: weekends and French school holidays.
+              Rest of the year: every day, 2 pm to 7 pm.
             </p>
           </div>
           <div data-reveal>

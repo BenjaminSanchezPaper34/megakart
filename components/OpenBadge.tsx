@@ -8,12 +8,10 @@ import { getOpenStatus, type OpenStatus } from "@/lib/hours";
  * d'hydratation serveur/client sur l'heure).
  */
 const EN_LABELS: Record<string, { label: string; detail: string }> = {
-  open: { label: "Open now", detail: "Summer season: every day, 10 am – 12:30 am, non-stop." },
-  closed: { label: "Opens at 10 am", detail: "Summer season: every day, 10 am – 12:30 am, non-stop." },
-  offseason: {
-    label: "Open weekends & holidays",
-    detail: "Off season: weekends and French school holidays — call us for today's hours.",
-  },
+  "summer-open": { label: "Open now", detail: "Summer season: every day, 10 am – 12:30 am, non-stop." },
+  "summer-closed": { label: "Opens at 10 am", detail: "Summer season: every day, 10 am – 12:30 am, non-stop." },
+  "offseason-open": { label: "Open now", detail: "Off season: every day, 2 pm – 7 pm." },
+  "offseason-closed": { label: "Opens at 2 pm", detail: "Off season: every day, 2 pm – 7 pm." },
 };
 
 export default function OpenBadge({
@@ -34,17 +32,12 @@ export default function OpenBadge({
   if (!status) return null;
 
   if (en) {
-    const key = status.open === true ? "open" : status.open === false ? "closed" : "offseason";
+    const key = `${status.season}-${status.open ? "open" : "closed"}`;
     status.label = EN_LABELS[key].label;
     status.detail = EN_LABELS[key].detail;
   }
 
-  const dot =
-    status.open === true
-      ? "bg-emerald-400"
-      : status.open === false
-        ? "bg-race"
-        : "bg-flag";
+  const dot = status.open ? "bg-emerald-400" : "bg-race";
 
   return (
     <span className="inline-flex flex-col gap-1">

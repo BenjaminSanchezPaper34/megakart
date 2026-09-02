@@ -219,8 +219,8 @@ function DayDetail({ m, d }: { m: CalendarMonth; d: CalendarDay }) {
         </>
       ) : d.open ? (
         <p className="mt-2 text-base leading-relaxed text-chalk-60">
-          Circuit ouvert{d.vacances ? " (vacances scolaires)" : ""} — sessions sans
-          réservation. Horaires du jour au{" "}
+          Circuit ouvert de 14 h à 19 h{d.vacances ? " (vacances scolaires)" : ""} —
+          sessions sans réservation. Une question ?{" "}
           <a href={SITE.phoneHref} className="link-under font-semibold text-chalk">
             {SITE.phone}
           </a>
@@ -228,8 +228,7 @@ function DayDetail({ m, d }: { m: CalendarMonth; d: CalendarDay }) {
         </p>
       ) : (
         <p className="mt-2 text-base leading-relaxed text-chalk-60">
-          Circuit fermé ce jour-là — rendez-vous mercredi ou le week-end, et tous
-          les jours pendant les vacances scolaires.
+          Circuit fermé ce jour-là.
         </p>
       )}
       {d.promo && (
