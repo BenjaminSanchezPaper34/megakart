@@ -28,10 +28,6 @@ function Tag({ kind, children }: { kind: TagKind; children: ReactNode }) {
   );
 }
 
-/** « 14h – 19h » → « 14–19 », « 14h – minuit » → « 14–00 » (cases mobile, une ligne). */
-function compactHours(hours: string) {
-  return hours.replace("minuit", "00").replace(/h\s*–\s*/, "–").replace(/h$/, "");
-}
 
 /**
  * « Le mois en piste » — planning mensuel interactif : la transposition
@@ -83,7 +79,8 @@ export default function MonthPlanner() {
       </div>
 
       {/* Grille */}
-      <div className="card mt-6 overflow-hidden !p-0">
+      <div className="-mx-5 mt-6 overflow-x-auto px-5 md:mx-0 md:overflow-visible md:px-0">
+      <div className="card min-w-[40rem] overflow-hidden !p-0 md:min-w-0">
         <div className="grid grid-cols-7 border-b border-white/10 bg-asphalt-3/60">
           {WEEKDAYS.map((w) => (
             <div
@@ -101,9 +98,19 @@ export default function MonthPlanner() {
           {month.days.map((d) => {
             const isSelected = selected?.d.iso === d.iso;
             const isToday = d.iso === todayIso;
-            const state = d.open
-              ? "bg-emerald-500/[0.14] shadow-[inset_0_0_0_1px_rgb(52_211_153/0.18)]"
-              : "bg-black/40 text-chalk-60/40";
+            // Mobile : la case prend la couleur de l'offre ; desktop : vert « ouvert » + labels
+            const OPEN_MD = "md:bg-emerald-500/[0.14] md:text-chalk md:shadow-[inset_0_0_0_1px_rgb(52_211_153/0.18)]";
+            const state = !d.open
+              ? "bg-black/40 text-chalk-60/40"
+              : d.event
+                ? `${d.event.toConfirm ? "bg-race/45" : "bg-race"} text-white ${OPEN_MD}`
+                : d.aVolonte
+                  ? `bg-flag text-asphalt ${OPEN_MD}`
+                  : d.packDecouverte
+                    ? `bg-chalk text-asphalt ${OPEN_MD}`
+                    : d.promo
+                      ? `bg-[#2e7cf6] text-white ${OPEN_MD}`
+                      : `bg-emerald-500/[0.14] text-chalk ${OPEN_MD}`;
             return (
               <button
                 key={d.iso}
@@ -117,7 +124,7 @@ export default function MonthPlanner() {
               >
                 <span
                   className={`display text-base leading-none ${
-                    isToday ? "bg-flag px-1.5 py-0.5 text-asphalt" : d.open ? "text-chalk" : ""
+                    isToday ? "bg-flag px-1.5 py-0.5 text-asphalt md:ring-1 md:ring-asphalt/40" : ""
                   }`}
                 >
                   {d.day}
@@ -135,28 +142,33 @@ export default function MonthPlanner() {
                   {d.promo && !d.event && !d.aVolonte && <Tag kind="promo">2 tickets = 1 offert</Tag>}
                   {d.ferie && <Tag kind="ferie">Férié</Tag>}
                 </span>
-                {d.open && d.hours && (
-                  <span
-                    className="mt-auto whitespace-nowrap text-xs leading-none text-chalk"
-                  >
-                    <span className="md:hidden">{compactHours(d.hours)}</span>
-                    <span className="hidden md:inline">{d.hours}</span>
-                  </span>
-                )}
-                {/* Pastilles mobile */}
-                <span className="flex gap-1 md:hidden" aria-hidden="true">
+                {/* Mobile : libellé en texte, la case porte la couleur */}
+                <span className="flex flex-col gap-0.5 md:hidden">
                   {d.event && (
-                    <span className={`h-1.5 w-1.5 rounded-full ${d.event.toConfirm ? "bg-race/45" : "bg-race"}`} />
+                    <span className="display text-xs leading-tight tracking-wide">
+                      {d.event.label}
+                      {d.event.toConfirm && " ?"}
+                    </span>
                   )}
-                  {d.aVolonte && <span className="h-1.5 w-1.5 rounded-full bg-flag" />}
-                  {d.packDecouverte && !d.event && <span className="h-1.5 w-1.5 rounded-full bg-chalk" />}
-                  {d.promo && <span className="h-1.5 w-1.5 rounded-full bg-[#2e7cf6]" />}
+                  {d.aVolonte && <span className="display text-xs leading-tight tracking-wide">À volonté</span>}
+                  {d.packDecouverte && !d.event && (
+                    <span className="display text-xs leading-tight tracking-wide">Pack Découverte</span>
+                  )}
+                  {d.promo && !d.event && !d.aVolonte && (
+                    <span className="display text-xs leading-tight tracking-wide">2 tickets = 1 offert</span>
+                  )}
+                  {d.ferie && <span className="text-xs leading-tight opacity-80">Férié</span>}
                 </span>
+                {d.open && d.hours && (
+                  <span className="mt-auto whitespace-nowrap text-xs leading-none">{d.hours}</span>
+                )}
               </button>
             );
           })}
         </div>
       </div>
+      </div>
+      <p className="mt-2 text-xs text-chalk-60 md:hidden">Faites glisser la grille pour voir toute la semaine.</p>
 
       {/* Légende */}
       <ul className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-chalk-60">
