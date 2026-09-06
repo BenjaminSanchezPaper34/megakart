@@ -169,7 +169,6 @@ export default function MonthPlanner() {
         <li><Tag kind="course">Course</Tag></li>
         <li><Tag kind="volonte">À volonté</Tag></li>
         <li><Tag kind="pack">Pack Découverte</Tag></li>
-        <li><Tag kind="pending">Date à confirmer ?</Tag></li>
       </ul>
 
       {/* Détail du jour sélectionné */}
