@@ -7,6 +7,27 @@ import { SITE } from "@/lib/site";
 const WEEKDAYS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
 const WEEKDAYS_FULL = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
 
+/** Un seul gabarit de label ; seule la couleur change selon le type. */
+const TAG_COLORS = {
+  course: "bg-race text-white",
+  pending: "bg-race/45 text-white",
+  volonte: "bg-flag text-asphalt",
+  pack: "bg-chalk text-asphalt",
+  promo: "bg-[#2e7cf6] text-white",
+  ferie: "bg-asphalt-3 text-chalk-60",
+} as const;
+type TagKind = keyof typeof TAG_COLORS;
+
+function Tag({ kind, children }: { kind: TagKind; children: React.ReactNode }) {
+  return (
+    <span
+      className={`display max-w-full truncate px-1.5 py-0.5 text-xs leading-tight tracking-wide ${TAG_COLORS[kind]}`}
+    >
+      {children}
+    </span>
+  );
+}
+
 /** « 14h – 19h » → « 14–19 », « 14h – minuit » → « 14–00 » (cases mobile, une ligne). */
 function compactHours(hours: string) {
   return hours.replace("minuit", "00").replace(/h\s*–\s*/, "–").replace(/h$/, "");
@@ -104,33 +125,15 @@ export default function MonthPlanner() {
                 {/* Labels (desktop) : ce qui se passe ce jour-là */}
                 <span className="hidden flex-col items-start gap-1 md:flex">
                   {d.event && (
-                    <span
-                      className={`display max-w-full truncate px-1.5 py-0.5 text-xs leading-tight tracking-wide ${
-                        d.event.toConfirm
-                          ? "border border-dashed border-race text-race"
-                          : "bg-race text-white"
-                      }`}
-                    >
+                    <Tag kind={d.event.toConfirm ? "pending" : "course"}>
                       {d.event.label}
                       {d.event.toConfirm && " ?"}
-                    </span>
+                    </Tag>
                   )}
-                  {d.aVolonte && (
-                    <span className="display px-1.5 py-0.5 text-xs leading-tight tracking-wide bg-flag text-asphalt">
-                      À volonté
-                    </span>
-                  )}
-                  {d.packDecouverte && !d.event && (
-                    <span className="px-1.5 py-0.5 text-xs leading-tight bg-chalk/15 text-chalk">
-                      Pack Découverte
-                    </span>
-                  )}
-                  {d.promo && !d.event && !d.aVolonte && (
-                    <span className="px-1.5 py-0.5 text-xs leading-tight bg-chalk/15 text-chalk">
-                      2 tickets = 1 offert
-                    </span>
-                  )}
-                  {d.ferie && <span className="text-xs leading-tight text-chalk-60">Férié</span>}
+                  {d.aVolonte && <Tag kind="volonte">À volonté</Tag>}
+                  {d.packDecouverte && !d.event && <Tag kind="pack">Pack Découverte</Tag>}
+                  {d.promo && !d.event && !d.aVolonte && <Tag kind="promo">2 tickets = 1 offert</Tag>}
+                  {d.ferie && <Tag kind="ferie">Férié</Tag>}
                 </span>
                 {d.open && d.hours && (
                   <span
@@ -142,12 +145,12 @@ export default function MonthPlanner() {
                 )}
                 {/* Pastilles mobile */}
                 <span className="flex gap-1 md:hidden" aria-hidden="true">
-                  {d.event && <span className="h-1.5 w-1.5 rounded-full bg-race" />}
-                  {d.aVolonte && <span className="h-1.5 w-1.5 rounded-full bg-flag" />}
-                  {d.packDecouverte && !d.event && (
-                    <span className="h-1.5 w-1.5 rounded-full bg-chalk/60" />
+                  {d.event && (
+                    <span className={`h-1.5 w-1.5 rounded-full ${d.event.toConfirm ? "bg-race/45" : "bg-race"}`} />
                   )}
-                  {d.promo && <span className="h-1.5 w-1.5 rounded-full bg-chalk/50" />}
+                  {d.aVolonte && <span className="h-1.5 w-1.5 rounded-full bg-flag" />}
+                  {d.packDecouverte && !d.event && <span className="h-1.5 w-1.5 rounded-full bg-chalk" />}
+                  {d.promo && <span className="h-1.5 w-1.5 rounded-full bg-[#2e7cf6]" />}
                 </span>
               </button>
             );
@@ -156,27 +159,17 @@ export default function MonthPlanner() {
       </div>
 
       {/* Légende */}
-      <ul className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-chalk-60">
+      <ul className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-chalk-60">
         <li className="flex items-center gap-2">
           <span className="h-3 w-3 bg-emerald-500/40" aria-hidden="true" /> Ouvert (horaires indiqués)
         </li>
         <li className="flex items-center gap-2">
           <span className="h-3 w-3 border border-white/10 bg-black/40" aria-hidden="true" /> Fermé
         </li>
-        <li className="flex items-center gap-2">
-          <span className="display bg-race px-1.5 py-0.5 text-xs text-white">Course</span>
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="display bg-flag px-1.5 py-0.5 text-xs text-asphalt">À volonté</span>
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="bg-chalk/15 px-1.5 py-0.5 text-xs text-chalk">Pack Découverte</span>
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="display border border-dashed border-race px-1.5 py-0.5 text-xs text-race">
-            À confirmer ?
-          </span>
-        </li>
+        <li><Tag kind="course">Course</Tag></li>
+        <li><Tag kind="volonte">À volonté</Tag></li>
+        <li><Tag kind="pack">Pack Découverte</Tag></li>
+        <li><Tag kind="pending">Date à confirmer ?</Tag></li>
       </ul>
 
       {/* Détail du jour sélectionné */}
