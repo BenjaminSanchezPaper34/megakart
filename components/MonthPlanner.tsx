@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { buildCalendar, getOperation, type CalendarDay, type CalendarMonth } from "@/lib/agenda";
 import { SITE } from "@/lib/site";
 
@@ -28,18 +28,119 @@ function Tag({ kind, children }: { kind: TagKind; children: ReactNode }) {
   );
 }
 
+/** « 14h – 19h » → « 14–19 », « 14h – minuit » → « 14–00 » (cases mobiles, une ligne). */
+function compactHours(hours: string) {
+  return hours.replace("minuit", "00").replace(/h\s*–\s*/, "–").replace(/h$/, "");
+}
+
+/** Couleur de case : mobile = couleur de l'offre ; desktop = vert « ouvert » + labels. */
+const OPEN_MD =
+  "md:bg-emerald-500/[0.14] md:text-chalk md:shadow-[inset_0_0_0_1px_rgb(52_211_153/0.18)]";
+function cellState(d: CalendarDay) {
+  if (!d.open) return "bg-black/40 text-chalk-60/40";
+  if (d.event) return `${d.event.toConfirm ? "bg-race/45" : "bg-race"} text-white ${OPEN_MD}`;
+  if (d.aVolonte) return `bg-flag text-asphalt ${OPEN_MD}`;
+  if (d.packDecouverte) return `bg-chalk text-asphalt ${OPEN_MD}`;
+  if (d.promo) return `bg-[#2e7cf6] text-white ${OPEN_MD}`;
+  return `bg-emerald-500/[0.14] text-chalk ${OPEN_MD}`;
+}
+
+type Selection = { m: CalendarMonth; d: CalendarDay } | null;
+
+/** La grille d'un mois — utilisée dans le carrousel mobile et en mois unique sur desktop. */
+function MonthGrid({
+  month,
+  selected,
+  todayIso,
+  onSelect,
+}: {
+  month: CalendarMonth;
+  selected: Selection;
+  todayIso: string | null;
+  onSelect: (sel: Selection) => void;
+}) {
+  return (
+    <div className="card overflow-hidden !p-0">
+      <div className="grid grid-cols-7 border-b border-white/10 bg-asphalt-3/60">
+        {WEEKDAYS.map((w) => (
+          <div
+            key={w}
+            className="py-2 text-center text-xs font-semibold uppercase tracking-widest text-chalk-60"
+          >
+            {w}
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-7">
+        {Array.from({ length: month.leading }, (_, i) => (
+          <div key={`v-${i}`} className="border-b border-r border-white/5" aria-hidden="true" />
+        ))}
+        {month.days.map((d) => {
+          const isSelected = selected?.d.iso === d.iso;
+          const isToday = d.iso === todayIso;
+          return (
+            <button
+              key={d.iso}
+              type="button"
+              onClick={() => onSelect({ m: month, d })}
+              aria-pressed={isSelected}
+              aria-label={`${WEEKDAYS_FULL[d.weekdayIdx]} ${d.day} ${month.name}`}
+              className={`relative flex min-h-[4.25rem] flex-col items-start gap-1 border-b border-r border-white/5 p-1.5 text-left transition-colors duration-200 hover:bg-white/5 md:min-h-[5.5rem] md:p-2 ${cellState(d)} ${
+                isSelected ? "ring-2 ring-inset ring-chalk/70" : ""
+              }`}
+            >
+              <span
+                className={`display text-base leading-none ${
+                  isToday ? "bg-flag px-1.5 py-0.5 text-asphalt md:ring-1 md:ring-asphalt/40" : ""
+                }`}
+              >
+                {d.day}
+              </span>
+              {/* Desktop : labels en chips (la case est verte) */}
+              <span className="hidden flex-col items-start gap-1 md:flex">
+                {d.event && (
+                  <Tag kind={d.event.toConfirm ? "pending" : "course"}>
+                    {d.event.label}
+                    {d.event.toConfirm && " ?"}
+                  </Tag>
+                )}
+                {d.aVolonte && <Tag kind="volonte">À volonté</Tag>}
+                {d.packDecouverte && !d.event && <Tag kind="pack">Pack Découverte</Tag>}
+                {d.promo && !d.event && !d.aVolonte && <Tag kind="promo">2 tickets = 1 offert</Tag>}
+                {d.ferie && <Tag kind="ferie">Férié</Tag>}
+              </span>
+              {/* Horaires : compacts sur mobile (la case porte la couleur de l'offre) */}
+              {d.open && d.hours && (
+                <span className="mt-auto whitespace-nowrap text-xs leading-none">
+                  <span className="md:hidden">{compactHours(d.hours)}</span>
+                  <span className="hidden md:inline">{d.hours}</span>
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 /**
  * « Le mois en piste » — planning mensuel interactif : la transposition
- * du planning mural du circuit. Ouvert / fermé / à volonté / course en
- * un coup d'œil ; le détail du jour sélectionné s'affiche sous la grille
- * (les cases sont trop petites pour porter du texte sur mobile).
+ * du planning mural du circuit. Sur mobile, les mois défilent au swipe
+ * (carrousel à snap) ; sur desktop, onglets + mois unique. Le détail du
+ * jour sélectionné s'affiche sous la grille.
  */
 export default function MonthPlanner() {
   const months = useMemo(buildCalendar, []);
   const [monthIdx, setMonthIdx] = useState(0);
-  const [selected, setSelected] = useState<{ m: CalendarMonth; d: CalendarDay } | null>(null);
+  const [selected, setSelected] = useState<Selection>(null);
   const [todayIso, setTodayIso] = useState<string | null>(null);
+  const scroller = useRef<HTMLDivElement>(null);
+
+  const scrollToMonth = (idx: number, smooth: boolean) => {
+    const el = scroller.current;
+    if (el) el.scrollTo({ left: idx * el.clientWidth, behavior: smooth ? "smooth" : "auto" });
+  };
 
   // Après montage (pas de mismatch SSR) : ouvre le mois du jour et le sélectionne.
   useEffect(() => {
@@ -49,12 +150,24 @@ export default function MonthPlanner() {
     const idx = months.findIndex((m) => m.days.some((d) => d.iso === iso));
     if (idx >= 0) {
       setMonthIdx(idx);
+      scrollToMonth(idx, false);
       const day = months[idx].days.find((d) => d.iso === iso)!;
       setSelected({ m: months[idx], d: day });
     }
   }, [months]);
 
-  const month = months[monthIdx];
+  const goTo = (idx: number) => {
+    setMonthIdx(idx);
+    scrollToMonth(idx, true);
+  };
+
+  // Swipe mobile → onglet synchronisé
+  const onScroll = () => {
+    const el = scroller.current;
+    if (!el || el.clientWidth === 0) return;
+    const idx = Math.round(el.scrollLeft / el.clientWidth);
+    if (idx !== monthIdx && idx >= 0 && idx < months.length) setMonthIdx(idx);
+  };
 
   return (
     <div>
@@ -66,7 +179,7 @@ export default function MonthPlanner() {
             type="button"
             role="tab"
             aria-selected={i === monthIdx}
-            onClick={() => setMonthIdx(i)}
+            onClick={() => goTo(i)}
             className={`display px-4 py-2.5 text-base capitalize transition-all duration-300 ${
               i === monthIdx
                 ? "glow-race bg-race text-white"
@@ -78,97 +191,31 @@ export default function MonthPlanner() {
         ))}
       </div>
 
-      {/* Grille */}
-      <div className="-mx-5 mt-6 overflow-x-auto px-5 md:mx-0 md:overflow-visible md:px-0">
-      <div className="card min-w-[40rem] overflow-hidden !p-0 md:min-w-0">
-        <div className="grid grid-cols-7 border-b border-white/10 bg-asphalt-3/60">
-          {WEEKDAYS.map((w) => (
-            <div
-              key={w}
-              className="py-2 text-center text-xs font-semibold uppercase tracking-widest text-chalk-60"
-            >
-              {w}
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-7">
-          {Array.from({ length: month.leading }, (_, i) => (
-            <div key={`v-${i}`} className="border-b border-r border-white/5" aria-hidden="true" />
-          ))}
-          {month.days.map((d) => {
-            const isSelected = selected?.d.iso === d.iso;
-            const isToday = d.iso === todayIso;
-            // Mobile : la case prend la couleur de l'offre ; desktop : vert « ouvert » + labels
-            const OPEN_MD = "md:bg-emerald-500/[0.14] md:text-chalk md:shadow-[inset_0_0_0_1px_rgb(52_211_153/0.18)]";
-            const state = !d.open
-              ? "bg-black/40 text-chalk-60/40"
-              : d.event
-                ? `${d.event.toConfirm ? "bg-race/45" : "bg-race"} text-white ${OPEN_MD}`
-                : d.aVolonte
-                  ? `bg-flag text-asphalt ${OPEN_MD}`
-                  : d.packDecouverte
-                    ? `bg-chalk text-asphalt ${OPEN_MD}`
-                    : d.promo
-                      ? `bg-[#2e7cf6] text-white ${OPEN_MD}`
-                      : `bg-emerald-500/[0.14] text-chalk ${OPEN_MD}`;
-            return (
-              <button
-                key={d.iso}
-                type="button"
-                onClick={() => setSelected({ m: month, d })}
-                aria-pressed={isSelected}
-                aria-label={`${WEEKDAYS_FULL[d.weekdayIdx]} ${d.day} ${month.name}`}
-                className={`relative flex min-h-[4.75rem] flex-col items-start gap-1 border-b border-r border-white/5 p-1.5 text-left transition-colors duration-200 hover:bg-white/5 md:min-h-[5.5rem] md:p-2 ${state} ${
-                  isSelected ? "ring-2 ring-inset ring-chalk/70" : ""
-                }`}
-              >
-                <span
-                  className={`display text-base leading-none ${
-                    isToday ? "bg-flag px-1.5 py-0.5 text-asphalt md:ring-1 md:ring-asphalt/40" : ""
-                  }`}
-                >
-                  {d.day}
-                </span>
-                {/* Labels (desktop) : ce qui se passe ce jour-là */}
-                <span className="hidden flex-col items-start gap-1 md:flex">
-                  {d.event && (
-                    <Tag kind={d.event.toConfirm ? "pending" : "course"}>
-                      {d.event.label}
-                      {d.event.toConfirm && " ?"}
-                    </Tag>
-                  )}
-                  {d.aVolonte && <Tag kind="volonte">À volonté</Tag>}
-                  {d.packDecouverte && !d.event && <Tag kind="pack">Pack Découverte</Tag>}
-                  {d.promo && !d.event && !d.aVolonte && <Tag kind="promo">2 tickets = 1 offert</Tag>}
-                  {d.ferie && <Tag kind="ferie">Férié</Tag>}
-                </span>
-                {/* Mobile : libellé en texte, la case porte la couleur */}
-                <span className="flex flex-col gap-0.5 md:hidden">
-                  {d.event && (
-                    <span className="display text-xs leading-tight tracking-wide">
-                      {d.event.label}
-                      {d.event.toConfirm && " ?"}
-                    </span>
-                  )}
-                  {d.aVolonte && <span className="display text-xs leading-tight tracking-wide">À volonté</span>}
-                  {d.packDecouverte && !d.event && (
-                    <span className="display text-xs leading-tight tracking-wide">Pack Découverte</span>
-                  )}
-                  {d.promo && !d.event && !d.aVolonte && (
-                    <span className="display text-xs leading-tight tracking-wide">2 tickets = 1 offert</span>
-                  )}
-                  {d.ferie && <span className="text-xs leading-tight opacity-80">Férié</span>}
-                </span>
-                {d.open && d.hours && (
-                  <span className="mt-auto whitespace-nowrap text-xs leading-none">{d.hours}</span>
-                )}
-              </button>
-            );
-          })}
-        </div>
+      {/* Mobile : carrousel des mois, swipe gauche/droite */}
+      <div
+        ref={scroller}
+        onScroll={onScroll}
+        className="no-scrollbar -mx-5 mt-6 flex snap-x snap-mandatory overflow-x-auto md:hidden"
+      >
+        {months.map((m) => (
+          <div key={m.month} className="w-full shrink-0 snap-center px-5">
+            <MonthGrid month={m} selected={selected} todayIso={todayIso} onSelect={setSelected} />
+          </div>
+        ))}
       </div>
+      <p className="mt-2 text-xs text-chalk-60 md:hidden">
+        Glissez vers la gauche ou la droite pour changer de mois.
+      </p>
+
+      {/* Desktop : le mois actif */}
+      <div className="mt-6 hidden md:block">
+        <MonthGrid
+          month={months[monthIdx]}
+          selected={selected}
+          todayIso={todayIso}
+          onSelect={setSelected}
+        />
       </div>
-      <p className="mt-2 text-xs text-chalk-60 md:hidden">Faites glisser la grille pour voir toute la semaine.</p>
 
       {/* Légende */}
       <ul className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-chalk-60">
