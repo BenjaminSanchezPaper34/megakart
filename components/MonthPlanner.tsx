@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { buildCalendar, getOperation, type CalendarDay, type CalendarMonth } from "@/lib/agenda";
+import {
+  buildCalendar,
+  getOperation,
+  SHOW_PROMOS,
+  type CalendarDay,
+  type CalendarMonth,
+} from "@/lib/agenda";
 import { SITE } from "@/lib/site";
 
 const WEEKDAYS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
@@ -228,6 +234,7 @@ export default function MonthPlanner() {
         <li><Tag kind="course">Course</Tag></li>
         <li><Tag kind="volonte">À volonté</Tag></li>
         <li><Tag kind="pack">Pack Découverte</Tag></li>
+        {SHOW_PROMOS && <li><Tag kind="promo">2 tickets = 1 offert</Tag></li>}
       </ul>
 
       {/* Détail du jour sélectionné */}
