@@ -7,9 +7,9 @@ import { SITE } from "@/lib/site";
 const WEEKDAYS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
 const WEEKDAYS_FULL = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
 
-/** « 14h – 19h » → « 14–19h », « 14h – minuit » → « 14–0h » (cases mobile). */
+/** « 14h – 19h » → « 14–19 », « 14h – minuit » → « 14–00 » (cases mobile, une ligne). */
 function compactHours(hours: string) {
-  return hours.replace("minuit", "0h").replace(/h\s*–\s*/, "–");
+  return hours.replace("minuit", "00").replace(/h\s*–\s*/, "–").replace(/h$/, "");
 }
 
 /**
@@ -88,7 +88,7 @@ export default function MonthPlanner() {
                 ? "bg-flag/15"
                 : d.open
                   ? "bg-asphalt-3/40"
-                  : "opacity-30";
+                  : "bg-black/40 text-chalk-60/40";
             return (
               <button
                 key={d.iso}
@@ -136,14 +136,10 @@ export default function MonthPlanner() {
                 )}
                 {d.open && d.hours && (
                   <span
-                    className={`mt-auto flex items-center gap-1.5 text-xs leading-none ${
+                    className={`mt-auto whitespace-nowrap text-xs leading-none ${
                       d.event ? "text-chalk" : "text-chalk-60"
                     }`}
                   >
-                    <span
-                      className="hidden h-1.5 w-1.5 rounded-full bg-emerald-400 md:block"
-                      aria-hidden="true"
-                    />
                     <span className="md:hidden">{compactHours(d.hours)}</span>
                     <span className="hidden md:inline">{d.hours}</span>
                   </span>
@@ -175,11 +171,8 @@ export default function MonthPlanner() {
           <span className="h-2.5 w-2.5 rounded-full bg-chalk/60" aria-hidden="true" /> Pack Découverte
         </li>
         <li className="flex items-center gap-2">
-          <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" aria-hidden="true" /> Ouvert
-          (horaires indiqués)
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="h-3 w-3 border border-white/15 opacity-40" aria-hidden="true" /> Fermé
+          <span className="h-3 w-3 border border-white/10 bg-black/40" aria-hidden="true" /> Fermé
+          (sans horaires)
         </li>
         <li className="flex items-center gap-2">
           <span className="h-3 w-3 border border-dashed border-race/70" aria-hidden="true" /> À confirmer
