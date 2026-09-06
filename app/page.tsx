@@ -9,6 +9,8 @@ import TrackMap from "@/components/TrackMap";
 import KartCard from "@/components/KartCard";
 import OpenBadge from "@/components/OpenBadge";
 import UpcomingRaces from "@/components/UpcomingRaces";
+import TodayOffer from "@/components/TodayOffer";
+import { DEALS, SHOW_PROMOS } from "@/lib/agenda";
 import { KARTS, getKart } from "@/lib/karts";
 import { SITE } from "@/lib/site";
 import { localBusinessJsonLd } from "@/lib/jsonld";
@@ -82,6 +84,8 @@ export default function HomePage() {
           </svg>
         </div>
       </section>
+
+      <TodayOffer />
 
       <Marquee
         items={[
@@ -254,6 +258,69 @@ export default function HomePage() {
           <Link href="/agenda" className="btn btn-race">
             Tout l&rsquo;agenda de fin d&rsquo;année
           </Link>
+        </div>
+      </section>
+
+      {/* ========== LES BONS PLANS ========== */}
+      <section className="bg-asphalt-2 py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
+              Les bons plans
+              <br />
+              <span className="text-flag">de la semaine.</span>
+            </h2>
+            <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60">
+              Des offres qui reviennent chaque semaine, sans réservation
+              pour la plupart : il suffit de choisir son jour.
+            </p>
+          </div>
+
+          <div data-stagger className="mt-12 grid gap-6 md:grid-cols-3">
+            {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => (
+              <Link
+                key={deal.slug}
+                href={`/agenda#${deal.slug}`}
+                className="card group relative flex flex-col overflow-hidden p-7 transition-transform duration-300 hover:-translate-y-1"
+              >
+                <span
+                  aria-hidden="true"
+                  className={`absolute left-0 top-0 h-full w-1 ${
+                    deal.accent === "race"
+                      ? "bg-race"
+                      : deal.accent === "flag"
+                        ? "bg-flag"
+                        : "bg-chalk/40"
+                  }`}
+                />
+                <p
+                  className={`display text-base ${
+                    deal.accent === "race"
+                      ? "text-race"
+                      : deal.accent === "flag"
+                        ? "text-flag"
+                        : "text-chalk"
+                  }`}
+                >
+                  {deal.kicker}
+                </p>
+                <h3 className="display mt-1 text-2xl text-chalk transition-colors duration-300 group-hover:text-race">
+                  {deal.name}
+                </h3>
+                <p className="mt-3 flex-1 text-base leading-relaxed text-chalk-60">
+                  {deal.summary}
+                </p>
+                {deal.price && (
+                  <p className="display mt-5 flex items-baseline gap-2">
+                    <span className="text-3xl text-chalk">{deal.price}</span>
+                    {deal.priceNote && (
+                      <span className="text-sm text-chalk-60">{deal.priceNote}</span>
+                    )}
+                  </p>
+                )}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
