@@ -87,7 +87,7 @@ export default function MonthPlanner() {
               : d.aVolonte
                 ? "bg-flag/15"
                 : d.open
-                  ? "bg-asphalt-3/40"
+                  ? "bg-chalk/[0.09] shadow-[inset_0_0_0_1px_rgb(244_243_239/0.06)]"
                   : "bg-black/40 text-chalk-60/40";
             return (
               <button
@@ -136,9 +136,7 @@ export default function MonthPlanner() {
                 )}
                 {d.open && d.hours && (
                   <span
-                    className={`mt-auto whitespace-nowrap text-xs leading-none ${
-                      d.event ? "text-chalk" : "text-chalk-60"
-                    }`}
+                    className="mt-auto whitespace-nowrap text-xs leading-none text-chalk"
                   >
                     <span className="md:hidden">{compactHours(d.hours)}</span>
                     <span className="hidden md:inline">{d.hours}</span>
@@ -171,8 +169,10 @@ export default function MonthPlanner() {
           <span className="h-2.5 w-2.5 rounded-full bg-chalk/60" aria-hidden="true" /> Pack Découverte
         </li>
         <li className="flex items-center gap-2">
+          <span className="h-3 w-3 bg-chalk/[0.12]" aria-hidden="true" /> Ouvert (horaires indiqués)
+        </li>
+        <li className="flex items-center gap-2">
           <span className="h-3 w-3 border border-white/10 bg-black/40" aria-hidden="true" /> Fermé
-          (sans horaires)
         </li>
         <li className="flex items-center gap-2">
           <span className="h-3 w-3 border border-dashed border-race/70" aria-hidden="true" /> À confirmer
