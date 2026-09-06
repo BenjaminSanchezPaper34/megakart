@@ -146,6 +146,11 @@ export default function AgendaPage() {
           <br />
           <span className="display-outline">de fin d&rsquo;année.</span>
         </h2>
+        <p data-reveal className="mt-4 max-w-xl text-base leading-relaxed text-chalk-60">
+          Le rythme est simple : les courses adultes se courent le premier
+          dimanche du mois, les courses enfants le deuxième — et le 19 décembre,
+          le circuit passe aux 12 Heures.
+        </p>
 
         <div className="mt-16 flex flex-col gap-20">
           {RACES.map((race, i) => {

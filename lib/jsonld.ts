@@ -67,6 +67,16 @@ export function localBusinessJsonLd() {
         opens: "14:00",
         closes: "19:00",
         validFrom: "2026-09-01",
+        validThrough: "2026-12-31",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
+        ],
+        opens: "14:00",
+        closes: "19:00",
+        validFrom: "2027-03-01",
         validThrough: "2027-06-14",
       },
     ],

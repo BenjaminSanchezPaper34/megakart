@@ -93,13 +93,34 @@ export const RACES: Operation[] = [
     summary: "Une vraie course pour les 7-15 ans : essais, grille de départ et podium.",
     details: [
       "Le dimanche, la piste appartient à la relève : une vraie course réservée aux enfants, avec essais, grille de départ, drapeau à damier et podium — comme les grands, chrono Apex Timing compris.",
-      "Format et déroulé détaillés à l'inscription, par téléphone ou par e-mail.",
+      "Trois manches de 8 minutes — pas d'endurance pour les enfants, du rythme et des départs. Déroulé détaillé à l'inscription, par téléphone ou par e-mail.",
     ],
     facts: [
       "Dès 7 ans et 1,30 m — Kart Enfant 160cc",
-      "Essais + course avec grille de départ",
+      "3 manches de 8 minutes",
       "Podium & remise de prix",
     ],
+    reservation: true,
+  },
+  {
+    slug: "12-heures",
+    kicker: "L'endurance de fin d'année, avec Vortex",
+    name: "Les 12 Heures",
+    accent: "flag",
+    summary: "Douze heures d'endurance par équipes, organisées avec l'écurie Vortex — ouvertes aux inscriptions.",
+    details: [
+      "Le plus grand format jamais couru sur le circuit : douze heures de course en relais, par équipes, sur les 1000 m de Vias-plage. L'écurie Vortex et son équipe technique travaillent aux côtés de l'équipe MegaKart pour l'organisation.",
+      "Ouvert aux équipes amateurs comme aux habitués : chaque équipe dispose de son paddock aménagé (tables, écran de suivi), restauration et boissons sur place, chrono Apex Timing en continu.",
+    ],
+    facts: [
+      "Endurance de 12 heures par équipes",
+      "Organisé avec l'écurie Vortex",
+      "Paddock aménagé pour chaque équipe",
+      "Restauration & boissons sur place",
+      "Places limitées — inscriptions par téléphone ou e-mail",
+    ],
+    price: "1 500€ / équipe",
+    priceValue: 1500,
     reservation: true,
   },
 ];
@@ -131,7 +152,7 @@ export const DEALS: Operation[] = [
     ],
     facts: [
       "Jeudis & vendredis de septembre",
-      "Vacances de la Toussaint : du 17 octobre au 1er novembre",
+      "Vacances de la Toussaint : du 17 au 31 octobre",
       "Vacances de Noël : du 19 au 31 décembre",
     ],
     reservation: false,
@@ -192,7 +213,7 @@ export const AGENDA: AgendaItem[] = [
   { date: "2026-10-11", op: "course-enfant", label: "Course Enfant", status: "confirme" },
   {
     date: "2026-10-17",
-    endDate: "2026-11-01",
+    endDate: "2026-10-31",
     op: "2-plus-1",
     label: "2 tickets = 1 offert",
     status: "confirme",
@@ -209,6 +230,7 @@ export const AGENDA: AgendaItem[] = [
   { date: "2026-11-21", op: "women-cup", label: "Women Cup", status: "confirme" },
   { date: "2026-12-06", op: "100-tours", label: "Les 100 Tours", status: "confirme" },
   { date: "2026-12-13", op: "course-enfant", label: "Course Enfant", status: "confirme" },
+  { date: "2026-12-19", op: "12-heures", label: "Les 12 Heures", status: "confirme" },
   {
     date: "2026-12-19",
     endDate: "2026-12-31",

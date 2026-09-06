@@ -1,6 +1,6 @@
 export type OpenStatus = {
   open: boolean;
-  season: "summer" | "offseason";
+  season: "summer" | "offseason" | "winter";
   label: string;
   detail: string;
 };
@@ -11,6 +11,8 @@ export type OpenStatus = {
  *    (le site actuel annonce le 20 juin et « 1 h » sur une page, « minuit
  *    trente » sur l'autre — bornes à confirmer par le client)
  *  - hors saison : tous les jours, 14 h – 19 h (horaires déclarés sur Google)
+ *  - fermeture annuelle : janvier et février, réouverture le 1er mars
+ *    (décision du gérant, réunion du 03/09/2026)
  */
 const SUMMER_DETAIL = "En saison : tous les jours, 10 h – minuit trente, non-stop.";
 
@@ -35,6 +37,15 @@ export function getOpenStatus(now: Date = new Date()): OpenStatus {
       season: "summer",
       label: open ? "Ouvert actuellement" : "Ouvre à 10 h",
       detail: SUMMER_DETAIL,
+    };
+  }
+
+  if (month === 0 || month === 1) {
+    return {
+      open: false,
+      season: "winter",
+      label: "Fermeture annuelle",
+      detail: "Fermé en janvier et février — réouverture le 1er mars.",
     };
   }
 

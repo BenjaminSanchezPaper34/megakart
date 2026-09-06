@@ -12,6 +12,7 @@ const EN_LABELS: Record<string, { label: string; detail: string }> = {
   "summer-closed": { label: "Opens at 10 am", detail: "Summer season: every day, 10 am – 12:30 am, non-stop." },
   "offseason-open": { label: "Open now", detail: "Off season: every day, 2 pm – 7 pm." },
   "offseason-closed": { label: "Opens at 2 pm", detail: "Off season: every day, 2 pm – 7 pm." },
+  "winter-closed": { label: "Closed for winter", detail: "Closed in January and February — reopening on 1 March." },
 };
 
 export default function OpenBadge({
