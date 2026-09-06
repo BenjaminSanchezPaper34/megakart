@@ -10,10 +10,9 @@ export const metadata: Metadata = {
 };
 
 /*
- * NOTE INTERNE : données société transmises par le client le 06/09/2026
- * (SARL PAINA, Kbis disponible). Reste à ajouter la ville du greffe pour
- * la mention « RCS <ville> » — voir SITE.company dans lib/site.ts.
- * Ne jamais publier de données inventées.
+ * Données société : extrait Kbis du 8 juillet 2026 (greffe de Béziers),
+ * centralisées dans SITE.company (lib/site.ts). Ne jamais publier de
+ * données inventées : tout ajout doit venir d'un document officiel.
  */
 
 export default function MentionsLegalesPage() {
@@ -37,11 +36,16 @@ export default function MentionsLegalesPage() {
             <h2 className="display mb-3 text-2xl text-chalk">Éditeur du site</h2>
             <p>
               {SITE.legalName}, {SITE.company.form} au capital de{" "}
-              {SITE.company.capital}, exploitant le circuit MegaKart
+              {SITE.company.capital}, exploitant le circuit sous l&rsquo;enseigne{" "}
+              {SITE.company.tradeName}
               <br />
-              {SITE.address.street}, {SITE.address.zip} {SITE.address.city}, France
+              Siège social : {SITE.company.headOffice}, France
               <br />
-              SIREN {SITE.company.siren} — N° TVA intracommunautaire{" "}
+              Établissement : {SITE.address.street}, {SITE.address.zip}{" "}
+              {SITE.address.city}
+              <br />
+              {SITE.company.siren} R.C.S. {SITE.company.rcs} (n° de gestion{" "}
+              {SITE.company.rcsNumber}) — N° TVA intracommunautaire{" "}
               {SITE.company.vat} — Code NAF {SITE.company.naf} (
               {SITE.company.nafLabel})
               <br />

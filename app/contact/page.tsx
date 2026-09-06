@@ -7,7 +7,7 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 export const metadata: Metadata = {
   title: "Contact & accès — Vias-plage, entre Fabrikus et Europark",
   description:
-    "MegaKart, Voie Communale du Tricot et des Tots, 34450 Vias — entre Fabrikus World et Europark Indoor. Tél : 09 50 28 95 91. Ouvert 7j/7 en été de 10h à minuit trente.",
+    "MegaKart, 301 Voie Communale du Tricot et des Tots, 34450 Vias — entre Fabrikus World et Europark Indoor. Tél : 09 50 28 95 91. Ouvert 7j/7 en été de 10h à minuit trente.",
   alternates: { canonical: "/contact" },
 };
 

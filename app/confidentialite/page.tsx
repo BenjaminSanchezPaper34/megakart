@@ -53,8 +53,8 @@ export default function ConfidentialitePage() {
             </h2>
             <p>
               {SITE.legalName}, {SITE.company.form} au capital de{" "}
-              {SITE.company.capital} (SIREN {SITE.company.siren}) —{" "}
-              {SITE.address.street}, {SITE.address.zip} {SITE.address.city},
+              {SITE.company.capital} ({SITE.company.siren} R.C.S.{" "}
+              {SITE.company.rcs}) — siège social : {SITE.company.headOffice},
               France. Téléphone : {SITE.phone}. E-mail : {SITE.email}.
             </p>
           </div>
