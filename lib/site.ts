@@ -15,6 +15,8 @@ export const SITE = {
   legalName: "MegaKart", // raison sociale exacte à confirmer par le client
   phone: "09 50 28 95 91",
   phoneHref: "tel:+33950289591",
+  /** Réservation des courses par e-mail — adresse à fournir par le client (vide = non affiché). */
+  email: "contact@megakart.info",
   address: {
     street: "Voie Communale du Tricot et des Tots",
     city: "Vias",

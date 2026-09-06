@@ -36,13 +36,13 @@ export default function ContactPage() {
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk-60">
           Pas de réservation pour rouler : le plus simple est de passer.
-          Pour les événements et les questions, un coup de fil suffit.
+          Pour les courses, les événements et les questions : un coup de fil ou un e-mail.
         </p>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
           {/* Téléphone */}
           <div data-reveal className="card flex flex-col gap-4 p-7">
-            <h2 className="display text-2xl text-chalk">Par téléphone</h2>
+            <h2 className="display text-2xl text-chalk">Téléphone &amp; e-mail</h2>
             <a
               href={SITE.phoneHref}
               className="display text-4xl text-race transition-colors hover:text-chalk"
@@ -52,6 +52,15 @@ export default function ContactPage() {
             <p className="text-sm leading-relaxed text-chalk-60">
               Horaires du jour, événements, créneaux compétition :
               on répond pendant les heures d'ouverture.
+            </p>
+            <a
+              href={`mailto:${SITE.email}`}
+              className="link-under text-base font-semibold text-chalk"
+            >
+              {SITE.email}
+            </a>
+            <p className="text-sm leading-relaxed text-chalk-60">
+              Réservation des courses et du Pack Découverte par téléphone ou par e-mail.
             </p>
           </div>
 

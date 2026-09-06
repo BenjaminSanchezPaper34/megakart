@@ -17,6 +17,8 @@ export type Operation = {
   /** Format, conditions, à gagner… */
   facts: string[];
   price?: string;
+  /** Prix numérique pour le JSON-LD (Offer). */
+  priceValue?: number;
   priceNote?: string;
   reservation: boolean;
 };
@@ -40,6 +42,7 @@ export const RACES: Operation[] = [
       "Classement live Apex Timing",
     ],
     price: "59€ / pilote",
+    priceValue: 59,
     priceNote: "soit 177€ l'équipe de 3",
     reservation: true,
   },
@@ -59,6 +62,7 @@ export const RACES: Operation[] = [
       "À gagner : un baptême en voiture Vortex",
     ],
     price: "85€ / pilote",
+    priceValue: 85,
     reservation: true,
   },
   {
@@ -78,6 +82,7 @@ export const RACES: Operation[] = [
       "Podium & classement Apex Timing",
     ],
     price: "48€ / pilote",
+    priceValue: 48,
     reservation: true,
   },
   {
@@ -88,7 +93,7 @@ export const RACES: Operation[] = [
     summary: "Une vraie course pour les 7-15 ans : essais, grille de départ et podium.",
     details: [
       "Le dimanche, la piste appartient à la relève : une vraie course réservée aux enfants, avec essais, grille de départ, drapeau à damier et podium — comme les grands, chrono Apex Timing compris.",
-      "Format et déroulé détaillés à l'inscription, par téléphone.",
+      "Format et déroulé détaillés à l'inscription, par téléphone ou par e-mail.",
     ],
     facts: [
       "Dès 7 ans et 1,30 m — Kart Enfant 160cc",
@@ -133,20 +138,22 @@ export const DEALS: Operation[] = [
   },
   {
     slug: "pack-decouverte",
-    kicker: "Le dimanche, avec coaching",
+    kicker: "Tous les dimanches, avec coaching",
     name: "Pack Découverte",
     accent: "chalk",
     summary: "3 sessions + coaching privé par un moniteur : la progression 390cc → RX250.",
     details: [
       "L'expérience qui fait vraiment progresser : entre vos sessions, un moniteur vous coache en privé — trajectoires, freinage, points de corde, positionnement sur la piste — pour améliorer vos chronos, mesurables sur Apex Timing.",
       "La progression : une première session de 8 min en 390cc, une deuxième en 390cc pour appliquer les conseils, et une troisième en RX250 16 CV pour passer le cap.",
+      "Proposé tous les dimanches jusqu'en décembre, en parallèle des sessions classiques — le circuit reste ouvert à tous.",
     ],
     facts: [
       "3 sessions de 8 min : 390cc → 390cc → RX250 16 CV",
       "Coaching privé offert par un moniteur",
-      "Le dimanche — dates communiquées sur place",
+      "Tous les dimanches, jusqu'en décembre",
     ],
     price: "49€",
+    priceValue: 49,
     priceNote: "au lieu de 76€ — coaching offert",
     reservation: true,
   },
@@ -191,16 +198,17 @@ export const AGENDA: AgendaItem[] = [
     status: "confirme",
     note: "Tous les jours pendant les vacances de la Toussaint",
   },
-  { date: "2026-11-01", op: "plein-gaz", label: "Trophée Plein Gaz", status: "confirme" },
-  { date: "2026-11-08", op: "course-enfant", label: "Course Enfant", status: "a-confirmer" },
-  { date: "2026-11-21", op: "women-cup", label: "Women Cup", status: "confirme" },
   {
-    date: "2026-12-06",
-    label: "Course adulte",
-    status: "a-confirmer",
-    note: "Format en cours de calage",
+    date: "2026-10-31",
+    label: "Nocturne Halloween",
+    status: "confirme",
+    note: "Ouvert de 14 h à minuit — sessions sans réservation",
   },
-  { date: "2026-12-13", op: "course-enfant", label: "Course Enfant", status: "a-confirmer" },
+  { date: "2026-11-01", op: "plein-gaz", label: "Trophée Plein Gaz", status: "confirme" },
+  { date: "2026-11-08", op: "course-enfant", label: "Course Enfant", status: "confirme" },
+  { date: "2026-11-21", op: "women-cup", label: "Women Cup", status: "confirme" },
+  { date: "2026-12-06", op: "100-tours", label: "Les 100 Tours", status: "confirme" },
+  { date: "2026-12-13", op: "course-enfant", label: "Course Enfant", status: "confirme" },
   {
     date: "2026-12-19",
     endDate: "2026-12-31",
@@ -253,6 +261,10 @@ const FERIES: Record<string, string> = {
 const A_VOLONTE_FROM = "2026-09-16";
 const A_VOLONTE_TO = "2026-12-30";
 
+/** Pack Découverte : tous les dimanches jusqu'en décembre (mail client, 02/09/2026). */
+const PACK_FROM = "2026-09-06";
+const PACK_TO = "2026-12-27";
+
 /**
  * Jours d'ouverture hors saison : tous les jours, 14 h – 19 h, conformément
  * à la fiche Google du circuit (septembre 2026). Si le client annonce des
@@ -272,7 +284,9 @@ export type CalendarDay = {
   aVolonte: boolean;
   promo: boolean;
   ferie?: string;
-  event?: { label: string; op?: string; toConfirm: boolean };
+  event?: { label: string; op?: string; toConfirm: boolean; note?: string };
+  /** Pack Découverte (coaching) proposé ce jour — tous les dimanches jusqu'en décembre. */
+  packDecouverte: boolean;
 };
 
 export type CalendarMonth = {
@@ -292,7 +306,12 @@ export function buildCalendar(): CalendarMonth[] {
   const events = new Map(
     AGENDA.filter((a) => !a.endDate).map((a) => [
       a.date,
-      { label: a.label ?? getOperation(a.op ?? "")?.name ?? "", op: a.op, toConfirm: a.status === "a-confirmer" },
+      {
+        label: a.label ?? getOperation(a.op ?? "")?.name ?? "",
+        op: a.op,
+        toConfirm: a.status === "a-confirmer",
+        note: a.note,
+      },
     ])
   );
   const promoRanges = AGENDA.filter((a) => a.endDate).map(
@@ -323,6 +342,7 @@ export function buildCalendar(): CalendarMonth[] {
           (vacances || weekdayIdx === 3 || weekdayIdx === 4),
         ferie: FERIES[iso],
         event,
+        packDecouverte: weekdayIdx === 6 && iso >= PACK_FROM && iso <= PACK_TO,
       });
     }
     return { year, month, name: MONTHS_FULL[month - 1], leading: days[0].weekdayIdx, days };

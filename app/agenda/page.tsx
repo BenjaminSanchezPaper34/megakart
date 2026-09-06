@@ -3,10 +3,30 @@ import Marquee from "@/components/Marquee";
 import MonthPlanner from "@/components/MonthPlanner";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd, agendaJsonLd } from "@/lib/jsonld";
-import { RACES, DEALS, AGENDA, SHOW_PROMOS, formatDate, type Operation } from "@/lib/agenda";
+import {
+  RACES,
+  DEALS,
+  AGENDA,
+  SHOW_PROMOS,
+  getOperation,
+  formatDate,
+  type Operation,
+} from "@/lib/agenda";
 
 /* Les promos datées attendent le feu vert du client (voir SHOW_PROMOS). */
 const VISIBLE_DEALS = DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1");
+
+/* Événements JSON-LD : uniquement les dates confirmées à jour unique. */
+const JSONLD_EVENTS = AGENDA.filter((a) => a.status === "confirme" && !a.endDate).map((a) => {
+  const op = a.op ? getOperation(a.op) : undefined;
+  return {
+    date: a.date,
+    name: a.label ?? op?.name ?? "",
+    slug: a.op,
+    description: op ? `${op.summary} ${op.facts.join(" · ")}.` : (a.note ?? ""),
+    price: op?.priceValue,
+  };
+});
 
 export const metadata: Metadata = {
   title: "Agenda — courses, trophées & offres de fin d'année 2026",
@@ -43,39 +63,7 @@ export default function AgendaPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
             breadcrumbJsonLd([{ name: "Agenda", path: "/agenda" }]),
-            agendaJsonLd([
-              {
-                date: "2026-10-04",
-                name: "Les 100 Tours",
-                slug: "100-tours",
-                description:
-                  "Course d'endurance par équipes de 3 pilotes : 20 min d'essais et qualifications, puis 100 tours de course. 59€ par pilote, soit 177€ l'équipe.",
-                price: 59,
-              },
-              {
-                date: "2026-10-11",
-                name: "Course Enfant",
-                slug: "course-enfant",
-                description:
-                  "Course réservée aux enfants dès 7 ans (1,30 m minimum) : essais, grille de départ, drapeau à damier et podium. Inscription par téléphone.",
-              },
-              {
-                date: "2026-11-01",
-                name: "Trophée Plein Gaz",
-                slug: "plein-gaz",
-                description:
-                  "8 min d'essais, 8 min de qualifications, course de 12 tours et finale de 10 minutes. À gagner : un baptême en voiture Vortex. 85€ par pilote.",
-                price: 85,
-              },
-              {
-                date: "2026-11-21",
-                name: "Women Cup",
-                slug: "women-cup",
-                description:
-                  "Course réservée aux femmes : 6 min d'essais, 6 min de qualifications et course de 14 tours. 48€ par pilote.",
-                price: 48,
-              },
-            ]),
+            agendaJsonLd(JSONLD_EVENTS),
           ]),
         }}
       />
@@ -93,7 +81,7 @@ export default function AgendaPage() {
             Endurance, trophées, courses enfants, roulage à volonté et bons
             plans : l&rsquo;automne et l&rsquo;hiver sont la vraie saison
             des pilotes. Toutes les dates sont ici — les courses se réservent
-            par téléphone.
+            par téléphone ou par e-mail.
           </p>
         </div>
       </section>
@@ -136,6 +124,14 @@ export default function AgendaPage() {
             <a href={SITE.phoneHref} className="link-under font-semibold text-chalk">
               {SITE.phone}
             </a>
+            {SITE.email && (
+              <>
+                {" "}ou par e-mail à{" "}
+                <a href={`mailto:${SITE.email}`} className="link-under font-semibold text-chalk">
+                  {SITE.email}
+                </a>
+              </>
+            )}
             .
           </p>
         </div>
@@ -199,9 +195,16 @@ export default function AgendaPage() {
                       )}
                     </p>
                   )}
-                  <a href={SITE.phoneHref} data-reveal className="btn btn-race mt-7">
-                    Réserver · {SITE.phone}
-                  </a>
+                  <div data-reveal className="mt-7 flex flex-wrap gap-4">
+                    <a href={SITE.phoneHref} className="btn btn-race">
+                      Réserver · {SITE.phone}
+                    </a>
+                    {SITE.email && (
+                      <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
+                        Réserver par e-mail
+                      </a>
+                    )}
+                  </div>
                 </div>
                 <ul data-stagger className="flex flex-col gap-4">
                   {race.facts.map((fact) => (
@@ -283,13 +286,18 @@ export default function AgendaPage() {
             Une date vous parle ?
           </h2>
           <p data-reveal className="mx-auto mt-5 max-w-md text-lg text-chalk-60">
-            Les courses et le Pack Découverte se réservent par téléphone —
-            le roulage à volonté, c&rsquo;est sans réservation.
+            Les courses et le Pack Découverte se réservent par téléphone ou par
+            e-mail — le roulage à volonté, c&rsquo;est sans réservation.
           </p>
-          <div data-reveal className="mt-9">
+          <div data-reveal className="mt-9 flex flex-wrap justify-center gap-4">
             <a href={SITE.phoneHref} className="btn btn-race glow-race text-lg">
               {SITE.phone}
             </a>
+            {SITE.email && (
+              <a href={`mailto:${SITE.email}`} className="btn btn-ghost text-lg">
+                Écrire au circuit
+              </a>
+            )}
           </div>
         </div>
       </section>

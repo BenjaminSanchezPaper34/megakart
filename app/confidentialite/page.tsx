@@ -36,7 +36,8 @@ export default function ConfidentialitePage() {
               </li>
               <li>
                 · Aucun formulaire ne collecte vos données : le contact se
-                fait par téléphone.
+                fait par téléphone ou par e-mail (les messages reçus servent
+                uniquement à traiter votre demande).
               </li>
               <li>
                 · Le seul service tiers (carte Google Maps) ne se charge
@@ -51,7 +52,7 @@ export default function ConfidentialitePage() {
             </h2>
             <p>
               {SITE.legalName} — {SITE.address.street}, {SITE.address.zip}{" "}
-              {SITE.address.city}, France. Téléphone : {SITE.phone}.
+              {SITE.address.city}, France. Téléphone : {SITE.phone}. E-mail : {SITE.email}.
             </p>
           </div>
 

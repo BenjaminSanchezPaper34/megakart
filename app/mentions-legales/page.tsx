@@ -41,7 +41,10 @@ export default function MentionsLegalesPage() {
               <br />
               {SITE.address.street}, {SITE.address.zip} {SITE.address.city}, France
               <br />
-              Téléphone : {SITE.phone}
+              Téléphone : {SITE.phone} — E-mail :{" "}
+              <a href={`mailto:${SITE.email}`} className="link-under text-chalk">
+                {SITE.email}
+              </a>
             </p>
             <p className="mt-2">
               Directeur de la publication : [nom du dirigeant à confirmer]

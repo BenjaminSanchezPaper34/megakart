@@ -13,6 +13,11 @@ export type OpenStatus = {
  *  - hors saison : tous les jours, 14 h – 19 h (horaires déclarés sur Google)
  */
 const SUMMER_DETAIL = "En saison : tous les jours, 10 h – minuit trente, non-stop.";
+
+/** Ouvertures exceptionnelles hors saison (closes = 24 pour minuit). */
+const EXCEPTIONS: Record<string, { opens: number; closes: number; label: string }> = {
+  "2026-10-31": { opens: 14, closes: 24, label: "Nocturne Halloween" },
+};
 const OFFSEASON_DETAIL = "Hors saison : tous les jours, 14 h – 19 h.";
 
 export function getOpenStatus(now: Date = new Date()): OpenStatus {
@@ -30,6 +35,18 @@ export function getOpenStatus(now: Date = new Date()): OpenStatus {
       season: "summer",
       label: open ? "Ouvert actuellement" : "Ouvre à 10 h",
       detail: SUMMER_DETAIL,
+    };
+  }
+
+  const iso = `${now.getFullYear()}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+  const exc = EXCEPTIONS[iso];
+  if (exc) {
+    const open = h >= exc.opens && h < exc.closes;
+    return {
+      open,
+      season: "offseason",
+      label: open ? "Ouvert actuellement" : `Ouvre à ${exc.opens} h`,
+      detail: `${exc.label} : ouvert de ${exc.opens} h à ${exc.closes === 24 ? "minuit" : `${exc.closes} h`}.`,
     };
   }
 

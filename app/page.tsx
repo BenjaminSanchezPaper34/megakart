@@ -18,7 +18,7 @@ const FEATURED_KARTS = ["baby-kart", "kart-enfant", "390cc", "250-rx-30"].map(ge
 /* Les trois grands rendez-vous confirmés de l'agenda, mis en avant sur l'accueil. */
 const HIGHLIGHTS = AGENDA.filter(
   (a) => a.status === "confirme" && a.op && ["100-tours", "plein-gaz", "women-cup"].includes(a.op)
-);
+).slice(0, 3);
 
 const STATS = [
   { value: 1000, suffix: " m", label: "de piste outdoor" },

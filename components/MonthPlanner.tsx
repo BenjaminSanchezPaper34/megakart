@@ -118,6 +118,11 @@ export default function MonthPlanner() {
                     À volonté
                   </span>
                 )}
+                {d.packDecouverte && !d.event && !d.aVolonte && (
+                  <span className="hidden text-xs leading-tight text-chalk-60 md:block">
+                    Pack Découverte
+                  </span>
+                )}
                 {d.promo && !d.event && !d.aVolonte && (
                   <span className="hidden text-xs leading-tight text-chalk-60 md:block">2+1</span>
                 )}
@@ -128,6 +133,9 @@ export default function MonthPlanner() {
                 <span className="flex gap-1 md:hidden" aria-hidden="true">
                   {d.event && <span className="h-1.5 w-1.5 rounded-full bg-race" />}
                   {d.aVolonte && <span className="h-1.5 w-1.5 rounded-full bg-flag" />}
+                  {d.packDecouverte && !d.event && (
+                    <span className="h-1.5 w-1.5 rounded-full bg-chalk/60" />
+                  )}
                   {d.promo && <span className="h-1.5 w-1.5 rounded-full bg-chalk/50" />}
                 </span>
               </button>
@@ -143,6 +151,9 @@ export default function MonthPlanner() {
         </li>
         <li className="flex items-center gap-2">
           <span className="h-3 w-3 bg-flag/60" aria-hidden="true" /> À volonté
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-chalk/60" aria-hidden="true" /> Pack Découverte
         </li>
         <li className="flex items-center gap-2">
           <span className="h-3 w-3 bg-asphalt-3" aria-hidden="true" /> Ouvert
@@ -195,6 +206,7 @@ function DayDetail({ m, d }: { m: CalendarMonth; d: CalendarDay }) {
             )}
           </p>
           {op && <p className="mt-2 text-sm leading-relaxed text-chalk-60">{op.summary}</p>}
+          {d.event.note && <p className="mt-2 text-sm leading-relaxed text-chalk-60">{d.event.note}</p>}
           <div className="mt-4 flex flex-wrap items-center gap-4">
             {op?.price && <span className="display text-2xl text-chalk">{op.price}</span>}
             {op && (
@@ -202,9 +214,16 @@ function DayDetail({ m, d }: { m: CalendarMonth; d: CalendarDay }) {
                 Voir la fiche complète
               </a>
             )}
-            <a href={SITE.phoneHref} className="link-under text-sm font-semibold text-chalk">
-              Réserver · {SITE.phone}
-            </a>
+            {op && (
+              <a href={SITE.phoneHref} className="link-under text-sm font-semibold text-chalk">
+                Réserver · {SITE.phone}
+              </a>
+            )}
+            {op && SITE.email && (
+              <a href={`mailto:${SITE.email}`} className="link-under text-sm font-semibold text-chalk">
+                Réserver par e-mail
+              </a>
+            )}
           </div>
         </>
       ) : d.aVolonte ? (
@@ -229,6 +248,16 @@ function DayDetail({ m, d }: { m: CalendarMonth; d: CalendarDay }) {
       ) : (
         <p className="mt-2 text-base leading-relaxed text-chalk-60">
           Circuit fermé ce jour-là.
+        </p>
+      )}
+      {d.packDecouverte && (
+        <p className="mt-3 text-sm leading-relaxed text-chalk-60">
+          <span className="display text-chalk">Pack Découverte</span> ce dimanche : 3 sessions
+          + coaching privé offert, 49€ au lieu de 76€ —{" "}
+          <a href="#pack-decouverte" className="link-under font-semibold text-chalk">
+            la fiche
+          </a>
+          .
         </p>
       )}
       {d.promo && (

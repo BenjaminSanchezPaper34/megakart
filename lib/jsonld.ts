@@ -12,6 +12,7 @@ export function localBusinessJsonLd() {
       "Circuit de karting outdoor de 1000 m à Vias-plage, homologué FFSA. Location de karts dès 3 ans, compétition, anniversaires et team building.",
     url: SITE_URL,
     telephone: "+33950289591",
+    email: SITE.email,
     image: `${SITE_URL}/images/og.jpg`,
     priceRange: "5€ - 45€",
     currenciesAccepted: "EUR",
