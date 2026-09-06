@@ -85,7 +85,7 @@ function MonthGrid({
               onClick={() => onSelect({ m: month, d })}
               aria-pressed={isSelected}
               aria-label={`${WEEKDAYS_FULL[d.weekdayIdx]} ${d.day} ${month.name}`}
-              className={`relative flex min-h-[4.25rem] flex-col items-start gap-1 border-b border-r border-white/5 p-1.5 text-left transition-colors duration-200 hover:bg-white/5 md:min-h-[5.5rem] md:p-2 ${cellState(d)} ${
+              className={`relative flex flex-col items-start gap-1 border-b border-r border-white/5 p-1.5 text-left transition-colors duration-200 hover:bg-white/5 md:min-h-[5.5rem] md:p-2 ${cellState(d)} ${
                 isSelected ? "ring-2 ring-inset ring-chalk/70" : ""
               }`}
             >
@@ -111,7 +111,7 @@ function MonthGrid({
               </span>
               {/* Horaires : compacts sur mobile (la case porte la couleur de l'offre) */}
               {d.open && d.hours && (
-                <span className="mt-auto whitespace-nowrap text-xs leading-none">
+                <span className="whitespace-nowrap text-xs leading-none md:mt-auto">
                   <span className="md:hidden">{compactHours(d.hours)}</span>
                   <span className="hidden md:inline">{d.hours}</span>
                 </span>
