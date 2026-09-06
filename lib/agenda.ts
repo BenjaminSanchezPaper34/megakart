@@ -134,7 +134,7 @@ export const DEALS: Operation[] = [
     accent: "flag",
     summary: "Un tarif unique, du roulage à volonté toute la journée.",
     details: [
-      "Chaque mercredi, on ne compte plus les sessions : un seul tarif, et vous roulez à volonté selon les conditions de l'opération.",
+      "Chaque mercredi jusqu'en décembre, vacances scolaires comprises, on ne compte plus les sessions : un seul tarif, et vous roulez à volonté selon les conditions de l'opération.",
     ],
     facts: ["29€ en kart enfant", "59€ en 280cc", "69€ en 390cc"],
     price: "dès 29€",
@@ -143,17 +143,17 @@ export const DEALS: Operation[] = [
   },
   {
     slug: "2-plus-1",
-    kicker: "L'offre des vacances",
+    kicker: "Jeudis, vendredis & vacances",
     name: "2 tickets = 1 offert",
     accent: "race",
     summary: "Deux sessions achetées, la troisième offerte — simple, lisible, imbattable.",
     details: [
-      "L'offre est aussi simple que son nom : 2 tickets achetés = le 3e offert. En septembre, elle roule tous les jeudis et vendredis à partir du 10 ; pendant les vacances scolaires de la Toussaint et de Noël, elle est valable tous les jours.",
+      "L'offre est aussi simple que son nom : 2 tickets achetés = le 3e offert. Elle roule tous les jeudis et vendredis, du 10 septembre au 31 décembre — et tous les jours pendant les vacances scolaires de la Toussaint et de Noël.",
     ],
     facts: [
-      "Jeudis & vendredis de septembre, dès le 10",
-      "Vacances de la Toussaint : du 17 au 31 octobre",
-      "Vacances de Noël : du 19 au 31 décembre",
+      "Tous les jeudis et vendredis, du 10 septembre au 31 décembre",
+      "Tous les jours pendant les vacances de la Toussaint (17–31 octobre)",
+      "Tous les jours pendant les vacances de Noël (19–31 décembre)",
     ],
     reservation: false,
   },
@@ -203,22 +203,14 @@ export type AgendaItem = {
 export const AGENDA: AgendaItem[] = [
   {
     date: "2026-09-10",
-    endDate: "2026-09-25",
+    endDate: "2026-12-31",
     op: "2-plus-1",
     label: "2 tickets = 1 offert",
     status: "confirme",
-    note: "Tous les jeudis et vendredis de septembre, dès le 10",
+    note: "Tous les jeudis et vendredis jusqu'au 31 décembre, et tous les jours pendant les vacances scolaires",
   },
   { date: "2026-10-04", op: "100-tours", label: "Les 100 Tours", status: "confirme" },
   { date: "2026-10-11", op: "course-enfant", label: "Course Enfant", status: "confirme" },
-  {
-    date: "2026-10-17",
-    endDate: "2026-10-31",
-    op: "2-plus-1",
-    label: "2 tickets = 1 offert",
-    status: "confirme",
-    note: "Tous les jours pendant les vacances de la Toussaint",
-  },
   {
     date: "2026-10-31",
     label: "Nocturne Halloween",
@@ -231,14 +223,6 @@ export const AGENDA: AgendaItem[] = [
   { date: "2026-12-06", op: "100-tours", label: "Les 100 Tours", status: "confirme" },
   { date: "2026-12-13", op: "course-enfant", label: "Course Enfant", status: "confirme" },
   { date: "2026-12-19", op: "12-heures", label: "Les 12 Heures", status: "confirme" },
-  {
-    date: "2026-12-19",
-    endDate: "2026-12-31",
-    op: "2-plus-1",
-    label: "2 tickets = 1 offert",
-    status: "confirme",
-    note: "Tous les jours pendant les vacances de Noël",
-  },
 ];
 
 /**
