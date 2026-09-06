@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { buildCalendar, getOperation, type CalendarDay, type CalendarMonth } from "@/lib/agenda";
 import { SITE } from "@/lib/site";
 
@@ -18,7 +18,7 @@ const TAG_COLORS = {
 } as const;
 type TagKind = keyof typeof TAG_COLORS;
 
-function Tag({ kind, children }: { kind: TagKind; children: React.ReactNode }) {
+function Tag({ kind, children }: { kind: TagKind; children: ReactNode }) {
   return (
     <span
       className={`display max-w-full truncate px-1.5 py-0.5 text-xs leading-tight tracking-wide ${TAG_COLORS[kind]}`}
