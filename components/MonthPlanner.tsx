@@ -80,15 +80,9 @@ export default function MonthPlanner() {
           {month.days.map((d) => {
             const isSelected = selected?.d.iso === d.iso;
             const isToday = d.iso === todayIso;
-            const state = d.event
-              ? d.event.toConfirm
-                ? "border border-dashed border-race/60 bg-race/10"
-                : "bg-race/20"
-              : d.aVolonte
-                ? "bg-flag/15"
-                : d.open
-                  ? "bg-chalk/[0.09] shadow-[inset_0_0_0_1px_rgb(244_243_239/0.06)]"
-                  : "bg-black/40 text-chalk-60/40";
+            const state = d.open
+              ? "bg-emerald-500/[0.14] shadow-[inset_0_0_0_1px_rgb(52_211_153/0.18)]"
+              : "bg-black/40 text-chalk-60/40";
             return (
               <button
                 key={d.iso}
@@ -102,38 +96,42 @@ export default function MonthPlanner() {
               >
                 <span
                   className={`display text-base leading-none ${
-                    isToday
-                      ? "bg-flag px-1.5 py-0.5 text-asphalt"
-                      : d.event
-                        ? "text-chalk"
-                        : "text-chalk-60"
+                    isToday ? "bg-flag px-1.5 py-0.5 text-asphalt" : d.open ? "text-chalk" : ""
                   }`}
                 >
                   {d.day}
                 </span>
-                {/* Libellés : masqués sur mobile (pastilles à la place) */}
-                {d.event && (
-                  <span className="display hidden text-xs leading-tight text-race md:block">
-                    {d.event.label}
-                    {d.event.toConfirm && " ?"}
-                  </span>
-                )}
-                {!d.event && d.aVolonte && (
-                  <span className="display hidden text-xs leading-tight text-flag md:block">
-                    À volonté
-                  </span>
-                )}
-                {d.packDecouverte && !d.event && !d.aVolonte && (
-                  <span className="hidden text-xs leading-tight text-chalk-60 md:block">
-                    Pack Découverte
-                  </span>
-                )}
-                {d.promo && !d.event && !d.aVolonte && (
-                  <span className="hidden text-xs leading-tight text-chalk-60 md:block">2+1</span>
-                )}
-                {d.ferie && (
-                  <span className="hidden text-xs leading-tight text-chalk-60 md:block">Férié</span>
-                )}
+                {/* Labels (desktop) : ce qui se passe ce jour-là */}
+                <span className="hidden flex-col items-start gap-1 md:flex">
+                  {d.event && (
+                    <span
+                      className={`display max-w-full truncate px-1.5 py-0.5 text-xs leading-tight tracking-wide ${
+                        d.event.toConfirm
+                          ? "border border-dashed border-race text-race"
+                          : "bg-race text-white"
+                      }`}
+                    >
+                      {d.event.label}
+                      {d.event.toConfirm && " ?"}
+                    </span>
+                  )}
+                  {d.aVolonte && (
+                    <span className="display px-1.5 py-0.5 text-xs leading-tight tracking-wide bg-flag text-asphalt">
+                      À volonté
+                    </span>
+                  )}
+                  {d.packDecouverte && !d.event && (
+                    <span className="px-1.5 py-0.5 text-xs leading-tight bg-chalk/15 text-chalk">
+                      Pack Découverte
+                    </span>
+                  )}
+                  {d.promo && !d.event && !d.aVolonte && (
+                    <span className="px-1.5 py-0.5 text-xs leading-tight bg-chalk/15 text-chalk">
+                      2 tickets = 1 offert
+                    </span>
+                  )}
+                  {d.ferie && <span className="text-xs leading-tight text-chalk-60">Férié</span>}
+                </span>
                 {d.open && d.hours && (
                   <span
                     className="mt-auto whitespace-nowrap text-xs leading-none text-chalk"
@@ -158,24 +156,26 @@ export default function MonthPlanner() {
       </div>
 
       {/* Légende */}
-      <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-chalk-60">
+      <ul className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-chalk-60">
         <li className="flex items-center gap-2">
-          <span className="h-3 w-3 bg-race/60" aria-hidden="true" /> Course
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="h-3 w-3 bg-flag/60" aria-hidden="true" /> À volonté
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="h-2.5 w-2.5 rounded-full bg-chalk/60" aria-hidden="true" /> Pack Découverte
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="h-3 w-3 bg-chalk/[0.12]" aria-hidden="true" /> Ouvert (horaires indiqués)
+          <span className="h-3 w-3 bg-emerald-500/40" aria-hidden="true" /> Ouvert (horaires indiqués)
         </li>
         <li className="flex items-center gap-2">
           <span className="h-3 w-3 border border-white/10 bg-black/40" aria-hidden="true" /> Fermé
         </li>
         <li className="flex items-center gap-2">
-          <span className="h-3 w-3 border border-dashed border-race/70" aria-hidden="true" /> À confirmer
+          <span className="display bg-race px-1.5 py-0.5 text-xs text-white">Course</span>
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="display bg-flag px-1.5 py-0.5 text-xs text-asphalt">À volonté</span>
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="bg-chalk/15 px-1.5 py-0.5 text-xs text-chalk">Pack Découverte</span>
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="display border border-dashed border-race px-1.5 py-0.5 text-xs text-race">
+            À confirmer ?
+          </span>
         </li>
       </ul>
 
