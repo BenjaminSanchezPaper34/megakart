@@ -39,9 +39,16 @@ const EVENTS = [
     title: "Entreprises & CE",
     text: [
       "Une activité originale pour créer du lien : sur la piste, l'organigramme disparaît — il ne reste que le chrono. Challenges ludiques pensés pour renforcer l'esprit d'équipe et les moments conviviaux.",
-      "Séminaires, sorties CE, fins de projet : on construit le format avec vous, avec privatisation possible du circuit.",
+      "Séminaires, sorties CE, fins de projet : on construit le format avec vous, du groupe d'une dizaine de personnes à la privatisation complète du circuit pour une soixantaine de participants.",
+      "Chaque équipe dispose de son paddock aménagé avec tables et écran de suivi, et le repas peut être servi sur place — buffet ou formule à table, préparé par notre cuisinière.",
     ],
-    facts: ["Privatisation possible", "Classements par équipe", "À 15 min de Béziers et d'Agde"],
+    facts: [
+      "Privatisation jusqu'à 60 personnes",
+      "Paddock aménagé par équipe, écran de suivi",
+      "Repas ou buffet sur place",
+      "Classements par équipe, chrono Apex Timing",
+      "À 15 min de Béziers et d'Agde",
+    ],
   },
 ];
 

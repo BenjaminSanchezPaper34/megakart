@@ -113,6 +113,9 @@ export default function PistePage() {
               l'écran LED géant. On repart toujours avec un temps à battre —
               le vôtre, ou celui de la table d'à côté.
             </p>
+            <Link href="/live" className="link-under mt-4 inline-block text-base font-semibold text-chalk">
+              Voir le chrono en direct
+            </Link>
           </article>
         </div>
       </section>

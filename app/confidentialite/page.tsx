@@ -40,8 +40,9 @@ export default function ConfidentialitePage() {
                 uniquement à traiter votre demande).
               </li>
               <li>
-                · Le seul service tiers (carte Google Maps) ne se charge
-                qu'après votre accord explicite, au clic.
+                · Les deux services tiers du site (la carte Google Maps et le
+                chrono en direct Apex Timing) ne se chargent qu'après votre
+                accord explicite, au clic.
               </li>
             </ul>
           </div>

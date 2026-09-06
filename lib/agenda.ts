@@ -19,6 +19,8 @@ export type Operation = {
   price?: string;
   /** Prix numérique pour le JSON-LD (Offer). */
   priceValue?: number;
+  /** Page dédiée (quand l'opération en a une). */
+  page?: string;
   priceNote?: string;
   reservation: boolean;
 };
@@ -121,6 +123,7 @@ export const RACES: Operation[] = [
     ],
     price: "1 500€ / équipe",
     priceValue: 1500,
+    page: "/12-heures",
     reservation: true,
   },
 ];

@@ -9,6 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}`, lastModified: LASTMOD, priority: 1 },
     { url: `${SITE_URL}/tarifs`, lastModified: LASTMOD, priority: 0.9 },
     { url: `${SITE_URL}/agenda`, lastModified: LASTMOD, priority: 0.9 },
+    { url: `${SITE_URL}/12-heures`, lastModified: LASTMOD, priority: 0.8 },
+    { url: `${SITE_URL}/live`, lastModified: LASTMOD, priority: 0.7 },
     { url: `${SITE_URL}/la-piste`, lastModified: LASTMOD, priority: 0.8 },
     { url: `${SITE_URL}/anniversaires`, lastModified: LASTMOD, priority: 0.8 },
     { url: `${SITE_URL}/evenements`, lastModified: LASTMOD, priority: 0.8 },

@@ -44,6 +44,16 @@ export default function Footer() {
         <div className="text-sm">
           <h3 className="display mb-3 text-lg text-chalk">Suivre la course</h3>
           <ul className="flex flex-col gap-2">
+            <li>
+              <Link href="/live" className="link-under text-chalk-60 transition-colors hover:text-chalk">
+                Chrono en direct
+              </Link>
+            </li>
+            <li>
+              <Link href="/agenda" className="link-under text-chalk-60 transition-colors hover:text-chalk">
+                Agenda des courses
+              </Link>
+            </li>
             {SOCIALS.map((s) => (
               <li key={s.label}>
                 <a

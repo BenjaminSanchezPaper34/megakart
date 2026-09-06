@@ -33,6 +33,7 @@
 - Homologuée FFSA et Préfecture, catégorie 1.1 (location & compétition)
 - Protections Tecpro (technologie utilisée en Formule 1)
 - Chronométrage Apex Timing, classement en direct sur écran LED géant
+- Live timing public : https://live.apex-timing.com/megakart-vias/ (repris sur /live)
 - Piste éclairée pour les sessions nocturnes d'été
 - Créneaux dédiés aux pilotes licenciés et karts personnels
 
@@ -70,6 +71,9 @@
 ## Pages
 - / : accueil — présentation du circuit, flotte, événements, avis, infos pratiques
 - /tarifs : les 7 karts avec prix et conditions d'accès + sélecteur par âge/taille + FAQ
+- /12-heures : Les 12 Heures de MegaKart, endurance par équipes du samedi 19 décembre 2026
+  avec l'écurie Vortex — format, paddock, inscription (1 500 € l'équipe)
+- /live : chrono en direct du circuit (live timing Apex Timing, chargement au clic)
 - /agenda : le programme de fin d'année 2026 — courses (100 Tours, Trophée Plein Gaz,
   Women Cup, courses enfants) et offres (mercredi à volonté, 2 tickets = 1 offert,
   Pack Découverte coaching), avec toutes les dates

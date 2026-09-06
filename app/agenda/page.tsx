@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Marquee from "@/components/Marquee";
 import MonthPlanner from "@/components/MonthPlanner";
 import { SITE } from "@/lib/site";
@@ -106,7 +107,8 @@ export default function AgendaPage() {
           </h2>
           <p data-reveal className="mt-3 max-w-xl text-base text-chalk-60">
             Ouvert, fermé, à volonté ou jour de course : touchez un jour pour
-            le détail.
+            le détail. Les jours de course, le classement défile en direct sur
+            la page <Link href="/live" className="link-under font-semibold text-chalk">chrono</Link>.
           </p>
           <div data-reveal className="mt-8">
             <MonthPlanner />
@@ -209,6 +211,11 @@ export default function AgendaPage() {
                       <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
                         Réserver par e-mail
                       </a>
+                    )}
+                    {race.page && (
+                      <Link href={race.page} className="btn btn-ghost">
+                        La page de l&rsquo;épreuve
+                      </Link>
                     )}
                   </div>
                 </div>
