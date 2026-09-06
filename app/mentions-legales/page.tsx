@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 /*
- * NOTE INTERNE : les champs entre crochets [À confirmer] doivent être
- * complétés avec les données officielles de la société avant la mise
- * en ligne sur le domaine définitif. Ne jamais publier de données
- * inventées.
+ * NOTE INTERNE : données société transmises par le client le 06/09/2026
+ * (SARL PAINA, Kbis disponible). Reste à ajouter la ville du greffe pour
+ * la mention « RCS <ville> » — voir SITE.company dans lib/site.ts.
+ * Ne jamais publier de données inventées.
  */
 
 export default function MentionsLegalesPage() {
@@ -36,10 +36,14 @@ export default function MentionsLegalesPage() {
           <div>
             <h2 className="display mb-3 text-2xl text-chalk">Éditeur du site</h2>
             <p>
-              {SITE.legalName} — [forme juridique, capital social, SIRET et
-              RCS à confirmer]
+              {SITE.legalName}, {SITE.company.form} au capital de{" "}
+              {SITE.company.capital}, exploitant le circuit MegaKart
               <br />
               {SITE.address.street}, {SITE.address.zip} {SITE.address.city}, France
+              <br />
+              SIREN {SITE.company.siren} — N° TVA intracommunautaire{" "}
+              {SITE.company.vat} — Code NAF {SITE.company.naf} (
+              {SITE.company.nafLabel})
               <br />
               Téléphone : {SITE.phone} — E-mail :{" "}
               <a href={`mailto:${SITE.email}`} className="link-under text-chalk">
@@ -47,7 +51,7 @@ export default function MentionsLegalesPage() {
               </a>
             </p>
             <p className="mt-2">
-              Directeur de la publication : [nom du dirigeant à confirmer]
+              Directeur de la publication : {SITE.company.director}, gérant.
             </p>
           </div>
 

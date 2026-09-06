@@ -8,6 +8,8 @@ export function localBusinessJsonLd() {
     "@type": ["EntertainmentBusiness", "SportsActivityLocation"],
     "@id": `${SITE_URL}/#business`,
     name: SITE.name,
+    legalName: SITE.legalName,
+    vatID: SITE.company.vat,
     description:
       "Circuit de karting outdoor de 1000 m à Vias-plage, homologué FFSA. Location de karts dès 3 ans, compétition, anniversaires et team building.",
     url: SITE_URL,

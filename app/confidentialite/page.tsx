@@ -52,8 +52,10 @@ export default function ConfidentialitePage() {
               Responsable du traitement
             </h2>
             <p>
-              {SITE.legalName} — {SITE.address.street}, {SITE.address.zip}{" "}
-              {SITE.address.city}, France. Téléphone : {SITE.phone}. E-mail : {SITE.email}.
+              {SITE.legalName}, {SITE.company.form} au capital de{" "}
+              {SITE.company.capital} (SIREN {SITE.company.siren}) —{" "}
+              {SITE.address.street}, {SITE.address.zip} {SITE.address.city},
+              France. Téléphone : {SITE.phone}. E-mail : {SITE.email}.
             </p>
           </div>
 
