@@ -7,6 +7,11 @@ import { SITE } from "@/lib/site";
 const WEEKDAYS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
 const WEEKDAYS_FULL = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
 
+/** « 14h – 19h » → « 14–19h », « 14h – minuit » → « 14–0h » (cases mobile). */
+function compactHours(hours: string) {
+  return hours.replace("minuit", "0h").replace(/h\s*–\s*/, "–");
+}
+
 /**
  * « Le mois en piste » — planning mensuel interactif : la transposition
  * du planning mural du circuit. Ouvert / fermé / à volonté / course en
@@ -91,7 +96,7 @@ export default function MonthPlanner() {
                 onClick={() => setSelected({ m: month, d })}
                 aria-pressed={isSelected}
                 aria-label={`${WEEKDAYS_FULL[d.weekdayIdx]} ${d.day} ${month.name}`}
-                className={`relative flex min-h-16 flex-col items-start gap-1 border-b border-r border-white/5 p-1.5 text-left transition-colors duration-200 hover:bg-white/5 md:min-h-[5.5rem] md:p-2 ${state} ${
+                className={`relative flex min-h-[4.75rem] flex-col items-start gap-1 border-b border-r border-white/5 p-1.5 text-left transition-colors duration-200 hover:bg-white/5 md:min-h-[5.5rem] md:p-2 ${state} ${
                   isSelected ? "ring-2 ring-inset ring-chalk/70" : ""
                 }`}
               >
@@ -129,19 +134,22 @@ export default function MonthPlanner() {
                 {d.ferie && (
                   <span className="hidden text-xs leading-tight text-chalk-60 md:block">Férié</span>
                 )}
-                {d.open && (
+                {d.open && d.hours && (
                   <span
-                    className={`mt-auto hidden items-center gap-1.5 text-xs leading-none md:flex ${
+                    className={`mt-auto flex items-center gap-1.5 text-xs leading-none ${
                       d.event ? "text-chalk" : "text-chalk-60"
                     }`}
                   >
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
-                    {d.hours}
+                    <span
+                      className="hidden h-1.5 w-1.5 rounded-full bg-emerald-400 md:block"
+                      aria-hidden="true"
+                    />
+                    <span className="md:hidden">{compactHours(d.hours)}</span>
+                    <span className="hidden md:inline">{d.hours}</span>
                   </span>
                 )}
                 {/* Pastilles mobile */}
                 <span className="flex gap-1 md:hidden" aria-hidden="true">
-                  {d.open && <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />}
                   {d.event && <span className="h-1.5 w-1.5 rounded-full bg-race" />}
                   {d.aVolonte && <span className="h-1.5 w-1.5 rounded-full bg-flag" />}
                   {d.packDecouverte && !d.event && (
