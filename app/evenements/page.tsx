@@ -129,12 +129,15 @@ export default function EvenementsPage() {
             On cale une date ?
           </h2>
           <p data-reveal className="mt-5 text-lg leading-relaxed text-chalk-60">
-            Les événements se préparent par téléphone : nombre de pilotes,
-            format de course, date — en cinq minutes, c'est réglé.
+            Les événements se préparent par téléphone ou par e-mail : nombre
+            de pilotes, format de course, date — en cinq minutes, c'est réglé.
           </p>
-          <div data-reveal className="mt-9">
+          <div data-reveal className="mt-9 flex flex-wrap justify-center gap-4">
             <a href={SITE.phoneHref} className="btn btn-race glow-race text-lg">
               {SITE.phone}
+            </a>
+            <a href={`mailto:${SITE.email}`} className="btn btn-ghost text-lg">
+              {SITE.email}
             </a>
           </div>
         </div>

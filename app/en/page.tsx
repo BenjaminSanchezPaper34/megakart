@@ -149,7 +149,7 @@ export default function EnglishPage() {
             <h2 className="display text-3xl text-chalk">Groups & parties</h2>
             <p className="mt-4 text-base leading-relaxed text-chalk-60">
               Birthdays, stag &amp; hen parties, team building: private race
-              formats from 7 people, by phone reservation only.
+              formats from 7 people, booked by phone or e-mail.
             </p>
             <a href={SITE.phoneHref} className="link-under mt-3 inline-block text-base font-semibold text-chalk">
               Call {SITE.phone}

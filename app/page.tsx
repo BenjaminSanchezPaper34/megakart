@@ -96,6 +96,7 @@ export default function HomePage() {
           "1000 m de piste",
           "Homologué FFSA",
           "Chrono Apex Timing",
+          "Courses & bons plans à l'agenda",
         ]}
       />
 
@@ -319,6 +320,9 @@ export default function HomePage() {
           </Link>
           <Link href="/evenements" className="btn btn-ghost">
             EVG, EVJF &amp; entreprises
+          </Link>
+          <Link href="/agenda" className="btn btn-ghost">
+            Les courses de l&rsquo;agenda
           </Link>
         </div>
       </section>

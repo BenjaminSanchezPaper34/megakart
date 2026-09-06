@@ -19,7 +19,7 @@ const FAQ = [
   },
   {
     q: "Combien d'enfants minimum pour un anniversaire karting ?",
-    a: "Les anniversaires se réservent à partir de 7 participants. Appelez le 09 50 28 95 91 pour construire la formule (nombre de sessions, format course ou endurance).",
+    a: "Les anniversaires se réservent à partir de 7 participants. Appelez le 09 50 28 95 91 ou écrivez à contact@megakart.info pour construire la formule (nombre de sessions, format course ou endurance).",
   },
   {
     q: "Peut-on apporter le gâteau et les boissons ?",
@@ -144,12 +144,15 @@ export default function AnniversairesPage() {
             On réserve la date ?
           </h2>
           <p data-reveal className="mt-5 text-lg leading-relaxed text-chalk-60">
-            Un coup de fil suffit : date, nombre de pilotes, format —
-            et l'anniversaire est sur la grille.
+            Un coup de fil ou un e-mail suffit : date, nombre de pilotes,
+            format — et l'anniversaire est sur la grille.
           </p>
           <div data-reveal className="mt-9 flex flex-wrap justify-center gap-4">
             <a href={SITE.phoneHref} className="btn btn-race glow-race text-lg">
               {SITE.phone}
+            </a>
+            <a href={`mailto:${SITE.email}`} className="btn btn-ghost text-lg">
+              {SITE.email}
             </a>
             <Link href="/evenements" className="btn btn-ghost text-lg">
               EVG, EVJF &amp; entreprises

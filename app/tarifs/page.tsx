@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: "Faut-il réserver pour faire du karting chez MegaKart ?",
-    a: "Non, les sessions se font sans réservation : vous venez, vous choisissez votre kart et vous roulez. Seuls les événements (anniversaires, EVG/EVJF, entreprises) se réservent à l'avance.",
+    a: "Non, les sessions se font sans réservation : vous venez, vous choisissez votre kart et vous roulez. Se réservent à l'avance, par téléphone ou e-mail : les courses de l'agenda (100 Tours, trophées, courses enfants, 12 Heures), le Pack Découverte du dimanche et les événements privés (anniversaires, EVG/EVJF, entreprises).",
   },
   {
     q: "À partir de quel âge peut-on piloter ?",
