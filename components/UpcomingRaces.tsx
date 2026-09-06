@@ -47,39 +47,41 @@ export default function UpcomingRaces() {
       {/* Le prochain rendez-vous */}
       <Link
         href={`/agenda#${next.op}`}
-        className="card group relative mt-12 flex flex-wrap items-center gap-x-8 gap-y-5 overflow-hidden p-6 transition-transform duration-300 hover:-translate-y-1 md:p-8"
+        className="card group relative mt-12 block overflow-hidden p-6 transition-transform duration-300 hover:-translate-y-1 md:p-8"
       >
         <span aria-hidden="true" className="absolute left-0 top-0 h-full w-1 bg-race" />
-        <div className="[filter:drop-shadow(0_12px_12px_rgb(0_0_0/0.4))]">
-          <div className="clip-race flex h-24 w-32 shrink-0 flex-col items-center justify-center bg-race text-white">
-            <span className="display text-5xl leading-none">{nextDate.day}</span>
-            <span className="mt-1 text-xs font-semibold uppercase tracking-widest">
-              {nextDate.month}
-            </span>
-          </div>
-        </div>
-        <div className="min-w-0 flex-1">
-          <p className="display text-base text-flag">
-            Prochain rendez-vous
-            {countdown !== null && countdown > 0 && (
-              <span className="text-chalk-60">
-                {" · "}
-                {countdown === 1 ? "demain" : `dans ${countdown} jours`}
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
+          <div className="[filter:drop-shadow(0_12px_12px_rgb(0_0_0/0.4))]">
+            <div className="clip-race flex h-20 w-28 shrink-0 flex-col items-center justify-center bg-race text-white md:h-24 md:w-32">
+              <span className="display text-4xl leading-none md:text-5xl">{nextDate.day}</span>
+              <span className="mt-1 text-xs font-semibold uppercase tracking-widest">
+                {nextDate.month}
               </span>
-            )}
-            {countdown === 0 && <span className="text-chalk-60"> · aujourd&rsquo;hui</span>}
-          </p>
-          <h3 className="display mt-1 text-[clamp(1.8rem,3.5vw,2.6rem)] text-chalk transition-colors duration-300 group-hover:text-race">
-            {next.label}
-          </h3>
-          {nextOp && (
-            <p className="mt-2 max-w-xl text-base leading-relaxed text-chalk-60">
-              {nextOp.summary}
+            </div>
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="display text-base text-flag">
+              Prochain rendez-vous
+              {countdown !== null && countdown > 0 && (
+                <span className="text-chalk-60">
+                  {" · "}
+                  {countdown === 1 ? "demain" : `dans ${countdown} jours`}
+                </span>
+              )}
+              {countdown === 0 && <span className="text-chalk-60"> · aujourd&rsquo;hui</span>}
             </p>
+            <h3 className="display mt-1 text-[clamp(1.8rem,3.5vw,2.6rem)] leading-none text-chalk transition-colors duration-300 group-hover:text-race">
+              {next.label}
+            </h3>
+          </div>
+          {nextOp?.price && (
+            <p className="display shrink-0 text-3xl text-chalk">{nextOp.price}</p>
           )}
         </div>
-        {nextOp?.price && (
-          <p className="display shrink-0 text-3xl text-chalk">{nextOp.price}</p>
+        {nextOp && (
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-chalk-60">
+            {nextOp.summary}
+          </p>
         )}
       </Link>
 
