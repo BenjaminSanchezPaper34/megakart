@@ -89,6 +89,7 @@ export default function AgendaPage() {
       <Marquee
         items={[
           "Mercredi à volonté",
+          ...(SHOW_PROMOS ? ["2 tickets = 1 offert"] : []),
           "Les 100 Tours",
           "Trophée Plein Gaz",
           "Women Cup",

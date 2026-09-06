@@ -148,10 +148,10 @@ export const DEALS: Operation[] = [
     accent: "race",
     summary: "Deux sessions achetées, la troisième offerte — simple, lisible, imbattable.",
     details: [
-      "L'offre est aussi simple que son nom : 2 tickets achetés = le 3e offert. En septembre, elle roule tous les jeudis et vendredis ; pendant les vacances scolaires de la Toussaint et de Noël, elle est valable tous les jours.",
+      "L'offre est aussi simple que son nom : 2 tickets achetés = le 3e offert. En septembre, elle roule tous les jeudis et vendredis à partir du 10 ; pendant les vacances scolaires de la Toussaint et de Noël, elle est valable tous les jours.",
     ],
     facts: [
-      "Jeudis & vendredis de septembre",
+      "Jeudis & vendredis de septembre, dès le 10",
       "Vacances de la Toussaint : du 17 au 31 octobre",
       "Vacances de Noël : du 19 au 31 décembre",
     ],
@@ -202,12 +202,12 @@ export type AgendaItem = {
 /** Les temps forts datés, ordre chronologique. */
 export const AGENDA: AgendaItem[] = [
   {
-    date: "2026-09-03",
+    date: "2026-09-10",
     endDate: "2026-09-25",
     op: "2-plus-1",
     label: "2 tickets = 1 offert",
     status: "confirme",
-    note: "Tous les jeudis et vendredis de septembre",
+    note: "Tous les jeudis et vendredis de septembre, dès le 10",
   },
   { date: "2026-10-04", op: "100-tours", label: "Les 100 Tours", status: "confirme" },
   { date: "2026-10-11", op: "course-enfant", label: "Course Enfant", status: "confirme" },
@@ -242,11 +242,11 @@ export const AGENDA: AgendaItem[] = [
 ];
 
 /**
- * Les promos datées (2 tickets = 1 offert) restent masquées tant que le
- * client n'a pas validé leur annonce publique — risque que la clientèle
- * décale sa venue vers les jours les moins chers. Passer à true après accord.
+ * Affichage des promos datées (2 tickets = 1 offert). Activé le 06/09/2026
+ * après la réunion client du 03/09 (le gérant veut les mettre en avant).
+ * Repasser à false pour tout masquer d'un coup si besoin.
  */
-export const SHOW_PROMOS = false;
+export const SHOW_PROMOS = true;
 
 const MONTHS_SHORT = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
 const MONTHS_FULL = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
@@ -286,7 +286,7 @@ const SPECIAL_HOURS: Record<string, string> = {
 };
 
 /** Mercredis à volonté relevés sur le planning mural du client. */
-const A_VOLONTE_FROM = "2026-09-16";
+const A_VOLONTE_FROM = "2026-09-09";
 const A_VOLONTE_TO = "2026-12-30";
 
 /** Pack Découverte : tous les dimanches jusqu'en décembre (mail client, 02/09/2026). */
