@@ -129,8 +129,19 @@ export default function MonthPlanner() {
                 {d.ferie && (
                   <span className="hidden text-xs leading-tight text-chalk-60 md:block">Férié</span>
                 )}
+                {d.open && (
+                  <span
+                    className={`mt-auto hidden items-center gap-1.5 text-xs leading-none md:flex ${
+                      d.event ? "text-chalk" : "text-chalk-60"
+                    }`}
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
+                    {d.hours}
+                  </span>
+                )}
                 {/* Pastilles mobile */}
                 <span className="flex gap-1 md:hidden" aria-hidden="true">
+                  {d.open && <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />}
                   {d.event && <span className="h-1.5 w-1.5 rounded-full bg-race" />}
                   {d.aVolonte && <span className="h-1.5 w-1.5 rounded-full bg-flag" />}
                   {d.packDecouverte && !d.event && (
@@ -156,7 +167,8 @@ export default function MonthPlanner() {
           <span className="h-2.5 w-2.5 rounded-full bg-chalk/60" aria-hidden="true" /> Pack Découverte
         </li>
         <li className="flex items-center gap-2">
-          <span className="h-3 w-3 bg-asphalt-3" aria-hidden="true" /> Ouvert
+          <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" aria-hidden="true" /> Ouvert
+          (horaires indiqués)
         </li>
         <li className="flex items-center gap-2">
           <span className="h-3 w-3 border border-white/15 opacity-40" aria-hidden="true" /> Fermé
@@ -238,7 +250,7 @@ function DayDetail({ m, d }: { m: CalendarMonth; d: CalendarDay }) {
         </>
       ) : d.open ? (
         <p className="mt-2 text-base leading-relaxed text-chalk-60">
-          Circuit ouvert de 14 h à 19 h{d.vacances ? " (vacances scolaires)" : ""} —
+          Circuit ouvert {d.hours}{d.vacances ? " (vacances scolaires)" : ""} —
           sessions sans réservation. Une question ?{" "}
           <a href={SITE.phoneHref} className="link-under font-semibold text-chalk">
             {SITE.phone}

@@ -257,6 +257,12 @@ const FERIES: Record<string, string> = {
   "2026-12-25": "Noël",
 };
 
+/** Horaires hors saison (fiche Google) et exceptions datées. */
+const DEFAULT_HOURS = "14h – 19h";
+const SPECIAL_HOURS: Record<string, string> = {
+  "2026-10-31": "14h – minuit",
+};
+
 /** Mercredis à volonté relevés sur le planning mural du client. */
 const A_VOLONTE_FROM = "2026-09-16";
 const A_VOLONTE_TO = "2026-12-30";
@@ -280,6 +286,8 @@ export type CalendarDay = {
   /** 0 = lundi … 6 = dimanche */
   weekdayIdx: number;
   open: boolean;
+  /** Horaires du jour, affichés dans la case (ex. « 14h – 19h »). */
+  hours?: string;
   vacances: boolean;
   aVolonte: boolean;
   promo: boolean;
@@ -328,11 +336,13 @@ export function buildCalendar(): CalendarMonth[] {
       const vacances = VACANCES.some((r) => inRange(iso, r));
       const event = events.get(iso);
       const aVolonte = weekdayIdx === 2 && iso >= A_VOLONTE_FROM && iso <= A_VOLONTE_TO;
+      const open = isOpen() || Boolean(event) || aVolonte;
       days.push({
         iso,
         day,
         weekdayIdx,
-        open: isOpen() || Boolean(event) || aVolonte,
+        open,
+        hours: open ? (SPECIAL_HOURS[iso] ?? DEFAULT_HOURS) : undefined,
         vacances,
         aVolonte,
         // En septembre la promo ne court que jeudi/vendredi ; en vacances, tous les jours.
