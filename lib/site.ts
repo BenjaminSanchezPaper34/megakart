@@ -6,9 +6,9 @@
  */
 export const PRE_PROD = true;
 
-// URL de pré-prod ("megakart.vercel.app" est pris par un autre projet).
-// À remplacer par le domaine définitif au moment de la bascule.
-export const SITE_URL = "https://megakart-kohl.vercel.app";
+// Domaine définitif (acheté et branché le 09/09/2026). Le site y répond
+// déjà, mais reste en noindex tant que PRE_PROD vaut true.
+export const SITE_URL = "https://megakart.fr";
 
 export const SITE = {
   name: "MegaKart",
