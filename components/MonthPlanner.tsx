@@ -111,7 +111,7 @@ function MonthGrid({
                   </Tag>
                 )}
                 {d.aVolonte && <Tag kind="volonte">À volonté</Tag>}
-                {d.packDecouverte && !d.event && <Tag kind="pack">Pack Découverte</Tag>}
+                {d.packDecouverte && <Tag kind="pack">Pack Découverte</Tag>}
                 {d.promo && !d.event && !d.aVolonte && <Tag kind="promo">2 tickets = 1 offert</Tag>}
                 {d.ferie && <Tag kind="ferie">Férié</Tag>}
               </span>
@@ -323,7 +323,8 @@ function DayDetail({ m, d }: { m: CalendarMonth; d: CalendarDay }) {
       )}
       {d.packDecouverte && (
         <p className="mt-3 text-sm leading-relaxed text-chalk-60">
-          <span className="display text-chalk">Pack Découverte</span> ce dimanche : 3 sessions
+          <span className="display text-chalk">Pack Découverte</span>{" "}
+          {op?.endsAt ? `dans la foulée (course terminée à ${op.endsAt})` : "ce dimanche"} : 3 sessions
           + coaching privé offert, 49€ au lieu de 76€ —{" "}
           <a href="#pack-decouverte" className="link-under font-semibold text-chalk">
             la fiche

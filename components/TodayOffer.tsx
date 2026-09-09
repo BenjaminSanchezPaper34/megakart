@@ -20,11 +20,15 @@ type Highlight = {
 function highlightFor(d: CalendarDay): Highlight | null {
   if (d.event?.op) {
     const op = getOperation(d.event.op);
+    const alsoPack =
+      d.packDecouverte && op?.endsAt
+        ? ` Course terminée à ${op.endsAt} : le Pack Découverte prend le relais l'après-midi.`
+        : "";
     return {
       slug: d.event.op,
       title: d.event.label,
       short: op?.price ?? "Course du jour",
-      detail: op?.summary ?? "",
+      detail: `${op?.summary ?? ""}${alsoPack}`,
       tone: "bg-race text-white",
       cta: "Le détail de la course",
     };

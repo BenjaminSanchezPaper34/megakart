@@ -17,6 +17,8 @@ export type Operation = {
   /** Format, conditions, à gagner… */
   facts: string[];
   price?: string;
+  /** Heure de fin annoncée, quand elle est connue (ex. « 15h30 »). */
+  endsAt?: string;
   /** Prix numérique pour le JSON-LD (Offer). */
   priceValue?: number;
   /** Page dédiée (quand l'opération en a une). */
@@ -36,14 +38,17 @@ export const RACES: Operation[] = [
     details: [
       "Le format le plus long de l'année : par équipes de 3 pilotes, vous vous relayez sur 100 tours de circuit. Gestion du trafic, régularité, choix des relais — c'est une vraie course d'endurance, chronométrée au dixième par Apex Timing.",
       "20 minutes d'essais et de qualifications pour installer la grille, puis départ lancé pour 100 tours. Le classement défile en direct sur l'écran géant.",
+      "La course est terminée à 15h30 : l'après-midi reste ouvert, et le Pack Découverte du dimanche s'enchaîne pour ceux qui veulent prolonger avec un moniteur.",
     ],
     facts: [
       "Équipes de 3 pilotes",
       "20 min essais + qualifications",
       "Course de 100 tours en relais",
+      "Terminé à 15h30 — Pack Découverte possible ensuite",
       "Classement live Apex Timing",
     ],
     price: "59€ / pilote",
+    endsAt: "15h30",
     priceValue: 59,
     priceNote: "soit 177€ l'équipe de 3",
     reservation: true,
@@ -162,19 +167,19 @@ export const DEALS: Operation[] = [
   },
   {
     slug: "pack-decouverte",
-    kicker: "Tous les dimanches, avec coaching",
+    kicker: "Le dimanche, avec coaching",
     name: "Pack Découverte",
     accent: "chalk",
     summary: "3 sessions + coaching privé par un moniteur : la progression 390cc → RX250.",
     details: [
       "L'expérience qui fait vraiment progresser : entre vos sessions, un moniteur vous coache en privé — trajectoires, freinage, points de corde, positionnement sur la piste — pour améliorer vos chronos, mesurables sur Apex Timing.",
       "La progression : une première session de 8 min en 390cc, une deuxième en 390cc pour appliquer les conseils, et une troisième en RX250 16 CV pour passer le cap.",
-      "Proposé tous les dimanches jusqu'en décembre, en parallèle des sessions classiques — le circuit reste ouvert à tous.",
+      "Proposé les dimanches hors vacances scolaires, jusqu'en décembre, en parallèle des sessions classiques — le circuit reste ouvert à tous. Pendant les vacances, c'est l'offre 2 tickets = 1 offert qui prend le relais.",
     ],
     facts: [
       "3 sessions de 8 min : 390cc → 390cc → RX250 16 CV",
       "Coaching privé offert par un moniteur",
-      "Tous les dimanches, jusqu'en décembre",
+      "Les dimanches hors vacances scolaires, jusqu'en décembre",
     ],
     price: "49€",
     priceValue: 49,
@@ -276,7 +281,7 @@ const SPECIAL_HOURS: Record<string, string> = {
 const A_VOLONTE_FROM = "2026-09-09";
 const A_VOLONTE_TO = "2026-12-30";
 
-/** Pack Découverte : tous les dimanches jusqu'en décembre (mail client, 02/09/2026). */
+/** Pack Découverte : les dimanches hors vacances scolaires, jusqu'en décembre. */
 const PACK_FROM = "2026-09-06";
 const PACK_TO = "2026-12-27";
 
@@ -357,11 +362,14 @@ export function buildCalendar(): CalendarMonth[] {
         // En septembre la promo ne court que jeudi/vendredi ; en vacances, tous les jours.
         promo:
           SHOW_PROMOS &&
+          !event &&
           promoRanges.some((r) => inRange(iso, r)) &&
           (vacances || weekdayIdx === 3 || weekdayIdx === 4),
         ferie: FERIES[iso],
         event,
-        packDecouverte: weekdayIdx === 6 && iso >= PACK_FROM && iso <= PACK_TO,
+        // Le dimanche, hors vacances scolaires : pendant les vacances, c'est le 2+1 qui court.
+        packDecouverte:
+          weekdayIdx === 6 && !vacances && iso >= PACK_FROM && iso <= PACK_TO,
       });
     }
     return { year, month, name: MONTHS_FULL[month - 1], leading: days[0].weekdayIdx, days };
