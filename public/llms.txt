@@ -79,7 +79,8 @@
 - /agenda : le programme de fin d'année 2026 — courses (100 Tours, Trophée Plein Gaz,
   Women Cup, courses enfants) et offres (mercredi à volonté, 2 tickets = 1 offert,
   Pack Découverte coaching), avec toutes les dates
-- /la-piste : caractéristiques techniques, sécurité, chrono, histoire depuis 1992
+- /la-piste : caractéristiques techniques, sécurité, chrono, et la frise historique du circuit
+  (1992 création, 2012 agrandissement et passage en compétition catégorie 1.1, 2023 reprise par Lucas PAINA)
 - /anniversaires : anniversaires enfants sur circuit — déroulé, FAQ parents, dès 7 participants
 - /evenements : EVG/EVJF, team building entreprise, privatisation
 - /photos : photos & vidéos — réels verticaux du circuit, galerie (sessions jour et nocturnes, Baby Kart, vues aériennes)
@@ -92,4 +93,4 @@
 - YouTube : https://www.youtube.com/channel/UC-r14_i1pUWRY6-i0VbkI_g
 - TripAdvisor : https://www.tripadvisor.fr/Attraction_Review-g1080326-d8621170-Reviews-MegaKart-Vias_Herault_Occitanie.html
 
-Dernière mise à jour : 2026-09-01
+Dernière mise à jour : 2026-09-10

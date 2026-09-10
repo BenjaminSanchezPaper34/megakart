@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import TrackMap from "@/components/TrackMap";
 import Marquee from "@/components/Marquee";
+import Histoire from "@/components/Histoire";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 
@@ -120,42 +121,32 @@ export default function PistePage() {
         </div>
       </section>
 
-      {/* Histoire + compétition */}
-      <section className="bg-asphalt-2 py-16 md:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
-          <div>
-            <h2 data-reveal className="display text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
-              Depuis 1992,
-              <br />
-              <span className="display-outline">et toujours plus vite.</span>
-            </h2>
-            <p data-reveal className="mt-6 text-base leading-relaxed text-chalk-60">
-              Né en 1992 comme circuit de location, MegaKart s'est
-              considérablement agrandi en 2012 pour passer en catégorie 1.1 :
-              le circuit accueille désormais la compétition, avec des créneaux
-              dédiés aux pilotes licenciés et à leurs karts personnels.
-            </p>
-            <p data-reveal className="mt-4 text-base leading-relaxed text-chalk-60">
-              Amateurs d'un soir ou chasseurs de chronos, tout le monde
-              partage le même asphalte — chacun sur son créneau.
-            </p>
-            <div data-reveal className="mt-8 flex flex-wrap gap-4">
-              <Link href="/tarifs" className="btn btn-race">
-                Voir les karts
-              </Link>
-              <a href={SITE.phoneHref} className="btn btn-ghost">
-                Créneaux compétition
-              </a>
-            </div>
-          </div>
-          <div data-reveal className="relative aspect-[3/4] overflow-hidden">
-            <Image
-              src="/images/piste-aerial.jpg"
-              alt="Vue aérienne complète du circuit MegaKart et de la zone de loisirs de Vias-plage"
-              fill
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
-            />
+      {/* Histoire — frise + archives familiales */}
+      <section id="histoire" className="scroll-mt-28 bg-asphalt-2 py-16 md:py-24">
+        <div className="mx-auto max-w-5xl px-5 md:px-8">
+          <p data-reveal className="display text-lg text-flag">
+            Trente-quatre ans de piste
+          </p>
+          <h2 data-reveal className="display mt-1 text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
+            Depuis 1992,
+            <br />
+            <span className="display-outline">et toujours plus vite.</span>
+          </h2>
+          <p data-reveal className="mt-6 max-w-2xl text-base leading-relaxed text-chalk-60">
+            Le circuit a vu passer trois décennies de pilotes, des premiers
+            tours de roue en famille aux chronos de compétition. Voici son
+            histoire, année après année.
+          </p>
+
+          <Histoire />
+
+          <div data-reveal className="mt-14 flex flex-wrap gap-4">
+            <Link href="/tarifs" className="btn btn-race">
+              Voir les karts
+            </Link>
+            <a href={SITE.phoneHref} className="btn btn-ghost">
+              Créneaux compétition
+            </a>
           </div>
         </div>
       </section>
