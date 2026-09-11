@@ -1,13 +1,12 @@
 /**
  * Configuration centrale du site.
- * PRE_PROD : true = noindex + robots disallow (URL technique vercel.app).
- * À passer à false au moment de la bascule sur le domaine définitif,
- * en même temps que SITE_URL.
+ * PRE_PROD : true = noindex + robots disallow. Repasser à true couperait
+ * l'indexation de tout le site d'un coup — ne jamais le faire sans raison.
+ * Site ouvert aux moteurs le 11/09/2026.
  */
-export const PRE_PROD = true;
+export const PRE_PROD = false;
 
-// Domaine définitif (acheté et branché le 09/09/2026). Le site y répond
-// déjà, mais reste en noindex tant que PRE_PROD vaut true.
+// Domaine définitif (acheté et branché le 09/09/2026).
 export const SITE_URL = "https://megakart.fr";
 
 export const SITE = {
