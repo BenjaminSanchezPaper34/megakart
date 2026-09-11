@@ -4,15 +4,31 @@ import { useEffect, useRef } from "react";
 import { SITE } from "@/lib/site";
 
 /*
- * Avis Google authentiques, relevés sur la fiche Google Maps de MegaKart
- * le 25/08/2026 (note fiche : 4,5/5 · 1 227 avis). Ne jamais inventer
+ * Avis Google authentiques, relevés sur la fiche Google de MegaKart
+ * (premier relevé 25/08/2026, complété le 11/09/2026 — note fiche :
+ * 4,5/5 · 1 237 avis). Ne jamais inventer
  * d'avis — pour en ajouter, les copier depuis la fiche avec auteur et
  * date, du plus récent au plus ancien. Les textes tronqués par Google
  * sont coupés à la dernière phrase complète.
  */
-const GOOGLE_RATING = { score: "4,5", count: "1 227" };
+const GOOGLE_RATING = { score: "4,5", count: "1 237" };
 
 const REVIEWS = [
+  {
+    author: "Loann",
+    when: "septembre 2026",
+    text: "Piste top avec de bons virages et lignes droites, sessions vraiment agréables. Le personnel est adorable, prend le temps d'expliquer et nous a même offert des boissons. Accueil au top, je recommande sans hésiter !",
+  },
+  {
+    author: "Marius D.",
+    when: "septembre 2026",
+    text: "Tout a répondu à mes attentes, excellent équipement de sécurité avec un harnais de casque spécial, du jamais vu en location de karting !",
+  },
+  {
+    author: "E.",
+    when: "août 2026",
+    text: "Nous avons emmené les enfants faire du karting et nous en avons été ravis. Les karts pour enfants sont vraiment bon marché : seulement 13 € pour 8 minutes de pilotage.",
+  },
   {
     author: "Amira B.",
     when: "août 2026",
