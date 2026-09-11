@@ -47,6 +47,7 @@ export default function UpcomingRaces() {
       {/* Le prochain rendez-vous */}
       <Link
         href={`/agenda#${next.op}`}
+        data-track="prochain-rendez-vous"
         className="card group relative mt-12 block overflow-hidden p-6 transition-transform duration-300 hover:-translate-y-1 md:p-8"
       >
         <span aria-hidden="true" className="absolute left-0 top-0 h-full w-1 bg-race" />

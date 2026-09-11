@@ -53,7 +53,8 @@ export default function PhotosPage() {
               "@type": "CollectionPage",
               "@id": `${SITE_URL}/photos`,
               name: "Photos du circuit MegaKart",
-              isPartOf: { "@id": `${SITE_URL}/#business` },
+              isPartOf: { "@id": `${SITE_URL}/#website` },
+              about: { "@id": `${SITE_URL}/#business` },
               mainEntity: {
                 "@type": "ItemList",
                 itemListElement: PHOTOS.map((p, i) => ({

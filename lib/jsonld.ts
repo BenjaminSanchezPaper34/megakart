@@ -91,6 +91,24 @@ export function localBusinessJsonLd() {
   };
 }
 
+/**
+ * WebSite — rattache toutes les pages à une entité nommée unique.
+ * C'est ce nœud que les moteurs (et les IA) utilisent pour comprendre
+ * que « MegaKart », « MEGA KART » et megakart.fr désignent la même chose.
+ */
+export function webSiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: SITE.name,
+    alternateName: [SITE.company.tradeName, "MegaKart Vias", "Karting Vias"],
+    inLanguage: "fr-FR",
+    publisher: { "@id": `${SITE_URL}/#business` },
+  };
+}
+
 /** BreadcrumbList pour les pages intérieures. */
 export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   return {

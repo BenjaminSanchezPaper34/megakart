@@ -47,7 +47,7 @@ export default function LiveTiming() {
           )
         )}
       </ul>
-      <button type="button" onClick={() => setConsented(true)} className="btn btn-race">
+      <button type="button" data-track="live-timing" onClick={() => setConsented(true)} className="btn btn-race">
         Afficher le chrono en direct
       </button>
       <p className="max-w-sm text-xs leading-relaxed text-chalk-60/80">

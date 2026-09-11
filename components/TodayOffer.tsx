@@ -106,6 +106,7 @@ export default function TodayOffer() {
     <Link
       href={`/agenda#${shown.slug}`}
       aria-label={`${when} : ${shown.title}. Voir le détail`}
+      data-track="offre-du-jour"
       className={`group block ${shown.tone}`}
     >
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-5 py-3 md:gap-6 md:px-8 md:py-4">

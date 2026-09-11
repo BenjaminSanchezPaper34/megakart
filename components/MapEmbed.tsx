@@ -36,7 +36,7 @@ export default function MapEmbed() {
         </p>
         <p className="mt-1 text-sm text-chalk-60">{SITE.landmark}</p>
       </div>
-      <button type="button" onClick={() => setConsented(true)} className="btn btn-ghost text-sm">
+      <button type="button" data-track="carte" onClick={() => setConsented(true)} className="btn btn-ghost text-sm">
         Autoriser et afficher la carte Google Maps
       </button>
       <p className="max-w-sm text-xs leading-relaxed text-chalk-60/80">

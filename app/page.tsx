@@ -13,7 +13,7 @@ import TodayOffer from "@/components/TodayOffer";
 import { DEALS, SHOW_PROMOS } from "@/lib/agenda";
 import { KARTS, getKart } from "@/lib/karts";
 import { SITE } from "@/lib/site";
-import { localBusinessJsonLd } from "@/lib/jsonld";
+import { localBusinessJsonLd, webSiteJsonLd } from "@/lib/jsonld";
 
 const FEATURED_KARTS = ["baby-kart", "kart-enfant", "390cc", "250-rx-30"].map(getKart);
 
@@ -30,7 +30,9 @@ export default function HomePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd()) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([localBusinessJsonLd(), webSiteJsonLd()]),
+        }}
       />
 
       {/* ========== HERO ========== */}

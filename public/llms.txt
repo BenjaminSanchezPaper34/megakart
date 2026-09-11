@@ -6,6 +6,7 @@
 > Fondé en 1992, agrandi et ouvert à la compétition (catégorie 1.1) en 2012.
 
 ## Coordonnées
+- Site officiel : https://megakart.fr
 - Adresse : 301 Voie Communale du Tricot et des Tots, 34450 Vias, France
 - Société exploitante : PAINA (SARL à associé unique), 499 989 978 R.C.S. Béziers, enseigne MEGA KART
 - Téléphone : 09 50 28 95 91
@@ -86,6 +87,36 @@
 - /photos : photos & vidéos — réels verticaux du circuit, galerie (sessions jour et nocturnes, Baby Kart, vues aériennes)
 - /contact : adresse, horaires, accès, réseaux sociaux
 - /en : English summary — prices, opening hours, directions (tourist-friendly)
+- /mentions-legales : éditeur du site (SARL PAINA), hébergeur, propriété intellectuelle
+- /confidentialite : données, mesure d'audience sans cookie, services tiers chargés au clic
+
+## Questions fréquentes
+- Faut-il réserver ? Non pour les sessions classiques : on vient, on choisit son kart, on roule.
+  Se réservent à l'avance (téléphone ou e-mail) : les courses de l'agenda, le Pack Découverte
+  du dimanche et les événements privés (anniversaires, EVG/EVJF, entreprises).
+- À partir de quel âge ? Dès 3 ans en Baby Kart électrique sur piste dédiée, dès 5 ans en biplace
+  avec un adulte, dès 7 ans et 1,30 m en kart enfant 160cc, dès 14 ans et 1,60 m en 280cc.
+- Combien coûte une session ? De 5 € (Baby Kart, 5 min) à 45 € (250 RX 30 cv, 8 min).
+  Le kart adulte 280cc est à 17 € et le 390cc à 22 € les 8 minutes.
+- Quels horaires ? Tous les jours 14 h – 19 h hors saison, 10 h – minuit trente de mi-juin à fin août.
+  Fermé en janvier et février, réouverture le 1er mars.
+- Où est le circuit ? 301 Voie Communale du Tricot et des Tots, 34450 Vias, entre Fabrikus World
+  et Europark Indoor, à 10 min d'Agde et 20 min de Béziers. Parking gratuit.
+- Que faut-il apporter ? Rien : le casque est fourni. Chaussures fermées obligatoires,
+  vêtements flottants (écharpes, foulards) interdits. Paiement CB, espèces ou chèques-vacances.
+- Peut-on fêter un anniversaire ? Oui, dès 7 participants, sur réservation au 09 50 28 95 91 :
+  course à son nom, chrono sur écran géant, podium, terrasse ombragée pour le gâteau.
+- Le circuit est-il ouvert à la compétition ? Oui : homologué FFSA catégorie 1.1 depuis 2012,
+  avec des créneaux réservés aux pilotes licenciés et à leurs karts personnels.
+- Peut-on suivre les chronos à distance ? Oui, le live timing Apex Timing est public :
+  https://live.apex-timing.com/megakart-vias/ (repris sur megakart.fr/live).
+
+## Histoire
+- 1992 : ouverture du circuit de location à Vias-plage
+- 2007 : immatriculation de la société exploitante PAINA (R.C.S. Béziers)
+- 2012 : agrandissement et homologation en catégorie 1.1 (location et compétition)
+- 2023 : reprise de l'exploitation par Lucas PAINA (précédent exploitant : Michel PAINA)
+- Frise détaillée : https://megakart.fr/la-piste#histoire
 
 ## Réseaux sociaux
 - Instagram : https://www.instagram.com/karting_megakart/
@@ -93,4 +124,4 @@
 - YouTube : https://www.youtube.com/channel/UC-r14_i1pUWRY6-i0VbkI_g
 - TripAdvisor : https://www.tripadvisor.fr/Attraction_Review-g1080326-d8621170-Reviews-MegaKart-Vias_Herault_Occitanie.html
 
-Dernière mise à jour : 2026-09-10
+Dernière mise à jour : 2026-09-11

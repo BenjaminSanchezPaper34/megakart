@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import FX from "@/components/FX";
+import Mesure from "@/components/Mesure";
 import { PRE_PROD, SITE_URL } from "@/lib/site";
 
 const barlow = Barlow_Condensed({
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   robots: PRE_PROD ? { index: false, follow: false } : { index: true, follow: true },
   alternates: {
     canonical: "/",
-    languages: { fr: "/", en: "/en" },
+    languages: { fr: "/", en: "/en", "x-default": "/" },
   },
   openGraph: {
     type: "website",
@@ -44,6 +45,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+  },
+  verification: {
+    other: {
+      // Balise du compte Bing Webmaster Tools de Paper34 : identique sur
+      // tous les sites du studio, elle sert à valider la propriété du site
+      // (AddSite / VerifySite par API, sans navigateur).
+      "msvalidate.01": "C6F5FF577D8503325D28E00606FC0D7C",
+    },
   },
   formatDetection: { telephone: true },
 };
@@ -64,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main>{children}</main>
         <Footer />
+        <Mesure />
       </body>
     </html>
   );

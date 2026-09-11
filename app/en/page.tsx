@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "MegaKart: 1000 m outdoor go-kart circuit in Vias-Plage (Hérault, South of France), next to the campsites, between Fabrikus and Europark Indoor. No booking needed, karts from age 3, open daily 10 am – 12:30 am in summer.",
   alternates: {
     canonical: "/en",
-    languages: { fr: "/", en: "/en" },
+    languages: { fr: "/", en: "/en", "x-default": "/" },
   },
 };
 
@@ -41,7 +41,8 @@ export default function EnglishPage() {
             "@id": `${SITE_URL}/en`,
             inLanguage: "en",
             name: "Go-Karting in Vias-Plage — MegaKart",
-            isPartOf: { "@id": `${SITE_URL}/#business` },
+            isPartOf: { "@id": `${SITE_URL}/#website` },
+            about: { "@id": `${SITE_URL}/#business` },
           }),
         }}
       />
