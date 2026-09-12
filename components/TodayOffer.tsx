@@ -113,8 +113,11 @@ export default function TodayOffer() {
         <span className="checker-sm hidden h-5 w-10 shrink-0 opacity-30 sm:block" aria-hidden="true" />
 
         <div className="min-w-0 flex-1">
-          <p className="display text-[0.7rem] uppercase tracking-widest opacity-80 md:text-xs">
-            {when}
+          {/* La date en étiquette pleine : c'est l'info qui décide si on vient. */}
+          <p className="mb-1.5">
+            <span className="display inline-block border-2 border-current px-2.5 py-0.5 text-sm uppercase tracking-wide md:text-base">
+              {when}
+            </span>
           </p>
           <p className="display truncate text-xl leading-tight md:text-2xl lg:text-3xl">
             {shown.title}
