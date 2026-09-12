@@ -25,6 +25,8 @@ export type Operation = {
   page?: string;
   priceNote?: string;
   reservation: boolean;
+  /** Formulaire d'inscription en ligne (quand l'opération en a un). */
+  signup?: string;
 };
 
 /** Les courses & trophées — chacun a son univers, ancre = slug. */
@@ -52,6 +54,7 @@ export const RACES: Operation[] = [
     priceValue: 59,
     priceNote: "soit 177€ l'équipe de 3",
     reservation: true,
+    signup: "/inscription/100-tours",
   },
   {
     slug: "plein-gaz",

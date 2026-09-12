@@ -42,9 +42,10 @@ export default function ConfidentialitePage() {
                 personnes.
               </li>
               <li>
-                · Aucun formulaire ne collecte vos données : le contact se
-                fait par téléphone ou par e-mail (les messages reçus servent
-                uniquement à traiter votre demande).
+                · Un seul formulaire : l'inscription des équipes aux courses.
+                Ce que vous y saisissez part par e-mail au circuit, pour
+                traiter votre inscription — et rien d'autre. Le reste du
+                contact se fait par téléphone ou par e-mail.
               </li>
               <li>
                 · Les deux services tiers du site (la carte Google Maps et le
@@ -72,9 +73,10 @@ export default function ConfidentialitePage() {
             </h2>
             <p>
               La navigation sur ce site ne fait l'objet d'aucune collecte de
-              données personnelles nominatives : aucun compte, aucun
-              formulaire, aucun profil. Seules des statistiques anonymes sont
-              établies (voir « Mesure d'audience » ci-dessous).
+              données personnelles nominatives : aucun compte, aucun profil.
+              Seules des statistiques anonymes sont établies (voir « Mesure
+              d'audience » ci-dessous). Le formulaire d'inscription aux
+              courses est décrit dans sa propre rubrique.
               L'hébergeur (Vercel Inc.)
               traite des journaux techniques (adresse IP, horodatage)
               nécessaires à la fourniture du service et à sa sécurité, sur la
@@ -83,6 +85,34 @@ export default function ConfidentialitePage() {
             <p className="mt-2">
               Si vous nous appelez, votre numéro peut s'afficher ; il n'est
               enregistré dans aucun fichier commercial.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="display mb-3 text-2xl text-chalk">
+              Inscription aux courses (formulaire)
+            </h2>
+            <p>
+              Le formulaire{" "}
+              <Link href="/inscription/100-tours" className="link-under text-chalk">
+                d&rsquo;inscription aux 100 Tours
+              </Link>{" "}
+              recueille : la date choisie, le nom de l&rsquo;équipe, le nom, le
+              téléphone et l&rsquo;e-mail du capitaine, le nom des deux autres
+              pilotes, et, si vous les renseignez, votre niveau d&rsquo;expérience et
+              un message. Ces données servent uniquement à enregistrer votre
+              équipe et à vous recontacter pour confirmer la place — base légale :
+              les mesures précontractuelles que vous demandez.
+            </p>
+            <p className="mt-2">
+              Elles sont transmises par e-mail au circuit ({SITE.email}) et
+              un accusé de réception vous est envoyé. L&rsquo;acheminement de ces
+              e-mails est assuré par <strong className="text-chalk">Resend Inc.</strong>,
+              sous-traitant dont les serveurs utilisés sont situés dans l&rsquo;Union
+              européenne (Irlande). Le site ne conserve aucune copie ; le circuit
+              garde vos coordonnées le temps d&rsquo;organiser la course et au plus
+              douze mois après celle-ci, puis les supprime. Elles ne sont ni
+              cédées, ni utilisées pour de la prospection.
             </p>
           </div>
 

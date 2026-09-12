@@ -204,13 +204,31 @@ export default function AgendaPage() {
                     </p>
                   )}
                   <div data-reveal className="mt-7 flex flex-wrap gap-4">
-                    <a href={SITE.phoneHref} className="btn btn-race">
-                      Réserver · {SITE.phone}
-                    </a>
-                    {SITE.email && (
-                      <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
-                        Réserver par e-mail
-                      </a>
+                    {race.signup ? (
+                      <>
+                        {/* Inscription en ligne : le téléphone passe en second. */}
+                        <Link
+                          href={race.signup}
+                          data-track="inscription-ouverture"
+                          className="btn btn-race glow-race"
+                        >
+                          Inscrire mon équipe
+                        </Link>
+                        <a href={SITE.phoneHref} className="btn btn-ghost">
+                          {SITE.phone}
+                        </a>
+                      </>
+                    ) : (
+                      <>
+                        <a href={SITE.phoneHref} className="btn btn-race">
+                          Réserver · {SITE.phone}
+                        </a>
+                        {SITE.email && (
+                          <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
+                            Réserver par e-mail
+                          </a>
+                        )}
+                      </>
                     )}
                     {race.page && (
                       <Link href={race.page} className="btn btn-ghost">

@@ -47,6 +47,7 @@
 ## Agenda fin d'année 2026 (courses sur réservation par téléphone ou e-mail)
 - Les 100 Tours : dimanches 4 octobre et 6 décembre — endurance par équipes de 3 pilotes,
   20 min essais/qualifications + 100 tours de course, 59 €/pilote (177 € l'équipe).
+  Inscription en ligne : https://megakart.fr/inscription/100-tours (le circuit confirme la place).
   Course terminée à 15 h 30 : le Pack Découverte du dimanche s'enchaîne l'après-midi
 - Course Enfant : dimanches 11 octobre, 8 novembre et 13 décembre — dès 7 ans et 1,30 m,
   3 manches de 8 minutes, podium
@@ -65,7 +66,7 @@
   mercredis compris : pendant les vacances, une seule offre par jour, le 2+1
 - Pack Découverte : les dimanches hors vacances scolaires, jusqu'en décembre — 3 sessions de 8 min
   (390cc, 390cc, RX250 16 CV) avec coaching privé offert par un moniteur, 49 € au lieu de 76 €
-- Réservation des courses et du Pack Découverte : par téléphone ou par e-mail
+- Réservation des courses et du Pack Découverte : par téléphone ou par e-mail ; les 100 Tours aussi en ligne
 
 ## Événements (sur réservation, dès 7 participants)
 - Anniversaires : courses et défis sur mesure, terrasse ombragée, tables de pique-nique
@@ -78,6 +79,7 @@
 - /12-heures : Les 12 Heures de MegaKart, endurance par équipes du samedi 19 décembre 2026
   avec l'écurie Vortex — format, paddock, inscription (1 500 € l'équipe)
 - /live : chrono en direct du circuit (live timing Apex Timing, chargement au clic)
+- /inscription/100-tours : formulaire d'inscription d'une équipe de 3 pilotes aux 100 Tours
 - /agenda : le programme de fin d'année 2026 — courses (100 Tours, Trophée Plein Gaz,
   Women Cup, courses enfants) et offres (mercredi à volonté, 2 tickets = 1 offert,
   Pack Découverte coaching), avec toutes les dates
