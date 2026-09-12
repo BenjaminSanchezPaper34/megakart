@@ -44,32 +44,37 @@ export default function UpcomingRaces() {
 
   return (
     <>
-      {/* Le prochain rendez-vous — une carte, pas un lien : quand la course
-          a une inscription en ligne, le bouton principal y mène, et le titre
-          garde le chemin vers la fiche de l'agenda. */}
-      <article className="card relative mt-12 overflow-hidden p-6 md:p-8">
+      {/* Le prochain rendez-vous — pensé pour le pouce d'abord : une ligne
+          d'en-tête, la date en toutes lettres, le titre pleine largeur, un
+          bouton pleine largeur. La tuile rouge et le prix en colonne ne
+          reviennent qu'à partir de la tablette, où la place existe. */}
+      <article className="card relative mt-10 overflow-hidden p-5 sm:p-6 md:mt-12 md:p-8">
         <span aria-hidden="true" className="absolute left-0 top-0 h-full w-1 bg-race" />
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
-          <div className="[filter:drop-shadow(0_12px_12px_rgb(0_0_0/0.4))]">
-            <div className="clip-race flex h-20 w-28 shrink-0 flex-col items-center justify-center bg-race text-white md:h-24 md:w-32">
-              <span className="display text-4xl leading-none md:text-5xl">{nextDate.day}</span>
-              <span className="mt-1 text-xs font-semibold uppercase tracking-widest">
-                {nextDate.month}
-              </span>
+
+        <div className="flex items-center justify-between gap-3">
+          <p className="display text-sm text-flag sm:text-base">Prochain rendez-vous</p>
+          {countdown !== null && countdown >= 0 && (
+            <p className="display shrink-0 border border-white/20 px-2 py-0.5 text-xs uppercase tracking-wide text-chalk-60 sm:text-sm">
+              {countdown === 0 ? "Aujourd\u2019hui" : countdown === 1 ? "Demain" : `Dans ${countdown} jours`}
+            </p>
+          )}
+        </div>
+
+        <div className="mt-4 md:flex md:items-center md:gap-8">
+          {/* Tuile date : tablette et plus */}
+          <div className="hidden md:block md:[filter:drop-shadow(0_12px_12px_rgb(0_0_0/0.4))]">
+            <div className="clip-race flex h-24 w-32 shrink-0 flex-col items-center justify-center bg-race text-white">
+              <span className="display text-5xl leading-none">{nextDate.day}</span>
+              <span className="mt-1 text-xs font-semibold uppercase tracking-widest">{nextDate.month}</span>
             </div>
           </div>
+
           <div className="min-w-0 flex-1">
-            <p className="display text-base text-flag">
-              Prochain rendez-vous
-              {countdown !== null && countdown > 0 && (
-                <span className="text-chalk-60">
-                  {" · "}
-                  {countdown === 1 ? "demain" : `dans ${countdown} jours`}
-                </span>
-              )}
-              {countdown === 0 && <span className="text-chalk-60"> · aujourd&rsquo;hui</span>}
+            {/* Date en toutes lettres : mobile seulement */}
+            <p className="display text-xl text-race md:hidden">
+              {nextDate.weekday.charAt(0).toUpperCase() + nextDate.weekday.slice(1)} {nextDate.day} {nextDate.month}
             </p>
-            <h3 className="display mt-1 text-[clamp(1.8rem,3.5vw,2.6rem)] leading-none text-chalk">
+            <h3 className="display mt-1 text-[clamp(2.1rem,9vw,2.8rem)] leading-none text-chalk md:mt-0">
               <Link
                 href={`/agenda#${next.op}`}
                 data-track="prochain-rendez-vous"
@@ -78,27 +83,42 @@ export default function UpcomingRaces() {
                 {next.label}
               </Link>
             </h3>
+            {nextOp?.price && (
+              <p className="display mt-2 text-xl text-chalk md:hidden">
+                {nextOp.price}
+                {nextOp.priceNote && <span className="text-chalk-60"> · {nextOp.priceNote}</span>}
+              </p>
+            )}
+            {nextOp && (
+              <p className="mt-3 max-w-2xl text-base leading-relaxed text-chalk-60">{nextOp.summary}</p>
+            )}
           </div>
+
           {nextOp?.price && (
-            <p className="display shrink-0 text-3xl text-chalk">{nextOp.price}</p>
+            <p className="display hidden shrink-0 text-right text-3xl text-chalk md:block">
+              {nextOp.price}
+              {nextOp.priceNote && (
+                <span className="mt-1 block text-sm font-normal text-chalk-60">{nextOp.priceNote}</span>
+              )}
+            </p>
           )}
         </div>
-        {nextOp && (
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-chalk-60">
-            {nextOp.summary}
-          </p>
-        )}
-        <div className="mt-6 flex flex-wrap items-center gap-4">
+
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
           {nextOp?.signup ? (
-            <Link href={nextOp.signup} data-track="inscription-ouverture" className="btn btn-race glow-race">
+            <Link
+              href={nextOp.signup}
+              data-track="inscription-ouverture"
+              className="btn btn-race glow-race w-full justify-center sm:w-auto"
+            >
               Inscrire mon équipe
             </Link>
           ) : (
-            <Link href={`/agenda#${next.op}`} className="btn btn-race">
+            <Link href={`/agenda#${next.op}`} className="btn btn-race w-full justify-center sm:w-auto">
               Voir la course
             </Link>
           )}
-          <Link href={`/agenda#${next.op}`} className="link-under text-base font-semibold text-chalk">
+          <Link href={`/agenda#${next.op}`} className="link-under self-start text-base font-semibold text-chalk">
             Le détail dans l&rsquo;agenda
           </Link>
         </div>
