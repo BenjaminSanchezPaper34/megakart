@@ -137,14 +137,20 @@ export const RACES: Operation[] = [
 export const DEALS: Operation[] = [
   {
     slug: "mercredi-a-volonte",
-    kicker: "Tous les mercredis",
+    kicker: "Les mercredis hors vacances",
     name: "Mercredi à volonté",
     accent: "flag",
     summary: "Un tarif unique, du roulage à volonté toute la journée.",
     details: [
-      "Chaque mercredi jusqu'en décembre, vacances scolaires comprises, on ne compte plus les sessions : un seul tarif, et vous roulez à volonté selon les conditions de l'opération.",
+      "Chaque mercredi hors vacances scolaires, jusqu'en décembre, on ne compte plus les sessions : un seul tarif, et vous roulez à volonté selon les conditions de l'opération.",
+      "Pendant les vacances de la Toussaint et de Noël, c'est l'offre 2 tickets = 1 offert qui prend le relais, tous les jours.",
     ],
-    facts: ["29€ en kart enfant", "59€ en 280cc", "69€ en 390cc"],
+    facts: [
+      "29€ en kart enfant",
+      "59€ en 280cc",
+      "69€ en 390cc",
+      "Hors vacances scolaires",
+    ],
     price: "dès 29€",
     priceNote: "roulage à volonté, selon conditions",
     reservation: false,
@@ -156,7 +162,7 @@ export const DEALS: Operation[] = [
     accent: "race",
     summary: "Deux sessions achetées, la troisième offerte — simple, lisible, imbattable.",
     details: [
-      "L'offre est aussi simple que son nom : 2 tickets achetés = le 3e offert. Elle roule tous les jeudis et vendredis, du 17 septembre au 31 décembre — et tous les jours pendant les vacances scolaires de la Toussaint et de Noël.",
+      "L'offre est aussi simple que son nom : 2 tickets achetés = le 3e offert. Elle roule tous les jeudis et vendredis, du 17 septembre au 31 décembre — et tous les jours pendant les vacances scolaires de la Toussaint et de Noël — mercredis compris, puisque le roulage à volonté s'arrête pendant les vacances.",
     ],
     facts: [
       "Tous les jeudis et vendredis, du 17 septembre au 31 décembre",
@@ -285,6 +291,11 @@ const SPECIAL_HOURS: Record<string, string> = {
  */
 const A_VOLONTE_FROM = "2026-09-16";
 const A_VOLONTE_TO = "2026-12-30";
+/**
+ * Une seule opération par jour : pendant les vacances scolaires, le 2+1
+ * couvre tous les jours et le mercredi à volonté s'efface (règle Benjamin,
+ * 12/09/2026). Idem pour le Pack Découverte du dimanche, plus bas.
+ */
 
 /** Pack Découverte : les dimanches hors vacances scolaires, jusqu'en décembre. */
 const PACK_FROM = "2026-09-06";
@@ -354,7 +365,8 @@ export function buildCalendar(): CalendarMonth[] {
       const weekdayIdx = (new Date(Date.UTC(year, month - 1, day)).getUTCDay() + 6) % 7;
       const vacances = VACANCES.some((r) => inRange(iso, r));
       const event = events.get(iso);
-      const aVolonte = weekdayIdx === 2 && iso >= A_VOLONTE_FROM && iso <= A_VOLONTE_TO;
+      const aVolonte =
+        weekdayIdx === 2 && !vacances && iso >= A_VOLONTE_FROM && iso <= A_VOLONTE_TO;
       const open = isOpen() || Boolean(event) || aVolonte;
       days.push({
         iso,
@@ -364,7 +376,7 @@ export function buildCalendar(): CalendarMonth[] {
         hours: open ? (SPECIAL_HOURS[iso] ?? DEFAULT_HOURS) : undefined,
         vacances,
         aVolonte,
-        // En septembre la promo ne court que jeudi/vendredi ; en vacances, tous les jours.
+        // Hors vacances, la promo ne court que jeudi/vendredi ; en vacances, tous les jours.
         promo:
           SHOW_PROMOS &&
           !event &&
