@@ -123,6 +123,65 @@ export default function HomePage() {
         </dl>
       </section>
 
+      {/* ========== AGENDA (temps forts de fin d'année) ========== */}
+      <section className="bg-asphalt-2 py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
+              Cet automne,
+              <br />
+              <span className="text-race">on court.</span>
+            </h2>
+            <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60">
+              Endurance, trophées, courses enfants, roulage à volonté :
+              le programme de fin d&rsquo;année est en piste.
+            </p>
+          </div>
+
+          <UpcomingRaces />
+
+          <div data-reveal className="mt-10 flex flex-wrap gap-4">
+            <Link href="/agenda" className="btn btn-race">
+              Tout l&rsquo;agenda de fin d&rsquo;année
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <div className="kerb" aria-hidden="true" />
+
+      {/* ========== FLOTTE ========== */}
+      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
+            Une flotte pour
+            <br />
+            <span className="text-race">chaque pilote.</span>
+          </h2>
+          <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60">
+            Du Baby Kart électrique dès 3 ans au 250 RX de compétition :
+            {" "}{KARTS.length} machines, de {KARTS[0].price}€ à {KARTS[KARTS.length - 1].price}€ la session.
+          </p>
+        </div>
+
+        <div data-stagger className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          {FEATURED_KARTS.map((k) => (
+            <KartCard key={k.slug} kart={k} />
+          ))}
+        </div>
+
+        <div data-reveal className="mt-10 flex flex-wrap gap-4">
+          <Link href="/tarifs" className="btn btn-race">
+            Tous les karts &amp; tarifs
+          </Link>
+          <Link href="/tarifs#selecteur" className="btn btn-ghost">
+            Trouve ton kart en 10 s
+          </Link>
+        </div>
+      </section>
+
+      <div className="kerb" aria-hidden="true" />
+
       {/* ========== EXPÉRIENCE (split-screen avec réel plein cadre) ========== */}
       <section className="relative flex flex-col overflow-hidden bg-asphalt-2 lg:grid lg:grid-cols-[1.15fr_1fr] lg:grid-rows-[auto_1fr]">
         {/* Titre */}
@@ -178,65 +237,6 @@ export default function HomePage() {
               )}
             </article>
           ))}
-        </div>
-      </section>
-
-      <div className="kerb" aria-hidden="true" />
-
-      {/* ========== FLOTTE ========== */}
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-            Une flotte pour
-            <br />
-            <span className="text-race">chaque pilote.</span>
-          </h2>
-          <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60">
-            Du Baby Kart électrique dès 3 ans au 250 RX de compétition :
-            {" "}{KARTS.length} machines, de {KARTS[0].price}€ à {KARTS[KARTS.length - 1].price}€ la session.
-          </p>
-        </div>
-
-        <div data-stagger className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-          {FEATURED_KARTS.map((k) => (
-            <KartCard key={k.slug} kart={k} />
-          ))}
-        </div>
-
-        <div data-reveal className="mt-10 flex flex-wrap gap-4">
-          <Link href="/tarifs" className="btn btn-race">
-            Tous les karts &amp; tarifs
-          </Link>
-          <Link href="/tarifs#selecteur" className="btn btn-ghost">
-            Trouve ton kart en 10 s
-          </Link>
-        </div>
-      </section>
-
-      <div className="kerb" aria-hidden="true" />
-
-      {/* ========== AGENDA (temps forts de fin d'année) ========== */}
-      <section className="bg-asphalt-2 py-20 md:py-28">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-              Cet automne,
-              <br />
-              <span className="text-race">on court.</span>
-            </h2>
-            <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60">
-              Endurance, trophées, courses enfants, roulage à volonté :
-              le programme de fin d&rsquo;année est en piste.
-            </p>
-          </div>
-
-          <UpcomingRaces />
-
-          <div data-reveal className="mt-10 flex flex-wrap gap-4">
-            <Link href="/agenda" className="btn btn-race">
-              Tout l&rsquo;agenda de fin d&rsquo;année
-            </Link>
-          </div>
         </div>
       </section>
 
