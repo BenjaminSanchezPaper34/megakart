@@ -156,10 +156,10 @@ export const DEALS: Operation[] = [
     accent: "race",
     summary: "Deux sessions achetées, la troisième offerte — simple, lisible, imbattable.",
     details: [
-      "L'offre est aussi simple que son nom : 2 tickets achetés = le 3e offert. Elle roule tous les jeudis et vendredis, du 10 septembre au 31 décembre — et tous les jours pendant les vacances scolaires de la Toussaint et de Noël.",
+      "L'offre est aussi simple que son nom : 2 tickets achetés = le 3e offert. Elle roule tous les jeudis et vendredis, du 17 septembre au 31 décembre — et tous les jours pendant les vacances scolaires de la Toussaint et de Noël.",
     ],
     facts: [
-      "Tous les jeudis et vendredis, du 10 septembre au 31 décembre",
+      "Tous les jeudis et vendredis, du 17 septembre au 31 décembre",
       "Tous les jours pendant les vacances de la Toussaint (17–31 octobre)",
       "Tous les jours pendant les vacances de Noël (19–31 décembre)",
     ],
@@ -210,7 +210,7 @@ export type AgendaItem = {
 /** Les temps forts datés, ordre chronologique. */
 export const AGENDA: AgendaItem[] = [
   {
-    date: "2026-09-10",
+    date: "2026-09-17",
     endDate: "2026-12-31",
     op: "2-plus-1",
     label: "2 tickets = 1 offert",
@@ -277,8 +277,13 @@ const SPECIAL_HOURS: Record<string, string> = {
   "2026-10-31": "14h – minuit",
 };
 
-/** Mercredis à volonté relevés sur le planning mural du client. */
-const A_VOLONTE_FROM = "2026-09-09";
+/**
+ * Mercredis à volonté relevés sur le planning mural du client.
+ * Le planning annonçait le 9 septembre, mais l'opération n'a pas été tenue
+ * ce jour-là (ni le 2+1 des 10 et 11) : le calendrier part du premier
+ * mercredi réellement couru. Confirmé par le client le 12/09/2026.
+ */
+const A_VOLONTE_FROM = "2026-09-16";
 const A_VOLONTE_TO = "2026-12-30";
 
 /** Pack Découverte : les dimanches hors vacances scolaires, jusqu'en décembre. */
