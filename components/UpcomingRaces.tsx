@@ -44,12 +44,10 @@ export default function UpcomingRaces() {
 
   return (
     <>
-      {/* Le prochain rendez-vous */}
-      <Link
-        href={`/agenda#${next.op}`}
-        data-track="prochain-rendez-vous"
-        className="card group relative mt-12 block overflow-hidden p-6 transition-transform duration-300 hover:-translate-y-1 md:p-8"
-      >
+      {/* Le prochain rendez-vous — une carte, pas un lien : quand la course
+          a une inscription en ligne, le bouton principal y mène, et le titre
+          garde le chemin vers la fiche de l'agenda. */}
+      <article className="card relative mt-12 overflow-hidden p-6 md:p-8">
         <span aria-hidden="true" className="absolute left-0 top-0 h-full w-1 bg-race" />
         <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
           <div className="[filter:drop-shadow(0_12px_12px_rgb(0_0_0/0.4))]">
@@ -71,8 +69,14 @@ export default function UpcomingRaces() {
               )}
               {countdown === 0 && <span className="text-chalk-60"> · aujourd&rsquo;hui</span>}
             </p>
-            <h3 className="display mt-1 text-[clamp(1.8rem,3.5vw,2.6rem)] leading-none text-chalk transition-colors duration-300 group-hover:text-race">
-              {next.label}
+            <h3 className="display mt-1 text-[clamp(1.8rem,3.5vw,2.6rem)] leading-none text-chalk">
+              <Link
+                href={`/agenda#${next.op}`}
+                data-track="prochain-rendez-vous"
+                className="transition-colors duration-300 hover:text-race"
+              >
+                {next.label}
+              </Link>
             </h3>
           </div>
           {nextOp?.price && (
@@ -84,7 +88,21 @@ export default function UpcomingRaces() {
             {nextOp.summary}
           </p>
         )}
-      </Link>
+        <div className="mt-6 flex flex-wrap items-center gap-4">
+          {nextOp?.signup ? (
+            <Link href={nextOp.signup} data-track="inscription-ouverture" className="btn btn-race glow-race">
+              Inscrire mon équipe
+            </Link>
+          ) : (
+            <Link href={`/agenda#${next.op}`} className="btn btn-race">
+              Voir la course
+            </Link>
+          )}
+          <Link href={`/agenda#${next.op}`} className="link-under text-base font-semibold text-chalk">
+            Le détail dans l&rsquo;agenda
+          </Link>
+        </div>
+      </article>
 
       {/* Les suivants */}
       {rest.length > 0 && (
