@@ -26,6 +26,7 @@ const JSONLD_EVENTS = AGENDA.filter((a) => a.status === "confirme" && !a.endDate
     slug: a.op,
     description: op ? `${op.summary} ${op.facts.join(" · ")}.` : (a.note ?? ""),
     price: op?.priceValue,
+    image: a.label === "Nocturne Halloween" ? "galerie-08-nocturne.jpg" : undefined,
   };
 });
 

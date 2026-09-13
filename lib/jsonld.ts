@@ -137,8 +137,18 @@ export function agendaJsonLd(
     slug?: string;
     description: string;
     price?: number;
+    /** Chemin d'image depuis /images (sinon l'OG du site). */
+    image?: string;
   }[]
 ) {
+  // Google ne résout pas un simple { "@id" } pour l'organisateur : il veut
+  // le nom et l'URL en clair. Même entité que le LocalBusiness de l'accueil.
+  const organizer = {
+    "@type": "Organization",
+    "@id": `${SITE_URL}/#business`,
+    name: SITE.name,
+    url: SITE_URL,
+  };
   const place = {
     "@type": "Place",
     name: SITE.name,
@@ -164,11 +174,16 @@ export function agendaJsonLd(
           "@type": "Event",
           name: `${e.name} — MegaKart Vias`,
           startDate: e.date,
+          // Toutes ces dates sont des journées uniques.
+          endDate: e.date,
           eventStatus: "https://schema.org/EventScheduled",
           eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
           location: place,
+          image: [`${SITE_URL}/images/${e.image ?? "og.jpg"}`],
           description: e.description,
-          organizer: { "@id": `${SITE_URL}/#business` },
+          organizer,
+          // Pas de tête d'affiche : c'est le circuit qui fait le spectacle.
+          performer: organizer,
           url: `${SITE_URL}/agenda${e.slug ? `#${e.slug}` : ""}`,
           ...(e.price !== undefined && {
             offers: {

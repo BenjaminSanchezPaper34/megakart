@@ -17,12 +17,20 @@ const EVENT_JSONLD = {
   "@type": "SportsEvent",
   name: "Les 12 Heures de MegaKart — endurance par équipes",
   startDate: "2026-12-19",
+  endDate: "2026-12-19",
   eventStatus: "https://schema.org/EventScheduled",
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   url: `${SITE_URL}/12-heures`,
+  image: [`${SITE_URL}/images/galerie-17-nocturne-action.jpg`, `${SITE_URL}/images/og.jpg`],
   description:
     "Course d'endurance de 12 heures par équipes sur le circuit outdoor de 1000 m de MegaKart à Vias-plage, organisée avec l'écurie Vortex. Paddock aménagé par équipe, restauration sur place, chronométrage Apex Timing en continu.",
-  organizer: { "@id": `${SITE_URL}/#business` },
+  organizer: {
+    "@type": "Organization",
+    "@id": `${SITE_URL}/#business`,
+    name: SITE.name,
+    url: SITE_URL,
+  },
+  performer: { "@type": "Organization", name: SITE.name, url: SITE_URL },
   location: {
     "@type": "Place",
     name: SITE.name,
