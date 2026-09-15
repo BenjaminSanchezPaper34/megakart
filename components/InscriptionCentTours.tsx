@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { track } from "@vercel/analytics/react";
 import { SITE } from "@/lib/site";
-import { EXPERIENCES } from "@/lib/inscription";
+import { EXPERIENCES, TEAM_SIZES, teamPricing, type TeamSize } from "@/lib/inscription";
 
 /**
  * Formulaire d'inscription d'une équipe aux 100 Tours.
@@ -59,7 +59,8 @@ export default function InscriptionCentTours({ dates }: { dates: DateOption[] })
   const [date, setDate] = useState("");
   const [team, setTeam] = useState("");
   const [captain, setCaptain] = useState({ name: "", phone: "", email: "" });
-  const [pilots, setPilots] = useState<[string, string]>(["", ""]);
+  const [teamSize, setTeamSize] = useState<TeamSize>(3);
+  const [pilots, setPilots] = useState<string[]>(["", ""]);
   const [experience, setExperience] = useState("");
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
@@ -79,7 +80,7 @@ export default function InscriptionCentTours({ dates }: { dates: DateOption[] })
       const res = await fetch("/api/inscription", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ date, team, captain, pilots, experience, message, consent, website }),
+        body: JSON.stringify({ date, team, teamSize, captain, pilots, experience, message, consent, website }),
       });
       const json = (await res.json()) as { ok: boolean; errors?: Record<string, string> };
       if (json.ok) {
@@ -103,7 +104,8 @@ export default function InscriptionCentTours({ dates }: { dates: DateOption[] })
           Équipe <span className="text-race">{team}</span>, vous êtes sur la liste.
         </h2>
         <p className="mt-4 text-base leading-relaxed text-chalk-60">
-          Un récapitulatif part à l&rsquo;instant sur <strong className="text-chalk">{captain.email}</strong>.
+          Un récapitulatif part à l&rsquo;instant sur <strong className="text-chalk">{captain.email}</strong>{" "}
+          — {teamSize} pilotes, {teamPricing(teamSize).perPilot}€ chacun.
           Le circuit revient vers vous pour confirmer votre place aux 100 Tours
           {chosen ? ` du ${chosen.label}` : ""}. Une question d&rsquo;ici là ? Le {SITE.phone} répond
           aux heures d&rsquo;ouverture.
@@ -173,6 +175,45 @@ export default function InscriptionCentTours({ dates }: { dates: DateOption[] })
         )}
       </fieldset>
 
+      {/* Combien de pilotes — le tarif en dépend, donc il s'affiche ici. */}
+      <fieldset>
+        <legend className="display mb-3 text-lg text-chalk">Combien êtes-vous ?</legend>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {TEAM_SIZES.map((t) => {
+            const active = teamSize === t.size;
+            return (
+              <label
+                key={t.size}
+                className={`flex cursor-pointer items-center gap-3 border px-4 py-3 transition-colors ${
+                  active ? "border-race bg-race/10" : "border-white/10 bg-asphalt-3 hover:border-white/25"
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="teamSize"
+                  value={t.size}
+                  checked={active}
+                  onChange={() => setTeamSize(t.size)}
+                  className="accent-[var(--color-race)]"
+                  disabled={disabled}
+                />
+                <span>
+                  <span className="display block text-lg leading-tight text-chalk">
+                    {t.size} pilotes
+                  </span>
+                  <span className="text-sm text-chalk-60">
+                    {t.perPilot}€ par pilote · {t.total}€ l&rsquo;équipe
+                  </span>
+                </span>
+              </label>
+            );
+          })}
+        </div>
+        <p className="mt-2 text-sm text-chalk-60">
+          L&rsquo;équipe paie le même total ; à deux, chacun roule simplement plus longtemps.
+        </p>
+      </fieldset>
+
       {/* Équipe */}
       <Field id="team" label="Nom de l'équipe" error={errors.team} hint="C'est ce nom qui s'affichera au chrono.">
         <input
@@ -238,16 +279,18 @@ export default function InscriptionCentTours({ dates }: { dates: DateOption[] })
 
       {/* Coéquipiers */}
       <fieldset className="flex flex-col gap-5">
-        <legend className="display mb-1 text-lg text-chalk">Les coéquipiers</legend>
+        <legend className="display mb-1 text-lg text-chalk">
+          {teamSize === 2 ? "Votre coéquipier" : "Les coéquipiers"}
+        </legend>
         <div className="grid gap-5 sm:grid-cols-2">
-          {([0, 1] as const).map((i) => (
+          {Array.from({ length: teamSize - 1 }, (_, i) => (
             <Field key={i} id={`pilot-${i}`} label={`${i + 2}e pilote — nom et prénom`} error={errors[`pilots.${i}`]}>
               <input
                 id={`pilot-${i}`}
                 className={INPUT}
-                value={pilots[i]}
+                value={pilots[i] ?? ""}
                 onChange={(e) => {
-                  const next: [string, string] = [...pilots] as [string, string];
+                  const next = [...pilots];
                   next[i] = e.target.value;
                   setPilots(next);
                 }}

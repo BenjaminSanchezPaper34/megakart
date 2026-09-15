@@ -90,7 +90,7 @@ export const KARTS: Kart[] = [
     age: "Adultes",
     minAge: 18,
     adultsOnly: true,
-    engine: "390 cm³ · 4 temps",
+    engine: "Sodi RT10 · 390 cm³ · 4 temps",
     image: "kart-390.png",
     priceHint: "Le cœur de gamme adulte",
     note: "Le plus puissant accessible sans chrono de référence.",

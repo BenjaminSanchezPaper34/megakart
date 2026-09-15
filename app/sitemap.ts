@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
 // Mettre à jour la date à chaque modification de contenu d'une page.
-const LASTMOD = "2026-09-12";
+const LASTMOD = "2026-09-15";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

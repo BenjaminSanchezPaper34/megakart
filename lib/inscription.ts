@@ -18,6 +18,21 @@ export function centToursDates(today = new Date()) {
   });
 }
 
+/**
+ * Tarifs officiels (client, 15/09/2026) : l'équipe paie le même total,
+ * seul le nombre de parts change. Le premier élément est le format par défaut.
+ */
+export const TEAM_SIZES = [
+  { size: 3, perPilot: 59, total: 177 },
+  { size: 2, perPilot: 88, total: 176 },
+] as const;
+
+export type TeamSize = (typeof TEAM_SIZES)[number]["size"];
+
+export function teamPricing(size: number) {
+  return TEAM_SIZES.find((t) => t.size === size) ?? TEAM_SIZES[0];
+}
+
 export const EXPERIENCES = [
   "Première course pour l'équipe",
   "Quelques courses à notre actif",
@@ -27,8 +42,11 @@ export const EXPERIENCES = [
 export type Inscription = {
   date: string;
   team: string;
+  /** 2 ou 3 pilotes, capitaine compris. */
+  teamSize: TeamSize;
   captain: { name: string; phone: string; email: string };
-  pilots: [string, string];
+  /** Les coéquipiers : un seul à deux pilotes, deux à trois pilotes. */
+  pilots: string[];
   experience: string;
   message: string;
   consent: boolean;
@@ -48,17 +66,21 @@ export function parseInscription(
 ): { ok: true; data: Inscription } | { ok: false; errors: Record<string, string> } {
   const r = (raw ?? {}) as Record<string, unknown>;
   const cap = (r.captain ?? {}) as Record<string, unknown>;
-  const pilots = Array.isArray(r.pilots) ? r.pilots : [];
+  const rawPilots = Array.isArray(r.pilots) ? r.pilots : [];
+  // Le nombre de pilotes commande le nombre de champs attendus : un
+  // 3e nom envoyé par une équipe de 2 est simplement ignoré.
+  const teamSize: TeamSize = Number(r.teamSize) === 2 ? 2 : 3;
 
   const data: Inscription = {
     date: clean(r.date, 10),
     team: clean(r.team, 80),
+    teamSize,
     captain: {
       name: clean(cap.name, 80),
       phone: clean(cap.phone, 30),
       email: clean(cap.email, 120).toLowerCase(),
     },
-    pilots: [clean(pilots[0], 80), clean(pilots[1], 80)],
+    pilots: Array.from({ length: teamSize - 1 }, (_, i) => clean(rawPilots[i], 80)),
     experience: clean(r.experience, 60),
     message: clean(r.message, 1500),
     consent: r.consent === true,
@@ -73,8 +95,9 @@ export function parseInscription(
     errors["captain.phone"] = "Un numéro de téléphone valide est requis.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.captain.email))
     errors["captain.email"] = "Une adresse e-mail valide est requise.";
-  if (data.pilots[0].length < 2) errors["pilots.0"] = "Le nom du 2e pilote est requis.";
-  if (data.pilots[1].length < 2) errors["pilots.1"] = "Le nom du 3e pilote est requis.";
+  data.pilots.forEach((name, i) => {
+    if (name.length < 2) errors[`pilots.${i}`] = `Le nom du ${i + 2}e pilote est requis.`;
+  });
   if (!data.consent) errors.consent = "Nous avons besoin de votre accord pour traiter l'inscription.";
 
   return Object.keys(errors).length ? { ok: false, errors } : { ok: true, data };

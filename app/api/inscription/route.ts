@@ -2,7 +2,13 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { SITE, SITE_URL } from "@/lib/site";
 import { getOperation } from "@/lib/agenda";
-import { CENT_TOURS_SLUG, centToursDates, parseInscription, type Inscription } from "@/lib/inscription";
+import {
+  CENT_TOURS_SLUG,
+  centToursDates,
+  parseInscription,
+  teamPricing,
+  type Inscription,
+} from "@/lib/inscription";
 
 export const runtime = "nodejs";
 
@@ -24,12 +30,12 @@ const row = (k: string, v: string) =>
 function recapTable(d: Inscription, dateLabel: string) {
   return `<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.4">
     ${row("Course", `Les 100 Tours — ${dateLabel}`)}
-    ${row("Équipe", d.team)}
+    ${row("Équipe", `${d.team} — ${d.teamSize} pilotes`)}
+    ${row("Tarif", `${teamPricing(d.teamSize).perPilot}€ par pilote · ${teamPricing(d.teamSize).total}€ l'équipe`)}
     ${row("Capitaine", d.captain.name)}
     ${row("Téléphone", d.captain.phone)}
     ${row("E-mail", d.captain.email)}
-    ${row("2e pilote", d.pilots[0])}
-    ${row("3e pilote", d.pilots[1])}
+    ${d.pilots.map((n, i) => row(`${i + 2}e pilote`, n)).join("")}
     ${d.experience ? row("Expérience", d.experience) : ""}
     ${d.message ? row("Message", d.message) : ""}
   </table>`;
@@ -84,7 +90,7 @@ export async function POST(req: Request) {
         ${recapTable(d, dateLabel)}
         <div style="margin-top:20px;padding:14px 16px;background:#f5f5f3;border-radius:10px;font-size:14px;line-height:1.55;color:#444">
           <strong style="color:#111">Le format</strong> — ${esc(op?.facts.join(" · ") ?? "")}.<br>
-          <strong style="color:#111">Tarif</strong> — ${esc(op?.price ?? "")}${op?.priceNote ? `, ${esc(op.priceNote)}` : ""}.
+          <strong style="color:#111">Votre tarif</strong> — équipe de ${d.teamSize} : ${teamPricing(d.teamSize).perPilot}€ par pilote, soit ${teamPricing(d.teamSize).total}€ l'équipe.
         </div>`),
     });
   } catch (err) {
