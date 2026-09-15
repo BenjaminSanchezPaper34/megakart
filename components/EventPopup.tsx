@@ -110,11 +110,11 @@ export default function EventPopup({ campagne }: Props) {
 
           {/* Le bouton dit explicitement ce qui attend derrière : une image
               cliquable, beaucoup de visiteurs ne devinent pas que c'en est une. */}
-          <div className="p-4 sm:p-5">
+          <div className="p-4 sm:flex sm:justify-center sm:p-5">
             <Link
               href={campagne.href}
               onClick={go}
-              className="btn btn-race glow-race w-full justify-center sm:mx-auto sm:w-auto"
+              className="btn btn-race glow-race w-full justify-center sm:w-auto"
             >
               {campagne.cta ?? "En savoir plus"}
             </Link>
