@@ -41,14 +41,14 @@ export const RACES: Operation[] = [
       "Le format le plus long de l'année, et il se court sur les nouveaux Sodi RT10 390cc : vous montez une équipe de deux ou trois pilotes et vous vous relayez sur 100 tours de circuit. Gestion du trafic, régularité, choix des relais — une vraie course d'endurance, chronométrée au dixième par Apex Timing.",
       "20 minutes d'essais et de qualifications pour installer la grille, puis départ lancé pour 100 tours. Le classement défile en direct sur l'écran géant.",
       "Le tarif suit l'équipe, pas le nombre de pilotes : 177€ à trois, soit 59€ chacun ; 176€ à deux, soit 88€ chacun. À deux, on partage la même course en deux relais plus longs.",
-      "La course est terminée à 15h30 : l'après-midi reste ouvert, et le Pack Découverte du dimanche s'enchaîne pour ceux qui veulent prolonger avec un moniteur.",
+      "La course est terminée à 15h30 : l'après-midi reste ouvert. Hors vacances scolaires, le Pack Découverte du dimanche s'enchaîne pour ceux qui veulent prolonger avec un moniteur.",
     ],
     facts: [
       "Sur les nouveaux Sodi RT10 390cc",
       "Équipes de 2 ou 3 pilotes",
       "20 min essais + qualifications",
       "Course de 100 tours en relais",
-      "Terminé à 15h30 — Pack Découverte possible ensuite",
+      "Terminé à 15h30 — l'après-midi reste ouvert",
       "Classement live Apex Timing",
     ],
     price: "59€ / pilote",
@@ -228,8 +228,10 @@ export const AGENDA: AgendaItem[] = [
     status: "confirme",
     note: "Tous les jeudis et vendredis jusqu'au 31 décembre, et tous les jours pendant les vacances scolaires",
   },
-  { date: "2026-10-04", op: "100-tours", label: "Les 100 Tours", status: "confirme" },
   { date: "2026-10-11", op: "course-enfant", label: "Course Enfant", status: "confirme" },
+  // Reportée du 4 au 18 octobre (client, 15/09/2026) — donc pendant les
+  // vacances de la Toussaint : ce jour-là le Pack Découverte ne court pas.
+  { date: "2026-10-18", op: "100-tours", label: "Les 100 Tours", status: "confirme" },
   {
     date: "2026-10-31",
     label: "Nocturne Halloween",
