@@ -5,6 +5,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import FX from "@/components/FX";
 import Mesure from "@/components/Mesure";
+import EventPopupAnnonce from "@/components/EventPopupAnnonce";
 import { PRE_PROD, SITE_URL } from "@/lib/site";
 
 const barlow = Barlow_Condensed({
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <Mesure />
+        <EventPopupAnnonce />
       </body>
     </html>
   );
