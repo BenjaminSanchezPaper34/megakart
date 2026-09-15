@@ -37,6 +37,12 @@ export default function EventPopup({ campagne }: Props) {
     } catch {}
   }, [campagne.key]);
 
+  /** Le visuel et le bouton mènent au même endroit et se mesurent pareil. */
+  const go = useCallback(() => {
+    track("popup-clic", { campagne: campagne.op });
+    close();
+  }, [campagne.op, close]);
+
   useEffect(() => {
     if (pathname === campagne.href) return;
     // La campagne est terminée : plus rien à annoncer.
@@ -87,34 +93,42 @@ export default function EventPopup({ campagne }: Props) {
         onClick={(e) => e.stopPropagation()}
         className="relative w-full max-w-[420px] md:max-w-[1000px] [filter:drop-shadow(0_30px_60px_rgb(0_0_0/0.55))] motion-safe:animate-[popupBoite_.35s_cubic-bezier(.22,1,.36,1)]"
       >
-        <Link
-          href={campagne.href}
-          onClick={() => {
-            track("popup-clic", { campagne: campagne.op });
-            close();
-          }}
-          // Pas de découpe en parallélogramme ici : le visuel est une création
-          // à part entière, souvent avec du texte près des bords. On l'affiche
-          // entier, exactement comme sur le réseau social.
-          className="block overflow-hidden bg-asphalt-2"
-        >
-          <Image
-            src={src}
-            alt={campagne.alt}
-            width={format.width}
-            height={format.height}
-            sizes="(max-width: 767px) 92vw, 1000px"
-            priority
-            className="h-auto w-full"
-          />
-        </Link>
+        <div className="overflow-hidden bg-asphalt-2">
+          {/* Le visuel entier, cliquable : pas de découpe, pas de recadrage —
+              c'est la création telle qu'elle paraît sur le réseau social. */}
+          <Link href={campagne.href} onClick={go} className="block" tabIndex={-1} aria-hidden="true">
+            <Image
+              src={src}
+              alt=""
+              width={format.width}
+              height={format.height}
+              sizes="(max-width: 767px) 92vw, 1000px"
+              priority
+              className="h-auto w-full"
+            />
+          </Link>
 
+          {/* Le bouton dit explicitement ce qui attend derrière : une image
+              cliquable, beaucoup de visiteurs ne devinent pas que c'en est une. */}
+          <div className="p-4 sm:p-5">
+            <Link
+              href={campagne.href}
+              onClick={go}
+              className="btn btn-race glow-race w-full justify-center sm:mx-auto sm:w-auto"
+            >
+              {campagne.cta ?? "En savoir plus"}
+            </Link>
+          </div>
+        </div>
+
+        {/* Fermer : disque plein et cerclé, pour rester lisible par-dessus
+            n'importe quel visuel, clair ou sombre. */}
         <button
           ref={closeRef}
           type="button"
           onClick={close}
           aria-label="Fermer l'annonce"
-          className="absolute -right-2 -top-2 grid h-11 w-11 place-items-center rounded-full bg-asphalt text-2xl leading-none text-chalk shadow-lg ring-1 ring-white/20 transition hover:bg-race hover:text-white"
+          className="absolute -right-3 -top-3 grid h-12 w-12 place-items-center rounded-full bg-asphalt text-3xl leading-none text-chalk ring-2 ring-chalk/80 transition hover:bg-race hover:text-white hover:ring-white"
         >
           ×
         </button>

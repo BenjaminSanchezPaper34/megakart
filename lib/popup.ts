@@ -18,6 +18,8 @@ export type PopupCampagne = {
   op: string;
   /** Destination du clic : la page qui doit convertir. */
   href: string;
+  /** Libellé du bouton. Par défaut « En savoir plus ». */
+  cta?: string;
   /** Description du visuel, pour les lecteurs d'écran. */
   alt: string;
   /** Visuel large — gabarit couverture. */
@@ -36,6 +38,7 @@ export const CAMPAGNES: PopupCampagne[] = [
   {
     op: "100-tours",
     href: "/inscription/100-tours",
+    cta: "En savoir plus",
     alt: "Course Les 100 Tours, dimanche 18 octobre chez MegaKart — trois pilotes casqués derrière un kart Sodi RT10. Infos et inscriptions.",
     wide: "/images/popup/100-tours-couverture.jpg",
     tall: "/images/popup/100-tours-post.jpg",
