@@ -9,7 +9,7 @@ import { CENT_TOURS_SLUG } from "@/lib/inscription";
 export const metadata: Metadata = {
   title: "Inscrire mon équipe aux 100 Tours",
   description:
-    "Inscription en ligne d'une équipe de 3 pilotes aux 100 Tours de MegaKart à Vias : date, nom d'équipe, capitaine et coéquipiers. Le circuit confirme la place par téléphone ou e-mail.",
+    "Inscription en ligne d'une équipe de 2 ou 3 pilotes aux 100 Tours de MegaKart à Vias, sur les nouveaux Sodi RT10 390cc : date, nom d'équipe, capitaine et coéquipiers. Le circuit confirme la place par téléphone ou e-mail.",
   alternates: { canonical: "/inscription/100-tours" },
   // Page outil, liée depuis l'agenda : inutile de l'indexer pour elle-même.
   robots: { index: false, follow: true },
@@ -50,9 +50,9 @@ export default function InscriptionCentToursPage() {
             <span className="text-race">votre équipe.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk-60">
-            Trois pilotes, un nom d&rsquo;équipe, un capitaine qu&rsquo;on peut joindre :
-            c&rsquo;est tout ce qu&rsquo;il faut. Le circuit vous rappelle pour confirmer
-            la place — aucun paiement en ligne.
+            Deux ou trois pilotes, un nom d&rsquo;équipe, un capitaine qu&rsquo;on peut
+            joindre : c&rsquo;est tout ce qu&rsquo;il faut. Le circuit vous rappelle pour
+            confirmer la place — aucun paiement en ligne.
           </p>
         </div>
       </section>
