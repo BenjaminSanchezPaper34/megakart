@@ -36,17 +36,21 @@ export const CAMPAGNES: PopupCampagne[] = [
   {
     op: "100-tours",
     href: "/inscription/100-tours",
-    alt: "Les 100 Tours de MegaKart : endurance par équipes de 2 ou 3 pilotes sur les nouveaux Sodi RT10 390cc. Inscrivez votre équipe.",
+    alt: "Course Les 100 Tours, dimanche 18 octobre chez MegaKart — trois pilotes casqués derrière un kart Sodi RT10. Infos et inscriptions.",
     wide: "/images/popup/100-tours-couverture.jpg",
     tall: "/images/popup/100-tours-post.jpg",
     key: "megakart-popup-100-tours-2026",
   },
 ];
 
-/** Dimensions des gabarits, pour réserver la place et éviter tout saut. */
+/**
+ * Dimensions des visuels livrés (gabarits exportés en 1,33× pour les écrans
+ * fins). Seul le rapport compte pour la mise en page : un export à la taille
+ * exacte du gabarit tomberait au même endroit.
+ */
 export const FORMATS = {
-  wide: { width: 1250, height: 462 },
-  tall: { width: 1080, height: 1440 },
+  wide: { width: 1667, height: 616 },
+  tall: { width: 1440, height: 1920 },
 } as const;
 
 /**
