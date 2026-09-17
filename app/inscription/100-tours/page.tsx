@@ -51,56 +51,84 @@ export default function InscriptionCentToursPage() {
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk-60">
             Deux ou trois pilotes, un nom d&rsquo;équipe, un capitaine qu&rsquo;on peut
-            joindre : c&rsquo;est tout ce qu&rsquo;il faut. Le circuit vous rappelle pour
-            confirmer la place — aucun paiement en ligne.
+            joindre : c&rsquo;est tout ce qu&rsquo;il faut.
           </p>
+          <a href="#formulaire" className="btn btn-race glow-race mt-8">
+            Aller au formulaire
+          </a>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-24 md:px-8 md:pb-32">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start lg:gap-14">
-          <InscriptionCentTours dates={DATES} />
+      {/*
+        Le contexte AVANT le formulaire. Un visiteur arrive ici directement
+        depuis le pop-up ou le bouton de l'agenda : il doit pouvoir lire ce
+        qu'est la course avant qu'on lui demande le nom de ses coéquipiers.
+        Colonne unique et lecture en descendant — schéma à reprendre pour
+        toute future page d'inscription.
+      */}
+      <section className="mx-auto max-w-3xl px-5 pb-16 md:px-8 md:pb-20">
+        <h2 data-reveal className="display text-[clamp(1.8rem,4vw,2.6rem)] text-chalk">
+          {op.name}
+        </h2>
+        {op.details.map((par) => (
+          <p key={par} data-reveal className="mt-4 text-base leading-relaxed text-chalk-60">
+            {par}
+          </p>
+        ))}
 
-          <aside className="flex flex-col gap-6 lg:sticky lg:top-28">
-            <div className="card p-6">
-              <p className="display text-lg text-race">{op.name}</p>
-              <p className="mt-2 text-base leading-relaxed text-chalk-60">{op.summary}</p>
-              <ul className="mt-5 flex flex-col gap-3">
-                {op.facts.map((f) => (
-                  <li key={f} className="flex items-center gap-3 text-base text-chalk">
-                    <span className="checker-sm h-3 w-3 shrink-0 opacity-60" aria-hidden="true" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              {op.price && (
-                <p className="display mt-6 flex items-baseline gap-3">
-                  <span className="text-4xl text-chalk">{op.price}</span>
-                  {op.priceNote && <span className="text-base text-chalk-60">{op.priceNote}</span>}
-                </p>
-              )}
-            </div>
+        <ul data-stagger className="mt-8 grid gap-3 sm:grid-cols-2">
+          {op.facts.map((f) => (
+            <li key={f} className="card flex items-center gap-3 p-4 text-base text-chalk">
+              <span className="checker-sm h-3 w-3 shrink-0 opacity-60" aria-hidden="true" />
+              {f}
+            </li>
+          ))}
+        </ul>
 
-            <div className="card p-6">
-              <p className="display text-lg text-chalk">Plutôt de vive voix ?</p>
-              <p className="mt-2 text-base leading-relaxed text-chalk-60">
-                L&rsquo;équipe du circuit prend aussi les inscriptions au téléphone et par e-mail.
-              </p>
-              <div className="mt-4 flex flex-col gap-2">
-                <a href={SITE.phoneHref} className="link-under w-fit text-base font-semibold text-chalk">
-                  {SITE.phone}
-                </a>
-                <a href={`mailto:${SITE.email}`} className="link-under w-fit text-base font-semibold text-chalk">
-                  {SITE.email}
-                </a>
-              </div>
-              <Link href="/agenda#100-tours" className="btn btn-ghost mt-6 text-sm">
-                Tout sur les 100 Tours
-              </Link>
+        {op.price && (
+          <p data-reveal className="display mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="text-4xl text-chalk">{op.price}</span>
+            {op.priceNote && <span className="text-base text-chalk-60">{op.priceNote}</span>}
+          </p>
+        )}
+      </section>
+
+      <div className="kerb" aria-hidden="true" />
+
+      {/* Le formulaire, une fois le décor planté. */}
+      <section id="formulaire" className="scroll-mt-28 bg-asphalt-2 py-16 md:py-20">
+        <div className="mx-auto max-w-3xl px-5 md:px-8">
+          <h2 data-reveal className="display text-[clamp(1.8rem,4vw,2.6rem)] text-chalk">
+            Inscrire <span className="text-race">votre équipe.</span>
+          </h2>
+          <p data-reveal className="mt-3 text-base leading-relaxed text-chalk-60">
+            Le circuit vous rappelle pour confirmer la place. Aucun paiement en ligne.
+          </p>
+
+          <div className="mt-8">
+            <InscriptionCentTours dates={DATES} />
+          </div>
+
+          <div className="card mt-8 p-6">
+            <p className="display text-lg text-chalk">Plutôt de vive voix ?</p>
+            <p className="mt-2 text-base leading-relaxed text-chalk-60">
+              L&rsquo;équipe du circuit prend aussi les inscriptions au téléphone et par e-mail.
+            </p>
+            <div className="mt-4 flex flex-col gap-2">
+              <a href={SITE.phoneHref} className="link-under w-fit text-base font-semibold text-chalk">
+                {SITE.phone}
+              </a>
+              <a href={`mailto:${SITE.email}`} className="link-under w-fit text-base font-semibold text-chalk">
+                {SITE.email}
+              </a>
             </div>
-          </aside>
+            <Link href="/agenda#100-tours" className="btn btn-ghost mt-6 text-sm">
+              Tout sur les 100 Tours
+            </Link>
+          </div>
         </div>
       </section>
+
     </>
   );
 }
