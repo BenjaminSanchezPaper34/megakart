@@ -31,8 +31,14 @@ export const SITE = {
   },
   phone: "09 50 28 95 91",
   phoneHref: "tel:+33950289591",
-  /** Réservation des courses par e-mail — adresse à fournir par le client (vide = non affiché). */
-  email: "contact@megakart.info",
+  /**
+   * Adresse officielle du circuit. Passée de megakart.info à megakart.fr le
+   * 21/09/2026 : la boîte .info a été supprimée (Google Workspace) et le
+   * domaine .info expirait le lendemain. Boîte hébergée chez Hostinger, sur
+   * le même domaine que le site. Se propage partout (contact, légal, agenda,
+   * JSON-LD, llms.txt, destination des inscriptions).
+   */
+  email: "contact@megakart.fr",
   address: {
     street: "301 Voie Communale du Tricot et des Tots",
     city: "Vias",

@@ -19,7 +19,7 @@ const FAQ = [
   },
   {
     q: "Combien d'enfants minimum pour un anniversaire karting ?",
-    a: "Les anniversaires se réservent à partir de 7 participants. Appelez le 09 50 28 95 91 ou écrivez à contact@megakart.info pour construire la formule (nombre de sessions, format course ou endurance).",
+    a: "Les anniversaires se réservent à partir de 7 participants. Appelez le 09 50 28 95 91 ou écrivez à contact@megakart.fr pour construire la formule (nombre de sessions, format course ou endurance).",
   },
   {
     q: "Peut-on apporter le gâteau et les boissons ?",
