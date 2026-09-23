@@ -102,7 +102,7 @@ export default function AgendaPage() {
 
       {/* ========== LE MOIS EN PISTE (calendrier mensuel) ========== */}
       <section className="bg-asphalt-2 py-16 md:py-24">
-        <div className="mx-auto max-w-5xl px-5 md:px-8">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
           <h2 data-reveal className="display text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
             Le mois en piste, <span className="text-flag">en un coup d&rsquo;œil</span>
           </h2>
