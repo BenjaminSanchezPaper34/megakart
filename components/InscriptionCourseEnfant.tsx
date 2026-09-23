@@ -195,7 +195,7 @@ export default function InscriptionCourseEnfant({ dates }: { dates: DateOption[]
       })}
       {enfants.length < MAX_ENFANTS && (
         <button type="button" onClick={() => setEnfants((l) => [...l, vide()])} className="btn btn-ghost self-start text-sm" disabled={disabled}>
-          + Ajouter un frère ou une sœur
+          + Ajouter un autre enfant
         </button>
       )}
       {errors.enfants && <p role="alert" className="text-sm font-medium text-race">{errors.enfants}</p>}
