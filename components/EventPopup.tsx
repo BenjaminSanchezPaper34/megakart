@@ -80,8 +80,12 @@ export default function EventPopup({ campagne }: Props) {
 
   if (!open) return null;
 
-  const format = mobile ? FORMATS.tall : FORMATS.wide;
+  const formats = campagne.formats ?? FORMATS;
+  const format = mobile ? formats.tall : formats.wide;
   const src = mobile ? campagne.tall : campagne.wide;
+  // Un visuel portrait sur ordinateur doit tenir dans la hauteur de l'écran :
+  // la boîte se resserre au lieu de déborder sous la ligne de flottaison.
+  const portrait = format.height > format.width;
 
   return (
     <div
@@ -93,7 +97,7 @@ export default function EventPopup({ campagne }: Props) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[420px] md:max-w-[1000px] [filter:drop-shadow(0_30px_60px_rgb(0_0_0/0.55))] motion-safe:animate-[popupBoite_.35s_cubic-bezier(.22,1,.36,1)]"
+        className={`relative w-full max-w-[420px] ${portrait ? "md:max-w-[min(440px,58vh)]" : "md:max-w-[1000px]"} [filter:drop-shadow(0_30px_60px_rgb(0_0_0/0.55))] motion-safe:animate-[popupBoite_.35s_cubic-bezier(.22,1,.36,1)]`}
       >
         <div className="overflow-hidden bg-asphalt-2">
           {/* Le visuel entier, cliquable : pas de découpe, pas de recadrage —
@@ -104,7 +108,7 @@ export default function EventPopup({ campagne }: Props) {
               alt=""
               width={format.width}
               height={format.height}
-              sizes="(max-width: 767px) 92vw, 1000px"
+              sizes={portrait ? "(max-width: 767px) 92vw, 440px" : "(max-width: 767px) 92vw, 1000px"}
               priority
               className="h-auto w-full"
             />

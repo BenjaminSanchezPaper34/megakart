@@ -13,6 +13,8 @@
  */
 import { AGENDA } from "./agenda";
 
+export type Dimensions = { width: number; height: number };
+
 export type PopupCampagne = {
   /** Slug de l'opération dans l'agenda — donne la date de fin. */
   op: string;
@@ -22,10 +24,15 @@ export type PopupCampagne = {
   cta?: string;
   /** Description du visuel, pour les lecteurs d'écran. */
   alt: string;
-  /** Visuel large — gabarit couverture. */
+  /** Visuel affiché sur ordinateur (couverture par défaut). */
   wide: string;
-  /** Visuel portrait — gabarit post. */
+  /** Visuel affiché sur mobile (post par défaut). */
   tall: string;
+  /**
+   * Dimensions des deux visuels si elles s'écartent des gabarits par défaut
+   * (FORMATS). Seul le rapport largeur/hauteur compte pour la mise en page.
+   */
+  formats?: { wide: Dimensions; tall: Dimensions };
   /**
    * Clé de mémorisation. En changer (suffixe -2, -b…) fait réapparaître le
    * pop-up chez les visiteurs qui l'avaient déjà fermé : à ne faire que pour
@@ -44,6 +51,18 @@ export const CAMPAGNES: PopupCampagne[] = [
     tall: "/images/popup/100-tours-post.jpg",
     key: "megakart-popup-100-tours-2026",
   },
+  {
+    // Un seul visuel, le post 3:4 : sur ordinateur il s'affiche en portrait
+    // (la boîte se resserre), sur mobile c'est le format natif.
+    op: "course-enfant",
+    href: "/inscription/course-enfant",
+    cta: "En savoir plus",
+    alt: "Course Enfants, dimanche 11 octobre chez MegaKart — un jeune pilote casqué au volant d'un kart Sodi. Infos et inscriptions.",
+    wide: "/images/popup/course-enfant-post.jpg",
+    tall: "/images/popup/course-enfant-post.jpg",
+    formats: { wide: { width: 1440, height: 1920 }, tall: { width: 1440, height: 1920 } },
+    key: "megakart-popup-course-enfant-2026-10",
+  },
 ];
 
 /**
@@ -57,16 +76,18 @@ export const FORMATS = {
 } as const;
 
 /**
- * La campagne à montrer aujourd'hui : la première dont l'opération a encore
- * une date confirmée à venir. `until` est cette date — le pop-up disparaît
- * le jour de la course, quand il n'y a plus rien à réserver.
+ * La campagne à montrer aujourd'hui : celle dont la prochaine date confirmée
+ * est la plus proche (à égalité, l'ordre de CAMPAGNES tranche). `until` est
+ * cette date — le pop-up disparaît le jour de la course, quand il n'y a plus
+ * rien à réserver, et la campagne suivante prend le relais d'elle-même.
  */
 export function campagneDuJour(today: string): (PopupCampagne & { until: string }) | null {
+  let choix: (PopupCampagne & { until: string }) | null = null;
   for (const c of CAMPAGNES) {
     const prochaine = AGENDA.filter(
       (a) => a.op === c.op && a.status === "confirme" && !a.endDate && a.date > today
     ).map((a) => a.date).sort()[0];
-    if (prochaine) return { ...c, until: prochaine };
+    if (prochaine && (!choix || prochaine < choix.until)) choix = { ...c, until: prochaine };
   }
-  return null;
+  return choix;
 }

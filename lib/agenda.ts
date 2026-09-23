@@ -29,12 +29,18 @@ export type Operation = {
   signup?: string;
   /** Libellé du bouton — « Inscrire mon équipe » par défaut. */
   signupCta?: string;
+  /**
+   * Affiche officielle de l'épreuve (le post réseau social, format portrait),
+   * montrée sur la fiche agenda et la page d'inscription quand elle existe.
+   */
+  affiche?: { src: string; width: number; height: number };
 };
 
 /** Les courses & trophées — chacun a son univers, ancre = slug. */
 export const RACES: Operation[] = [
   {
     slug: "100-tours",
+    affiche: { src: "/images/popup/100-tours-post.jpg", width: 1440, height: 1920 },
     kicker: "Endurance par équipes",
     name: "Les 100 Tours",
     accent: "race",
@@ -101,6 +107,7 @@ export const RACES: Operation[] = [
   },
   {
     slug: "course-enfant",
+    affiche: { src: "/images/popup/course-enfant-post.jpg", width: 1440, height: 1920 },
     kicker: "La relève en piste",
     name: "Course Enfant",
     accent: "race",

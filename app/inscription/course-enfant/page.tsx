@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Affiche from "@/components/Affiche";
 import InscriptionCourseEnfant from "@/components/InscriptionCourseEnfant";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
@@ -15,7 +16,9 @@ export const metadata: Metadata = {
 };
 
 /* Toutes les dates confirmées ; le composant écarte celles déjà passées. */
-const DATES = AGENDA.filter((a) => a.op === COURSE_ENFANT_SLUG && a.status === "confirme" && !a.endDate).map((a) => {
+const DATES = AGENDA.filter(
+  (a) => a.op === COURSE_ENFANT_SLUG && a.status === "confirme" && !a.endDate,
+).map((a) => {
   const f = formatDate(a.date);
   return { iso: a.date, label: `${f.weekday} ${f.day} ${f.month}` };
 });
@@ -30,8 +33,11 @@ export default function InscriptionCourseEnfantPage() {
           __html: JSON.stringify(
             breadcrumbJsonLd([
               { name: "Agenda", path: "/agenda" },
-              { name: "Inscription à la Course Enfant", path: "/inscription/course-enfant" },
-            ])
+              {
+                name: "Inscription à la Course Enfant",
+                path: "/inscription/course-enfant",
+              },
+            ]),
           ),
         }}
       />
@@ -47,55 +53,124 @@ export default function InscriptionCourseEnfantPage() {
             <span className="text-race">votre enfant.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk-60">
-            De {ENFANT.ageMin} à {ENFANT.ageMax} ans, 1,40 m minimum. Un parent, un ou plusieurs enfants : c&rsquo;est tout ce qu&rsquo;il faut.
+            De {ENFANT.ageMin} à {ENFANT.ageMax} ans, 1,40 m minimum. Un parent,
+            un ou plusieurs enfants : c&rsquo;est tout ce qu&rsquo;il faut.
           </p>
-          <a href="#formulaire" className="btn btn-race glow-race mt-8">Aller au formulaire</a>
+          <a href="#formulaire" className="btn btn-race glow-race mt-8">
+            Aller au formulaire
+          </a>
         </div>
       </section>
 
       {/* Le contexte avant le formulaire — même schéma que les 100 Tours. */}
-      <section className="mx-auto max-w-3xl px-5 pb-16 md:px-8 md:pb-20">
-        <h2 data-reveal className="display text-[clamp(1.8rem,4vw,2.6rem)] text-chalk">{op.name}</h2>
-        {op.details.map((par) => (
-          <p key={par} data-reveal className="mt-4 text-base leading-relaxed text-chalk-60">{par}</p>
-        ))}
-        <ul data-stagger className="mt-8 grid gap-3 sm:grid-cols-2">
-          {op.facts.map((f) => (
-            <li key={f} className="card flex items-center gap-3 p-4 text-base text-chalk">
-              <span className="checker-sm h-3 w-3 shrink-0 opacity-60" aria-hidden="true" />
-              {f}
-            </li>
-          ))}
-        </ul>
-        {op.price && (
-          <p data-reveal className="display mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <span className="text-4xl text-chalk">{op.price}</span>
-            <span className="text-base text-chalk-60">réglé sur place le jour de la course</span>
-          </p>
-        )}
+      <section className="mx-auto max-w-5xl px-5 pb-16 md:px-8 md:pb-20">
+        <div
+          className={
+            op.affiche
+              ? "grid gap-10 md:grid-cols-[minmax(0,1fr)_320px] md:items-start"
+              : ""
+          }
+        >
+          <Affiche
+            op={op}
+            priority
+            className="mx-auto w-full max-w-[300px] md:order-2 md:max-w-none"
+          />
+          <div className="max-w-3xl">
+            <h2
+              data-reveal
+              className="display text-[clamp(1.8rem,4vw,2.6rem)] text-chalk"
+            >
+              {op.name}
+            </h2>
+            {op.details.map((par) => (
+              <p
+                key={par}
+                data-reveal
+                className="mt-4 text-base leading-relaxed text-chalk-60"
+              >
+                {par}
+              </p>
+            ))}
+            <ul data-stagger className="mt-8 grid gap-3 sm:grid-cols-2">
+              {op.facts.map((f) => (
+                <li
+                  key={f}
+                  className="card flex items-center gap-3 p-4 text-base text-chalk"
+                >
+                  <span
+                    className="checker-sm h-3 w-3 shrink-0 opacity-60"
+                    aria-hidden="true"
+                  />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            {op.price && (
+              <p
+                data-reveal
+                className="display mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-1"
+              >
+                <span className="text-4xl text-chalk">{op.price}</span>
+                <span className="text-base text-chalk-60">
+                  réglé sur place le jour de la course
+                </span>
+              </p>
+            )}
+          </div>
+        </div>
       </section>
 
       <div className="kerb" aria-hidden="true" />
 
-      <section id="formulaire" className="scroll-mt-28 bg-asphalt-2 py-16 md:py-20">
+      <section
+        id="formulaire"
+        className="scroll-mt-28 bg-asphalt-2 py-16 md:py-20"
+      >
         <div className="mx-auto max-w-3xl px-5 md:px-8">
-          <h2 data-reveal className="display text-[clamp(1.8rem,4vw,2.6rem)] text-chalk">
+          <h2
+            data-reveal
+            className="display text-[clamp(1.8rem,4vw,2.6rem)] text-chalk"
+          >
             Inscrire <span className="text-race">votre enfant.</span>
           </h2>
-          <p data-reveal className="mt-3 text-base leading-relaxed text-chalk-60">
-            Le circuit vous rappelle sous 48 heures pour confirmer la place. Aucun paiement en ligne. L&rsquo;âge et la taille sont vérifiés à l&rsquo;accueil le jour J.
+          <p
+            data-reveal
+            className="mt-3 text-base leading-relaxed text-chalk-60"
+          >
+            Le circuit vous rappelle sous 48 heures pour confirmer la place.
+            Aucun paiement en ligne. L&rsquo;âge et la taille sont vérifiés à
+            l&rsquo;accueil le jour J.
           </p>
           <div className="mt-8">
             <InscriptionCourseEnfant dates={DATES} />
           </div>
           <div className="card mt-8 p-6">
             <p className="display text-lg text-chalk">Plutôt de vive voix ?</p>
-            <p className="mt-2 text-base leading-relaxed text-chalk-60">L&rsquo;équipe du circuit prend aussi les inscriptions au téléphone et par e-mail.</p>
+            <p className="mt-2 text-base leading-relaxed text-chalk-60">
+              L&rsquo;équipe du circuit prend aussi les inscriptions au
+              téléphone et par e-mail.
+            </p>
             <div className="mt-4 flex flex-col gap-2">
-              <a href={SITE.phoneHref} className="link-under w-fit text-base font-semibold text-chalk">{SITE.phone}</a>
-              <a href={`mailto:${SITE.email}`} className="link-under w-fit text-base font-semibold text-chalk">{SITE.email}</a>
+              <a
+                href={SITE.phoneHref}
+                className="link-under w-fit text-base font-semibold text-chalk"
+              >
+                {SITE.phone}
+              </a>
+              <a
+                href={`mailto:${SITE.email}`}
+                className="link-under w-fit text-base font-semibold text-chalk"
+              >
+                {SITE.email}
+              </a>
             </div>
-            <Link href="/agenda#course-enfant" className="btn btn-ghost mt-6 text-sm">Tout sur la Course Enfant</Link>
+            <Link
+              href="/agenda#course-enfant"
+              className="btn btn-ghost mt-6 text-sm"
+            >
+              Tout sur la Course Enfant
+            </Link>
           </div>
         </div>
       </section>
