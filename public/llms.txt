@@ -50,8 +50,9 @@
   Tarif à l'équipe : 177 € à trois (59 €/pilote) ou 176 € à deux (88 €/pilote).
   Inscription en ligne : https://megakart.fr/inscription/100-tours (le circuit confirme la place).
   Course terminée à 15 h 30 : le Pack Découverte du dimanche s'enchaîne l'après-midi
-- Course Enfant : dimanches 11 octobre, 8 novembre et 13 décembre — dès 7 ans et 1,30 m,
-  3 manches de 8 minutes, podium
+- Course Enfant : dimanches 11 octobre, 8 novembre et 13 décembre — de 8 à 14 ans, 1,40 m minimum,
+  Kart Enfant 160cc, 3 manches de 8 minutes, début 14 h, podium, 32 €/enfant.
+  Inscription en ligne : https://megakart.fr/inscription/course-enfant (le circuit confirme la place)
 - Les 12 Heures : samedi 19 décembre — endurance de 12 h par équipes organisée avec l'écurie
   Vortex, paddock aménagé par équipe, restauration sur place, 1 500 € l'équipe, sur inscription
 - Rythme : une course adulte et une course enfant par mois, le dimanche
@@ -67,7 +68,7 @@
   mercredis compris : pendant les vacances, une seule offre par jour, le 2+1
 - Pack Découverte : les dimanches hors vacances scolaires, jusqu'en décembre — 3 sessions de 8 min
   (390cc, 390cc, RX250 16 CV) avec coaching privé offert par un moniteur, 49 € au lieu de 76 €
-- Réservation des courses et du Pack Découverte : par téléphone ou par e-mail ; les 100 Tours aussi en ligne
+- Réservation des courses et du Pack Découverte : par téléphone ou par e-mail ; les 100 Tours et la Course Enfant aussi en ligne
 
 ## Événements (sur réservation, dès 7 participants)
 - Anniversaires : courses et défis sur mesure, terrasse ombragée, tables de pique-nique
@@ -81,6 +82,7 @@
   avec l'écurie Vortex — format, paddock, inscription (1 500 € l'équipe)
 - /live : chrono en direct du circuit (live timing Apex Timing, chargement au clic)
 - /inscription/100-tours : formulaire d'inscription d'une équipe de 2 ou 3 pilotes aux 100 Tours
+- /inscription/course-enfant : formulaire d'inscription d'un ou plusieurs enfants (8-14 ans) à la Course Enfant
 - /agenda : le programme de fin d'année 2026 — courses (100 Tours, Trophée Plein Gaz,
   Women Cup, courses enfants) et offres (mercredi à volonté, 2 tickets = 1 offert,
   Pack Découverte coaching), avec toutes les dates
@@ -128,4 +130,4 @@
 - YouTube : https://www.youtube.com/channel/UC-r14_i1pUWRY6-i0VbkI_g
 - TripAdvisor : https://www.tripadvisor.fr/Attraction_Review-g1080326-d8621170-Reviews-MegaKart-Vias_Herault_Occitanie.html
 
-Dernière mise à jour : 2026-09-21
+Dernière mise à jour : 2026-09-23

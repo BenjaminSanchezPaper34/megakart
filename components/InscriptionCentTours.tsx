@@ -80,7 +80,7 @@ export default function InscriptionCentTours({ dates }: { dates: DateOption[] })
       const res = await fetch("/api/inscription", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ date, team, teamSize, captain, pilots, experience, message, consent, website }),
+        body: JSON.stringify({ type: "100-tours", date, team, teamSize, captain, pilots, experience, message, consent, website }),
       });
       const json = (await res.json()) as { ok: boolean; errors?: Record<string, string> };
       if (json.ok) {

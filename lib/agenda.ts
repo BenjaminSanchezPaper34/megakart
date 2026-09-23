@@ -102,18 +102,25 @@ export const RACES: Operation[] = [
     kicker: "La relève en piste",
     name: "Course Enfant",
     accent: "race",
-    summary: "Une vraie course pour les 7-15 ans : essais, grille de départ et podium.",
+    summary: "Une vraie course pour les 8-14 ans en Kart Enfant : essais, grille de départ et podium.",
     details: [
       "Le dimanche, la piste appartient à la relève : une vraie course réservée aux enfants, avec essais, grille de départ, drapeau à damier et podium — comme les grands, chrono Apex Timing compris.",
-      "Trois manches de 8 minutes — pas d'endurance pour les enfants, du rythme et des départs. Déroulé détaillé à l'inscription, par téléphone ou par e-mail.",
+      "Trois manches de 8 minutes en Kart Enfant 160cc — pas d'endurance, du rythme et des départs. Rendez-vous à 14h, casque fourni, baskets obligatoires.",
+      "Ouvert de 8 à 14 ans, à partir de 1,40 m : c'est la taille qui permet d'atteindre les pédales du Kart Enfant en toute sécurité.",
     ],
     facts: [
-      "Dès 7 ans et 1,30 m — Kart Enfant 160cc",
+      "De 8 à 14 ans, 1,40 m minimum",
+      "Kart Enfant 160cc",
       "3 manches de 8 minutes",
+      "Début à 14h",
       "Podium & remise de prix",
     ],
+    price: "32€ / enfant",
+    priceValue: 32,
     reservation: true,
+    signup: "/inscription/course-enfant",
   },
+
   {
     slug: "12-heures",
     kicker: "L'endurance de fin d'année, avec Vortex",

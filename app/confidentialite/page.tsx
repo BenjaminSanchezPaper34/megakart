@@ -90,7 +90,7 @@ export default function ConfidentialitePage() {
 
           <div>
             <h2 className="display mb-3 text-2xl text-chalk">
-              Inscription aux courses (formulaire)
+              Inscription aux courses (formulaires)
             </h2>
             <p>
               Le formulaire{" "}
@@ -98,9 +98,18 @@ export default function ConfidentialitePage() {
                 d&rsquo;inscription aux 100 Tours
               </Link>{" "}
               recueille : la date choisie, le nom de l&rsquo;équipe, le nom, le
-              téléphone et l&rsquo;e-mail du capitaine, le nom des deux autres
-              pilotes, et, si vous les renseignez, votre niveau d&rsquo;expérience et
-              un message. Ces données servent uniquement à enregistrer votre
+              téléphone et l&rsquo;e-mail du capitaine, le nom des coéquipiers, et,
+              si vous les renseignez, votre niveau d&rsquo;expérience et un message.
+              Le formulaire{" "}
+              <Link href="/inscription/course-enfant" className="link-under text-chalk">
+                d&rsquo;inscription à la Course Enfant
+              </Link>{" "}
+              recueille, pour chaque enfant, le prénom, le nom, la date de
+              naissance et la taille — uniquement pour vérifier les conditions
+              d&rsquo;accès à la course (8 à 14 ans, 1,40 m) — ainsi que le nom, le
+              téléphone et l&rsquo;e-mail du parent, qui déclare être le responsable
+              légal. Les données d&rsquo;un mineur ne sont jamais utilisées à une
+              autre fin que l&rsquo;organisation de la course à laquelle il est inscrit. Ces données servent uniquement à enregistrer votre
               équipe et à vous recontacter pour confirmer la place — base légale :
               les mesures précontractuelles que vous demandez.
             </p>
