@@ -93,7 +93,7 @@ function MonthGrid({
               aria-label={`${WEEKDAYS_FULL[d.weekdayIdx]} ${d.day} ${month.name}`}
               className={`relative flex flex-col items-start gap-1 border-b border-r border-white/5 p-1.5 text-left transition-colors duration-200 hover:bg-white/5 md:min-h-[5.5rem] md:p-2 ${cellState(d)} ${
                 isSelected ? "ring-2 ring-inset ring-chalk/70" : ""
-              }`}
+              } ${isToday ? "today-glow z-[1]" : ""}`}
             >
               <span
                 className={`display text-base leading-none ${
