@@ -27,6 +27,8 @@ export type Operation = {
   reservation: boolean;
   /** Formulaire d'inscription en ligne (quand l'opération en a un). */
   signup?: string;
+  /** Libellé du bouton — « Inscrire mon équipe » par défaut. */
+  signupCta?: string;
 };
 
 /** Les courses & trophées — chacun a son univers, ancre = slug. */
@@ -119,6 +121,7 @@ export const RACES: Operation[] = [
     priceValue: 32,
     reservation: true,
     signup: "/inscription/course-enfant",
+    signupCta: "Inscrire mon enfant",
   },
 
   {

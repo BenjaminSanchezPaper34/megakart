@@ -44,7 +44,9 @@ export default function EventPopup({ campagne }: Props) {
   }, [campagne.op, close]);
 
   useEffect(() => {
-    if (pathname === campagne.href) return;
+    // Jamais sur une page d'inscription, la sienne ou celle d'une autre course :
+    // un parent venu inscrire son enfant n'a pas à se voir vendre les 100 Tours.
+    if (pathname === campagne.href || pathname.startsWith("/inscription/")) return;
     // La campagne est terminée : plus rien à annoncer.
     if (new Date().toISOString().slice(0, 10) >= campagne.until) return;
     try {

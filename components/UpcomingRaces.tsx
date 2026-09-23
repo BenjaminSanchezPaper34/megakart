@@ -111,7 +111,7 @@ export default function UpcomingRaces() {
               data-track="inscription-ouverture"
               className="btn btn-race glow-race w-full justify-center sm:w-auto"
             >
-              Inscrire mon équipe
+              {nextOp.signupCta ?? "Inscrire mon équipe"}
             </Link>
           ) : (
             <Link href={`/agenda#${next.op}`} className="btn btn-race w-full justify-center sm:w-auto">

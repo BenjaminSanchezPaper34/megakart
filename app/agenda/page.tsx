@@ -213,7 +213,7 @@ export default function AgendaPage() {
                           data-track="inscription-ouverture"
                           className="btn btn-race glow-race"
                         >
-                          Inscrire mon équipe
+                          {race.signupCta ?? "Inscrire mon équipe"}
                         </Link>
                         <a href={SITE.phoneHref} className="btn btn-ghost">
                           {SITE.phone}
