@@ -6,15 +6,15 @@ import InscriptionDouzeHeures from "@/components/InscriptionDouzeHeures";
 import { SITE, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { formatDate } from "@/lib/agenda";
-import { DOUZE_H, placesRestantes } from "@/lib/inscription-12h";
+import { DOUZE_H, placesRestantes, prixEquipe } from "@/lib/inscription-12h";
 
 /*
  * Toutes les valeurs de l'épreuve (date, horaires, tarif, pilotes, places)
  * viennent de lib/inscription-12h.ts — ne rien écrire en dur ici.
  */
 const f = formatDate(DOUZE_H.date);
-const DATE_LABEL = `${f.weekday} ${f.day} ${f.month}`;
-const PRIX = `${DOUZE_H.prixEquipe.toLocaleString("fr-FR")} €`;
+const DATE_LABEL = `${f.weekday} ${f.day} ${f.monthFull}`;
+const PRIX = prixEquipe();
 const RESTANTES = placesRestantes();
 
 export const metadata: Metadata = {

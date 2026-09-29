@@ -282,6 +282,7 @@ export function formatDate(iso: string) {
   return {
     day: String(d),
     month: MONTHS_SHORT[m - 1],
+    monthFull: MONTHS_FULL[m - 1],
     weekday: DAYS[date.getUTCDay()],
   };
 }

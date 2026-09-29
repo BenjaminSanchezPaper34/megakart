@@ -11,7 +11,7 @@ import {
   parseInscriptionEnfant,
   type InscriptionEnfant,
 } from "@/lib/inscription-enfant";
-import { DOUZE_H, DOUZE_H_SLUG, parseInscriptionDouzeH, type InscriptionDouzeH } from "@/lib/inscription-12h";
+import { DOUZE_H, DOUZE_H_SLUG, parseInscriptionDouzeH, prixEquipe, type InscriptionDouzeH } from "@/lib/inscription-12h";
 
 export const runtime = "nodejs";
 
@@ -150,7 +150,7 @@ function recapDouzeH(d: InscriptionDouzeH, dateLabel: string) {
       row("Équipe", `${d.team} — ${d.nbPilotes} pilotes`) +
       (d.profil ? row("Profil", d.profil) : "") +
       (d.societe ? row("Entreprise", d.societe) : "") +
-      row("Tarif", `${DOUZE_H.prixEquipe.toLocaleString("fr-FR")}€ l'équipe`) +
+      row("Tarif", `${prixEquipe()} l'équipe`) +
       row("Capitaine", d.captain.name) +
       row("Téléphone", d.captain.phone) +
       row("E-mail", d.captain.email) +
@@ -166,7 +166,7 @@ async function envoyerDouzeH(resend: Resend, raw: unknown) {
   const d = parsed.data;
   if (d.website) return { status: 200, body: { ok: true } };
   const f = formatDate(DOUZE_H.date);
-  const dateLabel = `${f.weekday} ${f.day} ${f.month}`;
+  const dateLabel = `${f.weekday} ${f.day} ${f.monthFull}`;
 
   await resend.emails.send({
     from: FROM, to: TO, replyTo: d.captain.email,

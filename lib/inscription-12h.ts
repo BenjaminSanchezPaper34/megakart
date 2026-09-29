@@ -36,6 +36,14 @@ export const DOUZE_H = {
   ravitos: 12,
 } as const;
 
+/**
+ * Tarif affiché : « 1 500 € ». Espace insécable classique plutôt que
+ * l'espace fine de toLocaleString, absente de la police de titre.
+ */
+export function prixEquipe() {
+  return `${String(DOUZE_H.prixEquipe).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0")}\u00a0€`;
+}
+
 export function placesRestantes() {
   return Math.max(0, DOUZE_H.placesMax - DOUZE_H.placesPrises);
 }
