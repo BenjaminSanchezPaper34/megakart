@@ -108,7 +108,15 @@ export default function ConfidentialitePage() {
               naissance et la taille — uniquement pour vérifier les conditions
               d&rsquo;accès à la course (8 à 14 ans, 1,40 m) — ainsi que le nom, le
               téléphone et l&rsquo;e-mail du parent, qui déclare être le responsable
-              légal. Les données d&rsquo;un mineur ne sont jamais utilisées à une
+              légal. Le formulaire{" "}
+              <Link href="/12-heures#formulaire" className="link-under text-chalk">
+                d&rsquo;inscription aux 12 Heures
+              </Link>{" "}
+              recueille le nom de l&rsquo;équipe, son profil (amis, entreprise,
+              habitués) et, pour une entreprise, sa raison sociale pour la
+              facture, le nom, le téléphone et l&rsquo;e-mail du capitaine, le nom
+              des coéquipiers s&rsquo;il est déjà connu, le nombre d&rsquo;accompagnants
+              pour le repas et un éventuel message. Les données d&rsquo;un mineur ne sont jamais utilisées à une
               autre fin que l&rsquo;organisation de la course à laquelle il est inscrit. Ces données servent uniquement à enregistrer votre
               équipe et à vous recontacter pour confirmer la place — base légale :
               les mesures précontractuelles que vous demandez.
