@@ -22,6 +22,19 @@ const EXCEPTIONS: Record<string, { opens: number; closes: number; label: string 
 };
 const OFFSEASON_DETAIL = "Hors saison : tous les jours, 14 h – 19 h.";
 
+/**
+ * Fermeture hebdomadaire lundi + mardi en octobre, hors vacances de la
+ * Toussaint (décision du gérant, 05/10/2026) : du 5 au 16 octobre, soit
+ * les 5, 6, 12 et 13. Pendant les vacances (dès le 17), ouvert tous les jours.
+ */
+const FERME_LUNDI_MARDI: [string, string] = ["2026-10-05", "2026-10-16"];
+const FERME_DETAIL = "En octobre hors vacances : fermé le lundi et le mardi, ouvert du mercredi au dimanche, 14 h – 19 h.";
+
+/** Lundi ou mardi fermé (iso AAAA-MM-JJ, jour JS 0 = dimanche). */
+export function isFermetureHebdo(iso: string, jsDay: number): boolean {
+  return (jsDay === 1 || jsDay === 2) && iso >= FERME_LUNDI_MARDI[0] && iso <= FERME_LUNDI_MARDI[1];
+}
+
 export function getOpenStatus(now: Date = new Date()): OpenStatus {
   const month = now.getMonth(); // 0-11
   const day = now.getDate();
@@ -61,11 +74,23 @@ export function getOpenStatus(now: Date = new Date()): OpenStatus {
     };
   }
 
+  if (isFermetureHebdo(iso, now.getDay())) {
+    return {
+      open: false,
+      season: "offseason",
+      label: now.getDay() === 1 ? "Fermé · ouvre mercredi 14 h" : "Fermé · ouvre demain 14 h",
+      detail: FERME_DETAIL,
+    };
+  }
+
+  const inFermePeriod = iso >= FERME_LUNDI_MARDI[0] && iso <= FERME_LUNDI_MARDI[1];
   const open = h >= 14 && h < 19;
+  // Le dimanche soir de la période, « demain » serait un lundi fermé.
+  const reopen = inFermePeriod && now.getDay() === 0 ? "Fermé · ouvre mercredi 14 h" : "Fermé · ouvre demain 14 h";
   return {
     open,
     season: "offseason",
-    label: open ? "Ouvert actuellement" : h < 14 ? "Ouvre à 14 h" : "Fermé · ouvre demain 14 h",
-    detail: OFFSEASON_DETAIL,
+    label: open ? "Ouvert actuellement" : h < 14 ? "Ouvre à 14 h" : reopen,
+    detail: inFermePeriod ? FERME_DETAIL : OFFSEASON_DETAIL,
   };
 }
