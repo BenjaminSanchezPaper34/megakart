@@ -12,7 +12,7 @@ import { EXPERIENCES, TEAM_SIZES, teamPricing, type TeamSize } from "@/lib/inscr
  * affiche ses retours champ par champ. En cas de panne d'envoi, le
  * téléphone et l'e-mail restent la solution de repli, jamais un mur.
  */
-type DateOption = { iso: string; label: string };
+type DateOption = { iso: string; label: string; places?: number };
 type Status = "idle" | "sending" | "sent" | "error";
 
 const INPUT =
@@ -164,6 +164,9 @@ export default function InscriptionCentTours({ dates }: { dates: DateOption[] })
                   className="accent-[var(--color-race)]"
                 />
                 <span className="display text-lg text-chalk">{d.label}</span>
+                {d.places !== undefined && (
+                  <span className="text-sm text-race">plus que {d.places} place{d.places > 1 ? "s" : ""}</span>
+                )}
               </label>
             );
           })}
