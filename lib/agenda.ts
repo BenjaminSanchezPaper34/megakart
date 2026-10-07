@@ -1,3 +1,4 @@
+import { isFermetureHebdo } from "./hours";
 /**
  * Agenda de fin d'année 2026 — opérations & temps forts.
  * Source : brief communication client (août 2026) + planning mural.
@@ -328,12 +329,11 @@ const PACK_FROM = "2026-09-06";
 const PACK_TO = "2026-12-27";
 
 /**
- * Jours d'ouverture hors saison : tous les jours, 14 h – 19 h, conformément
- * à la fiche Google du circuit (septembre 2026). Si le client annonce des
- * fermetures hebdomadaires à partir d'octobre, c'est ici que ça se règle.
+ * Jours d'ouverture hors saison : tous les jours, 14 h – 19 h, sauf la
+ * fermeture lundi + mardi d'octobre hors vacances (règle dans lib/hours.ts).
  */
-function isOpen(): boolean {
-  return true;
+function isOpen(iso: string, weekdayIdx: number): boolean {
+  return !isFermetureHebdo(iso, (weekdayIdx + 1) % 7);
 }
 
 export type CalendarDay = {
@@ -393,7 +393,7 @@ export function buildCalendar(): CalendarMonth[] {
       const event = events.get(iso);
       const aVolonte =
         weekdayIdx === 2 && !vacances && iso >= A_VOLONTE_FROM && iso <= A_VOLONTE_TO;
-      const open = isOpen() || Boolean(event) || aVolonte;
+      const open = isOpen(iso, weekdayIdx) || Boolean(event) || aVolonte;
       days.push({
         iso,
         day,

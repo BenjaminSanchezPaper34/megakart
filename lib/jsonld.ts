@@ -81,6 +81,14 @@ export function localBusinessJsonLd() {
         validFrom: "2027-03-01",
         validThrough: "2027-06-14",
       },
+      // Fermetures lundi + mardi d'octobre hors vacances (convention schema.org : 00:00–00:00 = fermé).
+      ...["2026-10-05", "2026-10-06", "2026-10-12", "2026-10-13"].map((d) => ({
+        "@type": "OpeningHoursSpecification",
+        opens: "00:00",
+        closes: "00:00",
+        validFrom: d,
+        validThrough: d,
+      })),
     ],
     makesOffer: KARTS.map((k) => ({
       "@type": "Offer",
