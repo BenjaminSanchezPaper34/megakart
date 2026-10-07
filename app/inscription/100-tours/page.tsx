@@ -58,7 +58,7 @@ export default function InscriptionCentToursPage() {
             qu&rsquo;on peut joindre : c&rsquo;est tout ce qu&rsquo;il faut.
           </p>
           {DATES.filter((d) => d.places !== undefined).map((d) => (
-            <p key={d.iso} className="display mt-6 inline-block bg-race px-3 py-1.5 text-base tracking-wide text-asphalt">
+            <p key={d.iso} className="display mt-6 inline-block bg-race px-4 py-2 text-lg tracking-wide text-chalk">
               {d.label} : plus que {d.places} place{d.places! > 1 ? "s" : ""}
             </p>
           ))}
