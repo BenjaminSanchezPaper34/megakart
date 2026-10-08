@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
+import { provenance } from "@/lib/provenance";
 import { track } from "@vercel/analytics/react";
 import { SITE } from "@/lib/site";
 import { ENFANT, MAX_ENFANTS, ageAu } from "@/lib/inscription-enfant";
@@ -89,7 +90,7 @@ export default function InscriptionCourseEnfant({ dates }: { dates: DateOption[]
       const json = (await res.json()) as { ok: boolean; errors?: Record<string, string> };
       if (json.ok) {
         setStatus("sent");
-        track("inscription", { course: "course-enfant", date, enfants: enfants.length });
+        track("inscription", { course: "course-enfant", date, enfants: enfants.length, source: provenance()?.source ?? "direct", campagne: provenance()?.campagne ?? "" });
         return;
       }
       if (json.errors) setErrors(json.errors);

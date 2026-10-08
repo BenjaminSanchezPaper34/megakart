@@ -3,6 +3,7 @@
 import { Analytics, track } from "@vercel/analytics/react";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { provenance } from "@/lib/provenance";
 
 /**
  * Mesure d'audience — Vercel Web Analytics.
@@ -44,6 +45,13 @@ function eventForHref(href: string): string | null {
 
 function Evenements() {
   const pathname = usePathname();
+
+  // Une visite venue d'un lien marqué (pub, boost, post, fiche Google) :
+  // un événement « arrivee » par page d'atterrissage, avec sa provenance.
+  useEffect(() => {
+    const p = provenance();
+    if (p) track("arrivee", { ...p, page: pathname });
+  }, [pathname]);
 
   useEffect(() => {
     function onClick(e: MouseEvent) {

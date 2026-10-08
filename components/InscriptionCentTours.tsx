@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
+import { provenance } from "@/lib/provenance";
 import { track } from "@vercel/analytics/react";
 import { SITE } from "@/lib/site";
 import { EXPERIENCES, TEAM_SIZES, teamPricing, type TeamSize } from "@/lib/inscription";
@@ -85,7 +86,7 @@ export default function InscriptionCentTours({ dates }: { dates: DateOption[] })
       const json = (await res.json()) as { ok: boolean; errors?: Record<string, string> };
       if (json.ok) {
         setStatus("sent");
-        track("inscription", { course: "100-tours", date });
+        track("inscription", { course: "100-tours", date, source: provenance()?.source ?? "direct", campagne: provenance()?.campagne ?? "" });
         return;
       }
       if (json.errors) setErrors(json.errors);

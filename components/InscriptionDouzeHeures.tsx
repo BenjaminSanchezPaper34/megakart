@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
+import { provenance } from "@/lib/provenance";
 import { track } from "@vercel/analytics/react";
 import { SITE } from "@/lib/site";
 import { DOUZE_H, PROFILS } from "@/lib/inscription-12h";
@@ -85,7 +86,7 @@ export default function InscriptionDouzeHeures({ dateLabel }: { dateLabel: strin
       const json = (await res.json()) as { ok: boolean; errors?: Record<string, string> };
       if (json.ok) {
         setStatus("sent");
-        track("inscription", { course: "12-heures", pilotes: nbPilotes, profil: profil || "non précisé" });
+        track("inscription", { course: "12-heures", pilotes: nbPilotes, profil: profil || "non précisé", source: provenance()?.source ?? "direct", campagne: provenance()?.campagne ?? "" });
         return;
       }
       if (json.errors) setErrors(json.errors);
