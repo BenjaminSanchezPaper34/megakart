@@ -21,7 +21,7 @@ const DATES = AGENDA.filter(
   (a) => a.op === CENT_TOURS_SLUG && a.status === "confirme" && !a.endDate,
 ).map((a) => {
   const f = formatDate(a.date);
-  return { iso: a.date, label: `${f.weekday} ${f.day} ${f.month}` };
+  return { iso: a.date, label: `${f.weekday} ${f.day} ${f.month}`, places: a.places };
 });
 
 export default function InscriptionCentToursPage() {
@@ -57,6 +57,12 @@ export default function InscriptionCentToursPage() {
             Deux ou trois pilotes, un nom d&rsquo;équipe, un capitaine
             qu&rsquo;on peut joindre : c&rsquo;est tout ce qu&rsquo;il faut.
           </p>
+          {DATES.filter((d) => d.places !== undefined).map((d) => (
+            <p key={d.iso} className="display mt-6 inline-block bg-race px-4 py-2 text-lg tracking-wide text-chalk">
+              {d.label} : plus que {d.places} équipe{d.places! > 1 ? "s" : ""}
+            </p>
+          ))}
+          <br />
           <a href="#formulaire" className="btn btn-race glow-race mt-8">
             Aller au formulaire
           </a>
