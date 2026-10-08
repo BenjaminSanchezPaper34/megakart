@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { SITE, SITE_URL } from "@/lib/site";
-import { getOperation } from "@/lib/agenda";
+import { formatDate, getOperation } from "@/lib/agenda";
 import { CENT_TOURS_SLUG, centToursDates, parseInscription, teamPricing, type Inscription } from "@/lib/inscription";
 import {
   COURSE_ENFANT_SLUG,
@@ -11,12 +11,13 @@ import {
   parseInscriptionEnfant,
   type InscriptionEnfant,
 } from "@/lib/inscription-enfant";
+import { DOUZE_H, DOUZE_H_SLUG, parseInscriptionDouzeH, prixEquipe, type InscriptionDouzeH } from "@/lib/inscription-12h";
 
 export const runtime = "nodejs";
 
 /**
- * Réception d'une inscription — 100 Tours (équipe) ou Course Enfant (parent
- * + enfants), selon `type`. Deux e-mails partent à chaque fois : la fiche
+ * Réception d'une inscription — 100 Tours ou 12 Heures (équipe), Course Enfant
+ * (parent + enfants), selon `type`. Deux e-mails partent à chaque fois : la fiche
  * complète au circuit (SITE.email), avec « répondre à » = la personne qui
  * s'inscrit ; un accusé de réception à cette personne, avec « répondre à »
  * = circuit. Rien n'est stocké côté site : la boîte du circuit est la seule copie.
@@ -141,6 +142,50 @@ async function envoyerEnfant(resend: Resend, raw: unknown) {
   return { status: 200, body: { ok: true } };
 }
 
+/* ---------- 12 Heures ---------- */
+function recapDouzeH(d: InscriptionDouzeH, dateLabel: string) {
+  const autres = d.pilots.map((n, i) => row(`${i + 2}e pilote`, n || "à communiquer")).join("");
+  return table(
+    row("Course", `Les 12 Heures — ${dateLabel}, ${DOUZE_H.depart} → ${DOUZE_H.arrivee}`) +
+      row("Équipe", `${d.team} — ${d.nbPilotes} pilotes`) +
+      (d.profil ? row("Profil", d.profil) : "") +
+      (d.societe ? row("Entreprise", d.societe) : "") +
+      row("Tarif", `${prixEquipe()} l'équipe`) +
+      row("Capitaine", d.captain.name) +
+      row("Téléphone", d.captain.phone) +
+      row("E-mail", d.captain.email) +
+      autres +
+      row("Accompagnants au repas", String(d.accompagnants)) +
+      (d.message ? row("Message", d.message) : "")
+  );
+}
+
+async function envoyerDouzeH(resend: Resend, raw: unknown) {
+  const parsed = parseInscriptionDouzeH(raw);
+  if (!parsed.ok) return { status: 422, body: { ok: false, errors: parsed.errors } };
+  const d = parsed.data;
+  if (d.website) return { status: 200, body: { ok: true } };
+  const f = formatDate(DOUZE_H.date);
+  const dateLabel = `${f.weekday} ${f.day} ${f.monthFull}`;
+
+  await resend.emails.send({
+    from: FROM, to: TO, replyTo: d.captain.email,
+    subject: `Inscription 12 Heures · équipe ${d.team} (${d.nbPilotes} pilotes)${d.societe ? ` · ${d.societe}` : ""}`,
+    html: shell(`<h2 style="margin:0 0 6px;font-size:22px">Nouvelle équipe pour les 12 Heures</h2>
+      <p style="margin:0 0 14px;color:#555">Reçue depuis le formulaire du site. Pensez à mettre à jour le compteur de places (lib/inscription-12h.ts) une fois l'équipe confirmée.</p>
+      ${aFaire(d.captain.name)}${recapDouzeH(d, dateLabel)}`),
+  });
+  await resend.emails.send({
+    from: FROM, to: d.captain.email, replyTo: TO,
+    subject: `Votre équipe est pré-inscrite aux 12 Heures — ${dateLabel}`,
+    html: shell(`<h2 style="margin:0 0 6px;font-size:22px">C'est noté, ${esc(d.captain.name)} !</h2>
+      <p style="margin:0 0 18px;color:#555;line-height:1.55">Votre équipe <strong>${esc(d.team)}</strong> est pré-inscrite aux 12 Heures du <strong>${esc(dateLabel)}</strong>, organisées avec l'écurie Vortex. ${delai}</p>
+      ${recapDouzeH(d, dateLabel)}
+      ${encart(`<strong style="color:#111">Et ensuite</strong> — accueil des équipes à ${DOUZE_H.accueil}, essais et qualifications à ${DOUZE_H.essais}, départ à ${DOUZE_H.depart}. Repas des pilotes compris ; tout se règle sur place, sans acompte. Casque et combinaison disponibles sur place si besoin. Les noms des pilotes peuvent être complétés jusqu'au jour J.`)}`),
+  });
+  return { status: 200, body: { ok: true } };
+}
+
 export async function POST(req: Request) {
   let raw: unknown;
   try {
@@ -153,7 +198,12 @@ export async function POST(req: Request) {
   const type = (raw as { type?: string })?.type ?? CENT_TOURS_SLUG;
 
   try {
-    const r = type === COURSE_ENFANT_SLUG ? await envoyerEnfant(resend, raw) : await envoyerCentTours(resend, raw);
+    const r =
+      type === COURSE_ENFANT_SLUG
+        ? await envoyerEnfant(resend, raw)
+        : type === DOUZE_H_SLUG
+          ? await envoyerDouzeH(resend, raw)
+          : await envoyerCentTours(resend, raw);
     return NextResponse.json(r.body, { status: r.status });
   } catch (err) {
     console.error("[inscription] envoi impossible :", err);

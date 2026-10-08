@@ -137,21 +137,23 @@ export const RACES: Operation[] = [
     kicker: "L'endurance de fin d'année, avec Vortex",
     name: "Les 12 Heures",
     accent: "flag",
-    summary: "Douze heures d'endurance par équipes, organisées avec l'écurie Vortex — ouvertes aux inscriptions.",
+    summary: "Douze heures d'endurance par équipes, de midi à minuit, coorganisées avec l'écurie Vortex. 15 équipes maximum.",
     details: [
-      "Le plus grand format jamais couru sur le circuit : douze heures de course en relais, par équipes, sur les 1000 m de Vias-plage. L'écurie Vortex et son équipe technique travaillent aux côtés de l'équipe MegaKart pour l'organisation.",
-      "Ouvert aux équipes amateurs comme aux habitués : chaque équipe dispose de son paddock aménagé (tables, écran de suivi), restauration et boissons sur place, chrono Apex Timing en continu.",
+      "Le plus grand format jamais couru sur le circuit : douze heures de relais par équipes de 2 à 6 pilotes, de midi à minuit, sur les 1000 m de Vias-plage. L'écurie Vortex et son équipe technique coorganisent l'épreuve avec l'équipe MegaKart.",
+      "Un ravitaillement imposé par heure, et à chaque ravitaillement l'équipe repart sur un autre kart : personne ne garde « le bon » toute la journée. Accueil à 10h, essais et qualifications à 10h30 ; un grand hangar chauffé avec écran et restauration, un espace par équipe, repas des pilotes compris. Ouvert dès 14 ans, tout se règle sur place.",
     ],
     facts: [
-      "Endurance de 12 heures par équipes",
-      "Organisé avec l'écurie Vortex",
-      "Paddock aménagé pour chaque équipe",
-      "Restauration & boissons sur place",
-      "Places limitées — inscriptions par téléphone ou e-mail",
+      "12 heures, de midi à minuit",
+      "Équipes de 2 à 6 pilotes",
+      "Changement de kart à chaque ravitaillement",
+      "Repas pilotes compris, espace chauffé par équipe",
+      "Dès 14 ans, règlement sur place",
+      "15 équipes maximum",
     ],
     price: "1 500€ / équipe",
     priceValue: 1500,
     page: "/12-heures",
+    signup: "/12-heures#formulaire",
     reservation: true,
   },
 ];
@@ -286,6 +288,7 @@ export function formatDate(iso: string) {
   return {
     day: String(d),
     month: MONTHS_SHORT[m - 1],
+    monthFull: MONTHS_FULL[m - 1],
     weekday: DAYS[date.getUTCDay()],
   };
 }

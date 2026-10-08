@@ -2,35 +2,42 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Marquee from "@/components/Marquee";
+import InscriptionDouzeHeures from "@/components/InscriptionDouzeHeures";
 import { SITE, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { formatDate } from "@/lib/agenda";
+import { DOUZE_H, placesRestantes, prixEquipe } from "@/lib/inscription-12h";
+
+/*
+ * Toutes les valeurs de l'épreuve (date, horaires, tarif, pilotes, places)
+ * viennent de lib/inscription-12h.ts — ne rien écrire en dur ici.
+ */
+const f = formatDate(DOUZE_H.date);
+const DATE_LABEL = `${f.weekday} ${f.day} ${f.monthFull}`;
+const PRIX = prixEquipe();
+const RESTANTES = placesRestantes();
 
 export const metadata: Metadata = {
-  title: "Les 12 Heures — endurance par équipes, samedi 19 décembre",
-  description:
-    "Douze heures d'endurance par équipes sur le circuit MegaKart à Vias, organisées avec l'écurie Vortex. Samedi 19 décembre 2026, 1 500 € l'équipe, paddock aménagé et chrono Apex Timing. Sur inscription.",
+  title: `Les 12 Heures — endurance par équipes avec Vortex, ${DATE_LABEL}`,
+  description: `Douze heures d'endurance par équipes de ${DOUZE_H.pilotesMin} à ${DOUZE_H.pilotesMax} pilotes au circuit MegaKart de Vias, avec l'écurie Vortex. ${DATE_LABEL}, de ${DOUZE_H.depart} à ${DOUZE_H.arrivee}. ${DOUZE_H.placesMax} équipes maximum.`,
   alternates: { canonical: "/12-heures" },
 };
 
 const EVENT_JSONLD = {
   "@context": "https://schema.org",
   "@type": "SportsEvent",
-  name: "Les 12 Heures de MegaKart — endurance par équipes",
-  startDate: "2026-12-19",
-  endDate: "2026-12-19",
+  name: "Les 12 Heures de MegaKart — endurance par équipes avec l'écurie Vortex",
+  startDate: `${DOUZE_H.date}T12:00:00+01:00`,
+  endDate: `${DOUZE_H.date}T23:59:00+01:00`,
   eventStatus: "https://schema.org/EventScheduled",
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   url: `${SITE_URL}/12-heures`,
   image: [`${SITE_URL}/images/galerie-17-nocturne-action.jpg`, `${SITE_URL}/images/og.jpg`],
-  description:
-    "Course d'endurance de 12 heures par équipes sur le circuit outdoor de 1000 m de MegaKart à Vias-plage, organisée avec l'écurie Vortex. Paddock aménagé par équipe, restauration sur place, chronométrage Apex Timing en continu.",
-  organizer: {
-    "@type": "Organization",
-    "@id": `${SITE_URL}/#business`,
-    name: SITE.name,
-    url: SITE_URL,
-  },
-  performer: { "@type": "Organization", name: SITE.name, url: SITE_URL },
+  description: `Course d'endurance de 12 heures par équipes sur le circuit outdoor de 1000 m de MegaKart à Vias-plage, coorganisée avec l'écurie Vortex. Un ravitaillement par heure, changement de kart à chaque ravitaillement, espace chauffé par équipe, repas compris, chronométrage Apex Timing en direct. ${DOUZE_H.placesMax} équipes maximum.`,
+  organizer: [
+    { "@type": "Organization", "@id": `${SITE_URL}/#business`, name: SITE.name, url: SITE_URL },
+    { "@type": "Organization", name: "Vortex" },
+  ],
   location: {
     "@type": "Place",
     name: SITE.name,
@@ -45,28 +52,58 @@ const EVENT_JSONLD = {
   offers: {
     "@type": "Offer",
     name: "Inscription par équipe",
-    price: 1500,
+    price: DOUZE_H.prixEquipe,
     priceCurrency: "EUR",
-    availability: "https://schema.org/InStock",
-    url: `${SITE_URL}/12-heures`,
+    availability: RESTANTES > 0 ? "https://schema.org/LimitedAvailability" : "https://schema.org/SoldOut",
+    url: `${SITE_URL}/12-heures#formulaire`,
   },
 };
 
+/* Le déroulé, vulgarisé depuis le règlement présenté par Vortex (réunion du 29/09/2026). */
 const FORMAT = [
   {
     step: "01",
-    title: "Une équipe, douze heures",
-    text: "Vous constituez votre équipe et vous vous relayez au volant pendant douze heures. Gestion des relais, régularité, fraîcheur des pilotes : l'endurance récompense la tête autant que le pied droit.",
+    title: `De ${DOUZE_H.depart} à ${DOUZE_H.arrivee}`,
+    text: `Accueil des équipes à ${DOUZE_H.accueil}, essais et qualifications à ${DOUZE_H.essais}, puis départ en plein jour et arrivée sous les projecteurs : douze heures de relais sur les 1000 m du circuit.`,
   },
   {
     step: "02",
-    title: "Votre paddock",
-    text: "Chaque équipe dispose de son espace aménagé au bord de la piste : tables, écran de suivi de course et de quoi souffler entre deux relais. Restauration et boissons sur place toute la journée.",
+    title: "Un ravitaillement par heure",
+    text: `${DOUZE_H.ravitos} ravitaillements imposés, un par heure, annoncés au gyrophare, et ${DOUZE_H.arretsMin} arrêts au minimum sur la course. Le reste, c'est votre stratégie : qui roule, quand, combien de temps.`,
   },
   {
     step: "03",
-    title: "Le chrono ne dort jamais",
-    text: "Chronométrage Apex Timing en continu, classement en direct sur l'écran LED géant — et sur la page chrono du site, pour ceux qui suivent la course de loin.",
+    title: "Un nouveau kart à chaque ravito",
+    text: "À chaque ravitaillement, l'équipe repart sur un autre kart : personne ne garde « le bon » toute la journée. Votre numéro vous suit sur le transpondeur, pas sur la machine.",
+  },
+  {
+    step: "04",
+    title: "Le chrono en direct",
+    text: "Chronométrage Apex Timing en continu, classement sur l'écran géant et sur la page chrono du site pour ceux qui suivent la course de loin.",
+  },
+];
+
+const ACCUEIL = [
+  "Un grand hangar chauffé, un espace réservé à chaque équipe",
+  "Écran de suivi de course et restauration sur place",
+  "Pilotes nourris toute la journée : petit-déjeuner, déjeuner, goûter et dîner",
+  "Boissons en libre-service pour tous",
+  "Équipement non fourni : casque et combinaison disponibles sur place",
+  "Trophée, podium et lots RSS en fin de course",
+];
+
+const PUBLICS = [
+  {
+    title: "Entre amis",
+    text: "Pas besoin d'être licencié : si vous avez déjà roulé en loisir, vous avez votre place. C'est la tête et la régularité qui gagnent une endurance.",
+  },
+  {
+    title: "En entreprise",
+    text: "Une fin d'année qui change du restaurant : une équipe, un objectif, douze heures pour se serrer les coudes. Facture au nom de l'entreprise.",
+  },
+  {
+    title: "Habitués et équipages Vortex",
+    text: "Les pilotes de la communauté Vortex et les habitués du circuit seront sur la grille. De quoi se mesurer aux meilleurs, dans une ambiance qui reste celle du loisir.",
   },
 ];
 
@@ -76,10 +113,7 @@ export default function DouzeHeuresPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
-            breadcrumbJsonLd([{ name: "Les 12 Heures", path: "/12-heures" }]),
-            EVENT_JSONLD,
-          ]),
+          __html: JSON.stringify([breadcrumbJsonLd([{ name: "Les 12 Heures", path: "/12-heures" }]), EVENT_JSONLD]),
         }}
       />
 
@@ -98,7 +132,7 @@ export default function DouzeHeuresPage() {
         </div>
         <div data-hero-content className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-44 md:px-8">
           <p className="display mb-3 text-lg text-flag">
-            Samedi 19 décembre · avec l&rsquo;écurie Vortex
+            {DATE_LABEL} · {DOUZE_H.depart} → {DOUZE_H.arrivee} · avec l&rsquo;écurie Vortex
           </p>
           <h1 className="display text-[clamp(2.8rem,8vw,6.5rem)] text-chalk">
             Les 12 Heures
@@ -106,28 +140,33 @@ export default function DouzeHeuresPage() {
             <span className="text-race">de MegaKart.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk">
-            Le plus grand format jamais couru sur le circuit : douze heures
-            d&rsquo;endurance par équipes, du jour à la nuit, sur les 1000 m
-            de Vias-plage.
+            Le plus grand format jamais couru sur le circuit : douze heures d&rsquo;endurance par équipes, du jour à la
+            nuit, sur les 1000 m de Vias-plage.
           </p>
-          <div className="mt-9 flex flex-wrap gap-4">
-            <a href={SITE.phoneHref} className="btn btn-race glow-race">
-              Inscrire mon équipe · {SITE.phone}
+          <div className="mt-9 flex flex-wrap items-center gap-4">
+            <a href="#formulaire" className="btn btn-race glow-race">
+              Inscrire mon équipe
             </a>
-            <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
-              {SITE.email}
-            </a>
+            <p className="display text-lg text-chalk">
+              {RESTANTES > 0 ? (
+                <>
+                  Plus que <span className="text-flag">{RESTANTES}</span> places sur {DOUZE_H.placesMax}
+                </>
+              ) : (
+                "Complet — liste d'attente par téléphone"
+              )}
+            </p>
           </div>
         </div>
       </section>
 
       <Marquee
         items={[
-          "Samedi 19 décembre",
-          "Endurance 12 heures",
-          "Par équipes",
-          "1 500 € l'équipe",
-          "Paddock aménagé",
+          DATE_LABEL,
+          `${DOUZE_H.depart} → ${DOUZE_H.arrivee}`,
+          `Équipes de ${DOUZE_H.pilotesMin} à ${DOUZE_H.pilotesMax}`,
+          `${DOUZE_H.placesMax} équipes max`,
+          "Avec Vortex",
           "Chrono Apex Timing",
         ]}
       />
@@ -140,62 +179,45 @@ export default function DouzeHeuresPage() {
           <span className="display-outline">une seule équipe.</span>
         </h2>
         <p data-reveal className="mt-6 max-w-2xl text-base leading-relaxed text-chalk-60">
-          L&rsquo;épreuve est organisée main dans la main avec l&rsquo;écurie
-          Vortex : leur équipe technique travaille aux côtés de celle du
-          circuit pour que la journée tienne du vrai meeting d&rsquo;endurance.
-          Les premières équipes sont déjà inscrites — les places sont
-          limitées par le nombre de karts.
+          L&rsquo;épreuve est coorganisée avec l&rsquo;écurie Vortex : leur équipe technique travaille aux côtés de celle
+          du circuit pour que la journée tienne du vrai meeting d&rsquo;endurance. Les karts sont les {DOUZE_H.karts} du
+          circuit, préparés pour l&rsquo;épreuve.
         </p>
-        <div data-stagger className="mt-12 grid gap-6 md:grid-cols-3">
-          {FORMAT.map((f) => (
-            <article key={f.step} className="card p-7">
-              <p className="display text-4xl text-race">{f.step}</p>
-              <h3 className="display mt-3 text-2xl text-chalk">{f.title}</h3>
-              <p className="mt-3 text-base leading-relaxed text-chalk-60">{f.text}</p>
+        <div data-stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {FORMAT.map((s) => (
+            <article key={s.step} className="card p-7">
+              <p className="display text-4xl text-race">{s.step}</p>
+              <h3 className="display mt-3 text-2xl text-chalk">{s.title}</h3>
+              <p className="mt-3 text-base leading-relaxed text-chalk-60">{s.text}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <div className="kerb" aria-hidden="true" />
-
-      {/* Inscription */}
+      {/* L'accueil des équipes */}
       <section className="bg-asphalt-2 py-20 md:py-28">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
           <div>
             <p data-reveal className="display text-lg text-flag">
-              Inscription
+              Votre camp de base
             </p>
             <h2 data-reveal className="display mt-1 text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
-              1 500 € <span className="text-chalk-60">l&rsquo;équipe</span>
+              Au chaud entre deux relais.
             </h2>
             <p data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk-60">
-              Le tarif couvre l&rsquo;engagement de l&rsquo;équipe pour les
-              douze heures de course, les karts et le paddock aménagé.
-              Composition de l&rsquo;équipe, horaires détaillés et règlement
-              vous sont communiqués à l&rsquo;inscription.
+              Décembre au bord de la mer, ça peut piquer : pilotes et accompagnants se retrouvent dans un grand hangar
+              chauffé, avec un espace par équipe pour se reposer, manger et suivre la course. Les accompagnants sont les
+              bienvenus
+              {DOUZE_H.repasAccompagnant ? ` : repas à environ ${DOUZE_H.repasAccompagnant} € par personne (matin, midi et soir)` : ", repas en supplément"}.
             </p>
             <ul data-stagger className="mt-8 flex flex-col gap-3">
-              {[
-                "Ouvert à tous : équipes d'habitués comme de débutants",
-                "Karts du circuit, préparés pour l'épreuve",
-                "Restauration et boissons sur place",
-                "Classement et podium en fin de course",
-              ].map((item) => (
+              {ACCUEIL.map((item) => (
                 <li key={item} className="card flex items-center gap-4 p-4">
                   <span className="checker-sm h-4 w-4 shrink-0 opacity-60" aria-hidden="true" />
                   <span className="text-base text-chalk">{item}</span>
                 </li>
               ))}
             </ul>
-            <div data-reveal className="mt-9 flex flex-wrap gap-4">
-              <a href={SITE.phoneHref} className="btn btn-race glow-race">
-                {SITE.phone}
-              </a>
-              <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
-                Écrire au circuit
-              </a>
-            </div>
           </div>
           <div data-reveal className="overflow-hidden rounded-sm">
             <Image
@@ -206,6 +228,61 @@ export default function DouzeHeuresPage() {
               sizes="(min-width: 1024px) 40vw, 100vw"
               className="h-full w-full object-cover"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Pour qui */}
+      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+        <h2 data-reveal className="display max-w-3xl text-[clamp(2.2rem,5vw,4rem)] text-chalk">
+          Ouvert à tous
+          <span className="text-race"> les équipages.</span>
+        </h2>
+        <div data-stagger className="mt-12 grid gap-6 md:grid-cols-3">
+          {PUBLICS.map((p) => (
+            <article key={p.title} className="card p-7">
+              <h3 className="display text-2xl text-chalk">{p.title}</h3>
+              <p className="mt-3 text-base leading-relaxed text-chalk-60">{p.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <div className="kerb" aria-hidden="true" />
+
+      {/* Inscription — le formulaire après le décor, comme toutes les pages d'inscription. */}
+      <section id="formulaire" className="scroll-mt-28 bg-asphalt-2 py-16 md:py-20">
+        <div className="mx-auto max-w-3xl px-5 md:px-8">
+          <p data-reveal className="display text-lg text-flag">
+            Inscription
+          </p>
+          <h2 data-reveal className="display mt-1 text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
+            {PRIX} <span className="text-chalk-60">l&rsquo;équipe</span>
+          </h2>
+          <p data-reveal className="mt-3 text-base leading-relaxed text-chalk-60">
+            Le même tarif de {DOUZE_H.pilotesMin} à {DOUZE_H.pilotesMax} pilotes, repas compris. Pas d&rsquo;acompte :
+            tout se règle sur place le jour de la course. Ouvert dès {DOUZE_H.ageMin} ans, inscriptions jusqu&rsquo;à
+            ce que la grille soit complète.
+            {RESTANTES > 0 ? ` ${RESTANTES} places restantes sur ${DOUZE_H.placesMax}.` : ""}
+          </p>
+
+          <div className="mt-8">
+            <InscriptionDouzeHeures dateLabel={DATE_LABEL} />
+          </div>
+
+          <div className="card mt-8 p-6">
+            <p className="display text-lg text-chalk">Plutôt de vive voix ?</p>
+            <p className="mt-2 text-base leading-relaxed text-chalk-60">
+              L&rsquo;équipe du circuit prend aussi les inscriptions au téléphone et par e-mail.
+            </p>
+            <div className="mt-4 flex flex-col gap-2">
+              <a href={SITE.phoneHref} className="link-under w-fit text-base font-semibold text-chalk">
+                {SITE.phone}
+              </a>
+              <a href={`mailto:${SITE.email}`} className="link-under w-fit text-base font-semibold text-chalk">
+                {SITE.email}
+              </a>
+            </div>
           </div>
         </div>
       </section>
