@@ -104,8 +104,8 @@ export default function InscriptionDouzeHeures({ dateLabel }: { dateLabel: strin
         </h2>
         <p className="mt-4 text-base leading-relaxed text-chalk-60">
           Un récapitulatif part à l&rsquo;instant sur <strong className="text-chalk">{captain.email}</strong>. Le circuit
-          revient vers vous sous 48 heures pour confirmer votre place aux 12 Heures du {dateLabel}, avec le règlement et
-          les modalités de paiement. Une question d&rsquo;ici là ? Le {SITE.phone} répond aux heures d&rsquo;ouverture.
+          revient vers vous sous 48 heures pour confirmer votre place aux 12 Heures du {dateLabel}. Tout se règle sur place
+          le jour de la course, sans acompte. Une question d&rsquo;ici là ? Le {SITE.phone} répond aux heures d&rsquo;ouverture.
         </p>
         <div className="mt-6 flex flex-wrap gap-4">
           <Link href="/agenda#12-heures" className="btn btn-ghost">
@@ -280,7 +280,7 @@ export default function InscriptionDouzeHeures({ dateLabel }: { dateLabel: strin
         label="Accompagnants qui mangeront sur place"
         hint={
           DOUZE_H.repasAccompagnant
-            ? `Repas accompagnant : ${DOUZE_H.repasAccompagnant}€ par personne. Le repas des pilotes est compris.`
+            ? `Repas accompagnant : environ ${DOUZE_H.repasAccompagnant}€ par personne (matin, midi et soir). Le repas des pilotes est compris ; boissons en libre-service.`
             : "Le repas des pilotes est compris ; celui des accompagnants est en supplément, tarif communiqué à la confirmation."
         }
       >
@@ -359,7 +359,7 @@ export default function InscriptionDouzeHeures({ dateLabel }: { dateLabel: strin
         <button type="submit" className="btn btn-race glow-race" disabled={disabled}>
           {disabled ? "Envoi…" : "Inscrire l'équipe"}
         </button>
-        <p className="text-sm text-chalk-60">Aucun paiement en ligne : le circuit confirme d&rsquo;abord votre place.</p>
+        <p className="text-sm text-chalk-60">Pas d&rsquo;acompte : tout se règle sur place le jour de la course.</p>
       </div>
     </form>
   );

@@ -4,32 +4,31 @@
  *
  * Toutes les valeurs affichées sur la page et dans les e-mails viennent de
  * DOUZE_H : quand le client confirme un point, on change UNE ligne ici.
- * Source : réunion Vortex + Lucas du 29/09/2026 (Pocket). Les lignes
- * marquées « À CONFIRMER » attendent la réponse de Lucas (message du 29/09).
+ * Source : réunion Vortex + Lucas du 29/09/2026 (Pocket), puis réponses
+ * d'Emma du 08/10/2026 (date, horaires, tarif, places, repas, âge, paiement).
  */
 
 export const DOUZE_H_SLUG = "12-heures";
 
 export const DOUZE_H = {
-  /** À CONFIRMER — Lucas a émis un doute sur le 19/12 en réunion. */
   date: "2026-12-19",
-  /** Réunion : « un vrai midi-minuit ». À CONFIRMER. */
+  /** Emma 08/10 : accueil 10h, essais et qualifs 10h30, départ 12h, fin minuit. */
   depart: "12h",
   arrivee: "minuit",
-  /** À CONFIRMER — heure d'accueil des équipes le matin (null = non affichée). */
-  accueil: null as string | null,
-  /** À CONFIRMER — tarif repris du site actuel, non évoqué en réunion. */
+  accueil: "10h" as string | null,
+  essais: "10h30",
+  /** Repas des pilotes compris (petit-déjeuner, midi, goûter, soir). Réglé sur place, sans acompte. */
   prixEquipe: 1500,
-  /** Réunion : jusqu'à 6 pilotes. Minimum À CONFIRMER. */
+  /** Ouvert dès 14 ans. */
+  ageMin: 14,
   pilotesMin: 2,
   pilotesMax: 6,
   /** Réunion : 15 équipes max (25 karts dont 5 prêtés par Sodi). */
   placesMax: 15,
-  /** Réunion : 9 équipes déjà engagées. À mettre à jour au fil des inscriptions. */
-  placesPrises: 9,
-  /** À CONFIRMER — repas accompagnant payant ; null = « tarif communiqué à l'inscription ». */
-  repasAccompagnant: null as number | null,
-  /** À CONFIRMER — modèle de kart. */
+  /** Emma 08/10 : 8 équipes engagées. À mettre à jour au fil des inscriptions. */
+  placesPrises: 8,
+  /** Repas accompagnant (matin, midi, soir), environ 40 € ; boissons en libre-service. */
+  repasAccompagnant: 40 as number | null,
   karts: "Sodi RT10 390cc",
   /** Règlement vulgarisé, tel que décrit par Vortex en réunion. */
   arretsMin: 36,

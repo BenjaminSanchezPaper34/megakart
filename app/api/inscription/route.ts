@@ -181,7 +181,7 @@ async function envoyerDouzeH(resend: Resend, raw: unknown) {
     html: shell(`<h2 style="margin:0 0 6px;font-size:22px">C'est noté, ${esc(d.captain.name)} !</h2>
       <p style="margin:0 0 18px;color:#555;line-height:1.55">Votre équipe <strong>${esc(d.team)}</strong> est pré-inscrite aux 12 Heures du <strong>${esc(dateLabel)}</strong>, organisées avec l'écurie Vortex. ${delai}</p>
       ${recapDouzeH(d, dateLabel)}
-      ${encart(`<strong style="color:#111">Et ensuite</strong> — à la confirmation, le circuit vous envoie le règlement complet, les horaires d'accueil et les modalités de paiement. Les noms des pilotes peuvent être complétés jusqu'au jour J.`)}`),
+      ${encart(`<strong style="color:#111">Et ensuite</strong> — accueil des équipes à ${DOUZE_H.accueil}, essais et qualifications à ${DOUZE_H.essais}, départ à ${DOUZE_H.depart}. Repas des pilotes compris ; tout se règle sur place, sans acompte. Casque et combinaison disponibles sur place si besoin. Les noms des pilotes peuvent être complétés jusqu'au jour J.`)}`),
   });
   return { status: 200, body: { ok: true } };
 }

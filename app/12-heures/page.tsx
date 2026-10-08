@@ -33,7 +33,7 @@ const EVENT_JSONLD = {
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   url: `${SITE_URL}/12-heures`,
   image: [`${SITE_URL}/images/galerie-17-nocturne-action.jpg`, `${SITE_URL}/images/og.jpg`],
-  description: `Course d'endurance de 12 heures par équipes sur le circuit outdoor de 1000 m de MegaKart à Vias-plage, coorganisée avec l'écurie Vortex. Un ravitaillement par heure, changement de kart à chaque ravitaillement, box chauffé par équipe, chronométrage Apex Timing en direct. ${DOUZE_H.placesMax} équipes maximum.`,
+  description: `Course d'endurance de 12 heures par équipes sur le circuit outdoor de 1000 m de MegaKart à Vias-plage, coorganisée avec l'écurie Vortex. Un ravitaillement par heure, changement de kart à chaque ravitaillement, espace chauffé par équipe, repas compris, chronométrage Apex Timing en direct. ${DOUZE_H.placesMax} équipes maximum.`,
   organizer: [
     { "@type": "Organization", "@id": `${SITE_URL}/#business`, name: SITE.name, url: SITE_URL },
     { "@type": "Organization", name: "Vortex" },
@@ -64,7 +64,7 @@ const FORMAT = [
   {
     step: "01",
     title: `De ${DOUZE_H.depart} à ${DOUZE_H.arrivee}`,
-    text: "Départ en plein jour, arrivée sous les projecteurs. Douze heures de relais par équipes sur les 1000 m du circuit, avec la bascule dans la nuit en milieu de course.",
+    text: `Accueil des équipes à ${DOUZE_H.accueil}, essais et qualifications à ${DOUZE_H.essais}, puis départ en plein jour et arrivée sous les projecteurs : douze heures de relais sur les 1000 m du circuit.`,
   },
   {
     step: "02",
@@ -84,10 +84,12 @@ const FORMAT = [
 ];
 
 const ACCUEIL = [
-  "Un box chauffé par équipe, avec écran de suivi de course",
-  "Repas des pilotes compris, restauration sur place",
-  "Pisteurs et commissaires tout au long de la course",
-  "Trophée, podium et lots des partenaires en fin de course",
+  "Un grand hangar chauffé, un espace réservé à chaque équipe",
+  "Écran de suivi de course et restauration sur place",
+  "Pilotes nourris toute la journée : petit-déjeuner, déjeuner, goûter et dîner",
+  "Boissons en libre-service pour tous",
+  "Équipement non fourni : casque et combinaison disponibles sur place",
+  "Trophée, podium et lots RSS en fin de course",
 ];
 
 const PUBLICS = [
@@ -203,9 +205,10 @@ export default function DouzeHeuresPage() {
               Au chaud entre deux relais.
             </h2>
             <p data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk-60">
-              Décembre au bord de la mer, ça peut piquer : chaque équipe a son box chauffé pour se reposer, manger et
-              suivre la course. Les accompagnants sont les bienvenus
-              {DOUZE_H.repasAccompagnant ? `, repas à ${DOUZE_H.repasAccompagnant} € par personne` : ", repas en supplément"}.
+              Décembre au bord de la mer, ça peut piquer : pilotes et accompagnants se retrouvent dans un grand hangar
+              chauffé, avec un espace par équipe pour se reposer, manger et suivre la course. Les accompagnants sont les
+              bienvenus
+              {DOUZE_H.repasAccompagnant ? ` : repas à environ ${DOUZE_H.repasAccompagnant} € par personne (matin, midi et soir)` : ", repas en supplément"}.
             </p>
             <ul data-stagger className="mt-8 flex flex-col gap-3">
               {ACCUEIL.map((item) => (
@@ -257,8 +260,9 @@ export default function DouzeHeuresPage() {
             {PRIX} <span className="text-chalk-60">l&rsquo;équipe</span>
           </h2>
           <p data-reveal className="mt-3 text-base leading-relaxed text-chalk-60">
-            Le même tarif de {DOUZE_H.pilotesMin} à {DOUZE_H.pilotesMax} pilotes. Aucun paiement en ligne : le circuit
-            vous rappelle sous 48 heures pour confirmer la place et vous envoyer le règlement.
+            Le même tarif de {DOUZE_H.pilotesMin} à {DOUZE_H.pilotesMax} pilotes, repas compris. Pas d&rsquo;acompte :
+            tout se règle sur place le jour de la course. Ouvert dès {DOUZE_H.ageMin} ans, inscriptions jusqu&rsquo;à
+            ce que la grille soit complète.
             {RESTANTES > 0 ? ` ${RESTANTES} places restantes sur ${DOUZE_H.placesMax}.` : ""}
           </p>
 
