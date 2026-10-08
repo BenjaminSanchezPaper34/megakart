@@ -20,7 +20,8 @@ import { FORMATS, type PopupCampagne } from "@/lib/popup";
 type Props = { campagne: PopupCampagne & { until: string } };
 
 /* Le temps de laisser voir la page d'abord. Plus long sur mobile : l'écran
-   est petit, un voile immédiat y est vécu comme une agression. */
+   est petit, un voile immédiat y est vécu comme une agression. Le pop-up
+   attend en plus le premier geste du visiteur (voir plus bas). */
 const DELAI_MOBILE = 2600;
 const DELAI_DESKTOP = 1000;
 
@@ -58,8 +59,26 @@ export default function EventPopup({ campagne }: Props) {
     }
     const petit = window.matchMedia("(max-width: 767px)").matches;
     setMobile(petit);
-    const t = setTimeout(() => setOpen(true), petit ? DELAI_MOBILE : DELAI_DESKTOP);
-    return () => clearTimeout(t);
+    // Ouverture au premier geste (défilement, toucher, clic, touche) APRÈS le
+    // délai. Le navigateur fige la mesure « plus grand affichage » (LCP) dès
+    // le premier geste : sans cette attente, le pop-up devenait l'élément LCP
+    // de la page et plombait la note de vitesse (agenda : 4 s au lieu de ~1,5).
+    let pret = false;
+    const GESTES = ["scroll", "pointerdown", "keydown", "touchstart"] as const;
+    const ouvrir = () => {
+      if (!pret) return;
+      setOpen(true);
+      GESTES.forEach((g) => window.removeEventListener(g, ouvrir));
+    };
+    GESTES.forEach((g) => window.addEventListener(g, ouvrir, { passive: true }));
+    const t = setTimeout(() => {
+      pret = true;
+      // Déjà défilé pendant le délai : on ouvre au prochain geste, pas avant.
+    }, petit ? DELAI_MOBILE : DELAI_DESKTOP);
+    return () => {
+      clearTimeout(t);
+      GESTES.forEach((g) => window.removeEventListener(g, ouvrir));
+    };
   }, [campagne, pathname]);
 
   // Échap pour fermer, fond figé, et le focus qui part sur la croix.
