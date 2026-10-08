@@ -234,7 +234,7 @@ export type AgendaItem = {
   label?: string;
   status: "confirme" | "a-confirmer";
   note?: string;
-  /** Places (équipages) encore libres, affiché « plus que N places » quand renseigné. */
+  /** Places (équipages) encore libres, affiché « plus que N équipes » quand renseigné. */
   places?: number;
 };
 

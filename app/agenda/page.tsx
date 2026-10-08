@@ -220,7 +220,7 @@ export default function AgendaPage() {
                         >
                           {d.text}
                           {d.status === "a-confirmer" && " — à confirmer"}
-                          {d.places !== undefined && ` — plus que ${d.places} place${d.places > 1 ? "s" : ""}`}
+                          {d.places !== undefined && ` — plus que ${d.places} équipe${d.places > 1 ? "s" : ""}`}
                         </span>
                       ))}
                     </p>
