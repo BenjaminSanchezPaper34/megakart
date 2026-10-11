@@ -221,7 +221,7 @@ export default function AgendaPage() {
                           {d.text}
                           {d.status === "a-confirmer" && " — à confirmer"}
                           {d.badge && ` — ${d.badge}`}
-                          {d.places !== undefined && ` — plus que ${d.places} équipe${d.places > 1 ? "s" : ""}`}
+                          {d.places !== undefined && (d.places === 1 ? " — dernière place, 1 équipe" : ` — plus que ${d.places} équipes`)}
                         </span>
                       ))}
                     </p>

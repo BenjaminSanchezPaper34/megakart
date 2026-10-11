@@ -166,7 +166,7 @@ export default function InscriptionCentTours({ dates }: { dates: DateOption[] })
                 />
                 <span className="display text-lg text-chalk">{d.label}</span>
                 {d.places !== undefined && (
-                  <span className="text-sm text-race">plus que {d.places} équipe{d.places > 1 ? "s" : ""}</span>
+                  <span className="text-sm text-race">{d.places === 1 ? "dernière place" : `plus que ${d.places} équipes`}</span>
                 )}
               </label>
             );

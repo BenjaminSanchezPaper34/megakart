@@ -255,7 +255,7 @@ export const AGENDA: AgendaItem[] = [
   { date: "2026-10-11", op: "course-enfant", label: "Course Enfant", status: "confirme", badge: "encore des places, inscription aussi sur place avant 14h" }, // Benjamin, 08/10
   // Reportée du 4 au 18 octobre (client, 15/09/2026) — donc pendant les
   // vacances de la Toussaint : ce jour-là le Pack Découverte ne court pas.
-  { date: "2026-10-18", op: "100-tours", label: "Les 100 Tours", status: "confirme", places: 4 }, // Emma, 07/10
+  { date: "2026-10-18", op: "100-tours", label: "Les 100 Tours", status: "confirme", places: 1 }, // Emma, 11/10
   {
     date: "2026-10-31",
     label: "Nocturne Halloween",
