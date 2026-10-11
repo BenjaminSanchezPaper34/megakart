@@ -37,7 +37,7 @@ const JSONLD_EVENTS = AGENDA.filter(
 export const metadata: Metadata = {
   title: "Agenda — courses, trophées & offres de fin d'année 2026",
   description:
-    "Le programme MegaKart à Vias : Les 100 Tours, Trophée Plein Gaz, Women Cup, courses enfants, mercredis à volonté et Pack Découverte avec coaching. Le calendrier complet de fin 2026, jour par jour.",
+    "Le programme MegaKart à Vias : Les 100 Tours, Trophée Plein Gaz, courses enfants, mercredis à volonté et Pack Découverte avec coaching. Le calendrier complet de fin 2026, jour par jour.",
   alternates: { canonical: "/agenda" },
 };
 
@@ -100,7 +100,6 @@ export default function AgendaPage() {
           ...(SHOW_PROMOS ? ["2 tickets = 1 offert"] : []),
           "Les 100 Tours",
           "Trophée Plein Gaz",
-          "Women Cup",
           "Pack Découverte",
           "Chrono Apex Timing",
         ]}

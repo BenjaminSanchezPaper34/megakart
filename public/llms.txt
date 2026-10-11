@@ -62,8 +62,6 @@
 - Nocturne Halloween : samedi 31 octobre, ouvert de 14 h à minuit
 - Trophée Plein Gaz : dimanche 1er novembre — 8 min essais, 8 min qualifications,
   course de 12 tours + finale de 10 min, 85 €/pilote ; à gagner : un baptême en voiture Vortex
-- Women Cup : samedi 21 novembre — course réservée aux femmes, 6 min essais,
-  6 min qualifications, course de 14 tours, 48 €/pilote
 - Mercredi à volonté : tous les mercredis hors vacances scolaires, du 16 septembre à décembre —
   roulage à volonté, 29 € enfant, 59 € en 280cc, 69 € en 390cc (selon conditions)
 - 2 tickets achetés = 1 offert : tous les jeudis et vendredis du 17 septembre au 31 décembre,
@@ -87,7 +85,7 @@
 - /inscription/100-tours : formulaire d'inscription d'une équipe de 2 ou 3 pilotes aux 100 Tours
 - /inscription/course-enfant : formulaire d'inscription d'un ou plusieurs enfants (8-14 ans) à la Course Enfant
 - /agenda : le programme de fin d'année 2026 — courses (100 Tours, Trophée Plein Gaz,
-  Women Cup, courses enfants) et offres (mercredi à volonté, 2 tickets = 1 offert,
+  courses enfants) et offres (mercredi à volonté, 2 tickets = 1 offert,
   Pack Découverte coaching), avec toutes les dates
 - /la-piste : caractéristiques techniques, sécurité, chrono, et la frise historique du circuit
   (1992 création, 2012 agrandissement et passage en compétition catégorie 1.1, 2023 reprise par Lucas PAINA)
