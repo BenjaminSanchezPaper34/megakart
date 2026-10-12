@@ -38,7 +38,7 @@ export default function ReelsRow() {
 
   return (
     <div className="no-scrollbar overflow-x-auto">
-      <div className="flex w-max items-stretch gap-4 px-5 md:gap-5 md:px-8">
+      <div className="mx-auto flex w-max items-stretch gap-4 px-5 md:gap-5 md:px-8">
         {REELS.map((r) => (
           <div
             key={r.src}
