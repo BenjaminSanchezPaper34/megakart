@@ -66,7 +66,7 @@ export default function Souvenirs() {
                   data-track="galerie"
                   className="btn btn-race mt-5"
                 >
-                  Retrouver mes photos{g.count ? ` · ${g.count}` : ""}
+                  Voir les photos
                 </a>
               ) : (
                 <p className="mt-4 inline-block border border-white/15 px-4 py-2 text-sm text-chalk-60">
