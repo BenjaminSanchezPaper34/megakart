@@ -88,7 +88,7 @@ export const RACES: Operation[] = [
   },
   {
     slug: "course-enfant",
-    affiche: { src: "/images/popup/course-enfant-post.jpg", width: 1440, height: 1920 },
+    affiche: { src: "/images/popup/course-enfant-sans-date.jpg", width: 2250, height: 3000 },
     kicker: "La relève en piste",
     name: "Course Enfant",
     accent: "race",
