@@ -189,6 +189,7 @@ export default function AgendaPage() {
         <div className="mt-16 flex flex-col gap-20">
           {RACES.map((race, i) => {
             const dates = opDates(race.slug);
+            const showAffiche = Boolean(race.affiche) && race.slug !== "course-enfant";
             return (
               <article
                 key={race.slug}
@@ -298,15 +299,17 @@ export default function AgendaPage() {
                 {/* Colonne droite : l'affiche officielle quand elle existe, puis les faits. */}
                 <div
                   className={
-                    race.affiche
+                    showAffiche
                       ? "grid gap-6 sm:grid-cols-[minmax(0,240px)_1fr] sm:items-start"
                       : ""
                   }
                 >
-                  <Affiche
-                    op={race}
-                    className="mx-auto w-full max-w-[260px] sm:max-w-none"
-                  />
+                  {showAffiche && (
+                    <Affiche
+                      op={race}
+                      className="mx-auto w-full max-w-[260px] sm:max-w-none"
+                    />
+                  )}
                   <ul data-stagger className="flex flex-col gap-4">
                     {race.facts.map((fact) => (
                       <li

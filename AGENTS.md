@@ -60,3 +60,5 @@ Formulaires d'inscription : `components/Inscription*.tsx` → `app/api/inscripti
 Claude relit ce journal en reprenant la main.
 
 - 2026-10-12 — Création du fichier (Claude). État : site à jour, rien en cours côté site.
+- 2026-10-12 — Codex : accès aux sources et au dépôt local vérifié, consignes de relais et standards Paper34 lus ; megakart.fr répond HTTP 200. Aucun changement du site ni déploiement. Reste : aucune modification demandée, relais prêt.
+- 2026-10-12 — Codex : retrait de l'affiche Course Enfant uniquement dans /agenda ; informations et page d'inscription conservées, date du sitemap actualisée. Vérification et mise en ligne en cours.
