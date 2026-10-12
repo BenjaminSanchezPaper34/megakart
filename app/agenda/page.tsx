@@ -61,7 +61,11 @@ function opDates(slug: string) {
   });
 }
 
+/* Dates passées grisées : la page est régénérée chaque jour. */
+export const revalidate = 86400;
+
 export default function AgendaPage() {
+  const AUJOURDHUI = new Date().toISOString().slice(0, 10);
   return (
     <>
       <script
@@ -212,15 +216,22 @@ export default function AgendaPage() {
                         <span
                           key={d.date}
                           className={`display px-3 py-1.5 text-sm tracking-wide ${
-                            d.status === "confirme"
-                              ? "bg-chalk text-asphalt"
-                              : "border border-white/20 text-chalk-60"
+                            d.date < AUJOURDHUI
+                              ? "bg-white/5 text-chalk-60/60 line-through decoration-1"
+                              : d.status === "confirme"
+                                ? "bg-chalk text-asphalt"
+                                : "border border-white/20 text-chalk-60"
                           }`}
+                          title={d.date < AUJOURDHUI ? "Date passée" : undefined}
                         >
                           {d.text}
-                          {d.status === "a-confirmer" && " — à confirmer"}
-                          {d.badge && ` — ${d.badge}`}
-                          {d.places !== undefined && (d.places === 1 ? " — dernière place, 1 équipe" : ` — plus que ${d.places} équipes`)}
+                          {d.date < AUJOURDHUI ? null : (
+                            <>
+                              {d.status === "a-confirmer" && " — à confirmer"}
+                              {d.badge && ` — ${d.badge}`}
+                              {d.places !== undefined && (d.places === 1 ? " — dernière place, 1 équipe" : ` — plus que ${d.places} équipes`)}
+                            </>
+                          )}
                         </span>
                       ))}
                     </p>
