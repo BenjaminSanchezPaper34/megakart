@@ -7,6 +7,9 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { AGENDA, formatDate, getOperation } from "@/lib/agenda";
 import { COURSE_ENFANT_SLUG, ENFANT } from "@/lib/inscription-enfant";
 
+/* Les dates passées disparaissent d'elles-mêmes : page régénérée chaque jour. */
+export const revalidate = 86400;
+
 export const metadata: Metadata = {
   title: "Inscrire mon enfant à la Course Enfant",
   description:
@@ -17,7 +20,7 @@ export const metadata: Metadata = {
 
 /* Toutes les dates confirmées ; le composant écarte celles déjà passées. */
 const DATES = AGENDA.filter(
-  (a) => a.op === COURSE_ENFANT_SLUG && a.status === "confirme" && !a.endDate,
+  (a) => a.op === COURSE_ENFANT_SLUG && a.status === "confirme" && !a.endDate && a.date >= new Date().toISOString().slice(0, 10),
 ).map((a) => {
   const f = formatDate(a.date);
   return { iso: a.date, label: `${f.weekday} ${f.day} ${f.month}`, badge: a.badge };
