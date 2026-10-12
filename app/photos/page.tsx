@@ -1,3 +1,4 @@
+import Souvenirs from "@/components/Souvenirs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import GalleryGrid from "@/components/GalleryGrid";
@@ -82,6 +83,8 @@ export default function PhotosPage() {
           repartir avec vos propres souvenirs.
         </p>
       </section>
+
+      <Souvenirs />
 
       {/* Les réels du circuit (verticaux, lecture au survol/tap) */}
       <section className="overflow-hidden pb-16 md:pb-20">
