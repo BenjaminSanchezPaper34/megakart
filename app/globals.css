@@ -149,6 +149,48 @@ body {
   box-shadow: 0 0 28px color-mix(in srgb, var(--color-flag) 45%, transparent);
 }
 
+/* ---------- CTA v2 (test sur l'accueil, 12/10/2026 — cf. docs/audit-cta) ----------
+   Trois niveaux : primaire plein (1 par écran), secondaire contour, lien.
+   Droits (coins 6 px), non italiques ; pleine largeur sur mobile. */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  padding: 0 1.6rem;
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.cta:active { transform: scale(0.97); }
+.cta:focus-visible { outline: 2px solid var(--color-flag); outline-offset: 3px; }
+@media (max-width: 767px) { .cta { width: 100%; } }
+.cta-primary { background: var(--color-race); color: #fff; }
+.cta-primary:hover { background: #ff2f3d; }
+.cta-secondary {
+  color: var(--color-chalk);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--color-chalk) 55%, transparent);
+}
+.cta-secondary:hover { box-shadow: inset 0 0 0 1.5px var(--color-chalk); }
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.75rem;
+  font-weight: 600;
+  color: var(--color-chalk);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+.cta-link:hover { color: var(--color-race); }
+
 /* ---------- Liens animés ---------- */
 .link-under {
   position: relative;

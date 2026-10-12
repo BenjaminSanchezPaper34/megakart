@@ -1,3 +1,4 @@
+import MobileActionBar from "@/components/MobileActionBar";
 import Image from "next/image";
 import Link from "next/link";
 import Marquee from "@/components/Marquee";
@@ -67,10 +68,10 @@ export default function HomePage() {
             Dès 3 ans, sans réservation : on arrive, on s'équipe, on roule.
           </p>
           <div className="mt-9 flex flex-wrap gap-4">
-            <Link href="/tarifs" className="btn btn-race glow-race">
+            <Link href="/tarifs" className="cta cta-primary glow-race">
               Karts &amp; tarifs
             </Link>
-            <Link href="/la-piste" className="btn btn-ghost">
+            <Link href="/la-piste" className="cta cta-secondary">
               Découvrir la piste
             </Link>
           </div>
@@ -141,7 +142,7 @@ export default function HomePage() {
           <UpcomingRaces />
 
           <div data-reveal className="mt-10 flex flex-wrap gap-4">
-            <Link href="/agenda" className="btn btn-race">
+            <Link href="/agenda" className="cta cta-primary">
               Tout l&rsquo;agenda de fin d&rsquo;année
             </Link>
           </div>
@@ -171,10 +172,10 @@ export default function HomePage() {
         </div>
 
         <div data-reveal className="mt-10 flex flex-wrap gap-4">
-          <Link href="/tarifs" className="btn btn-race">
+          <Link href="/tarifs" className="cta cta-primary">
             Tous les karts &amp; tarifs
           </Link>
-          <Link href="/tarifs#selecteur" className="btn btn-ghost">
+          <Link href="/tarifs#selecteur" className="cta-link">
             Trouve ton kart en 10 s
           </Link>
         </div>
@@ -257,7 +258,7 @@ export default function HomePage() {
               tour de roue à la chasse au chrono. Éclairé pour rouler jusqu'à
               minuit trente en été.
             </p>
-            <Link href="/la-piste" data-reveal className="btn btn-ghost mt-8">
+            <Link href="/la-piste" data-reveal className="cta-link mt-6">
               Explorer le circuit
             </Link>
           </div>
@@ -361,13 +362,13 @@ export default function HomePage() {
         </div>
 
         <div data-reveal className="mt-10 flex flex-wrap gap-4">
-          <Link href="/anniversaires" className="btn btn-race">
+          <Link href="/anniversaires" className="cta cta-primary">
             Anniversaires enfants
           </Link>
-          <Link href="/evenements" className="btn btn-ghost">
+          <Link href="/evenements" className="cta-link">
             EVG, EVJF &amp; entreprises
           </Link>
-          <Link href="/agenda" className="btn btn-ghost">
+          <Link href="/agenda" className="cta-link">
             Les courses de l&rsquo;agenda
           </Link>
         </div>
@@ -491,15 +492,16 @@ export default function HomePage() {
             deux minutes de Vias-plage.
           </p>
           <div data-reveal className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href={SITE.phoneHref} className="btn btn-race glow-race text-lg">
+            <a href={SITE.phoneHref} className="cta cta-primary">
               {SITE.phone}
             </a>
-            <Link href="/contact" className="btn btn-ghost text-lg">
+            <Link href="/contact" className="cta cta-secondary">
               Comment venir
             </Link>
           </div>
         </div>
       </section>
+      <MobileActionBar />
     </>
   );
 }
