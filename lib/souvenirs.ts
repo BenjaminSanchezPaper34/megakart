@@ -51,8 +51,13 @@ export const GALERIES: EtapeGalerie[] = [
     kicker: "Course Enfants",
     title: "La relève sur la grille",
     text: "Onze jeunes pilotes de 8 à 14 ans, trois manches et un podium : la première Course Enfants de la saison.",
-    slug: null,
-    vignettes: [],
+    slug: "megakart-course-enfants",
+    count: 34,
+    vignettes: [
+      { src: `${R2}/megakart-course-enfants/thumb/A7501585-DxO_DeepPRIME%20XD3.jpg`, width: 2048, height: 1365 },
+      { src: `${R2}/megakart-course-enfants/thumb/A7501784-DxO_DeepPRIME%20XD3.jpg`, width: 2048, height: 1365 },
+      { src: `${R2}/megakart-course-enfants/thumb/A7501815-DxO_DeepPRIME%20XD3.jpg`, width: 2048, height: 1365 },
+    ],
   },
   {
     kind: "galerie",
