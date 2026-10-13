@@ -89,7 +89,7 @@ export default function Nav() {
         <Logo className="relative z-50" />
 
         {/* Desktop */}
-        <div className="hidden shrink-0 items-center gap-4 lg:flex xl:gap-8">
+        <div className="hidden min-w-max shrink-0 items-center gap-4 lg:flex xl:gap-8">
           <ul className="flex items-center gap-4 xl:gap-8">
             {LINKS.map((l) => {
               const active = l.menu ? EVENT_PATHS.includes(pathname) : pathname === l.href;
@@ -160,7 +160,8 @@ export default function Nav() {
               );
             })}
           </ul>
-          <a href={SITE.phoneHref} className="btn btn-race">
+          {/* max-width:100% de .btn se résout contre ce conteneur flex et le faisait déborder. */}
+          <a href={SITE.phoneHref} className="btn btn-race shrink-0 !max-w-none">
             <span className="xl:hidden">Appeler</span>
             <span className="hidden xl:inline">{SITE.phone}</span>
           </a>
