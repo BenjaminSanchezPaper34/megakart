@@ -43,7 +43,7 @@ export default function UpcomingRaces() {
   if (upcoming.length === 0) return null;
 
   return (
-    <div className="mt-4 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 pt-5 snap-x snap-mandatory sm:auto-cols-[45%] lg:mt-10 lg:auto-cols-auto lg:grid-flow-row lg:grid-cols-4 lg:gap-5" data-race-bento>
+    <div className="bleed-row-mobile no-scrollbar mt-4 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 pt-5 snap-x snap-mandatory sm:auto-cols-[45%] lg:mt-10 lg:auto-cols-auto lg:grid-flow-row lg:grid-cols-4 lg:gap-5" data-race-bento>
       {upcoming.map((item, index) => {
         const op = getOperation(item.op!);
         const date = formatDate(item.date);
@@ -60,7 +60,7 @@ export default function UpcomingRaces() {
         const href = op?.signup ?? op?.page ?? `/agenda#${item.op}`;
 
         return (
-          <div key={item.date + item.op} className="relative flex snap-center">
+          <div key={item.date + item.op} className="relative flex snap-start">
           {/* Rareté : label jaune à cheval sur le haut de la carte (comme la croix du pop-up). */}
           {item.places !== undefined && item.places > 0 && (
             <span className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-flag px-4 py-2 text-sm font-bold text-asphalt shadow-lg">
