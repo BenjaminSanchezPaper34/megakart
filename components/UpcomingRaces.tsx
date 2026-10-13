@@ -43,7 +43,7 @@ export default function UpcomingRaces() {
   if (upcoming.length === 0) return null;
 
   return (
-    <div className="mt-8 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] lg:mt-10 lg:auto-cols-auto lg:grid-flow-row lg:grid-cols-4 lg:gap-5" data-race-bento>
+    <div className="mt-4 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 pt-5 snap-x snap-mandatory sm:auto-cols-[45%] lg:mt-10 lg:auto-cols-auto lg:grid-flow-row lg:grid-cols-4 lg:gap-5" data-race-bento>
       {upcoming.map((item, index) => {
         const op = getOperation(item.op!);
         const date = formatDate(item.date);
@@ -60,10 +60,14 @@ export default function UpcomingRaces() {
         const href = op?.signup ?? op?.page ?? `/agenda#${item.op}`;
 
         return (
-          <article
-            key={item.date + item.op}
-            className="race-event-card flex snap-center flex-col overflow-hidden border border-chalk/15 bg-asphalt"
-          >
+          <div key={item.date + item.op} className="relative flex snap-center">
+          {/* Rareté : label jaune à cheval sur le haut de la carte (comme la croix du pop-up). */}
+          {item.places !== undefined && item.places > 0 && (
+            <span className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-flag px-4 py-2 text-sm font-bold text-asphalt shadow-lg">
+              {item.places === 1 ? "Dernières inscriptions" : `Plus que ${item.places} équipes`}
+            </span>
+          )}
+          <article className="race-event-card flex w-full flex-col overflow-hidden border border-chalk/15 bg-asphalt">
             <Link
               href={op?.page ?? `/agenda#${item.op}`}
               aria-label={`${item.label} : découvrir la course du ${date.day} ${date.monthFull}`}
@@ -76,12 +80,6 @@ export default function UpcomingRaces() {
                 sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 85vw"
                 className="object-cover"
               />
-              {/* Rareté : label jaune en tête de l'affiche. */}
-              {item.places !== undefined && item.places > 0 && (
-                <span className="absolute inset-x-4 top-4 rounded-full bg-flag px-4 py-2 text-center text-sm font-bold text-asphalt shadow-lg">
-                  {item.places === 1 ? "Dernière équipe disponible" : `Plus que ${item.places} équipes`}
-                </span>
-              )}
             </Link>
 
             <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
@@ -117,6 +115,7 @@ export default function UpcomingRaces() {
               </div>
             </div>
           </article>
+          </div>
         );
       })}
     </div>
