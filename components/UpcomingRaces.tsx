@@ -43,7 +43,7 @@ export default function UpcomingRaces() {
   if (upcoming.length === 0) return null;
 
   return (
-    <div className="mt-8 grid gap-4 lg:mt-10 lg:grid-cols-12 lg:gap-5" data-race-bento>
+    <div className="mt-8 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] lg:mt-10 lg:auto-cols-auto lg:grid-flow-row lg:grid-cols-4 lg:gap-5" data-race-bento>
       {upcoming.map((item, index) => {
         const op = getOperation(item.op!);
         const date = formatDate(item.date);
@@ -63,23 +63,23 @@ export default function UpcomingRaces() {
         return (
           <article
             key={item.date + item.op}
-            className={`race-event-card flex overflow-hidden border border-chalk/15 bg-asphalt ${featured ? "lg:col-span-5 lg:row-span-3 lg:flex-col" : "lg:col-span-7"}`}
+            className="race-event-card flex snap-center flex-col overflow-hidden border border-chalk/15 bg-asphalt"
           >
             <Link
               href={op?.page ?? `/agenda#${item.op}`}
               aria-label={`${item.label} : découvrir la course du ${date.day} ${date.monthFull}`}
-              className={`relative block aspect-[3/4] w-2/5 shrink-0 self-start bg-asphalt-3 ${featured ? "lg:w-full" : ""}`}
+              className="relative block aspect-[3/4] w-full shrink-0 bg-asphalt-3"
             >
               <Image
                 src={poster?.src ?? photo}
                 alt={poster ? `Affiche ${item.label}` : item.op === "12-heures" ? "Le circuit MegaKart éclairé à la nuit tombée" : "Kart en piste sur le circuit MegaKart"}
                 fill
-                sizes={featured ? "(min-width: 1024px) 40vw, 40vw" : "(min-width: 1024px) 23vw, 40vw"}
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 85vw"
                 className="object-cover"
               />
             </Link>
 
-            <div className={`flex min-w-0 flex-1 flex-col p-4 sm:p-5 ${featured ? "lg:p-7" : "lg:p-5"}`}>
+            <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
               {featured && (
                 <p className="mb-3 text-sm font-bold text-flag">
                   Prochain départ{countdown === 0 ? " · Aujourd’hui" : countdown === 1 ? " · Demain" : ""}
@@ -88,7 +88,7 @@ export default function UpcomingRaces() {
               <p className="text-sm font-semibold text-flag">
                 {date.weekday.charAt(0).toUpperCase() + date.weekday.slice(1)} {date.day} {date.monthFull}
               </p>
-              <h3 className={`display mt-2 text-2xl text-chalk ${featured ? "sm:text-3xl lg:text-5xl" : "sm:text-3xl"}`}>
+              <h3 className="display mt-2 text-2xl text-chalk sm:text-3xl">
                 <Link href={op?.page ?? `/agenda#${item.op}`} className="hover:text-flag">
                   {item.label}
                 </Link>
@@ -105,7 +105,7 @@ export default function UpcomingRaces() {
                 <Link
                   href={href}
                   data-track={featured ? "inscription-ouverture" : "course-accueil"}
-                  className={`btn w-full ${featured ? "btn-race lg:w-auto" : "btn-ghost"}`}
+                  className={`btn w-full ${featured ? "btn-race" : "btn-ghost"}`}
                 >
                   {cta}
                 </Link>
