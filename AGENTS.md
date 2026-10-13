@@ -107,3 +107,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-13 — Claude : section « Cet automne » — tous les CTA en rouge « S inscrire », « Voir tout l agenda » en contour au-dessus des affiches à droite. Visuels Sodi originaux remis à Benjamin (VISUELS/sodi-officiels) pour recadrage manuel.
 - 2026-10-13 — Claude : cartes « Cet automne » — date au format du bandeau promo (jour+mois display, jour de semaine dessous, filet), suppression « Prochain départ / À venir », rareté en label jaune sur l affiche.
 - 2026-10-13 — Claude : label rareté « Dernières inscriptions » à cheval sur le haut de la carte. Visuel Higgsfield (GPT Image 2) des 4 karts uniformisés dans VISUELS/sodi-officiels/higgsfield-flotte-uniforme.png, en attente de validation avant découpe.
+- 2026-10-13 — Claude : cartes courses à gabarit fixe (titre 2 lignes, sous-titre 2 lignes, tarif, ligne d accompagnement 2 lignes — priceNote sinon 1er fait).

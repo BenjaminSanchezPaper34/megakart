@@ -94,16 +94,17 @@ export default function UpcomingRaces() {
                   </span>
                 </time>
                 <div className="min-w-0">
-                  <h3 className="display text-2xl leading-tight text-chalk">
+                  <h3 className="display line-clamp-2 min-h-[2lh] text-2xl leading-tight text-chalk">
                     <Link href={op?.page ?? `/agenda#${item.op}`} className="hover:text-flag">
                       {item.label}
                     </Link>
                   </h3>
-                  <p className="mt-0.5 text-sm leading-snug text-chalk-60">{op?.kicker}</p>
+                  <p className="mt-0.5 line-clamp-2 min-h-[2lh] text-sm leading-snug text-chalk-60">{op?.kicker}</p>
                 </div>
               </div>
-              {op?.price && <p className="mt-4 text-base font-bold text-chalk">{op.price}</p>}
-              {op?.priceNote && <p className="mt-1 text-sm leading-snug text-chalk-60">{op.priceNote}</p>}
+              {/* Toujours au même endroit : tarif, puis une ligne d'accompagnement (2 lignes réservées). */}
+              <p className="mt-4 text-base font-bold text-chalk">{op?.price ?? "Tarif à venir"}</p>
+              <p className="mt-1 line-clamp-2 min-h-[2lh] text-sm leading-snug text-chalk-60">{op?.priceNote ?? op?.facts?.[0] ?? ""}</p>
               <div className="mt-auto pt-4">
                 <Link
                   href={href}
