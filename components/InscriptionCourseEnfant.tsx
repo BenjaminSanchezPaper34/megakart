@@ -116,7 +116,7 @@ export default function InscriptionCourseEnfant({ dates }: { dates: DateOption[]
         </p>
         <div className="mt-6 flex flex-wrap gap-4">
           <Link href="/agenda#course-enfant" className="btn btn-ghost">Retour à l&rsquo;agenda</Link>
-          <Link href="/tarifs" className="btn btn-ghost">Les karts</Link>
+          <Link href="/#flotte" className="btn btn-ghost">Les karts</Link>
         </div>
       </div>
     );

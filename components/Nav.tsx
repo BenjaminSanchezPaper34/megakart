@@ -16,7 +16,7 @@ import { SITE } from "@/lib/site";
  * desktop : l'appel reste dans le menu mobile.
  */
 const LINKS = [
-  { href: "/tarifs", label: "Tarifs" },
+  { href: "/#flotte", label: "Tarifs" },
   { href: "/agenda", label: "Agenda" },
   { href: "/evenements", label: "Événements" },
   { href: "/photos", label: "Photos" },

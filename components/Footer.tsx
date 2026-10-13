@@ -6,7 +6,7 @@ import { SITE } from "@/lib/site";
 /* Plan du site : un lien vers chaque page publique. */
 const PAGES = [
   { href: "/", label: "Accueil" },
-  { href: "/tarifs", label: "Karts & tarifs" },
+  { href: "/#flotte", label: "Karts & tarifs" },
   { href: "/la-piste", label: "La piste" },
   { href: "/agenda", label: "Agenda" },
   { href: "/12-heures", label: "Les 12 Heures" },

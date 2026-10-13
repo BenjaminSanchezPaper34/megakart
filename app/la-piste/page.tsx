@@ -141,7 +141,7 @@ export default function PistePage() {
           <Histoire />
 
           <div data-reveal className="mt-14 flex flex-wrap gap-4">
-            <Link href="/tarifs" className="btn btn-race">
+            <Link href="/#flotte" className="btn btn-race">
               Voir les karts
             </Link>
             <a href={SITE.phoneHref} className="btn btn-ghost">

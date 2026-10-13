@@ -24,7 +24,7 @@ export type KartCardCta = { href: string; label: string } | null;
  */
 export default function KartCard({
   kart,
-  cta = { href: "/tarifs#selecteur", label: "Ce kart me correspond ?" },
+  cta = { href: "/#flotte", label: "Ce kart me correspond ?" },
 }: {
   kart: Kart;
   cta?: KartCardCta;

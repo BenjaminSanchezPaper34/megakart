@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import KartWidget from "./KartWidget";
-import type { Kart } from "@/lib/karts";
+import { recommend, type Kart } from "@/lib/karts";
 
 /* Butées alignées sur la grille du site (max-w-7xl + marges). */
 const GUTTER = "var(--site-gutter)";
@@ -11,8 +11,27 @@ const GUTTER = "var(--site-gutter)";
  * Toute la flotte en défilement latéral, avec flèches précédent / suivant
  * (utiles à la souris, le doigt et le trackpad défilent directement).
  */
+/* Sélecteur minimaliste : un profil type par tranche (âge, taille représentatifs). */
+const PROFILES = [
+  { id: "3-6", label: "3 – 6 ans", age: 5, height: 110 },
+  { id: "7-13", label: "7 – 13 ans", age: 10, height: 140 },
+  { id: "14-17", label: "14 – 17 ans", age: 15, height: 165 },
+  { id: "adulte", label: "Adulte", age: 25, height: 175 },
+] as const;
+
 export default function FleetCarousel({ karts }: { karts: Kart[] }) {
   const row = useRef<HTMLDivElement>(null);
+  const [finder, setFinder] = useState(false);
+  const [profile, setProfile] = useState<(typeof PROFILES)[number] | null>(null);
+  const [confirmed, setConfirmed] = useState(false);
+  const reco = profile ? recommend(profile.age, profile.height, confirmed) : null;
+
+  // Le kart recommandé vient se caler sur la butée gauche de la rangée.
+  useEffect(() => {
+    if (!reco) return;
+    const el = row.current?.querySelector<HTMLElement>(`[data-kart="${reco.primary.slug}"]`);
+    if (el && row.current) row.current.scrollTo({ left: el.offsetLeft - row.current.offsetLeft - parseFloat(getComputedStyle(row.current).paddingLeft), behavior: "smooth" });
+  }, [reco?.primary.slug]); // eslint-disable-line react-hooks/exhaustive-deps
   const [edges, setEdges] = useState({ start: true, end: false });
 
   const update = useCallback(() => {
@@ -62,10 +81,64 @@ export default function FleetCarousel({ karts }: { karts: Kart[] }) {
         style={{ paddingInline: GUTTER, scrollPaddingInline: GUTTER }}
       >
         {karts.map((k) => (
-          <div key={k.slug} className="w-[85%] shrink-0 snap-start sm:w-[60%] md:w-[44%] lg:w-[38rem]">
+          <div
+            key={k.slug}
+            data-kart={k.slug}
+            className={`w-[85%] shrink-0 snap-start rounded-[calc(var(--cta-height)/2+1.25rem)] transition-opacity duration-300 sm:w-[60%] md:w-[44%] lg:w-[38rem] ${
+              reco && reco.primary.slug !== k.slug && !reco.alternatives.some((a) => a.slug === k.slug) ? "opacity-35" : ""
+            }`}
+          >
             <KartWidget kart={k} />
           </div>
         ))}
+      </div>
+
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
+        <div className="mt-10 flex flex-wrap gap-4">
+          <button
+            type="button"
+            onClick={() => setFinder((v) => !v)}
+            aria-expanded={finder}
+            aria-controls="kart-finder"
+            className="btn btn-race"
+          >
+            Trouve ton kart en 10 s
+          </button>
+        </div>
+
+        {finder && (
+          <div id="kart-finder" className="mt-6 border-t border-white/10 pt-6">
+            <p className="text-base font-semibold text-chalk">Qui pilote ?</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {PROFILES.map((p) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  aria-pressed={profile?.id === p.id}
+                  onClick={() => setProfile(p)}
+                  className={`min-h-11 rounded-full border px-5 text-base font-semibold transition-colors ${
+                    profile?.id === p.id ? "border-chalk bg-chalk text-asphalt" : "border-white/25 text-chalk hover:border-chalk"
+                  }`}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+            {profile?.id === "adulte" && (
+              <label className="mt-4 inline-flex min-h-11 cursor-pointer items-center gap-3 text-base text-chalk">
+                <input type="checkbox" checked={confirmed} onChange={(e) => setConfirmed(e.target.checked)} className="h-5 w-5 accent-[var(--color-race)]" />
+                Pilote confirmé (chrono de référence)
+              </label>
+            )}
+            {reco && (
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-chalk" aria-live="polite">
+                <span className="display text-xl text-flag">{reco.primary.name} · {reco.primary.price} €</span>
+                <br />
+                <span className="text-chalk-60">{reco.message}</span>
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </>
   );

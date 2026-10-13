@@ -13,7 +13,8 @@ import TodayOffer from "@/components/TodayOffer";
 import { DEALS, SHOW_PROMOS } from "@/lib/agenda";
 import { KARTS } from "@/lib/karts";
 import { SITE } from "@/lib/site";
-import { localBusinessJsonLd, webSiteJsonLd } from "@/lib/jsonld";
+import { localBusinessJsonLd, webSiteJsonLd, faqJsonLd } from "@/lib/jsonld";
+import { FAQ } from "@/lib/faq";
 
 
 export default function HomePage() {
@@ -22,7 +23,7 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([localBusinessJsonLd(), webSiteJsonLd()]),
+          __html: JSON.stringify([localBusinessJsonLd(), webSiteJsonLd(), faqJsonLd(FAQ)]),
         }}
       />
 
@@ -61,7 +62,7 @@ export default function HomePage() {
               Dès 3 ans, sans réservation : on arrive, on s'équipe, on roule.
             </p>
             <div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap md:mt-9 md:gap-4">
-              <Link href="/tarifs" className="btn btn-race justify-center">
+              <Link href="/#flotte" className="btn btn-race justify-center">
                 Karts &amp; tarifs
               </Link>
               <Link href="/la-piste" className="btn btn-ghost justify-center">
@@ -131,7 +132,7 @@ export default function HomePage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* ========== FLOTTE ========== */}
-      <section className="py-20 md:py-28">
+      <section id="flotte" className="scroll-mt-24 py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
@@ -148,17 +149,7 @@ export default function HomePage() {
 
       <FleetCarousel karts={KARTS} />
 
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
 
-        <div data-reveal className="mt-10 flex flex-wrap gap-4">
-          <Link href="/tarifs" className="btn btn-race">
-            Tous les karts &amp; tarifs
-          </Link>
-          <Link href="/tarifs#selecteur" className="btn btn-ghost">
-            Trouve ton kart en 10 s
-          </Link>
-        </div>
-      </div>
       </section>
 
       <div className="kerb" aria-hidden="true" />
@@ -455,6 +446,26 @@ export default function HomePage() {
               <li>· CB, espèces et chèques-vacances acceptés</li>
             </ul>
           </div>
+        </div>
+      </section>
+
+      {/* ========== FAQ (ex-page Tarifs) ========== */}
+      <section id="faq" className="mx-auto max-w-4xl scroll-mt-24 px-5 py-16 md:px-8 md:py-24">
+        <h2 data-reveal className="display text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
+          Questions fréquentes
+        </h2>
+        <div data-stagger className="mt-10 flex flex-col gap-4">
+          {FAQ.map((f) => (
+            <details key={f.q} className="card group p-6 open:border-white/25">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold text-chalk [&::-webkit-details-marker]:hidden">
+                {f.q}
+                <span aria-hidden="true" className="display shrink-0 text-2xl text-race transition-transform duration-300 group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p className="mt-4 text-base leading-relaxed text-chalk-60">{f.a}</p>
+            </details>
+          ))}
         </div>
       </section>
 
