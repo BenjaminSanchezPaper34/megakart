@@ -30,7 +30,10 @@ export default function FleetCarousel({ karts }: { karts: Kart[] }) {
   useEffect(() => {
     if (!reco) return;
     const el = row.current?.querySelector<HTMLElement>(`[data-kart="${reco.primary.slug}"]`);
-    if (el && row.current) row.current.scrollTo({ left: el.offsetLeft - row.current.offsetLeft - parseFloat(getComputedStyle(row.current).paddingLeft), behavior: "smooth" });
+    const r = row.current;
+    if (!el || !r) return;
+    const left = r.scrollLeft + el.getBoundingClientRect().left - r.getBoundingClientRect().left - parseFloat(getComputedStyle(r).paddingLeft);
+    r.scrollTo({ left, behavior: "smooth" });
   }, [reco?.primary.slug]); // eslint-disable-line react-hooks/exhaustive-deps
   const [edges, setEdges] = useState({ start: true, end: false });
 
