@@ -95,6 +95,7 @@ export default function UpcomingRaces() {
               </h3>
               <p className="mt-2 text-sm leading-snug text-chalk-60">{op?.kicker}</p>
               {op?.price && <p className="mt-3 text-base font-bold text-chalk">{op.price}</p>}
+              {op?.priceNote && <p className="mt-1 text-sm leading-snug text-chalk-60">{op.priceNote}</p>}
               {featured && item.places !== undefined && item.places > 0 && (
                 <p className="mt-1 text-sm font-semibold text-flag">
                   {item.places === 1 ? "Dernière équipe disponible" : `Plus que ${item.places} équipes`}
