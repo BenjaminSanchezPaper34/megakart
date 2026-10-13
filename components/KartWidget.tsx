@@ -32,10 +32,10 @@ export default function KartWidget({ kart }: { kart: Kart }) {
         <Image
           src={`/images/${kart.image}`}
           alt={`${kart.model ?? kart.name}, ${kart.name} du circuit MegaKart`}
-          width={600}
-          height={400}
+          width={1200}
+          height={720}
           sizes="(min-width: 1024px) 320px, 60vw"
-          className="pointer-events-none absolute -right-[12%] bottom-10 w-[62%] object-contain drop-shadow-[0_16px_14px_rgba(0,0,0,0.55)]"
+          className="pointer-events-none absolute -right-[8%] top-1/2 w-[56%] -translate-y-[58%] object-contain drop-shadow-[0_16px_14px_rgba(0,0,0,0.55)]"
         />
       )}
 
