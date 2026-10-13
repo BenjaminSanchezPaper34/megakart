@@ -107,13 +107,13 @@ export default function HomePage() {
       {/* ========== AGENDA (temps forts de fin d'année) ========== */}
       <section id="courses-accueil" className="bg-asphalt-2 py-14 md:py-20">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
             <h2 className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
               Cet automne,
               <br />
               <span className="text-race">on court.</span>
             </h2>
-            <p className="max-w-sm text-base leading-relaxed text-chalk">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-xl">
               En équipe, en solo ou pour les enfants :
               trouvez votre prochain départ.
             </p>
