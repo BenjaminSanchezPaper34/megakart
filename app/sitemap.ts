@@ -2,12 +2,11 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
 // Mettre à jour la date à chaque modification de contenu d'une page.
-const LASTMOD = "2026-10-12";
+const LASTMOD = "2026-10-13";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: `${SITE_URL}`, lastModified: LASTMOD, priority: 1 },
-    { url: `${SITE_URL}/tarifs`, lastModified: LASTMOD, priority: 0.9 },
     { url: `${SITE_URL}/agenda`, lastModified: LASTMOD, priority: 0.9 },
     { url: `${SITE_URL}/12-heures`, lastModified: LASTMOD, priority: 0.8 },
     { url: `${SITE_URL}/live`, lastModified: LASTMOD, priority: 0.7 },

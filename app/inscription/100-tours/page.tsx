@@ -66,7 +66,7 @@ export default function InscriptionCentToursPage() {
             </p>
           ))}
           <br />
-          <a href="#formulaire" className="btn btn-race glow-race mt-8">
+          <a href="#formulaire" className="btn btn-race mt-8">
             Aller au formulaire
           </a>
         </div>
@@ -189,7 +189,7 @@ export default function InscriptionCentToursPage() {
             </div>
             <Link
               href="/agenda#100-tours"
-              className="btn btn-ghost mt-6 text-sm"
+              className="btn btn-ghost mt-6"
             >
               Tout sur les 100 Tours
             </Link>

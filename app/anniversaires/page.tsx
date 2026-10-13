@@ -148,13 +148,13 @@ export default function AnniversairesPage() {
             format — et l'anniversaire est sur la grille.
           </p>
           <div data-reveal className="mt-9 flex flex-wrap justify-center gap-4">
-            <a href={SITE.phoneHref} className="btn btn-race glow-race text-lg">
+            <a href={SITE.phoneHref} className="btn btn-race">
               {SITE.phone}
             </a>
-            <a href={`mailto:${SITE.email}`} className="btn btn-ghost text-lg">
+            <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
               {SITE.email}
             </a>
-            <Link href="/evenements" className="btn btn-ghost text-lg">
+            <Link href="/evenements" className="btn btn-ghost">
               EVG, EVJF &amp; entreprises
             </Link>
           </div>

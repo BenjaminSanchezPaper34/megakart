@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Page Tarifs fusionnée dans l'accueil (13/10/2026).
+  async redirects() {
+    return [{ source: "/tarifs", destination: "/#flotte", permanent: true }];
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     // Vignettes des galeries paper34.fr (frise « Les courses en photos »).

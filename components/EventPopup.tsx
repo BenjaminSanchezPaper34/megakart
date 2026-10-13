@@ -118,10 +118,9 @@ export default function EventPopup({ campagne }: Props) {
         onClick={(e) => e.stopPropagation()}
         className={`relative w-full max-w-[420px] ${portrait ? "md:max-w-[min(440px,58vh)]" : "md:max-w-[1000px]"} [filter:drop-shadow(0_30px_60px_rgb(0_0_0/0.55))] motion-safe:animate-[popupBoite_.35s_cubic-bezier(.22,1,.36,1)]`}
       >
-        <div className="overflow-hidden bg-asphalt-2">
-          {/* Le visuel entier, cliquable : pas de découpe, pas de recadrage —
-              c'est la création telle qu'elle paraît sur le réseau social. */}
-          <Link href={campagne.href} onClick={go} className="block" tabIndex={-1} aria-hidden="true">
+        {/* Croix et CTA à cheval sur les bords du visuel (haut / bas), centrés. */}
+        <div className="relative my-6">
+          <Link href={campagne.href} onClick={go} className="race-event-card block overflow-hidden" tabIndex={-1} aria-hidden="true">
             <Image
               src={src}
               alt=""
@@ -133,30 +132,27 @@ export default function EventPopup({ campagne }: Props) {
             />
           </Link>
 
-          {/* Le bouton dit explicitement ce qui attend derrière : une image
-              cliquable, beaucoup de visiteurs ne devinent pas que c'en est une. */}
-          <div className="p-4 sm:flex sm:justify-center sm:p-5">
-            <Link
-              href={campagne.href}
-              onClick={go}
-              className="btn btn-race glow-race w-full justify-center sm:w-auto"
-            >
-              {campagne.cta ?? "En savoir plus"}
-            </Link>
-          </div>
-        </div>
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={close}
+            aria-label="Fermer l'annonce"
+            className="absolute left-1/2 top-0 z-10 grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-chalk/80 bg-asphalt text-chalk transition-colors hover:border-chalk hover:bg-chalk hover:text-asphalt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flag"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5">
+              <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
+          </button>
 
-        {/* Fermer : disque plein et cerclé, pour rester lisible par-dessus
-            n'importe quel visuel, clair ou sombre. */}
-        <button
-          ref={closeRef}
-          type="button"
-          onClick={close}
-          aria-label="Fermer l'annonce"
-          className="absolute -right-3 -top-3 grid h-12 w-12 place-items-center rounded-full bg-asphalt text-3xl leading-none text-chalk ring-2 ring-chalk/80 transition hover:bg-race hover:text-white hover:ring-white"
-        >
-          ×
-        </button>
+          {/* Le CTA dit ce qui attend derrière l'image (beaucoup ne devinent pas qu'elle est cliquable). */}
+          <Link
+            href={campagne.href}
+            onClick={go}
+            className="btn btn-race absolute bottom-0 left-1/2 z-10 -translate-x-1/2 translate-y-1/2 whitespace-nowrap"
+          >
+            {campagne.cta ?? "En savoir plus"}
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -13,6 +13,8 @@ export type Kart = {
   note?: string;
   /** Visuel détouré (PNG transparent, vue 3/4 uniforme) */
   image?: string;
+  /** Référence constructeur affichée sur la fiche (ex. « Sodi RT10 »). */
+  model?: string;
   /** Libellé de la ligne d'accès (défaut « Âge ») */
   ageLabel?: string;
   /** Repère de prix affiché sous le tarif */
@@ -31,7 +33,8 @@ export const KARTS: Kart[] = [
     minAge: 3,
     engine: "100 % électrique",
     badge: "Nouveauté",
-    image: "kart-baby.png",
+    image: "sodi/sodi-kidracer.webp",
+    model: "Sodi KidRacer",
     priceHint: "La formule découverte de la flotte",
     note: "Un adulte accompagne au bord de la piste dédiée.",
     accent: "yellow",
@@ -46,7 +49,8 @@ export const KARTS: Kart[] = [
     minAge: 7,
     minHeight: 130,
     engine: "160 cm³ · 4 temps",
-    image: "kart-enfant.png",
+    image: "sodi/sodi-lr6.webp",
+    model: "Sodi LR6",
     priceHint: "L'étape après le Baby Kart",
     note: "Taille minimum : 1,30 m.",
     accent: "white",
@@ -61,7 +65,8 @@ export const KARTS: Kart[] = [
     minAge: 5,
     engine: "4 temps · double commande",
     badge: "Duo",
-    image: "kart-biplace.png",
+    image: "sodi/sodi-2drive.webp",
+    model: "Sodi 2Drive",
     priceHint: "Une session, deux pilotes",
     note: "L'adulte garde le contrôle du kart à tout moment.",
     accent: "white",
@@ -76,7 +81,7 @@ export const KARTS: Kart[] = [
     minAge: 14,
     minHeight: 160,
     engine: "280 cm³ · 4 temps",
-    image: "kart-280.png",
+    image: "sodi/uniforme-280.webp",
     priceHint: "Le point d'entrée des karts adultes",
     note: "Taille minimum : 1,60 m.",
     accent: "white",
@@ -91,7 +96,8 @@ export const KARTS: Kart[] = [
     minAge: 18,
     adultsOnly: true,
     engine: "Sodi RT10 · 390 cm³ · 4 temps",
-    image: "kart-390.png",
+    image: "sodi/sodi-rt10.webp",
+    model: "Sodi RT10",
     priceHint: "Le cœur de gamme adulte",
     note: "Le plus puissant accessible sans chrono de référence.",
     accent: "red",
@@ -106,7 +112,7 @@ export const KARTS: Kart[] = [
     minAge: 18,
     adultsOnly: true,
     engine: "250 cm³ · injection · 16 cv",
-    image: "kart-rx.png",
+    image: "sodi/uniforme-250rx.webp",
     priceHint: "Les sessions loisir démarrent à 17 €",
     note: "Chrono de référence à valider en 390cc auprès des moniteurs.",
     accent: "red",
@@ -123,7 +129,7 @@ export const KARTS: Kart[] = [
     adultsOnly: true,
     engine: "250 cm³ · injection · 30 cv",
     badge: "Compétition",
-    image: "kart-rx.png",
+    image: "sodi/uniforme-250rx.webp",
     priceHint: "Les sessions loisir démarrent à 17 €",
     note: "Accès après un chrono validé en 390cc — voir les moniteurs.",
     accent: "red",

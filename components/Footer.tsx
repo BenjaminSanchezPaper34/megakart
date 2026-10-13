@@ -3,9 +3,27 @@ import Logo from "./Logo";
 import PaperSignature from "./PaperSignature";
 import { SITE } from "@/lib/site";
 
+/* Plan du site : un lien vers chaque page publique. */
+const PAGES = [
+  { href: "/", label: "Accueil" },
+  { href: "/#flotte", label: "Karts & tarifs" },
+  { href: "/la-piste", label: "La piste" },
+  { href: "/agenda", label: "Agenda" },
+  { href: "/12-heures", label: "Les 12 Heures" },
+  { href: "/inscription/100-tours", label: "Inscription 100 Tours" },
+  { href: "/inscription/course-enfant", label: "Inscription Course Enfant" },
+  { href: "/anniversaires", label: "Anniversaires" },
+  { href: "/evenements", label: "Événements & groupes" },
+  { href: "/photos", label: "Photos" },
+  { href: "/live", label: "Chrono en direct" },
+  { href: "/contact", label: "Contact" },
+  { href: "/en", label: "English" },
+];
+
 const SOCIALS = [
   { label: "Instagram", href: SITE.social.instagram },
   { label: "Facebook", href: SITE.social.facebook },
+  { label: "TikTok", href: SITE.social.tiktok },
   { label: "YouTube", href: SITE.social.youtube },
   { label: "TripAdvisor", href: SITE.social.tripadvisor },
 ];
@@ -14,7 +32,7 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-white/10 bg-asphalt-2">
       <div className="kerb" aria-hidden="true" />
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-3 md:px-8">
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-2 lg:grid-cols-[1.1fr_1fr_1.6fr_0.9fr] md:px-8">
         <div className="flex flex-col items-start gap-5">
           <Logo variant="stacked" />
           <p className="max-w-xs text-sm leading-relaxed text-chalk-60">
@@ -41,19 +59,25 @@ export default function Footer() {
           </a>
         </div>
 
+        <nav aria-label="Plan du site" className="text-sm">
+          <h3 className="display mb-3 text-lg text-chalk">Le site</h3>
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-1">
+            {PAGES.map((pg) => (
+              <li key={pg.href}>
+                <Link
+                  href={pg.href}
+                  className="link-under inline-flex min-h-9 items-center text-chalk-60 transition-colors hover:text-chalk"
+                >
+                  {pg.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         <div className="text-sm">
-          <h3 className="display mb-3 text-lg text-chalk">Suivre la course</h3>
+          <h3 className="display mb-3 text-lg text-chalk">Suivre MegaKart</h3>
           <ul className="flex flex-col gap-2">
-            <li>
-              <Link href="/live" className="link-under text-chalk-60 transition-colors hover:text-chalk">
-                Chrono en direct
-              </Link>
-            </li>
-            <li>
-              <Link href="/agenda" className="link-under text-chalk-60 transition-colors hover:text-chalk">
-                Agenda des courses
-              </Link>
-            </li>
             {SOCIALS.map((s) => (
               <li key={s.label}>
                 <a

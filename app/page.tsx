@@ -6,24 +6,16 @@ import Reviews from "@/components/Reviews";
 import PhotoMosaic from "@/components/PhotoMosaic";
 import ReelCard from "@/components/ReelCard";
 import TrackMap from "@/components/TrackMap";
-import KartCard from "@/components/KartCard";
+import FleetCarousel from "@/components/FleetCarousel";
 import OpenBadge from "@/components/OpenBadge";
 import UpcomingRaces from "@/components/UpcomingRaces";
 import TodayOffer from "@/components/TodayOffer";
 import { DEALS, SHOW_PROMOS } from "@/lib/agenda";
-import { KARTS, getKart } from "@/lib/karts";
+import { KARTS } from "@/lib/karts";
 import { SITE } from "@/lib/site";
-import { localBusinessJsonLd, webSiteJsonLd } from "@/lib/jsonld";
+import { localBusinessJsonLd, webSiteJsonLd, faqJsonLd } from "@/lib/jsonld";
+import { FAQ } from "@/lib/faq";
 
-const FEATURED_KARTS = ["baby-kart", "kart-enfant", "390cc", "250-rx-30"].map(getKart);
-
-const STATS = [
-  { value: 1000, suffix: " m", label: "de piste outdoor" },
-  { value: 8.5, suffix: " m", label: "de large", literal: "8,5 m" },
-  { value: KARTS.length, suffix: "", label: "karts au choix" },
-  { value: 3, suffix: " ans", label: "âge minimum" },
-  { value: 1992, suffix: "", label: "année de création", raw: true },
-];
 
 export default function HomePage() {
   return (
@@ -31,63 +23,68 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([localBusinessJsonLd(), webSiteJsonLd()]),
+          __html: JSON.stringify([localBusinessJsonLd(), webSiteJsonLd(), faqJsonLd(FAQ)]),
         }}
       />
 
       {/* ========== HERO ========== */}
-      <section className="relative flex min-h-svh flex-col justify-end overflow-hidden">
-        <div data-hero-bg className="absolute inset-0">
-          <Image
-            src="/images/hero-drone.jpg"
-            alt="Vue aérienne du circuit MegaKart de 1000 m à Vias-plage"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-          <HeroVideo />
-          <div className="absolute inset-0 bg-gradient-to-b from-asphalt/70 via-asphalt/35 to-asphalt" />
-        </div>
-
-        <div data-hero-content className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-24 pt-40 md:px-8">
-          <div className="mb-5 inline-flex rounded-full border border-white/15 bg-asphalt/50 px-4 py-2 backdrop-blur-sm">
-            <OpenBadge />
+      <section className="flex min-h-svh flex-col">
+        {/* La vidéo et la promo partagent le premier écran. */}
+        <div className="relative flex flex-1 flex-col justify-end overflow-hidden">
+          <div data-hero-bg className="absolute inset-0">
+            <Image
+              src="/images/hero-drone.jpg"
+              alt="Vue aérienne du circuit MegaKart de 1000 m à Vias-plage"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+            <HeroVideo />
+            <div className="absolute inset-0 bg-gradient-to-b from-asphalt/70 via-asphalt/35 to-asphalt" />
           </div>
-          <p className="display mb-4 text-lg text-flag md:text-xl">
-            Vias-plage · Hérault — entre Fabrikus &amp; Europark Indoor
-          </p>
-          <h1 className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
-            1000 mètres
-            <br />
-            <span className="text-race">plein gaz.</span>
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk md:text-xl">
-            Le circuit de karting outdoor de Vias-plage, homologué FFSA.
-            Dès 3 ans, sans réservation : on arrive, on s'équipe, on roule.
-          </p>
-          <div className="mt-9 flex flex-wrap gap-4">
-            <Link href="/tarifs" className="btn btn-race glow-race">
-              Karts &amp; tarifs
-            </Link>
-            <Link href="/la-piste" className="btn btn-ghost">
-              Découvrir la piste
-            </Link>
+
+          <div data-hero-content className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-10 pt-28 md:px-8 md:pb-20 md:pt-40 [@media(max-height:740px)]:pb-6 [@media(max-height:740px)]:pt-24">
+            <div className="mb-4 inline-flex rounded-full border border-white/15 bg-asphalt/50 px-4 py-2 backdrop-blur-sm">
+              <OpenBadge />
+            </div>
+            <p className="display mb-3 text-lg text-flag md:text-xl">
+              Vias-plage · Hérault<span className="hidden md:inline"> — </span>
+              <span className="block md:inline">Entre Fabrikus &amp; Europark Indoor</span>
+            </p>
+            <h1 className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
+              1000 mètres
+              <br />
+              <span className="text-race">plein gaz.</span>
+            </h1>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-xl">
+              Le circuit de karting outdoor de Vias-plage, homologué FFSA.
+              Dès 3 ans, sans réservation : on arrive, on s'équipe, on roule.
+            </p>
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap md:mt-9 md:gap-4">
+              <Link href="/#flotte" className="btn btn-race justify-center">
+                Karts &amp; tarifs
+              </Link>
+              <Link href="/la-piste" className="btn btn-ghost justify-center">
+                Découvrir la piste
+              </Link>
+            </div>
+          </div>
+
+          {/* Flèche scroll */}
+          <div
+            className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 animate-bounce text-chalk-60 md:block"
+            aria-hidden="true"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 5v14m0 0l-6-6m6 6l6-6" />
+            </svg>
           </div>
         </div>
-
-        {/* Flèche scroll */}
-        <div
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce text-chalk-60"
-          aria-hidden="true"
-        >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12 5v14m0 0l-6-6m6 6l6-6" />
-          </svg>
+        <div className="relative z-10 shrink-0">
+          <TodayOffer />
         </div>
       </section>
-
-      <TodayOffer />
 
       <Marquee
         items={[
@@ -95,89 +92,64 @@ export default function HomePage() {
           "Dès 3 ans",
           "7j/7 en été · 10h – minuit trente",
           "1000 m de piste",
+          "8,5 m de large",
+          "Depuis 1992",
+          `${KARTS.length} karts au choix`,
           "Homologué FFSA",
           "Chrono Apex Timing",
           "Courses & bons plans à l'agenda",
         ]}
       />
-
-      {/* ========== STATS ========== */}
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-        <dl data-stagger className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-5">
-          {STATS.map((s) => (
-            <div key={s.label} className="text-center">
-              <dd className="display text-5xl text-chalk md:text-6xl">
-                {s.literal ? (
-                  <span>{s.literal}</span>
-                ) : s.raw ? (
-                  <span>{s.value}</span>
-                ) : (
-                  <span data-counter={s.value} data-suffix={s.suffix}>
-                    0{s.suffix}
-                  </span>
-                )}
-              </dd>
-              <dt className="mt-2 text-sm text-chalk-60">{s.label}</dt>
-            </div>
-          ))}
-        </dl>
-      </section>
+      <p className="sr-only">
+        Circuit de 1000 m, large de 8,5 m, depuis 1992. {KARTS.length} karts au choix.
+      </p>
 
       {/* ========== AGENDA (temps forts de fin d'année) ========== */}
-      <section className="bg-asphalt-2 py-20 md:py-28">
+      <section id="courses-accueil" className="bg-asphalt-2 py-14 md:py-20">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
+          <div>
+            <h2 className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
               Cet automne,
               <br />
               <span className="text-race">on court.</span>
             </h2>
-            <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60">
-              Endurance, trophées, courses enfants, roulage à volonté :
-              le programme de fin d&rsquo;année est en piste.
-            </p>
+            {/* Sous-titre et lien agenda sur la même ligne, au-dessus des affiches. */}
+            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+              <p className="max-w-xl text-base leading-relaxed text-chalk md:text-xl">
+                En équipe, en solo ou pour les enfants :
+                trouvez votre prochain départ.
+              </p>
+              <Link href="/agenda" className="btn btn-ghost">
+                Voir tout l&rsquo;agenda
+              </Link>
+            </div>
           </div>
 
           <UpcomingRaces />
-
-          <div data-reveal className="mt-10 flex flex-wrap gap-4">
-            <Link href="/agenda" className="btn btn-race">
-              Tout l&rsquo;agenda de fin d&rsquo;année
-            </Link>
-          </div>
         </div>
       </section>
 
       <div className="kerb" aria-hidden="true" />
 
       {/* ========== FLOTTE ========== */}
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+      <section id="flotte" className="scroll-mt-24 py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
             Une flotte pour
             <br />
             <span className="text-race">chaque pilote.</span>
           </h2>
-          <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60">
+          <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60 md:text-right">
             Du Baby Kart électrique dès 3 ans au 250 RX de compétition :
             {" "}{KARTS.length} machines, de {KARTS[0].price}€ à {KARTS[KARTS.length - 1].price}€ la session.
           </p>
         </div>
+      </div>
 
-        <div data-stagger className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-          {FEATURED_KARTS.map((k) => (
-            <KartCard key={k.slug} kart={k} />
-          ))}
-        </div>
+      <FleetCarousel karts={KARTS} />
 
-        <div data-reveal className="mt-10 flex flex-wrap gap-4">
-          <Link href="/tarifs" className="btn btn-race">
-            Tous les karts &amp; tarifs
-          </Link>
-          <Link href="/tarifs#selecteur" className="btn btn-ghost">
-            Trouve ton kart en 10 s
-          </Link>
-        </div>
+
       </section>
 
       <div className="kerb" aria-hidden="true" />
@@ -477,6 +449,26 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ========== FAQ (ex-page Tarifs) ========== */}
+      <section id="faq" className="mx-auto max-w-4xl scroll-mt-24 px-5 py-16 md:px-8 md:py-24">
+        <h2 data-reveal className="display text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
+          Questions fréquentes
+        </h2>
+        <div data-stagger className="mt-10 flex flex-col gap-4">
+          {FAQ.map((f) => (
+            <details key={f.q} className="card group p-6 open:border-white/25">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold text-chalk [&::-webkit-details-marker]:hidden">
+                {f.q}
+                <span aria-hidden="true" className="display shrink-0 text-2xl text-race transition-transform duration-300 group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p className="mt-4 text-base leading-relaxed text-chalk-60">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
       {/* ========== CTA FINAL ========== */}
       <section className="relative overflow-hidden py-24 text-center md:py-36">
         <div className="checker absolute inset-x-0 top-0 h-5 opacity-[0.07]" aria-hidden="true" />
@@ -491,10 +483,10 @@ export default function HomePage() {
             deux minutes de Vias-plage.
           </p>
           <div data-reveal className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href={SITE.phoneHref} className="btn btn-race glow-race text-lg">
+            <a href={SITE.phoneHref} className="btn btn-race">
               {SITE.phone}
             </a>
-            <Link href="/contact" className="btn btn-ghost text-lg">
+            <Link href="/contact" className="btn btn-ghost">
               Comment venir
             </Link>
           </div>

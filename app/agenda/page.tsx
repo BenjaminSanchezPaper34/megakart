@@ -265,7 +265,7 @@ export default function AgendaPage() {
                         <Link
                           href={race.signup}
                           data-track="inscription-ouverture"
-                          className="btn btn-race glow-race"
+                          className="btn btn-race"
                         >
                           {race.signupCta ?? "Inscrire mon équipe"}
                         </Link>
@@ -424,13 +424,13 @@ export default function AgendaPage() {
             e-mail — le roulage à volonté, c&rsquo;est sans réservation.
           </p>
           <div data-reveal className="mt-9 flex flex-wrap justify-center gap-4">
-            <a href={SITE.phoneHref} className="btn btn-race glow-race text-lg">
+            <a href={SITE.phoneHref} className="btn btn-race">
               {SITE.phone}
             </a>
             {SITE.email && (
               <a
                 href={`mailto:${SITE.email}`}
-                className="btn btn-ghost text-lg"
+                className="btn btn-ghost"
               >
                 Écrire au circuit
               </a>

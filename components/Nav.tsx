@@ -5,17 +5,25 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import OpenBadge from "./OpenBadge";
+import SocialIcons from "./SocialIcons";
 import { SITE } from "@/lib/site";
 
+/*
+ * Navigation resserrée (audit Codex du 13/10, docs/audit-navigation-2026-10-13.md,
+ * avec Agenda gardé en accès direct) : 5 entrées tiennent sur une ligne dès
+ * 1024 px, sans sous-menu (choix Benjamin 13/10). Toutes les pages restent
+ * accessibles depuis le plan du site du pied de page. Pas de numéro sur
+ * desktop : l'appel reste dans le menu mobile.
+ */
 const LINKS = [
-  { href: "/tarifs", label: "Karts & tarifs" },
-  { href: "/la-piste", label: "La piste" },
+  { href: "/#flotte", label: "Tarifs" },
   { href: "/agenda", label: "Agenda" },
-  { href: "/anniversaires", label: "Anniversaires" },
   { href: "/evenements", label: "Événements" },
   { href: "/photos", label: "Photos" },
   { href: "/contact", label: "Contact" },
 ];
+
+const EVENT_PATHS = ["/evenements", "/anniversaires"];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
@@ -39,26 +47,27 @@ export default function Nav() {
         <Logo className="relative z-50" />
 
         {/* Desktop */}
-        <div className="hidden items-center gap-6 lg:flex xl:gap-8">
-          <ul className="flex items-center gap-5 xl:gap-7">
-            {LINKS.map((l) => (
+        <ul className="hidden items-center gap-6 lg:flex xl:gap-8">
+          {LINKS.map((l) => {
+            const active = l.href === "/evenements" ? EVENT_PATHS.includes(pathname) : pathname === l.href;
+            return (
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className={`link-under font-display text-[0.85rem] font-bold uppercase italic tracking-wide transition-colors xl:text-[0.95rem] ${
-                    pathname === l.href ? "text-race" : "text-chalk hover:text-white"
+                  className={`link-under inline-flex min-h-11 items-center font-display text-base font-bold uppercase italic tracking-wide transition-colors ${
+                    active ? "text-race" : "text-chalk hover:text-white"
                   }`}
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {l.label}
                 </Link>
               </li>
-            ))}
-          </ul>
-          <a href={SITE.phoneHref} className="btn btn-race !py-2.5 !px-5 text-sm">
-            {SITE.phone}
-          </a>
-        </div>
+            );
+          })}
+          <li className="ml-2 border-l border-white/15 pl-2">
+            <SocialIcons />
+          </li>
+        </ul>
 
         {/* Burger */}
         <button
@@ -88,13 +97,13 @@ export default function Nav() {
         </button>
       </nav>
 
-      {/* Menu mobile plein écran */}
+      {/* Menu mobile plein écran : liste défilante, appel toujours visible en bas. */}
       <div
-        className={`fixed inset-0 z-40 flex flex-col justify-between bg-asphalt/[0.985] px-6 pb-10 pt-28 transition-[opacity,visibility] duration-300 lg:hidden ${
+        className={`fixed inset-0 z-40 flex flex-col bg-asphalt/[0.985] pt-24 transition-[opacity,visibility] duration-300 lg:hidden ${
           open ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
-        <ul className="flex flex-col gap-2">
+        <ul className="flex-1 overflow-y-auto overscroll-contain px-6 pb-6">
           {[{ href: "/", label: "Accueil" }, ...LINKS].map((l, i) => (
             <li
               key={l.href}
@@ -106,16 +115,18 @@ export default function Nav() {
             >
               <Link
                 href={l.href}
-                className={`display block py-2 text-4xl ${
-                  pathname === l.href ? "text-race" : "text-chalk"
-                }`}
+                className={`display block py-2 text-3xl ${pathname === l.href ? "text-race" : "text-chalk"}`}
               >
                 {l.label}
               </Link>
             </li>
           ))}
         </ul>
-        <div className="flex flex-col gap-5">
+        <div
+          className="flex flex-col gap-4 border-t border-white/10 px-6 pt-4"
+          style={{ paddingBottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
+        >
+          <SocialIcons className="-ml-3" />
           <OpenBadge withDetail />
           <a href={SITE.phoneHref} className="btn btn-race justify-center">
             Appeler · {SITE.phone}

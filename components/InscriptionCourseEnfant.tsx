@@ -116,7 +116,7 @@ export default function InscriptionCourseEnfant({ dates }: { dates: DateOption[]
         </p>
         <div className="mt-6 flex flex-wrap gap-4">
           <Link href="/agenda#course-enfant" className="btn btn-ghost">Retour à l&rsquo;agenda</Link>
-          <Link href="/tarifs" className="btn btn-ghost">Les karts</Link>
+          <Link href="/#flotte" className="btn btn-ghost">Les karts</Link>
         </div>
       </div>
     );
@@ -195,7 +195,7 @@ export default function InscriptionCourseEnfant({ dates }: { dates: DateOption[]
         );
       })}
       {enfants.length < MAX_ENFANTS && (
-        <button type="button" onClick={() => setEnfants((l) => [...l, vide()])} className="btn btn-ghost self-start text-sm" disabled={disabled}>
+        <button type="button" onClick={() => setEnfants((l) => [...l, vide()])} className="btn btn-ghost self-start" disabled={disabled}>
           + Ajouter un autre enfant
         </button>
       )}
@@ -251,7 +251,7 @@ export default function InscriptionCourseEnfant({ dates }: { dates: DateOption[]
       )}
 
       <div className="flex flex-wrap items-center gap-4">
-        <button type="submit" className="btn btn-race glow-race w-full justify-center sm:w-auto" disabled={disabled}>
+        <button type="submit" className="btn btn-race w-full justify-center sm:w-auto" disabled={disabled}>
           {disabled ? "Envoi…" : enfants.length > 1 ? "Inscrire les enfants" : "Inscrire mon enfant"}
         </button>
         <p className="text-sm text-chalk-60">{ENFANT.prix}€ par enfant, réglé sur place.</p>
