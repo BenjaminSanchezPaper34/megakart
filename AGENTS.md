@@ -100,3 +100,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-13 — Claude : pop-up retravaillé (bandeau gris retiré, CTA sur le fond flouté, croix SVG centrée au-dessus du visuel, style pilule contour). Aperçu à valider.
 - 2026-10-13 — Claude : cartes « prochaines dates » en rayon concentrique au CTA pilule (demi-hauteur CTA + padding).
 - 2026-10-13 — Claude : pop-up — visuel au même rayon que les cartes courses (classe race-event-card), croix centrée au-dessus. Aperçu 2cr8iwsmh.
+- 2026-10-13 — Claude : sous-menu Événements retiré (lien simple), numéro/bouton d appel retiré du header desktop, plan du site complet dans le footer (colonne « Le site »), pop-up : croix et CTA à cheval sur les bords haut/bas du visuel.
