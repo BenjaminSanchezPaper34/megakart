@@ -26,6 +26,7 @@ const EVENT_PATHS = ["/evenements", "/anniversaires"];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   // Referme le menu mobile à chaque navigation
   useEffect(() => setOpen(false), [pathname]);
