@@ -97,10 +97,10 @@ export default function TodayOffer() {
   const shown = todays ?? (nextDay ? highlightFor(nextDay) : null);
   if (!shown) return null;
 
-  const when = todays ? "Aujourd'hui" : (() => {
-    const f = formatDate(nextDay!.iso);
-    return `${f.weekday.charAt(0).toUpperCase()}${f.weekday.slice(1)} ${f.day} ${f.month}`;
-  })();
+  const offerDate = todays ? today : nextDay!.iso;
+  const date = formatDate(offerDate);
+  const weekday = `${date.weekday.charAt(0).toUpperCase()}${date.weekday.slice(1)}`;
+  const when = todays ? "Aujourd'hui" : `${weekday} ${date.day} ${date.month}`;
 
   return (
     <Link
@@ -109,17 +109,20 @@ export default function TodayOffer() {
       data-track="offre-du-jour"
       className={`group block ${shown.tone}`}
     >
-      <div className="mx-auto flex max-w-7xl items-center gap-4 px-5 py-3 md:gap-6 md:px-8 md:py-4">
-        <span className="checker-sm hidden h-5 w-10 shrink-0 opacity-30 sm:block" aria-hidden="true" />
+      <div className="mx-auto flex max-w-7xl items-center gap-3 px-5 py-4 md:gap-6 md:px-8 md:py-5">
+        {/* Repère calendrier indépendant du titre : date et offre se lisent côte à côte. */}
+        <time dateTime={offerDate} className="shrink-0 border-r border-current/25 pr-3 md:pr-6">
+          <span className="block text-sm font-bold leading-snug md:text-base">
+            {todays ? "Aujourd'hui" : weekday}
+          </span>
+          <span className="mt-1 flex items-baseline gap-1.5">
+            <span className="display text-4xl md:text-5xl">{date.day}</span>
+            <span className="text-base font-bold">{date.month}</span>
+          </span>
+        </time>
 
         <div className="min-w-0 flex-1">
-          {/* La date en étiquette pleine : c'est l'info qui décide si on vient. */}
-          <p className="mb-1.5">
-            <span className="display inline-block border-2 border-current px-2.5 py-0.5 text-sm uppercase tracking-wide md:text-base">
-              {when}
-            </span>
-          </p>
-          <p className="display truncate text-xl leading-tight md:text-2xl lg:text-3xl">
+          <p className="display text-2xl leading-tight lg:text-3xl">
             {shown.title}
           </p>
           {/* Accroche courte jusqu'à la tablette, phrase complète au-delà */}
@@ -138,7 +141,7 @@ export default function TodayOffer() {
           fill="none"
           stroke="currentColor"
           strokeWidth="2.5"
-          className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-1 lg:hidden"
+          className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1 lg:hidden"
         >
           <path d="M5 12h14m0 0l-6-6m6 6l-6 6" />
         </svg>
