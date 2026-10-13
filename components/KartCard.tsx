@@ -122,7 +122,7 @@ export default function KartCard({
           <div className="mt-auto pt-5">
             <Link
               href={cta.href}
-              className="btn btn-ghost w-full justify-center !px-4 !py-2.5 text-sm"
+              className="btn btn-ghost w-full justify-center"
             >
               {cta.label}
             </Link>

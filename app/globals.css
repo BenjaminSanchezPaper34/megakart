@@ -18,6 +18,14 @@
 
 :root {
   color-scheme: dark;
+  /* Système commun à tous les CTA, sur mobile comme sur desktop. */
+  --cta-height: 3.5rem;
+  --cta-radius: 999px;
+  --cta-padding-inline: 1.25rem;
+  --cta-min-width: 10rem;
+  --cta-font-size: 0.875rem;
+  --cta-font-weight: 600;
+  --cta-duration: 0.2s;
 }
 
 html {
@@ -104,49 +112,75 @@ body {
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: 1rem;
-  padding: 0.95rem 1.9rem;
-  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
-  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform;
+  justify-content: center;
+  gap: 0.5rem;
+  height: var(--cta-height);
+  min-height: var(--cta-height);
+  min-width: min(100%, var(--cta-min-width));
+  max-width: 100%;
+  padding: 0 var(--cta-padding-inline);
+  border: 1px solid transparent;
+  border-radius: var(--cta-radius);
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: var(--cta-font-weight);
+  font-size: var(--cta-font-size);
+  line-height: 1.25;
+  text-transform: none;
+  letter-spacing: 0;
+  text-align: center;
+  transition: background-color var(--cta-duration) ease,
+    border-color var(--cta-duration) ease, color var(--cta-duration) ease,
+    transform var(--cta-duration) ease;
 }
 
-.btn:hover { transform: scale(1.03); }
-.btn:active { transform: scale(0.98); }
+.btn:focus-visible {
+  outline: 2px solid var(--color-flag);
+  outline-offset: 4px;
+}
+.btn:active:not(:disabled) { transform: scale(0.98); }
+.btn:disabled, .btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 .btn-race {
   background: var(--color-race);
-  color: #fff;
-}
-.btn-race:hover {
-  background: #ff2f3d;
-  box-shadow:
-    0 0 28px color-mix(in srgb, var(--color-race) 55%, transparent),
-    0 0 72px color-mix(in srgb, var(--color-race) 22%, transparent);
+  color: var(--color-chalk);
 }
 
 .btn-ghost {
   background: transparent;
   color: var(--color-chalk);
-  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--color-chalk) 35%, transparent);
-}
-.btn-ghost:hover {
-  box-shadow: inset 0 0 0 1.5px var(--color-chalk);
-  background: color-mix(in srgb, var(--color-chalk) 6%, transparent);
+  border-color: color-mix(in srgb, var(--color-chalk) 35%, transparent);
 }
 
 .btn-flag {
   background: var(--color-flag);
-  color: #14100a;
+  color: var(--color-asphalt);
 }
-.btn-flag:hover {
-  box-shadow: 0 0 28px color-mix(in srgb, var(--color-flag) 45%, transparent);
+.btn-on-color {
+  background: transparent;
+  color: inherit;
+  border-color: currentColor;
+}
+
+@media (hover: hover) {
+  .btn-race:hover:not(:disabled) { background: var(--color-race-deep); }
+  .btn-ghost:hover:not(:disabled) {
+    border-color: var(--color-chalk);
+    background: color-mix(in srgb, var(--color-chalk) 6%, transparent);
+  }
+  .btn-flag:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--color-flag) 90%, var(--color-chalk));
+  }
+  .btn-on-color:hover {
+    background: color-mix(in srgb, currentColor 8%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:active:not(:disabled) { transform: none; }
 }
 
 /* ---------- Liens animés ---------- */

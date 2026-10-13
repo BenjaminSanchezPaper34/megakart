@@ -61,10 +61,10 @@ export default function HomePage() {
               Dès 3 ans, sans réservation : on arrive, on s'équipe, on roule.
             </p>
             <div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap md:mt-9 md:gap-4">
-              <Link href="/tarifs" className="btn btn-race glow-race justify-center whitespace-nowrap !px-3 !text-sm md:!px-8 md:!text-base">
+              <Link href="/tarifs" className="btn btn-race justify-center">
                 Karts &amp; tarifs
               </Link>
-              <Link href="/la-piste" className="btn btn-ghost justify-center whitespace-nowrap !px-3 !text-sm md:!px-8 md:!text-base">
+              <Link href="/la-piste" className="btn btn-ghost justify-center">
                 Découvrir la piste
               </Link>
             </div>
@@ -471,10 +471,10 @@ export default function HomePage() {
             deux minutes de Vias-plage.
           </p>
           <div data-reveal className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href={SITE.phoneHref} className="btn btn-race glow-race text-lg">
+            <a href={SITE.phoneHref} className="btn btn-race">
               {SITE.phone}
             </a>
-            <Link href="/contact" className="btn btn-ghost text-lg">
+            <Link href="/contact" className="btn btn-ghost">
               Comment venir
             </Link>
           </div>

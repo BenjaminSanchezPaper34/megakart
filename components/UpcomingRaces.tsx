@@ -109,7 +109,7 @@ export default function UpcomingRaces() {
             <Link
               href={nextOp.signup}
               data-track="inscription-ouverture"
-              className="btn btn-race glow-race w-full justify-center sm:w-auto"
+              className="btn btn-race w-full justify-center sm:w-auto"
             >
               {nextOp.signupCta ?? "Inscrire mon équipe"}
             </Link>

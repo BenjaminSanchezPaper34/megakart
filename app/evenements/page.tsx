@@ -137,10 +137,10 @@ export default function EvenementsPage() {
             de pilotes, format de course, date — en cinq minutes, c'est réglé.
           </p>
           <div data-reveal className="mt-9 flex flex-wrap justify-center gap-4">
-            <a href={SITE.phoneHref} className="btn btn-race glow-race text-lg">
+            <a href={SITE.phoneHref} className="btn btn-race">
               {SITE.phone}
             </a>
-            <a href={`mailto:${SITE.email}`} className="btn btn-ghost text-lg">
+            <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
               {SITE.email}
             </a>
           </div>

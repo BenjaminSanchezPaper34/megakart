@@ -129,8 +129,8 @@ export default function TodayOffer() {
           </p>
         </div>
 
-        <span className="display hidden shrink-0 border-2 border-current px-4 py-2 text-sm transition-opacity group-hover:opacity-70 lg:inline-block">
-          {shown.cta}
+        <span className="hidden shrink-0 lg:block">
+          <span className="btn btn-on-color">{shown.cta}</span>
         </span>
         <svg
           aria-hidden="true"

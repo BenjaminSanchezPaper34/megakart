@@ -139,7 +139,7 @@ export default function EventPopup({ campagne }: Props) {
             <Link
               href={campagne.href}
               onClick={go}
-              className="btn btn-race glow-race w-full justify-center sm:w-auto"
+              className="btn btn-race w-full justify-center sm:w-auto"
             >
               {campagne.cta ?? "En savoir plus"}
             </Link>

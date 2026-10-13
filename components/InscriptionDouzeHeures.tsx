@@ -357,7 +357,7 @@ export default function InscriptionDouzeHeures({ dateLabel }: { dateLabel: strin
       )}
 
       <div className="flex flex-wrap items-center gap-4">
-        <button type="submit" className="btn btn-race glow-race" disabled={disabled}>
+        <button type="submit" className="btn btn-race" disabled={disabled}>
           {disabled ? "Envoi…" : "Inscrire l'équipe"}
         </button>
         <p className="text-sm text-chalk-60">Pas d&rsquo;acompte : tout se règle sur place le jour de la course.</p>

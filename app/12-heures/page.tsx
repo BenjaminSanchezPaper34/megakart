@@ -145,7 +145,7 @@ export default function DouzeHeuresPage() {
             nuit, sur les 1000 m de Vias-plage.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-4">
-            <a href="#formulaire" className="btn btn-race glow-race">
+            <a href="#formulaire" className="btn btn-race">
               Inscrire mon équipe
             </a>
             <p className="display text-lg text-chalk">

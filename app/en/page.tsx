@@ -74,7 +74,7 @@ export default function EnglishPage() {
             From age 3, no booking needed: walk in, gear up, race.
           </p>
           <div className="mt-9 flex flex-wrap gap-4">
-            <a href={SITE.phoneHref} className="btn btn-race glow-race">
+            <a href={SITE.phoneHref} className="btn btn-race">
               {SITE.phone}
             </a>
             <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
@@ -171,7 +171,7 @@ export default function EnglishPage() {
             No booking — just come and race. Full website in French:
           </p>
           <div data-reveal className="mt-8">
-            <a href="/" className="btn btn-ghost text-lg">
+            <a href="/" className="btn btn-ghost">
               Site en français
             </a>
           </div>

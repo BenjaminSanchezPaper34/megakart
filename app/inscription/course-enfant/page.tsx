@@ -65,7 +65,7 @@ export default function InscriptionCourseEnfantPage() {
             </p>
           ))}
           <br />
-          <a href="#formulaire" className="btn btn-race glow-race mt-8">
+          <a href="#formulaire" className="btn btn-race mt-8">
             Aller au formulaire
           </a>
         </div>
@@ -176,7 +176,7 @@ export default function InscriptionCourseEnfantPage() {
             </div>
             <Link
               href="/agenda#course-enfant"
-              className="btn btn-ghost mt-6 text-sm"
+              className="btn btn-ghost mt-6"
             >
               Tout sur la Course Enfant
             </Link>

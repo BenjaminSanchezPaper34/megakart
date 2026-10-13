@@ -55,7 +55,7 @@ export default function Nav() {
               </li>
             ))}
           </ul>
-          <a href={SITE.phoneHref} className="btn btn-race !py-2.5 !px-5 text-sm">
+          <a href={SITE.phoneHref} className="btn btn-race">
             {SITE.phone}
           </a>
         </div>
