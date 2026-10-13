@@ -44,16 +44,16 @@ export default function KartWidget({ kart, href = "#selecteur" }: { kart: Kart; 
       )}
 
       <div className="relative">
-        <div className="flex items-start justify-between gap-3">
-          <p className="display flex items-baseline gap-2 leading-none">
-            <span className="text-5xl text-chalk sm:text-6xl">{kart.price} €</span>
-            <span className="text-base text-chalk-60">/ {kart.session}</span>
-          </p>
+        <p className="display flex items-baseline gap-2 leading-none">
+          <span className="text-5xl text-chalk sm:text-6xl">{kart.price} €</span>
+          <span className="text-base text-chalk-60">/ {kart.session}</span>
+        </p>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <h3 className="display text-2xl text-chalk">{kart.name}</h3>
           {kart.badge && (
-            <span className={`rounded-full px-3 py-1 text-xs font-bold ${BADGE[kart.badge]}`}>{kart.badge}</span>
+            <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${BADGE[kart.badge]}`}>{kart.badge}</span>
           )}
         </div>
-        <h3 className="display mt-3 text-2xl text-chalk">{kart.name}</h3>
         <p className="mt-1 max-w-[55%] text-sm text-chalk-60">{kart.age}</p>
       </div>
 
