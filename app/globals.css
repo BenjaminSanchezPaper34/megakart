@@ -366,7 +366,12 @@ body {
   .today-glow::after { animation: none; }
 }
 
-/* Cartes événements : rayon commun issu de l’échelle du thème. */
+/* Cartes événements : rayon concentrique au CTA pilule du bas de carte
+   (rayon du bouton = demi-hauteur, + la marge interne de la carte),
+   pour que les coins de la carte « épousent » ceux du bouton. */
 .race-event-card {
-  border-radius: var(--radius-2xl);
+  border-radius: calc(var(--cta-height) / 2 + 1rem); /* p-4 */
+}
+@media (min-width: 640px) {
+  .race-event-card { border-radius: calc(var(--cta-height) / 2 + 1.25rem); } /* sm:p-5 */
 }

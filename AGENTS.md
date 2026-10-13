@@ -98,3 +98,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-13 — Claude reprend la main sur codex/accueil-promo-visible (crédits Codex épuisés). EN COURS : Claude. Pas de fusion sans accord de Benjamin.
 - 2026-10-13 — Claude : navigation resserrée (Tarifs · Agenda · Événements[menu] · Photos · Contact + Appeler), sous-menu Événements (Au programme / En groupe), menu mobile défilant avec appel fixe en bas, lien La piste ajouté au footer. Aperçu à valider ; production inchangée.
 - 2026-10-13 — Claude : pop-up retravaillé (bandeau gris retiré, CTA sur le fond flouté, croix SVG centrée au-dessus du visuel, style pilule contour). Aperçu à valider.
+- 2026-10-13 — Claude : cartes « prochaines dates » en rayon concentrique au CTA pilule (demi-hauteur CTA + padding).
