@@ -63,23 +63,23 @@ export default function UpcomingRaces() {
         return (
           <article
             key={item.date + item.op}
-            className={`race-event-card flex overflow-hidden border border-chalk/15 bg-asphalt ${featured ? "lg:col-span-7 lg:row-span-3 lg:flex-col" : "lg:col-span-5"}`}
+            className={`race-event-card flex overflow-hidden border border-chalk/15 bg-asphalt ${featured ? "lg:col-span-5 lg:row-span-3 lg:flex-col" : "lg:col-span-7"}`}
           >
             <Link
               href={op?.page ?? `/agenda#${item.op}`}
               aria-label={`${item.label} : découvrir la course du ${date.day} ${date.monthFull}`}
-              className={`relative block w-2/5 shrink-0 bg-asphalt-3 ${featured ? "lg:min-h-96 lg:w-full lg:flex-1" : "lg:w-1/3"}`}
+              className={`relative block aspect-[3/4] w-2/5 shrink-0 self-start bg-asphalt-3 ${featured ? "lg:w-full" : ""}`}
             >
               <Image
                 src={poster?.src ?? photo}
                 alt={poster ? `Affiche ${item.label}` : item.op === "12-heures" ? "Le circuit MegaKart éclairé à la nuit tombée" : "Kart en piste sur le circuit MegaKart"}
                 fill
-                sizes={featured ? "(min-width: 1024px) 55vw, 40vw" : "(min-width: 1024px) 17vw, 40vw"}
-                className={poster ? "object-contain" : "object-cover"}
+                sizes={featured ? "(min-width: 1024px) 40vw, 40vw" : "(min-width: 1024px) 23vw, 40vw"}
+                className="object-cover"
               />
             </Link>
 
-            <div className={`flex min-w-0 flex-1 flex-col p-4 sm:p-5 ${featured ? "lg:flex-none lg:p-7" : "lg:p-5"}`}>
+            <div className={`flex min-w-0 flex-1 flex-col p-4 sm:p-5 ${featured ? "lg:p-7" : "lg:p-5"}`}>
               {featured && (
                 <p className="mb-3 text-sm font-bold text-flag">
                   Prochain départ{countdown === 0 ? " · Aujourd’hui" : countdown === 1 ? " · Demain" : ""}
