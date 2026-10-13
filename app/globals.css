@@ -358,3 +358,8 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .today-glow::after { animation: none; }
 }
+
+/* Cartes événements : rayon commun issu de l’échelle du thème. */
+.race-event-card {
+  border-radius: var(--radius-2xl);
+}

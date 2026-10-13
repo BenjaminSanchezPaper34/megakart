@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AGENDA, getOperation, formatDate, type AgendaItem } from "@/lib/agenda";
 
 /** Temps forts datés, confirmés, à date unique — ordre chronologique. */
@@ -34,127 +35,84 @@ export default function UpcomingRaces() {
 
   // Premier rendu (serveur et client) : les premiers de la liste, pour un
   // balisage identique ; une fois monté, on filtre sur la date du jour.
-  const upcoming: AgendaItem[] = (today ? DATED.filter((a) => a.date >= today) : DATED).slice(0, 4);
+  // Une carte par épreuve : les autres dates restent disponibles dans l'agenda.
+  const candidates = today ? DATED.filter((a) => a.date >= today) : DATED;
+  const upcoming: AgendaItem[] = candidates
+    .filter((item, index, all) => all.findIndex((other) => other.op === item.op) === index)
+    .slice(0, 4);
   if (upcoming.length === 0) return null;
 
-  const [next, ...rest] = upcoming;
-  const nextOp = getOperation(next.op!);
-  const nextDate = formatDate(next.date);
-  const countdown = today ? daysUntil(next.date, today) : null;
-
   return (
-    <>
-      {/* Le prochain rendez-vous — pensé pour le pouce d'abord : une ligne
-          d'en-tête, la date en toutes lettres, le titre pleine largeur, un
-          bouton pleine largeur. La tuile rouge et le prix en colonne ne
-          reviennent qu'à partir de la tablette, où la place existe. */}
-      <article className="card relative mt-10 overflow-hidden p-5 sm:p-6 md:mt-12 md:p-8">
-        <span aria-hidden="true" className="absolute left-0 top-0 h-full w-1 bg-race" />
+    <div className="mt-8 grid gap-4 lg:mt-10 lg:grid-cols-12 lg:gap-5" data-race-bento>
+      {upcoming.map((item, index) => {
+        const op = getOperation(item.op!);
+        const date = formatDate(item.date);
+        const featured = index === 0;
+        const countdown = today ? daysUntil(item.date, today) : null;
+        // L'affiche 100 Tours porte le 18 octobre : ne jamais la réutiliser pour décembre.
+        const poster = item.op === "course-enfant" ||
+          (item.op === "100-tours" && item.date === "2026-10-18") ? op?.affiche : undefined;
+        const photo = item.op === "12-heures"
+          ? "/images/galerie-24-aerien-nuit.jpg"
+          : item.op === "plein-gaz"
+            ? "/images/galerie-17-nocturne-action.jpg"
+            : "/images/galerie-01-kart-adulte.jpg";
+        const href = op?.signup ?? op?.page ?? `/agenda#${item.op}`;
+        const cta = op?.signup ? (op.signupCta ?? "Inscrire mon équipe") : "Voir la course";
 
-        <div className="flex items-center justify-between gap-3">
-          <p className="display text-sm text-flag sm:text-base">Prochain rendez-vous</p>
-          {countdown !== null && countdown >= 0 && (
-            <p className="display shrink-0 border border-white/20 px-2 py-0.5 text-xs uppercase tracking-wide text-chalk-60 sm:text-sm">
-              {countdown === 0 ? "Aujourd\u2019hui" : countdown === 1 ? "Demain" : `Dans ${countdown} jours`}
-            </p>
-          )}
-        </div>
-
-        <div className="mt-4 md:flex md:items-center md:gap-8">
-          {/* Tuile date : tablette et plus */}
-          <div className="hidden md:block md:[filter:drop-shadow(0_12px_12px_rgb(0_0_0/0.4))]">
-            <div className="clip-race flex h-24 w-32 shrink-0 flex-col items-center justify-center bg-race text-white">
-              <span className="display text-5xl leading-none">{nextDate.day}</span>
-              <span className="mt-1 text-xs font-semibold uppercase tracking-widest">{nextDate.month}</span>
-            </div>
-          </div>
-
-          <div className="min-w-0 flex-1">
-            {/* Date en toutes lettres : mobile seulement */}
-            <p className="display text-xl text-race md:hidden">
-              {nextDate.weekday.charAt(0).toUpperCase() + nextDate.weekday.slice(1)} {nextDate.day} {nextDate.month}
-            </p>
-            <h3 className="display mt-1 text-[clamp(2.1rem,9vw,2.8rem)] leading-none text-chalk md:mt-0">
-              <Link
-                href={`/agenda#${next.op}`}
-                data-track="prochain-rendez-vous"
-                className="transition-colors duration-300 hover:text-race"
-              >
-                {next.label}
-              </Link>
-            </h3>
-            {nextOp?.price && (
-              <p className="display mt-2 text-xl text-chalk md:hidden">
-                {nextOp.price}
-                {nextOp.priceNote && <span className="text-chalk-60"> · {nextOp.priceNote}</span>}
-              </p>
-            )}
-            {nextOp && (
-              <p className="mt-3 max-w-2xl text-base leading-relaxed text-chalk-60">{nextOp.summary}</p>
-            )}
-          </div>
-
-          {nextOp?.price && (
-            <p className="display hidden shrink-0 text-right text-3xl text-chalk md:block">
-              {nextOp.price}
-              {nextOp.priceNote && (
-                <span className="mt-1 block text-sm font-normal text-chalk-60">{nextOp.priceNote}</span>
-              )}
-            </p>
-          )}
-        </div>
-
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
-          {nextOp?.signup ? (
+        return (
+          <article
+            key={item.date + item.op}
+            className={`race-event-card flex overflow-hidden border border-chalk/15 bg-asphalt ${featured ? "lg:col-span-7 lg:row-span-3 lg:flex-col" : "lg:col-span-5"}`}
+          >
             <Link
-              href={nextOp.signup}
-              data-track="inscription-ouverture"
-              className="btn btn-race w-full justify-center sm:w-auto"
+              href={op?.page ?? `/agenda#${item.op}`}
+              aria-label={`${item.label} : découvrir la course du ${date.day} ${date.monthFull}`}
+              className={`relative block w-2/5 shrink-0 bg-asphalt-3 ${featured ? "lg:min-h-96 lg:w-full lg:flex-1" : "lg:w-1/3"}`}
             >
-              {nextOp.signupCta ?? "Inscrire mon équipe"}
+              <Image
+                src={poster?.src ?? photo}
+                alt={poster ? `Affiche ${item.label}` : item.op === "12-heures" ? "Le circuit MegaKart éclairé à la nuit tombée" : "Kart en piste sur le circuit MegaKart"}
+                fill
+                sizes={featured ? "(min-width: 1024px) 55vw, 40vw" : "(min-width: 1024px) 17vw, 40vw"}
+                className={poster ? "object-contain" : "object-cover"}
+              />
             </Link>
-          ) : (
-            <Link href={`/agenda#${next.op}`} className="btn btn-race w-full justify-center sm:w-auto">
-              Voir la course
-            </Link>
-          )}
-          <Link href={`/agenda#${next.op}`} className="link-under self-start text-base font-semibold text-chalk">
-            Le détail dans l&rsquo;agenda
-          </Link>
-        </div>
-      </article>
 
-      {/* Les suivants */}
-      {rest.length > 0 && (
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          {rest.map((item) => {
-            const f = formatDate(item.date);
-            const op = getOperation(item.op!);
-            return (
-              <Link
-                key={item.date + item.label}
-                href={`/agenda#${item.op}`}
-                className="card group flex items-center gap-5 p-6 transition-transform duration-300 hover:-translate-y-1"
-              >
-                <div className="[filter:drop-shadow(0_10px_10px_rgb(0_0_0/0.35))]">
-                  <div className="clip-race flex h-16 w-24 shrink-0 flex-col items-center justify-center bg-asphalt-3 text-chalk">
-                    <span className="display text-3xl leading-none">{f.day}</span>
-                    <span className="mt-0.5 text-xs font-semibold uppercase tracking-widest">
-                      {f.month}
-                    </span>
-                  </div>
-                </div>
-                <div className="min-w-0">
-                  <h3 className="display text-xl text-chalk transition-colors duration-300 group-hover:text-race">
-                    {item.label}
-                  </h3>
-                  {op?.price && <p className="mt-0.5 text-sm text-chalk-60">{op.price}</p>}
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      )}
-    </>
+            <div className={`flex min-w-0 flex-1 flex-col p-4 sm:p-5 ${featured ? "lg:flex-none lg:p-7" : "lg:p-5"}`}>
+              {featured && (
+                <p className="mb-3 text-sm font-bold text-flag">
+                  Prochain départ{countdown === 0 ? " · Aujourd’hui" : countdown === 1 ? " · Demain" : ""}
+                </p>
+              )}
+              <p className="text-sm font-semibold text-flag">
+                {date.weekday.charAt(0).toUpperCase() + date.weekday.slice(1)} {date.day} {date.monthFull}
+              </p>
+              <h3 className={`display mt-2 text-2xl text-chalk ${featured ? "sm:text-3xl lg:text-5xl" : "sm:text-3xl"}`}>
+                <Link href={op?.page ?? `/agenda#${item.op}`} className="hover:text-flag">
+                  {item.label}
+                </Link>
+              </h3>
+              <p className="mt-2 text-sm leading-snug text-chalk-60">{op?.kicker}</p>
+              {op?.price && <p className="mt-3 text-base font-bold text-chalk">{op.price}</p>}
+              {featured && item.places !== undefined && item.places > 0 && (
+                <p className="mt-1 text-sm font-semibold text-flag">
+                  {item.places === 1 ? "Dernière équipe disponible" : `Plus que ${item.places} équipes`}
+                </p>
+              )}
+              <div className="mt-auto pt-4">
+                <Link
+                  href={href}
+                  data-track={featured ? "inscription-ouverture" : "course-accueil"}
+                  className={`btn w-full ${featured ? "btn-race lg:w-auto" : "btn-ghost"}`}
+                >
+                  {cta}
+                </Link>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
   );
 }
