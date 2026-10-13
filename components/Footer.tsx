@@ -23,6 +23,7 @@ const PAGES = [
 const SOCIALS = [
   { label: "Instagram", href: SITE.social.instagram },
   { label: "Facebook", href: SITE.social.facebook },
+  { label: "TikTok", href: SITE.social.tiktok },
   { label: "YouTube", href: SITE.social.youtube },
   { label: "TripAdvisor", href: SITE.social.tripadvisor },
 ];
