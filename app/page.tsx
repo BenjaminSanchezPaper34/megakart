@@ -11,11 +11,10 @@ import OpenBadge from "@/components/OpenBadge";
 import UpcomingRaces from "@/components/UpcomingRaces";
 import TodayOffer from "@/components/TodayOffer";
 import { DEALS, SHOW_PROMOS } from "@/lib/agenda";
-import { KARTS, getKart } from "@/lib/karts";
+import { KARTS } from "@/lib/karts";
 import { SITE } from "@/lib/site";
 import { localBusinessJsonLd, webSiteJsonLd } from "@/lib/jsonld";
 
-const FEATURED_KARTS = ["baby-kart", "kart-enfant", "biplace", "390cc"].map(getKart);
 
 export default function HomePage() {
   return (
@@ -132,7 +131,8 @@ export default function HomePage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* ========== FLOTTE ========== */}
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+      <section className="py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
             Une flotte pour
@@ -144,12 +144,26 @@ export default function HomePage() {
             {" "}{KARTS.length} machines, de {KARTS[0].price}€ à {KARTS[KARTS.length - 1].price}€ la session.
           </p>
         </div>
+      </div>
 
-        <div data-stagger className="mt-12 grid gap-5 md:grid-cols-2">
-          {FEATURED_KARTS.map((k) => (
-            <KartWidget key={k.slug} kart={k} />
-          ))}
-        </div>
+      {/* Toute la flotte en défilement latéral. Les butées gauche/droite
+          s'alignent sur la grille du site (max-w-7xl + marges), la rangée
+          déborde jusqu'aux bords de l'écran entre les deux. */}
+      <div
+        className="no-scrollbar mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2"
+        style={{
+          paddingInline: "max(1.25rem, calc((100vw - 80rem) / 2 + 2rem))",
+          scrollPaddingInline: "max(1.25rem, calc((100vw - 80rem) / 2 + 2rem))",
+        }}
+      >
+        {KARTS.map((k) => (
+          <div key={k.slug} className="w-[85%] shrink-0 snap-start sm:w-[60%] md:w-[44%] lg:w-[38rem]">
+            <KartWidget kart={k} />
+          </div>
+        ))}
+      </div>
+
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
 
         <div data-reveal className="mt-10 flex flex-wrap gap-4">
           <Link href="/tarifs" className="btn btn-race">
@@ -159,6 +173,7 @@ export default function HomePage() {
             Trouve ton kart en 10 s
           </Link>
         </div>
+      </div>
       </section>
 
       <div className="kerb" aria-hidden="true" />

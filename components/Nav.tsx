@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import OpenBadge from "./OpenBadge";
+import SocialIcons from "./SocialIcons";
 import { SITE } from "@/lib/site";
 
 /*
@@ -63,6 +64,9 @@ export default function Nav() {
               </li>
             );
           })}
+          <li className="ml-2 border-l border-white/15 pl-2">
+            <SocialIcons />
+          </li>
         </ul>
 
         {/* Burger */}
@@ -122,6 +126,7 @@ export default function Nav() {
           className="flex flex-col gap-4 border-t border-white/10 px-6 pt-4"
           style={{ paddingBottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
         >
+          <SocialIcons className="-ml-3" />
           <OpenBadge withDetail />
           <a href={SITE.phoneHref} className="btn btn-race justify-center">
             Appeler · {SITE.phone}

@@ -55,6 +55,8 @@ export const SITE = {
   social: {
     facebook: "https://www.facebook.com/megakart.karting",
     instagram: "https://www.instagram.com/karting_megakart/",
+    /** À renseigner : l'icône TikTok du header n'apparaît que si l'URL est connue. */
+    tiktok: "" as string,
     youtube: "https://www.youtube.com/channel/UC-r14_i1pUWRY6-i0VbkI_g",
     tripadvisor:
       "https://www.tripadvisor.fr/Attraction_Review-g1080326-d8621170-Reviews-MegaKart-Vias_Herault_Occitanie.html",
