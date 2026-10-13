@@ -89,11 +89,11 @@ export default function Nav() {
         <Logo className="relative z-50" />
 
         {/* Desktop */}
-        <div className="hidden items-center gap-6 lg:flex xl:gap-8">
-          <ul className="flex items-center gap-6 xl:gap-8">
+        <div className="hidden items-center gap-4 lg:flex xl:gap-8">
+          <ul className="flex items-center gap-4 xl:gap-8">
             {LINKS.map((l) => {
               const active = l.menu ? EVENT_PATHS.includes(pathname) : pathname === l.href;
-              const cls = `link-under font-display text-base font-bold uppercase italic tracking-wide transition-colors ${
+              const cls = `link-under inline-flex min-h-11 items-center font-display text-base font-bold uppercase italic tracking-wide transition-colors ${
                 active ? "text-race" : "text-chalk hover:text-white"
               }`;
               if (!l.menu)
