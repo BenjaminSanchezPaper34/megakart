@@ -110,3 +110,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-13 — Claude : cartes courses à gabarit fixe (titre 2 lignes, sous-titre 2 lignes, tarif, ligne d accompagnement 2 lignes — priceNote sinon 1er fait).
 - 2026-10-13 — Claude : visuels karts régénérés via Higgsfield (GPT Image 2, châssis uniformisés, fond blanc) puis détourés (Vision macOS) → public/images/sodi/*.webp ; PNG dans VISUELS/sodi-officiels/uniforme-*.png.
 - 2026-10-13 — Claude : home — toute la flotte (7 karts) en carrousel latéral à butées alignées sur la grille ; visuels 280/250RX générés (Higgsfield) ; icônes Instagram/Facebook/TikTok dans le header (TikTok masqué tant que SITE.social.tiktok est vide).
+- 2026-10-13 — Claude : carrousel flotte extrait dans components/FleetCarousel.tsx avec flèches précédent/suivant.

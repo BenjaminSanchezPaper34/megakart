@@ -6,7 +6,7 @@ import Reviews from "@/components/Reviews";
 import PhotoMosaic from "@/components/PhotoMosaic";
 import ReelCard from "@/components/ReelCard";
 import TrackMap from "@/components/TrackMap";
-import KartWidget from "@/components/KartWidget";
+import FleetCarousel from "@/components/FleetCarousel";
 import OpenBadge from "@/components/OpenBadge";
 import UpcomingRaces from "@/components/UpcomingRaces";
 import TodayOffer from "@/components/TodayOffer";
@@ -146,22 +146,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Toute la flotte en défilement latéral. Les butées gauche/droite
-          s'alignent sur la grille du site (max-w-7xl + marges), la rangée
-          déborde jusqu'aux bords de l'écran entre les deux. */}
-      <div
-        className="no-scrollbar mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2"
-        style={{
-          paddingInline: "max(1.25rem, calc((100vw - 80rem) / 2 + 2rem))",
-          scrollPaddingInline: "max(1.25rem, calc((100vw - 80rem) / 2 + 2rem))",
-        }}
-      >
-        {KARTS.map((k) => (
-          <div key={k.slug} className="w-[85%] shrink-0 snap-start sm:w-[60%] md:w-[44%] lg:w-[38rem]">
-            <KartWidget kart={k} />
-          </div>
-        ))}
-      </div>
+      <FleetCarousel karts={KARTS} />
 
       <div className="mx-auto max-w-7xl px-5 md:px-8">
 
