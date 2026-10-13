@@ -160,8 +160,8 @@ export default function Nav() {
               );
             })}
           </ul>
-          {/* max-width:100% de .btn se résout contre ce conteneur flex et le faisait déborder. */}
-          <a href={SITE.phoneHref} className="btn btn-race shrink-0 !max-w-none">
+          {/* min-width: min(100%, …) de .btn vaut 0 au calcul de largeur du conteneur : largeur mini fixée ici. */}
+          <a href={SITE.phoneHref} className="btn btn-race shrink-0 !min-w-36 !max-w-none">
             <span className="xl:hidden">Appeler</span>
             <span className="hidden xl:inline">{SITE.phone}</span>
           </a>
