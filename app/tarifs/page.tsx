@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import KartCard from "@/components/KartCard";
+import KartWidget from "@/components/KartWidget";
 import KartSelector from "@/components/KartSelector";
 import Marquee from "@/components/Marquee";
 import { KARTS } from "@/lib/karts";
@@ -88,13 +88,9 @@ export default function TarifsPage() {
         <h2 data-reveal className="display text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
           Toute la flotte
         </h2>
-        <div data-stagger className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div data-stagger className="mt-10 grid gap-5 md:grid-cols-2">
           {KARTS.map((k) => (
-            <KartCard
-              key={k.slug}
-              kart={k}
-              cta={{ href: "#selecteur", label: "Ce kart me correspond ?" }}
-            />
+            <KartWidget key={k.slug} kart={k} />
           ))}
         </div>
         <p data-reveal className="mt-8 text-sm text-chalk-60">
