@@ -110,15 +110,14 @@ export default function TodayOffer() {
       className={`group block ${shown.tone}`}
     >
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-5 py-4 md:gap-6 md:px-8 md:py-5">
-        {/* Les deux blocs partagent la même hauteur, même si l'accroche revient à la ligne. */}
+        {/* Même hiérarchie typographique dans les deux blocs : titre puis sous-titre. */}
         <div className="flex min-w-0 flex-1 items-stretch gap-3 md:gap-6">
-          <time dateTime={offerDate} className="flex shrink-0 flex-col justify-between border-r border-current/25 pr-3 md:pr-6">
-            <span className="block text-sm font-bold leading-snug lg:text-base lg:leading-relaxed">
-              {todays ? "Aujourd'hui" : weekday}
+          <time dateTime={offerDate} className="shrink-0 border-r border-current/25 pr-3 md:pr-6">
+            <span className="display block whitespace-nowrap text-2xl leading-tight lg:text-3xl">
+              {date.day} {date.month}
             </span>
-            <span className="mt-0.5 flex items-baseline gap-1.5 lg:mt-1">
-              <span className="display text-2xl lg:text-3xl">{date.day}</span>
-              <span className="text-sm font-bold lg:text-base">{date.month}</span>
+            <span className="mt-0.5 block text-sm leading-snug lg:mt-1 lg:text-base lg:leading-relaxed">
+              {todays ? "Aujourd'hui" : weekday}
             </span>
           </time>
 
