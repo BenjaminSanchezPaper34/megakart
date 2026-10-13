@@ -99,3 +99,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-13 — Claude : navigation resserrée (Tarifs · Agenda · Événements[menu] · Photos · Contact + Appeler), sous-menu Événements (Au programme / En groupe), menu mobile défilant avec appel fixe en bas, lien La piste ajouté au footer. Aperçu à valider ; production inchangée.
 - 2026-10-13 — Claude : pop-up retravaillé (bandeau gris retiré, CTA sur le fond flouté, croix SVG centrée au-dessus du visuel, style pilule contour). Aperçu à valider.
 - 2026-10-13 — Claude : cartes « prochaines dates » en rayon concentrique au CTA pilule (demi-hauteur CTA + padding).
+- 2026-10-13 — Claude : pop-up — visuel au même rayon que les cartes courses (classe race-event-card), croix centrée au-dessus. Aperçu 2cr8iwsmh.
