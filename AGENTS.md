@@ -102,3 +102,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-13 — Claude : pop-up — visuel au même rayon que les cartes courses (classe race-event-card), croix centrée au-dessus. Aperçu 2cr8iwsmh.
 - 2026-10-13 — Claude : sous-menu Événements retiré (lien simple), numéro/bouton d appel retiré du header desktop, plan du site complet dans le footer (colonne « Le site »), pop-up : croix et CTA à cheval sur les bords haut/bas du visuel.
 - 2026-10-13 — Claude : essai fiches karts « widget Audi » (components/KartWidget.tsx) sur /tarifs uniquement ; KartCard inchangé ailleurs. À valider.
+- 2026-10-13 — Claude : accueil — fiches karts en KartWidget non cliquable, visuels Sodi officiels (public/images/sodi, même pose) pour Baby/Enfant/Biplace/390 + référence modèle ; 280cc et 250 RX gardent l ancien visuel (modèle à confirmer par Lucas).

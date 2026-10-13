@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { Kart } from "@/lib/karts";
 
 /**
@@ -7,7 +6,7 @@ import type { Kart } from "@/lib/karts";
  * 13/10/2026) : la donnée clé en très grand en haut à gauche (le prix),
  * une ligne de contexte dessous, le kart détouré qui déborde à droite sur un
  * tracé du circuit en filigrane, et une ligne d'info en pied de carte.
- * Essai sur /tarifs uniquement — KartCard reste utilisé ailleurs.
+ * Non cliquable (choix Benjamin 13/10) ; visuels Sodi officiels, même pose.
  */
 const BADGE: Record<NonNullable<Kart["badge"]>, string> = {
   Nouveauté: "bg-flag text-asphalt",
@@ -15,12 +14,9 @@ const BADGE: Record<NonNullable<Kart["badge"]>, string> = {
   Duo: "bg-chalk text-asphalt",
 };
 
-export default function KartWidget({ kart, href = "#selecteur" }: { kart: Kart; href?: string }) {
+export default function KartWidget({ kart }: { kart: Kart }) {
   return (
-    <Link
-      href={href}
-      className="race-event-card group relative flex min-h-[13.5rem] flex-col justify-between overflow-hidden border border-white/10 bg-gradient-to-br from-asphalt-2 via-asphalt-2 to-asphalt-3 p-5 transition-colors hover:border-white/25 sm:p-6"
-    >
+    <article className="race-event-card relative flex min-h-[13.5rem] flex-col justify-between overflow-hidden border border-white/10 bg-gradient-to-br from-asphalt-2 via-asphalt-2 to-asphalt-3 p-5 sm:p-6">
       {/* Filigrane : le tracé du circuit, comme les anneaux sur le widget. */}
       <Image
         src="/images/TRACECIRCUIT-MEGAKART.svg"
@@ -35,11 +31,11 @@ export default function KartWidget({ kart, href = "#selecteur" }: { kart: Kart; 
       {kart.image && (
         <Image
           src={`/images/${kart.image}`}
-          alt={`${kart.name} MegaKart`}
+          alt={`${kart.model ?? kart.name}, ${kart.name} du circuit MegaKart`}
           width={600}
           height={400}
           sizes="(min-width: 1024px) 320px, 60vw"
-          className="pointer-events-none absolute -right-[12%] bottom-10 w-[62%] object-contain drop-shadow-[0_16px_14px_rgba(0,0,0,0.55)] transition-transform duration-500 group-hover:-translate-x-2"
+          className="pointer-events-none absolute -right-[12%] bottom-10 w-[62%] object-contain drop-shadow-[0_16px_14px_rgba(0,0,0,0.55)]"
         />
       )}
 
@@ -65,10 +61,8 @@ export default function KartWidget({ kart, href = "#selecteur" }: { kart: Kart; 
           </svg>
           <span className="truncate">{kart.engine}</span>
         </span>
-        <span aria-hidden="true" className="shrink-0 text-chalk-60 transition-colors group-hover:text-race">
-          →
-        </span>
+        {kart.model && <span className="shrink-0 text-xs font-semibold uppercase tracking-wide text-chalk-60">{kart.model}</span>}
       </div>
-    </Link>
+    </article>
   );
 }

@@ -6,7 +6,7 @@ import Reviews from "@/components/Reviews";
 import PhotoMosaic from "@/components/PhotoMosaic";
 import ReelCard from "@/components/ReelCard";
 import TrackMap from "@/components/TrackMap";
-import KartCard from "@/components/KartCard";
+import KartWidget from "@/components/KartWidget";
 import OpenBadge from "@/components/OpenBadge";
 import UpcomingRaces from "@/components/UpcomingRaces";
 import TodayOffer from "@/components/TodayOffer";
@@ -15,7 +15,7 @@ import { KARTS, getKart } from "@/lib/karts";
 import { SITE } from "@/lib/site";
 import { localBusinessJsonLd, webSiteJsonLd } from "@/lib/jsonld";
 
-const FEATURED_KARTS = ["baby-kart", "kart-enfant", "390cc", "250-rx-30"].map(getKart);
+const FEATURED_KARTS = ["baby-kart", "kart-enfant", "biplace", "390cc"].map(getKart);
 
 export default function HomePage() {
   return (
@@ -145,9 +145,9 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div data-stagger className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <div data-stagger className="mt-12 grid gap-5 md:grid-cols-2">
           {FEATURED_KARTS.map((k) => (
-            <KartCard key={k.slug} kart={k} />
+            <KartWidget key={k.slug} kart={k} />
           ))}
         </div>
 
