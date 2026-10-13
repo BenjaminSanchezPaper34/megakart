@@ -58,7 +58,6 @@ export default function UpcomingRaces() {
             ? "/images/galerie-17-nocturne-action.jpg"
             : "/images/galerie-01-kart-adulte.jpg";
         const href = op?.signup ?? op?.page ?? `/agenda#${item.op}`;
-        const cta = op?.signup ? (op.signupCta ?? "Inscrire mon équipe") : "Voir la course";
 
         return (
           <article
@@ -104,9 +103,9 @@ export default function UpcomingRaces() {
                 <Link
                   href={href}
                   data-track={featured ? "inscription-ouverture" : "course-accueil"}
-                  className={`btn w-full ${featured ? "btn-race" : "btn-ghost"}`}
+                  className="btn btn-race w-full"
                 >
-                  {cta}
+                  S&rsquo;inscrire
                 </Link>
               </div>
             </div>

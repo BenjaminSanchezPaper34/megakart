@@ -113,19 +113,19 @@ export default function HomePage() {
               <br />
               <span className="text-race">on court.</span>
             </h2>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-xl">
-              En équipe, en solo ou pour les enfants :
-              trouvez votre prochain départ.
-            </p>
+            {/* Sous-titre et lien agenda sur la même ligne, au-dessus des affiches. */}
+            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+              <p className="max-w-xl text-base leading-relaxed text-chalk md:text-xl">
+                En équipe, en solo ou pour les enfants :
+                trouvez votre prochain départ.
+              </p>
+              <Link href="/agenda" className="btn btn-ghost">
+                Voir tout l&rsquo;agenda
+              </Link>
+            </div>
           </div>
 
           <UpcomingRaces />
-
-          <div data-reveal className="mt-10 flex flex-wrap gap-4">
-            <Link href="/agenda" className="btn btn-race">
-              Voir tout l&rsquo;agenda
-            </Link>
-          </div>
         </div>
       </section>
 

@@ -104,3 +104,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-13 — Claude : essai fiches karts « widget Audi » (components/KartWidget.tsx) sur /tarifs uniquement ; KartCard inchangé ailleurs. À valider.
 - 2026-10-13 — Claude : accueil — fiches karts en KartWidget non cliquable, visuels Sodi officiels (public/images/sodi, même pose) pour Baby/Enfant/Biplace/390 + référence modèle ; 280cc et 250 RX gardent l ancien visuel (modèle à confirmer par Lucas).
 - 2026-10-13 — Claude : visuels Sodi remis à l échelle réelle (longueurs officielles : KidRacer 1457, LR6 1850, RT10 1865, 2Drive 2092 mm).
+- 2026-10-13 — Claude : section « Cet automne » — tous les CTA en rouge « S inscrire », « Voir tout l agenda » en contour au-dessus des affiches à droite. Visuels Sodi originaux remis à Benjamin (VISUELS/sodi-officiels) pour recadrage manuel.
