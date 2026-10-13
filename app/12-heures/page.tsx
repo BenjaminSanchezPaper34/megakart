@@ -34,10 +34,11 @@ const EVENT_JSONLD = {
   url: `${SITE_URL}/12-heures`,
   image: [`${SITE_URL}/images/galerie-17-nocturne-action.jpg`, `${SITE_URL}/images/og.jpg`],
   description: `Course d'endurance de 12 heures par équipes sur le circuit outdoor de 1000 m de MegaKart à Vias-plage, coorganisée avec l'écurie Vortex. Un ravitaillement par heure, changement de kart à chaque ravitaillement, espace chauffé par équipe, repas compris, chronométrage Apex Timing en direct. ${DOUZE_H.placesMax} équipes maximum.`,
-  organizer: [
-    { "@type": "Organization", "@id": `${SITE_URL}/#business`, name: SITE.name, url: SITE_URL },
-    { "@type": "Organization", name: "Vortex" },
-  ],
+  // Search Console (09/10) : chaque organisateur doit avoir une URL, et un
+  // « performer » est attendu. Vortex n'a pas d'URL connue : nommé dans la
+  // description, pas en organisateur. Performer = le circuit, comme l'agenda.
+  organizer: { "@type": "Organization", "@id": `${SITE_URL}/#business`, name: SITE.name, url: SITE_URL },
+  performer: { "@type": "Organization", "@id": `${SITE_URL}/#business`, name: SITE.name, url: SITE_URL },
   location: {
     "@type": "Place",
     name: SITE.name,
