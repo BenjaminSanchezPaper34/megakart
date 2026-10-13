@@ -21,9 +21,10 @@
   /* Système commun à tous les CTA, sur mobile comme sur desktop. */
   --cta-height: 3.5rem;
   --cta-radius: 999px;
-  --cta-padding-inline: 1.25rem;
-  --cta-min-width: 10rem;
-  --cta-font-size: 0.875rem;
+  --cta-padding-inline: 1rem;
+  --cta-min-width: 9rem;
+  --cta-font-size: 1rem;
+  --cta-icon-size: 1.25rem;
   --cta-font-weight: 700;
   --cta-border-width: 1.5px;
   --cta-primary-bg: color-mix(in srgb, var(--color-race) 90%, var(--color-race-deep));
@@ -138,6 +139,12 @@ body {
   transition: background-color var(--cta-duration) ease,
     border-color var(--cta-duration) ease, color var(--cta-duration) ease,
     transform var(--cta-duration) ease;
+}
+
+.btn svg {
+  width: var(--cta-icon-size);
+  height: var(--cta-icon-size);
+  flex-shrink: 0;
 }
 
 .btn:focus-visible {
