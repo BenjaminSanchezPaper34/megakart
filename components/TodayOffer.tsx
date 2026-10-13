@@ -110,26 +110,28 @@ export default function TodayOffer() {
       className={`group block ${shown.tone}`}
     >
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-5 py-4 md:gap-6 md:px-8 md:py-5">
-        {/* Repère calendrier indépendant du titre : date et offre se lisent côte à côte. */}
-        <time dateTime={offerDate} className="shrink-0 border-r border-current/25 pr-3 md:pr-6">
-          <span className="block text-sm font-bold leading-snug md:text-base">
-            {todays ? "Aujourd'hui" : weekday}
-          </span>
-          <span className="mt-1 flex items-baseline gap-1.5">
-            <span className="display text-4xl md:text-5xl">{date.day}</span>
-            <span className="text-base font-bold">{date.month}</span>
-          </span>
-        </time>
+        {/* Les deux blocs partagent la même hauteur, même si l'accroche revient à la ligne. */}
+        <div className="flex min-w-0 flex-1 items-stretch gap-3 md:gap-6">
+          <time dateTime={offerDate} className="flex shrink-0 flex-col justify-between border-r border-current/25 pr-3 md:pr-6">
+            <span className="block text-sm font-bold leading-snug lg:text-base lg:leading-relaxed">
+              {todays ? "Aujourd'hui" : weekday}
+            </span>
+            <span className="mt-0.5 flex items-baseline gap-1.5 lg:mt-1">
+              <span className="display text-2xl lg:text-3xl">{date.day}</span>
+              <span className="text-sm font-bold lg:text-base">{date.month}</span>
+            </span>
+          </time>
 
-        <div className="min-w-0 flex-1">
-          <p className="display text-2xl leading-tight lg:text-3xl">
-            {shown.title}
-          </p>
-          {/* Accroche courte jusqu'à la tablette, phrase complète au-delà */}
-          <p className="mt-0.5 text-sm leading-snug opacity-90 lg:hidden">{shown.short}</p>
-          <p className="mt-1 hidden max-w-3xl text-base leading-relaxed opacity-90 lg:block">
-            {shown.detail}
-          </p>
+          <div className="min-w-0 flex-1">
+            <p className="display text-2xl leading-tight lg:text-3xl">
+              {shown.title}
+            </p>
+            {/* Accroche courte jusqu'à la tablette, phrase complète au-delà */}
+            <p className="mt-0.5 text-sm leading-snug opacity-90 lg:hidden">{shown.short}</p>
+            <p className="mt-1 hidden max-w-3xl text-base leading-relaxed opacity-90 lg:block">
+              {shown.detail}
+            </p>
+          </div>
         </div>
 
         <span className="hidden shrink-0 lg:block">

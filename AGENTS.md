@@ -78,3 +78,4 @@ Claude relit ce journal en reprenant la main.
 
 - 2026-10-13 — Codex : bandeau promo réorganisé à la demande de Benjamin : date en repère calendrier agrandi à gauche, titre et avantage à droite, retrait de l'étiquette empilée et du titre tronqué. Aperçu et contrôles mobile/desktop en cours ; production inchangée.
 - 2026-10-13 — Codex : bandeau promo vérifié sur aperçu Ready 64b405c (megakart-cyw0o4m7u-paper34.vercel.app) : date 36 px mobile / 48 px desktop, affichage côte à côte, aucun débordement à 320/390/1440 px ; bas de promo aligné sur le premier écran, aucune erreur console. Aperçu ouvert pour validation ; production inchangée.
+- 2026-10-13 — Codex : alignement de la hauteur du bloc date sur le bloc titre/sous-titre du bandeau promo, chiffres recalibrés et étirement commun adaptatif. Vérification en aperçu en cours ; production inchangée.
