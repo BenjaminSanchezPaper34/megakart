@@ -76,29 +76,36 @@ export default function UpcomingRaces() {
                 sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 85vw"
                 className="object-cover"
               />
+              {/* Rareté : label jaune en tête de l'affiche. */}
+              {item.places !== undefined && item.places > 0 && (
+                <span className="absolute inset-x-4 top-4 rounded-full bg-flag px-4 py-2 text-center text-sm font-bold text-asphalt shadow-lg">
+                  {item.places === 1 ? "Dernière équipe disponible" : `Plus que ${item.places} équipes`}
+                </span>
+              )}
             </Link>
 
             <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
-              <p className="mb-3 text-sm font-bold text-flag">
-                {featured ? "Prochain départ" : "À venir"}
-                {featured && (countdown === 0 ? " · Aujourd’hui" : countdown === 1 ? " · Demain" : "")}
-              </p>
-              <p className="text-sm font-semibold text-flag">
-                {date.weekday.charAt(0).toUpperCase() + date.weekday.slice(1)} {date.day} {date.monthFull}
-              </p>
-              <h3 className="display mt-2 text-2xl text-chalk sm:text-3xl">
-                <Link href={op?.page ?? `/agenda#${item.op}`} className="hover:text-flag">
-                  {item.label}
-                </Link>
-              </h3>
-              <p className="mt-2 text-sm leading-snug text-chalk-60">{op?.kicker}</p>
-              {op?.price && <p className="mt-3 text-base font-bold text-chalk">{op.price}</p>}
+              {/* Date présentée comme dans le bandeau promo : jour + mois en display, jour de semaine dessous. */}
+              <div className="flex items-stretch gap-3">
+                <time dateTime={item.date} className="shrink-0 border-r border-chalk/25 pr-3 text-flag">
+                  <span className="display block whitespace-nowrap text-2xl leading-tight">
+                    {date.day} {date.month}
+                  </span>
+                  <span className="mt-0.5 block text-sm leading-snug">
+                    {countdown === 0 ? "Aujourd’hui" : countdown === 1 ? "Demain" : date.weekday.charAt(0).toUpperCase() + date.weekday.slice(1)}
+                  </span>
+                </time>
+                <div className="min-w-0">
+                  <h3 className="display text-2xl leading-tight text-chalk">
+                    <Link href={op?.page ?? `/agenda#${item.op}`} className="hover:text-flag">
+                      {item.label}
+                    </Link>
+                  </h3>
+                  <p className="mt-0.5 text-sm leading-snug text-chalk-60">{op?.kicker}</p>
+                </div>
+              </div>
+              {op?.price && <p className="mt-4 text-base font-bold text-chalk">{op.price}</p>}
               {op?.priceNote && <p className="mt-1 text-sm leading-snug text-chalk-60">{op.priceNote}</p>}
-              {featured && item.places !== undefined && item.places > 0 && (
-                <p className="mt-1 text-sm font-semibold text-flag">
-                  {item.places === 1 ? "Dernière équipe disponible" : `Plus que ${item.places} équipes`}
-                </p>
-              )}
               <div className="mt-auto pt-4">
                 <Link
                   href={href}
