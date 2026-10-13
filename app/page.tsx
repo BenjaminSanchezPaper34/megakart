@@ -246,7 +246,7 @@ export default function HomePage() {
               <br />
               <span className="text-flag">de la semaine.</span>
             </h2>
-            <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60">
+            <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60 md:text-right">
               Des offres qui reviennent chaque semaine, sans réservation
               pour la plupart : il suffit de choisir son jour.
             </p>
@@ -304,45 +304,50 @@ export default function HomePage() {
 
       {/* ========== ÉVÉNEMENTS ========== */}
       <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-        <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-          Les grands jours
-          <br />
-          <span className="display-outline">se courent ici.</span>
-        </h2>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
+            Les grands jours
+            <br />
+            <span className="display-outline">se courent ici.</span>
+          </h2>
+          <div data-reveal className="flex max-w-sm flex-col items-start gap-4 md:items-end md:text-right">
+            <p className="text-base leading-relaxed text-chalk-60">
+              Anniversaires, enterrements de vie, sorties d&rsquo;équipe : on construit le format avec vous.
+            </p>
+            <Link href="/evenements" className="btn btn-ghost">
+              Tous les événements
+            </Link>
+          </div>
+        </div>
 
-        <div data-stagger className="mt-14 grid gap-6 md:grid-cols-3">
+        <div data-stagger className="mt-12 grid gap-6 md:grid-cols-3">
           {[
             {
               title: "Anniversaires",
+              href: "/anniversaires",
               text: "Une course d'endurance à son nom, le podium, la terrasse ombragée pour le gâteau : l'anniversaire dont on parle encore à la rentrée. Dès 7 participants.",
             },
             {
               title: "EVG · EVJF",
+              href: "/evenements#evg-evjf",
               text: "Avant le grand oui, un grand prix. Défis sur mesure, grille de départ complète et remise de prix pour enterrer une vie de célibataire à pleine vitesse.",
             },
             {
               title: "Entreprises & CE",
+              href: "/evenements#entreprise",
               text: "Le team building qui met tout le monde d'accord : mêmes machines, même piste, un seul chrono. Formats course ou endurance, privatisation possible.",
             },
           ].map((e) => (
-            <article key={e.title} className="card flex flex-col p-7">
+            <article key={e.title} className="card flex flex-col p-5 sm:p-6">
               <h3 className="display text-2xl text-chalk">{e.title}</h3>
               <p className="mt-3 flex-1 text-base leading-relaxed text-chalk-60">{e.text}</p>
+              <Link href={e.href} className="btn btn-race mt-6 w-full">
+                Demander un devis
+              </Link>
             </article>
           ))}
         </div>
 
-        <div data-reveal className="mt-10 flex flex-wrap gap-4">
-          <Link href="/anniversaires" className="btn btn-race">
-            Anniversaires enfants
-          </Link>
-          <Link href="/evenements" className="btn btn-ghost">
-            EVG, EVJF &amp; entreprises
-          </Link>
-          <Link href="/agenda" className="btn btn-ghost">
-            Les courses de l&rsquo;agenda
-          </Link>
-        </div>
       </section>
 
       {/* ========== MOSAÏQUE PHOTOS ========== */}
@@ -377,7 +382,7 @@ export default function HomePage() {
             </ul>
           </div>
           <div data-stagger className="grid grid-cols-2 items-center gap-6">
-            <div className="overflow-hidden rounded-sm shadow-[0_18px_48px_rgb(0_0_0/0.18)]">
+            <div className="race-event-card overflow-hidden shadow-[0_18px_48px_rgb(0_0_0/0.18)]">
               <Image
                 src="/images/galerie-09-terrasse.jpg"
                 alt="La terrasse et le stand du circuit MegaKart"
@@ -387,7 +392,7 @@ export default function HomePage() {
                 className="h-full w-full object-cover"
               />
             </div>
-            <div className="mt-10 overflow-hidden rounded-sm bg-white p-4 shadow-[0_18px_48px_rgb(0_0_0/0.12)]">
+            <div className="race-event-card mt-10 overflow-hidden bg-white p-4 shadow-[0_18px_48px_rgb(0_0_0/0.12)]">
               <Image
                 src="/images/granites.jpg"
                 alt="Granités bleu, rouge et jaune et boisson fraîche servis au stand MegaKart"
@@ -450,9 +455,11 @@ export default function HomePage() {
       </section>
 
       {/* ========== FAQ (ex-page Tarifs) ========== */}
-      <section id="faq" className="mx-auto max-w-4xl scroll-mt-24 px-5 py-16 md:px-8 md:py-24">
-        <h2 data-reveal className="display text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
-          Questions fréquentes
+      <section id="faq" className="mx-auto max-w-4xl scroll-mt-24 px-5 py-20 md:px-8 md:py-28">
+        <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
+          Questions
+          <br />
+          <span className="text-race">fréquentes.</span>
         </h2>
         <div data-stagger className="mt-10 flex flex-col gap-4">
           {FAQ.map((f) => (
