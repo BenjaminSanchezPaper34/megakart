@@ -118,45 +118,43 @@ export default function EventPopup({ campagne }: Props) {
         onClick={(e) => e.stopPropagation()}
         className={`relative w-full max-w-[420px] ${portrait ? "md:max-w-[min(440px,58vh)]" : "md:max-w-[1000px]"} [filter:drop-shadow(0_30px_60px_rgb(0_0_0/0.55))] motion-safe:animate-[popupBoite_.35s_cubic-bezier(.22,1,.36,1)]`}
       >
-        <div className="overflow-hidden bg-asphalt-2">
-          {/* Le visuel entier, cliquable : pas de découpe, pas de recadrage —
-              c'est la création telle qu'elle paraît sur le réseau social. */}
-          <Link href={campagne.href} onClick={go} className="block" tabIndex={-1} aria-hidden="true">
-            <Image
-              src={src}
-              alt=""
-              width={format.width}
-              height={format.height}
-              sizes={portrait ? "(max-width: 767px) 92vw, 440px" : "(max-width: 767px) 92vw, 1000px"}
-              priority
-              className="h-auto w-full"
-            />
-          </Link>
-
-          {/* Le bouton dit explicitement ce qui attend derrière : une image
-              cliquable, beaucoup de visiteurs ne devinent pas que c'en est une. */}
-          <div className="p-4 sm:flex sm:justify-center sm:p-5">
-            <Link
-              href={campagne.href}
-              onClick={go}
-              className="btn btn-race w-full justify-center sm:w-auto"
-            >
-              {campagne.cta ?? "En savoir plus"}
-            </Link>
-          </div>
+        {/* Fermer : au-dessus du visuel, aligné à droite, même famille que les
+            CTA pilule (contour clair sur fond flouté) ; croix dessinée, centrée. */}
+        <div className="mb-3 flex justify-end">
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={close}
+            aria-label="Fermer l'annonce"
+            className="grid h-11 w-11 place-items-center rounded-full border-2 border-chalk/70 bg-asphalt/60 text-chalk transition-colors hover:border-chalk hover:bg-chalk hover:text-asphalt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flag"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5">
+              <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
+          </button>
         </div>
 
-        {/* Fermer : disque plein et cerclé, pour rester lisible par-dessus
-            n'importe quel visuel, clair ou sombre. */}
-        <button
-          ref={closeRef}
-          type="button"
-          onClick={close}
-          aria-label="Fermer l'annonce"
-          className="absolute -right-3 -top-3 grid h-12 w-12 place-items-center rounded-full bg-asphalt text-3xl leading-none text-chalk ring-2 ring-chalk/80 transition hover:bg-race hover:text-white hover:ring-white"
-        >
-          ×
-        </button>
+        {/* Le visuel entier, cliquable : pas de découpe, pas de recadrage —
+            c'est la création telle qu'elle paraît sur le réseau social. */}
+        <Link href={campagne.href} onClick={go} className="block overflow-hidden" tabIndex={-1} aria-hidden="true">
+          <Image
+            src={src}
+            alt=""
+            width={format.width}
+            height={format.height}
+            sizes={portrait ? "(max-width: 767px) 92vw, 440px" : "(max-width: 767px) 92vw, 1000px"}
+            priority
+            className="h-auto w-full"
+          />
+        </Link>
+
+        {/* Le CTA posé directement sur le fond flouté, sans bandeau : il dit
+            ce qui attend derrière l'image (beaucoup ne devinent pas qu'elle est cliquable). */}
+        <div className="mt-4 flex justify-center">
+          <Link href={campagne.href} onClick={go} className="btn btn-race w-full justify-center sm:w-auto">
+            {campagne.cta ?? "En savoir plus"}
+          </Link>
+        </div>
       </div>
     </div>
   );

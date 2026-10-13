@@ -97,3 +97,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-13 — Codex : aperçu a707099 Ready (megakart-rklesfca8-paper34.vercel.app), servi sur le domaine de branche partagé. Sous-titre courses vérifié sous le titre, aligné à gauche à 390/1440 px, 20 px desktop comme le hero ; aucun débordement. Aperçu ouvert sur les courses ; production et navigation inchangées.
 - 2026-10-13 — Claude reprend la main sur codex/accueil-promo-visible (crédits Codex épuisés). EN COURS : Claude. Pas de fusion sans accord de Benjamin.
 - 2026-10-13 — Claude : navigation resserrée (Tarifs · Agenda · Événements[menu] · Photos · Contact + Appeler), sous-menu Événements (Au programme / En groupe), menu mobile défilant avec appel fixe en bas, lien La piste ajouté au footer. Aperçu à valider ; production inchangée.
+- 2026-10-13 — Claude : pop-up retravaillé (bandeau gris retiré, CTA sur le fond flouté, croix SVG centrée au-dessus du visuel, style pilule contour). Aperçu à valider.
