@@ -54,6 +54,11 @@ export default function Footer() {
                 Agenda des courses
               </Link>
             </li>
+            <li>
+              <Link href="/la-piste" className="link-under text-chalk-60 transition-colors hover:text-chalk">
+                La piste &amp; son histoire
+              </Link>
+            </li>
             {SOCIALS.map((s) => (
               <li key={s.label}>
                 <a
