@@ -139,7 +139,7 @@ export default function HomePage() {
             <br />
             <span className="text-race">chaque pilote.</span>
           </h2>
-          <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60">
+          <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60 md:text-right">
             Du Baby Kart électrique dès 3 ans au 250 RX de compétition :
             {" "}{KARTS.length} machines, de {KARTS[0].price}€ à {KARTS[KARTS.length - 1].price}€ la session.
           </p>
