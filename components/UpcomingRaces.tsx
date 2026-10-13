@@ -80,11 +80,10 @@ export default function UpcomingRaces() {
             </Link>
 
             <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
-              {featured && (
-                <p className="mb-3 text-sm font-bold text-flag">
-                  Prochain départ{countdown === 0 ? " · Aujourd’hui" : countdown === 1 ? " · Demain" : ""}
-                </p>
-              )}
+              <p className="mb-3 text-sm font-bold text-flag">
+                {featured ? "Prochain départ" : "À venir"}
+                {featured && (countdown === 0 ? " · Aujourd’hui" : countdown === 1 ? " · Demain" : "")}
+              </p>
               <p className="text-sm font-semibold text-flag">
                 {date.weekday.charAt(0).toUpperCase() + date.weekday.slice(1)} {date.day} {date.monthFull}
               </p>
