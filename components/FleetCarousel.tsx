@@ -5,7 +5,7 @@ import KartWidget from "./KartWidget";
 import type { Kart } from "@/lib/karts";
 
 /* Butées alignées sur la grille du site (max-w-7xl + marges). */
-const GUTTER = "max(1.25rem, calc((100vw - 80rem) / 2 + 2rem))";
+const GUTTER = "var(--site-gutter)";
 
 /**
  * Toute la flotte en défilement latéral, avec flèches précédent / suivant
