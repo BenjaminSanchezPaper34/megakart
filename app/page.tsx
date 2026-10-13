@@ -49,7 +49,8 @@ export default function HomePage() {
               <OpenBadge />
             </div>
             <p className="display mb-3 text-lg text-flag md:text-xl">
-              Vias-plage · Hérault — entre Fabrikus &amp; Europark Indoor
+              Vias-plage · Hérault<span className="hidden md:inline"> — </span>
+              <span className="block md:inline">Entre Fabrikus &amp; Europark Indoor</span>
             </p>
             <h1 className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
               1000 mètres
