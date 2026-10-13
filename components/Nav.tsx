@@ -89,7 +89,7 @@ export default function Nav() {
         <Logo className="relative z-50" />
 
         {/* Desktop */}
-        <div className="hidden items-center gap-4 lg:flex xl:gap-8">
+        <div className="hidden shrink-0 items-center gap-4 lg:flex xl:gap-8">
           <ul className="flex items-center gap-4 xl:gap-8">
             {LINKS.map((l) => {
               const active = l.menu ? EVENT_PATHS.includes(pathname) : pathname === l.href;
