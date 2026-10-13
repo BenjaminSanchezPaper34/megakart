@@ -24,8 +24,12 @@
   --cta-padding-inline: 1.25rem;
   --cta-min-width: 10rem;
   --cta-font-size: 0.875rem;
-  --cta-font-weight: 600;
-  --cta-duration: 0.2s;
+  --cta-font-weight: 700;
+  --cta-border-width: 1.5px;
+  --cta-primary-bg: color-mix(in srgb, var(--color-race) 90%, var(--color-race-deep));
+  --cta-hover-lift: -1px;
+  --cta-press-scale: 0.98;
+  --cta-duration: 0.16s;
 }
 
 html {
@@ -119,7 +123,7 @@ body {
   min-width: min(100%, var(--cta-min-width));
   max-width: 100%;
   padding: 0 var(--cta-padding-inline);
-  border: 1px solid transparent;
+  border: var(--cta-border-width) solid transparent;
   border-radius: var(--cta-radius);
   font-family: var(--font-body);
   font-style: normal;
@@ -129,30 +133,31 @@ body {
   text-transform: none;
   letter-spacing: 0;
   text-align: center;
+  cursor: pointer;
+  touch-action: manipulation;
   transition: background-color var(--cta-duration) ease,
     border-color var(--cta-duration) ease, color var(--cta-duration) ease,
     transform var(--cta-duration) ease;
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--color-flag);
+  outline: 3px solid var(--color-flag);
   outline-offset: 4px;
 }
-.btn:active:not(:disabled) { transform: scale(0.98); }
 .btn:disabled, .btn[aria-disabled="true"] {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
 .btn-race {
-  background: var(--color-race);
+  background: var(--cta-primary-bg);
   color: var(--color-chalk);
 }
 
 .btn-ghost {
   background: transparent;
   color: var(--color-chalk);
-  border-color: color-mix(in srgb, var(--color-chalk) 35%, transparent);
+  border-color: color-mix(in srgb, var(--color-chalk) 50%, transparent);
 }
 
 .btn-flag {
@@ -165,7 +170,10 @@ body {
   border-color: currentColor;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover:not(:disabled):not([aria-disabled="true"]) {
+    transform: translateY(var(--cta-hover-lift));
+  }
   .btn-race:hover:not(:disabled) { background: var(--color-race-deep); }
   .btn-ghost:hover:not(:disabled) {
     border-color: var(--color-chalk);
@@ -178,9 +186,15 @@ body {
     background: color-mix(in srgb, currentColor 8%, transparent);
   }
 }
+.btn:active:not(:disabled):not([aria-disabled="true"]) {
+  transform: scale(var(--cta-press-scale));
+}
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --cta-hover-lift: 0px;
+    --cta-press-scale: 1;
+  }
   .btn { transition: none; }
-  .btn:active:not(:disabled) { transform: none; }
 }
 
 /* ---------- Liens animés ---------- */
