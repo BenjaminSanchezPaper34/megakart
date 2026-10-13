@@ -118,9 +118,9 @@ export default function EventPopup({ campagne }: Props) {
         onClick={(e) => e.stopPropagation()}
         className={`relative w-full max-w-[420px] ${portrait ? "md:max-w-[min(440px,58vh)]" : "md:max-w-[1000px]"} [filter:drop-shadow(0_30px_60px_rgb(0_0_0/0.55))] motion-safe:animate-[popupBoite_.35s_cubic-bezier(.22,1,.36,1)]`}
       >
-        {/* Fermer : au-dessus du visuel, aligné à droite, même famille que les
+        {/* Fermer : au-dessus du visuel, centré, même famille que les
             CTA pilule (contour clair sur fond flouté) ; croix dessinée, centrée. */}
-        <div className="mb-3 flex justify-end">
+        <div className="mb-3 flex justify-center">
           <button
             ref={closeRef}
             type="button"
@@ -136,7 +136,7 @@ export default function EventPopup({ campagne }: Props) {
 
         {/* Le visuel entier, cliquable : pas de découpe, pas de recadrage —
             c'est la création telle qu'elle paraît sur le réseau social. */}
-        <Link href={campagne.href} onClick={go} className="block overflow-hidden" tabIndex={-1} aria-hidden="true">
+        <Link href={campagne.href} onClick={go} className="race-event-card block overflow-hidden" tabIndex={-1} aria-hidden="true">
           <Image
             src={src}
             alt=""
