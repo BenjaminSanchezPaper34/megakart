@@ -55,7 +55,7 @@ export default function InscriptionCentToursPage() {
 
       <PageHero
         short
-        image={ src: "/images/galerie-01-kart-adulte.jpg", alt: "Pilote en pleine session sur le circuit MegaKart", position: "object-[center_40%]" }
+        image={{ src: "/images/galerie-01-kart-adulte.jpg", alt: "Pilote en pleine session sur le circuit MegaKart", position: "object-[center_40%]" }}
         label={<>{op.kicker} · {DATES.map((d) => d.label).join(" et ")}</>}
         line1="Inscrivez"
         line2="votre équipe."

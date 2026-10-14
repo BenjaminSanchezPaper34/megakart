@@ -51,7 +51,7 @@ export default function InscriptionCourseEnfantPage() {
 
       <PageHero
         short
-        image={ src: "/images/galerie-16-jeune-pilote.jpg", alt: "Jeune pilote casqué prêt à s'élancer sur le circuit MegaKart", position: "object-[center_35%]" }
+        image={{ src: "/images/galerie-16-jeune-pilote.jpg", alt: "Jeune pilote casqué prêt à s'élancer sur le circuit MegaKart", position: "object-[center_35%]" }}
         label={<>{op.kicker} · {DATES.map((d) => d.label).join(" · ")}</>}
         line1="Inscrivez"
         line2="votre enfant."
