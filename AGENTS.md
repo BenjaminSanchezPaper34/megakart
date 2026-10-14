@@ -140,3 +140,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-14 — Claude : « La pause fraîcheur » en plein cadre sur la photo de la terrasse (galerie-09), voiles de lecture, pastilles claires ; photo granités retirée de l'accueil.
 - 2026-10-14 — Claude : « Ils ont roulé ici » — titre grand format, note + nombre d'avis alignés avec « Lire les avis sur Google » sur la même ligne, cartes sans effet au survol, butées --site-gutter (1er avis plus collé au bord sur mobile).
 - 2026-10-14 — Claude : respiration uniforme des sections de l'accueil — tokens --section-y (haut/bas) et --section-gap (en-tête → contenu) dans globals.css, appliqués partout (py-(--section-y), mt-(--section-gap)).
+- 2026-10-14 — Claude : essai d'aimantation au scroll (branche claude/scroll-sections) abandonné à la demande de Benjamin, branche supprimée.
