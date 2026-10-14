@@ -196,17 +196,17 @@ export default function HomePage() {
             <br />
             <span className="display-outline">pas un manège.</span>
           </h2>
-          <ul data-stagger className="mt-8 grid max-w-xl gap-4 text-lg text-chalk md:text-xl">
-            <li className="flex items-start gap-3">
-              <span aria-hidden="true">⏱️</span>
+          <ul data-stagger className="mt-8 grid max-w-xl gap-5 text-lg text-chalk md:text-xl">
+            <li className="flex items-center gap-4">
+              <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none">⏱️</span>
               <span>Chrono au dixième sur écran géant.</span>
             </li>
-            <li className="flex items-start gap-3">
-              <span aria-hidden="true">🛡️</span>
+            <li className="flex items-center gap-4">
+              <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none">🛡️</span>
               <span>Protections Tecpro, homologuée FFSA.</span>
             </li>
-            <li className="flex items-start gap-3">
-              <span aria-hidden="true">🏁</span>
+            <li className="flex items-center gap-4">
+              <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none">🏁</span>
               <span>Sans réservation : on arrive, on roule.</span>
             </li>
           </ul>
