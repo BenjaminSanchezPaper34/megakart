@@ -357,59 +357,48 @@ export default function HomePage() {
       {/* ========== MOSAÏQUE PHOTOS ========== */}
       <PhotoMosaic />
 
-      {/* ========== LE STAND (pause fraîcheur) ========== */}
-      <section className="bg-chalk py-14 text-asphalt md:py-20">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
-          <div>
-            {/* Même système que les autres sections : grand titre, sous-titre dessous. */}
-            <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-asphalt">
-              La pause
-              <br />
-              <span className="text-race">fraîcheur.</span>
-            </h2>
-            <p data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-asphalt md:text-xl">
-              Entre deux sessions, le stand sert glaces, granités et boissons fraîches,
-              à savourer sur la terrasse pendant que les chronos défilent.
-            </p>
-            <ul data-stagger className="mt-8 flex flex-wrap gap-3">
-              {[
-                ["🍦", "Glaces"],
-                ["🧊", "Granités"],
-                ["🥤", "Boissons fraîches"],
-                ["⛱️", "Terrasse ombragée"],
-              ].map(([emoji, item]) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-2 rounded-full bg-asphalt py-2 pl-3 pr-5 text-base font-semibold text-chalk"
-                >
-                  <span aria-hidden="true" className="text-2xl leading-none">{emoji}</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div data-stagger className="grid grid-cols-2 items-center gap-6">
-            <div className="race-event-card overflow-hidden shadow-[0_18px_48px_rgb(0_0_0/0.18)]">
-              <Image
-                src="/images/galerie-09-terrasse.jpg"
-                alt="La terrasse et le stand du circuit MegaKart"
-                width={900}
-                height={600}
-                sizes="(min-width: 1024px) 22vw, 45vw"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="race-event-card mt-10 overflow-hidden bg-white p-4 shadow-[0_18px_48px_rgb(0_0_0/0.12)]">
-              <Image
-                src="/images/granites.jpg"
-                alt="Granités bleu, rouge et jaune et boisson fraîche servis au stand MegaKart"
-                width={520}
-                height={676}
-                sizes="(min-width: 1024px) 22vw, 45vw"
-                className="h-auto w-full"
-              />
-            </div>
-          </div>
+      {/* ========== LE STAND (pause fraîcheur) : la vraie terrasse en plein cadre ========== */}
+      <section className="relative flex min-h-[36rem] items-end overflow-hidden lg:min-h-[40rem] lg:items-center">
+        <Image
+          src="/images/galerie-09-terrasse.jpg"
+          alt="Le stand du circuit MegaKart de nuit : glaces, boissons, granités et la terrasse aux chaises rouges"
+          fill
+          sizes="100vw"
+          className="object-cover object-[60%_55%]"
+        />
+        {/* Voiles de lecture : par le bas sur mobile, par la gauche sur ordinateur. */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-asphalt/25" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-asphalt via-asphalt/70 to-transparent lg:bg-gradient-to-r lg:from-asphalt/95 lg:via-asphalt/55 lg:to-transparent"
+        />
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-14 pt-40 md:px-8 lg:py-20">
+          {/* Même système que les autres sections : grand titre, sous-titre dessous. */}
+          <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
+            La pause
+            <br />
+            <span className="text-race">fraîcheur.</span>
+          </h2>
+          <p data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-xl">
+            Entre deux sessions, le stand sert glaces, granités et boissons fraîches,
+            à savourer sur la terrasse pendant que les chronos défilent.
+          </p>
+          <ul data-stagger className="mt-8 flex max-w-2xl flex-wrap gap-3">
+            {[
+              ["🍦", "Glaces"],
+              ["🧊", "Granités"],
+              ["🥤", "Boissons fraîches"],
+              ["⛱️", "Terrasse ombragée"],
+            ].map(([emoji, item]) => (
+              <li
+                key={item}
+                className="flex items-center gap-2 rounded-full bg-chalk py-2 pl-3 pr-5 text-base font-semibold text-asphalt"
+              >
+                <span aria-hidden="true" className="text-2xl leading-none">{emoji}</span>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
