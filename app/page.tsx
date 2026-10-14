@@ -255,14 +255,14 @@ export default function HomePage() {
           </div>
 
           {/* Trois cartes au même gabarit : quand, quoi, en une phrase, le prix, puis l'action. */}
-          <div data-stagger className="mt-10 grid gap-5 md:grid-cols-3">
+          <div data-stagger className="bleed-row-mobile no-scrollbar mt-10 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0">
             {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => {
               const tone =
                 deal.accent === "race" ? "text-race" : deal.accent === "flag" ? "text-flag" : "text-chalk";
               return (
                 <article
                   key={deal.slug}
-                  className="race-event-card flex flex-col border border-chalk/15 bg-asphalt p-5 sm:p-6"
+                  className="race-event-card flex snap-start flex-col border border-chalk/15 bg-asphalt p-5 sm:p-6"
                 >
                   <p className={`text-sm font-bold uppercase tracking-wide ${tone}`}>{deal.kicker}</p>
                   <h3 className="display mt-2 text-3xl leading-tight text-chalk">{deal.name}</h3>
