@@ -126,7 +126,7 @@ export default function Nav() {
           className="flex flex-col gap-4 border-t border-white/10 px-6 pt-4"
           style={{ paddingBottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
         >
-          <SocialIcons className="-ml-3" />
+          <SocialIcons size="lg" />
           <OpenBadge withDetail />
           <a href={SITE.phoneHref} className="btn btn-race justify-center">
             Appeler · {SITE.phone}

@@ -122,3 +122,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-14 — Claude : RÈGLE DE DÉPLOIEMENT — ne plus lancer `vercel --prod` depuis le Mac : le dossier est sur iCloud et les fichiers « déchargés » partent vides (images absentes en prod le 14/10). La prod se déploie UNIQUEMENT par `git push origin main` (intégration GitHub → Vercel déjà branchée). Branches = aperçus. Aucune session en cours.
 - 2026-10-14 — Claude : hero mobile fluidifié (FX.tsx : pas de scale au doigt, ignoreMobileResize, will-change ; badge sans backdrop-blur sur mobile).
 - 2026-10-14 — Claude : fiches karts — badge (Nouveauté/Duo/Compétition) à cheval sur le haut de la carte, comme les cartes de courses.
+- 2026-10-14 — Claude : menu mobile — icônes réseaux en pastilles 56 px espacées (SocialIcons size="lg").
