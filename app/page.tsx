@@ -193,16 +193,11 @@ export default function HomePage() {
           <ul data-stagger className="mt-8 grid max-w-xl gap-4 text-lg text-chalk md:text-xl">
             <li className="flex items-start gap-3">
               <span aria-hidden="true">⏱️</span>
-              <span>
-                Chrono au dixième sur écran géant.{" "}
-                <Link href="/live" className="link-under font-semibold text-flag">
-                  Le direct
-                </Link>
-              </span>
+              <span>Chrono au dixième sur écran géant.</span>
             </li>
             <li className="flex items-start gap-3">
               <span aria-hidden="true">🛡️</span>
-              <span>Protections Tecpro, piste homologuée FFSA.</span>
+              <span>Protections Tecpro, homologuée FFSA.</span>
             </li>
             <li className="flex items-start gap-3">
               <span aria-hidden="true">🏁</span>
