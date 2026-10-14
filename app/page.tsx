@@ -382,7 +382,7 @@ export default function HomePage() {
             à savourer sur la terrasse pendant que les chronos défilent.
           </p>
           {/* Les articles du stand : émoji à la taille des autres émojis de la page, une seule ligne. */}
-          <ul data-stagger className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:flex sm:flex-nowrap sm:gap-8">
+          <ul data-stagger className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 lg:flex lg:flex-nowrap lg:gap-8">
             {[
               ["🍦", "Glaces"],
               ["🧊", "Granités"],
