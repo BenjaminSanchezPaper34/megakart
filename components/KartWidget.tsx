@@ -34,8 +34,7 @@ export default function KartWidget({ kart }: { kart: Kart }) {
         className="pointer-events-none absolute -right-6 top-6 w-[60%] opacity-[0.06]"
       />
 
-      {/* Le kart détouré, calé en haut à droite : le haut des visuels recadrés (2Drive)
-          tombe pile sur le bord de la carte au lieu de flotter, coupé, au milieu. */}
+      {/* Le kart détouré, qui sort du cadre à droite. */}
       {kart.image && (
         <Image
           src={`/images/${kart.image}`}
@@ -43,7 +42,7 @@ export default function KartWidget({ kart }: { kart: Kart }) {
           width={1200}
           height={720}
           sizes="(min-width: 1024px) 320px, 60vw"
-          className="pointer-events-none absolute -right-[8%] top-0 w-[56%] object-contain drop-shadow-[0_16px_14px_rgba(0,0,0,0.55)]"
+          className="pointer-events-none absolute -right-[8%] top-1/2 w-[56%] -translate-y-[58%] object-contain drop-shadow-[0_16px_14px_rgba(0,0,0,0.55)]"
         />
       )}
 
