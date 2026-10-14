@@ -13,9 +13,9 @@ const GUTTER = "var(--site-gutter)";
  */
 /* Sélecteur minimaliste : un profil type par tranche (âge, taille représentatifs). */
 const PROFILES = [
-  { id: "3-6", label: "3 – 6 ans", age: 5, height: 110 },
-  { id: "7-13", label: "7 – 13 ans", age: 10, height: 140 },
-  { id: "14-17", label: "14 – 17 ans", age: 15, height: 165 },
+  { id: "3-6", label: "3–6 ans", age: 5, height: 110 },
+  { id: "7-13", label: "7–13 ans", age: 10, height: 140 },
+  { id: "14-17", label: "14–17 ans", age: 15, height: 165 },
   { id: "adulte", label: "Adulte", age: 25, height: 175 },
 ] as const;
 
@@ -97,47 +97,64 @@ export default function FleetCarousel({ karts }: { karts: Kart[] }) {
       </div>
 
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="mt-10 flex flex-wrap gap-4">
+        {/* Le CTA s'efface au profit du choix d'âge, sur la même ligne : pas de
+            panneau qui s'ouvre en dessous. La croix referme et remet la flotte à plat. */}
+        {!finder ? (
           <button
             type="button"
-            onClick={() => setFinder((v) => !v)}
-            aria-expanded={finder}
+            onClick={() => setFinder(true)}
+            aria-expanded={false}
             aria-controls="kart-finder"
-            className="btn btn-race"
+            className="btn btn-race mt-6"
           >
             Trouve ton kart en 10 s
           </button>
-        </div>
-
-        {finder && (
-          <div id="kart-finder" className="mt-6 border-t border-white/10 pt-6">
-            <p className="text-base font-semibold text-chalk">Qui pilote ?</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {PROFILES.map((p) => (
-                <button
-                  key={p.id}
-                  type="button"
-                  aria-pressed={profile?.id === p.id}
-                  onClick={() => setProfile(p)}
-                  className={`min-h-11 rounded-full border px-5 text-base font-semibold transition-colors ${
-                    profile?.id === p.id ? "border-chalk bg-chalk text-asphalt" : "border-white/25 text-chalk hover:border-chalk"
-                  }`}
-                >
-                  {p.label}
-                </button>
-              ))}
+        ) : (
+          <div id="kart-finder" className="mt-6">
+            {/* Mobile : « Qui pilote ? » et la croix sur une ligne, les 4 âges dessous
+                sur une seule rangée. Ordinateur : tout sur la même ligne. */}
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-3">
+              <p className="order-1 mr-1 text-base font-semibold text-chalk">Qui pilote ?</p>
+              <div className="no-scrollbar order-3 -mx-5 flex w-[calc(100%+2.5rem)] gap-1.5 overflow-x-auto px-5 sm:order-2 sm:gap-2 sm:mx-0 sm:w-auto sm:px-0">
+                {PROFILES.map((p) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    aria-pressed={profile?.id === p.id}
+                    onClick={() => setProfile(p)}
+                    className={`min-h-11 shrink-0 whitespace-nowrap rounded-full border px-3.5 text-sm font-semibold transition-colors sm:px-5 sm:text-base ${
+                      profile?.id === p.id ? "border-chalk bg-chalk text-asphalt" : "border-white/25 text-chalk hover:border-chalk"
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+              {profile?.id === "adulte" && (
+                <label className="order-4 inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm text-chalk sm:order-3 sm:ml-1">
+                  <input type="checkbox" checked={confirmed} onChange={(e) => setConfirmed(e.target.checked)} className="h-5 w-5 accent-[var(--color-race)]" />
+                  Pilote confirmé
+                </label>
+              )}
+              <button
+                type="button"
+                onClick={() => {
+                  setFinder(false);
+                  setProfile(null);
+                  setConfirmed(false);
+                }}
+                aria-label="Fermer le sélecteur"
+                className="order-2 ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 border-chalk/60 text-chalk transition-colors hover:border-chalk hover:bg-chalk hover:text-asphalt sm:order-last"
+              >
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5">
+                  <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+                </svg>
+              </button>
             </div>
-            {profile?.id === "adulte" && (
-              <label className="mt-4 inline-flex min-h-11 cursor-pointer items-center gap-3 text-base text-chalk">
-                <input type="checkbox" checked={confirmed} onChange={(e) => setConfirmed(e.target.checked)} className="h-5 w-5 accent-[var(--color-race)]" />
-                Pilote confirmé (chrono de référence)
-              </label>
-            )}
             {reco && (
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-chalk" aria-live="polite">
-                <span className="display text-xl text-flag">{reco.primary.name} · {reco.primary.price} €</span>
-                <br />
-                <span className="text-chalk-60">{reco.message}</span>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-chalk-60" aria-live="polite">
+                <span className="display text-lg text-flag">{reco.primary.name} · {reco.primary.price} €</span>{" "}
+                — {reco.message}
               </p>
             )}
           </div>
