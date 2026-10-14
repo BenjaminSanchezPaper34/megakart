@@ -242,7 +242,7 @@ export default function AgendaPage() {
                   }
                 >
                   <Affiche op={race} className="mx-auto w-full max-w-[260px] sm:max-w-none" />
-                  <EmojiList items={race.facts.map((f) => ({ emoji: factEmoji(f), text: f }))} />
+                  <EmojiList size="sm" items={race.facts.map((f) => ({ emoji: factEmoji(f), text: f }))} />
                 </div>
               </article>
             );

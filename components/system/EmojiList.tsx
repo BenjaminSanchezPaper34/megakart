@@ -9,11 +9,14 @@ export default function EmojiList({
   items,
   layout = "column",
   tone = "dark",
+  size = "md",
   className = "",
 }: {
   items: EmojiItem[];
   layout?: "column" | "row" | "grid";
   tone?: "dark" | "light";
+  /** "sm" : colonnes étroites (fiches agenda, inscriptions) — l'émoji garde sa taille, le texte passe à 16 px. */
+  size?: "md" | "sm";
   className?: string;
 }) {
   const ink = tone === "light" ? "text-asphalt" : "text-chalk";
@@ -22,11 +25,11 @@ export default function EmojiList({
       ? "grid grid-cols-2 gap-x-6 gap-y-4 lg:flex lg:flex-wrap lg:gap-x-8"
       : layout === "grid"
         ? "grid gap-5 sm:grid-cols-2"
-        : "grid max-w-xl gap-5";
+        : size === "sm" ? "grid gap-4" : "grid max-w-xl gap-5";
   return (
     <ul data-stagger className={`${wrap} ${ink} ${className}`}>
       {items.map((it, i) => (
-        <li key={i} className="flex items-center gap-4 text-lg leading-snug md:text-xl">
+        <li key={i} className={`flex items-center gap-4 leading-snug ${size === "sm" ? "text-base" : "text-lg md:text-xl"}`}>
           <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none">
             {it.emoji}
           </span>

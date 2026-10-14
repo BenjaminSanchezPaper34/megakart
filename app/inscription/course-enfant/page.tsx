@@ -97,7 +97,7 @@ export default function InscriptionCourseEnfantPage() {
                 {par}
               </p>
             ))}
-            <EmojiList items={op.facts.map((f) => ({ emoji: factEmoji(f), text: f }))} className="mt-8" />
+            <EmojiList layout="grid" size="sm" items={op.facts.map((f) => ({ emoji: factEmoji(f), text: f }))} className="mt-8" />
             {op.price && (
               <p
                 data-reveal

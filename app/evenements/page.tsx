@@ -88,7 +88,7 @@ export default function EvenementsPage() {
         <section
           key={e.id}
           id={e.id}
-          className={`scroll-mt-24 py-(--section-y) ${i % 2 === 0 ? "bg-asphalt-2" : ""}`}
+          className={`scroll-mt-24 py-(--section-y) ${i % 2 === 1 ? "bg-asphalt-2" : ""}`}
         >
           <div className="mx-auto grid max-w-7xl items-center gap-(--section-gap) px-5 md:px-8 lg:grid-cols-[1.2fr_1fr]">
             <div>
