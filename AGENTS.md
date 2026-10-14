@@ -136,3 +136,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-14 — Claude : bons plans accueil — cartes colorées comme l'agenda (mercredi jaune, 2+1 bleu --color-promo, dimanche blanc), sans CTA ; bouton « Voir les bons plans » → /agenda#bons-plans. Token --color-promo (#2e7cf6) remplace le hex en dur de MonthPlanner.
 - 2026-10-14 — Claude : « Les grands jours » au système titre/sous-titre ; émojis 🎂 🥂 🏆 dans les cartes.
 - 2026-10-14 — Claude : « Sur la piste, jour et nuit » modernisée — titre/sous-titre/lien, tuiles alignées même hauteur à arrondi concentrique (fin des parallélogrammes, décalages et halo), + photos pilote RX250 et casques.
+- 2026-10-14 — Claude : « La pause fraîcheur » au système titre/sous-titre, pastilles arrondies avec émojis (🍦 🧊 🥤 ⛱️), kicker « Le stand » retiré.

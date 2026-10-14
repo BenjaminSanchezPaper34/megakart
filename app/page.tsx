@@ -358,28 +358,31 @@ export default function HomePage() {
       <PhotoMosaic />
 
       {/* ========== LE STAND (pause fraîcheur) ========== */}
-      <section className="bg-chalk py-20 text-asphalt md:py-28">
+      <section className="bg-chalk py-14 text-asphalt md:py-20">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
           <div>
-            <p data-reveal className="display text-lg text-race">
-              Le stand
-            </p>
-            <h2 data-reveal className="display mt-1 text-[clamp(2.2rem,5vw,4rem)] text-asphalt">
+            {/* Même système que les autres sections : grand titre, sous-titre dessous. */}
+            <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-asphalt">
               La pause
               <br />
               <span className="text-race">fraîcheur.</span>
             </h2>
-            <p data-reveal className="mt-6 max-w-md text-base leading-relaxed text-asphalt/70">
-              Entre deux sessions, le stand du circuit sert glaces,
-              granités et boissons fraîches — à savourer sur la terrasse
-              ombragée, pendant que les chronos défilent sur l'écran géant.
+            <p data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-asphalt md:text-xl">
+              Entre deux sessions, le stand sert glaces, granités et boissons fraîches,
+              à savourer sur la terrasse pendant que les chronos défilent.
             </p>
             <ul data-stagger className="mt-8 flex flex-wrap gap-3">
-              {["Glaces", "Granités", "Boissons fraîches", "Terrasse ombragée"].map((item) => (
+              {[
+                ["🍦", "Glaces"],
+                ["🧊", "Granités"],
+                ["🥤", "Boissons fraîches"],
+                ["⛱️", "Terrasse ombragée"],
+              ].map(([emoji, item]) => (
                 <li
                   key={item}
-                  className="display bg-asphalt px-4 py-2 text-base text-chalk"
+                  className="flex items-center gap-2 rounded-full bg-asphalt py-2 pl-3 pr-5 text-base font-semibold text-chalk"
                 >
+                  <span aria-hidden="true" className="text-2xl leading-none">{emoji}</span>
                   {item}
                 </li>
               ))}
