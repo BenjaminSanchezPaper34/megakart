@@ -171,12 +171,12 @@ export default function HomePage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* ========== EXPÉRIENCE + PISTE : une seule section sur la vidéo ==========
-          La vidéo (calque de 60rem, pour rester nette) s'efface par masque d'opacité dans le fond de page :
+          La vidéo (calque de 46–50rem, pour rester nette) s'efface par masque d'opacité dans le fond de page :
           « 1000 m d'esses… » et le tracé animé se posent sur la partie assombrie. */}
       <section className="relative overflow-hidden">
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-[60rem]"
+          className="absolute inset-x-0 top-0 h-[46rem] lg:h-[50rem]"
           style={{ maskImage: "linear-gradient(to bottom, rgb(0 0 0 / 100%) 0%, rgb(0 0 0 / 100%) 50%, rgb(0 0 0 / 88%) 58%, rgb(0 0 0 / 68%) 66%, rgb(0 0 0 / 48%) 73%, rgb(0 0 0 / 30%) 80%, rgb(0 0 0 / 16%) 86%, rgb(0 0 0 / 6%) 92%, rgb(0 0 0 / 0%) 100%)", WebkitMaskImage: "linear-gradient(to bottom, rgb(0 0 0 / 100%) 0%, rgb(0 0 0 / 100%) 50%, rgb(0 0 0 / 88%) 58%, rgb(0 0 0 / 68%) 66%, rgb(0 0 0 / 48%) 73%, rgb(0 0 0 / 30%) 80%, rgb(0 0 0 / 16%) 86%, rgb(0 0 0 / 6%) 92%, rgb(0 0 0 / 0%) 100%)" }}
         >
           <CircuitVideo />
@@ -184,7 +184,7 @@ export default function HomePage() {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-asphalt via-asphalt/70 to-asphalt/10 lg:bg-gradient-to-r lg:from-asphalt/95 lg:via-asphalt/60 lg:to-transparent" />
         </div>
 
-        <div className="relative z-10 mx-auto flex min-h-[40rem] w-full max-w-7xl flex-col justify-end px-5 pb-12 pt-32 md:px-8 lg:min-h-[44rem] lg:justify-center lg:py-24">
+        <div className="relative z-10 mx-auto flex min-h-[30rem] w-full max-w-7xl flex-col justify-end px-5 pb-8 pt-24 md:px-8 lg:min-h-[34rem] lg:justify-center lg:py-16">
           <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
             Un vrai circuit,
             <br />
@@ -211,7 +211,7 @@ export default function HomePage() {
           </ul>
         </div>
 
-        <div className="relative z-10 pb-20 pt-8 md:pb-28 md:pt-12">
+        <div className="relative z-10 pb-16 md:pb-20">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
           <div>
             <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
