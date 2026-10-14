@@ -132,7 +132,7 @@ export default function HomePage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* Respiration visuelle entre les courses et la flotte : un pilote en RX250 en pleine courbe. */}
-      <div className="relative h-72 overflow-hidden sm:h-96 md:h-[32rem]">
+      <div className="relative h-96 overflow-hidden sm:h-[30rem] md:h-[42rem]">
         <Image
           src="/images/galerie-26-pilote-rx250.jpg"
           alt="Pilote casqué en pleine courbe au volant d'un kart Sodi RX250 sur le circuit MegaKart"
@@ -153,7 +153,7 @@ export default function HomePage() {
       </div>
 
       {/* ========== FLOTTE ========== */}
-      <section id="flotte" className="relative z-10 -mt-28 scroll-mt-24 pb-20 sm:-mt-36 md:-mt-48 md:pb-28">
+      <section id="flotte" className="relative z-10 -mt-36 scroll-mt-24 pb-20 sm:-mt-48 md:-mt-72 md:pb-28">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
         {/* Même système que « Cet automne, on court » : grand titre, sous-titre dessous.
             Ombre portée douce : le titre passe sur le bas de la photo du pilote. */}
