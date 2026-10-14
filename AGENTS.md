@@ -134,3 +134,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-14 — Claude : « Les bons plans » au système titre/sous-titre + « Voir l'agenda » ; 3 offres au gabarit des cartes courses (quand, nom, résumé 3 lignes, prix + note 2 lignes, CTA rouge).
 - 2026-10-14 — Claude : flèches précédent/suivant (components/RowArrows.tsx) sur les cartes de courses et les bons plans, affichées seulement si la rangée dépasse de l'écran.
 - 2026-10-14 — Claude : bons plans accueil — cartes colorées comme l'agenda (mercredi jaune, 2+1 bleu --color-promo, dimanche blanc), sans CTA ; bouton « Voir les bons plans » → /agenda#bons-plans. Token --color-promo (#2e7cf6) remplace le hex en dur de MonthPlanner.
+- 2026-10-14 — Claude : « Les grands jours » au système titre/sous-titre ; émojis 🎂 🥂 🏆 dans les cartes.

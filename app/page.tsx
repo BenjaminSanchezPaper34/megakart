@@ -298,43 +298,46 @@ export default function HomePage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* ========== ÉVÉNEMENTS ========== */}
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-            Les grands jours
-            <br />
-            <span className="display-outline">se courent ici.</span>
-          </h2>
-          <div data-reveal className="flex max-w-sm flex-col items-start gap-4 md:items-end md:text-right">
-            <p className="text-base leading-relaxed text-chalk-60">
-              Anniversaires, enterrements de vie, sorties d&rsquo;équipe : on construit le format avec vous.
-            </p>
-            <Link href="/evenements" className="btn btn-ghost">
-              Tous les événements
-            </Link>
-          </div>
+      <section className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
+        {/* Même système que « Cet automne, on court » : grand titre, sous-titre + lien sur une ligne. */}
+        <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
+          Les grands jours
+          <br />
+          <span className="display-outline">se courent ici.</span>
+        </h2>
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+          <p data-reveal className="max-w-xl text-base leading-relaxed text-chalk md:text-xl">
+            Anniversaires, enterrements de vie, sorties d&rsquo;équipe : on construit le format avec vous.
+          </p>
+          <Link href="/evenements" className="btn btn-ghost">
+            Tous les événements
+          </Link>
         </div>
 
-        <div data-stagger className="mt-12 grid gap-6 md:grid-cols-3">
+        <div data-stagger className="mt-10 grid gap-5 md:grid-cols-3">
           {[
             {
+              emoji: "🎂",
               title: "Anniversaires",
               href: "/anniversaires",
               text: "Une course d'endurance à son nom, le podium, la terrasse ombragée pour le gâteau : l'anniversaire dont on parle encore à la rentrée. Dès 7 participants.",
             },
             {
+              emoji: "🥂",
               title: "EVG · EVJF",
               href: "/evenements#evg-evjf",
               text: "Avant le grand oui, un grand prix. Défis sur mesure, grille de départ complète et remise de prix pour enterrer une vie de célibataire à pleine vitesse.",
             },
             {
+              emoji: "🏆",
               title: "Entreprises & CE",
               href: "/evenements#entreprise",
               text: "Le team building qui met tout le monde d'accord : mêmes machines, même piste, un seul chrono. Formats course ou endurance, privatisation possible.",
             },
           ].map((e) => (
             <article key={e.title} className="card flex flex-col p-5 sm:p-6">
-              <h3 className="display text-2xl text-chalk">{e.title}</h3>
+              <span aria-hidden="true" className="text-4xl leading-none">{e.emoji}</span>
+              <h3 className="display mt-4 text-3xl leading-tight text-chalk">{e.title}</h3>
               <p className="mt-3 flex-1 text-base leading-relaxed text-chalk-60">{e.text}</p>
               <Link href={e.href} className="btn btn-race mt-6 w-full">
                 Demander un devis
