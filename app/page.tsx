@@ -153,7 +153,7 @@ export default function HomePage() {
       </div>
 
       {/* ========== FLOTTE ========== */}
-      <section id="flotte" className="relative z-10 -mt-36 scroll-mt-24 pb-20 sm:-mt-48 md:-mt-60 md:pb-28">
+      <section id="flotte" className="relative z-10 -mt-28 scroll-mt-24 pb-20 sm:-mt-36 md:-mt-48 md:pb-28">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
