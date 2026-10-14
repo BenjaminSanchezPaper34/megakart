@@ -120,9 +120,13 @@ export default function HomePage() {
                 En équipe, en solo ou pour les enfants :
                 trouvez votre prochain départ.
               </p>
-              <Link href="/agenda" className="btn btn-ghost">
-                Voir tout l&rsquo;agenda
-              </Link>
+              {/* Lien + flèches sur la même ligne (flèches seulement si la rangée dépasse). */}
+              <div className="flex w-full items-center justify-between gap-3 md:w-auto">
+                <Link href="/agenda" className="btn btn-ghost">
+                  Voir tout l&rsquo;agenda
+                </Link>
+                <RowArrows target="[data-race-bento]" label="Courses" className="flex gap-3" />
+              </div>
             </div>
           </div>
 
@@ -246,16 +250,18 @@ export default function HomePage() {
             <p data-reveal className="max-w-xl text-base leading-relaxed text-chalk md:text-xl">
               Sans réservation pour la plupart : choisissez votre jour, on s&rsquo;occupe du reste.
             </p>
-            <Link href="/agenda#bons-plans" className="btn btn-ghost">
-              Voir les bons plans
-            </Link>
+            <div className="flex w-full items-center justify-between gap-3 md:w-auto">
+              <Link href="/agenda#bons-plans" className="btn btn-ghost">
+                Voir les bons plans
+              </Link>
+              <RowArrows target="[data-deals-row]" label="Bons plans" className="flex gap-3" />
+            </div>
           </div>
 
           {/* Trois cartes au même gabarit, aux couleurs de l'agenda : mercredi jaune,
               2 tickets = 1 offert bleu, dimanche blanc. Pas de bouton : la carte se suffit,
               le lien « Voir les bons plans » mène au détail. */}
-          <RowArrows target="[data-deals-row]" label="Bons plans" />
-          <div data-stagger data-deals-row className="bleed-row-mobile no-scrollbar mt-4 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0">
+          <div data-stagger data-deals-row className="bleed-row-mobile no-scrollbar mt-8 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0">
             {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => {
               const skin =
                 deal.slug === "2-plus-1"

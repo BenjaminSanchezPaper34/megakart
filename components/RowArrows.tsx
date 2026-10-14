@@ -8,7 +8,15 @@ import { useCallback, useEffect, useState } from "react";
  * sur ordinateur, quand toutes les cartes tiennent, rien ne s'affiche.
  * `target` : sélecteur CSS de la rangée (élément overflow-x-auto).
  */
-export default function RowArrows({ target, label }: { target: string; label: string }) {
+export default function RowArrows({
+  target,
+  label,
+  className = "mt-6 flex justify-end gap-3",
+}: {
+  target: string;
+  label: string;
+  className?: string;
+}) {
   const [state, setState] = useState({ overflow: false, start: true, end: false });
 
   const measure = useCallback(() => {
@@ -74,7 +82,7 @@ export default function RowArrows({ target, label }: { target: string; label: st
   );
 
   return (
-    <div className="mt-6 flex justify-end gap-3">
+    <div className={className}>
       {arrow(-1, state.start)}
       {arrow(1, state.end)}
     </div>

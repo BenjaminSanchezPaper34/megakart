@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AGENDA, getOperation, formatDate, type AgendaItem } from "@/lib/agenda";
-import RowArrows from "./RowArrows";
 
 /** Temps forts datés, confirmés, à date unique — ordre chronologique. */
 const DATED = AGENDA.filter((a) => a.status === "confirme" && !a.endDate && a.op);
@@ -44,8 +43,6 @@ export default function UpcomingRaces() {
   if (upcoming.length === 0) return null;
 
   return (
-    <>
-    <RowArrows target="[data-race-bento]" label="Courses" />
     <div className="bleed-row-mobile no-scrollbar mt-4 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 pt-5 snap-x snap-mandatory sm:auto-cols-[45%] lg:mt-10 lg:auto-cols-auto lg:grid-flow-row lg:grid-cols-4 lg:gap-5" data-race-bento>
       {upcoming.map((item, index) => {
         const op = getOperation(item.op!);
@@ -129,6 +126,5 @@ export default function UpcomingRaces() {
         );
       })}
     </div>
-    </>
   );
 }
