@@ -27,6 +27,7 @@ const PHOTOS: { src: string; alt: string }[] = [
   { src: "galerie-08-nocturne.jpg", alt: "Kart sous les projecteurs en session nocturne" },
   { src: "galerie-19-famille.jpg", alt: "Moment en famille sur le circuit" },
   { src: "galerie-04-paddock.jpg", alt: "La grille de karts alignés au paddock" },
+  { src: "galerie-25-casques.jpg", alt: "Les casques du circuit alignés sur les étagères du stand" },
   { src: "galerie-16-jeune-pilote.jpg", alt: "Jeune pilote casqué prêt à s'élancer" },
   { src: "galerie-22-aerien-crepuscule.jpg", alt: "Vue aérienne du circuit au crépuscule" },
   { src: "galerie-12-kart-adulte.jpg", alt: "Pilote en plein virage" },

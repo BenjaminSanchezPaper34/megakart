@@ -131,6 +131,17 @@ export default function HomePage() {
 
       <div className="kerb" aria-hidden="true" />
 
+      {/* Respiration visuelle entre les courses et la flotte : bandeau fin, les casques du stand. */}
+      <div className="relative h-28 overflow-hidden sm:h-36 md:h-44">
+        <Image
+          src="/images/galerie-25-casques.jpg"
+          alt="Les casques du circuit MegaKart alignés sur les étagères du stand"
+          fill
+          sizes="100vw"
+          className="object-cover object-[50%_40%]"
+        />
+      </div>
+
       {/* ========== FLOTTE ========== */}
       <section id="flotte" className="scroll-mt-24 py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
