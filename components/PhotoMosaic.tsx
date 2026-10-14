@@ -61,10 +61,12 @@ export default function PhotoMosaic() {
       speed: number; // vitesse instantanée (lerp vers target)
       target: number;
       timer: ReturnType<typeof setTimeout> | undefined;
+      pos: number; // position flottante : Safari arrondit scrollLeft à l'entier,
+      // un += 0,45 px n'y avançait jamais (bande figée sur iPhone/Safari).
     };
     const rows: RowState[] = [
-      { el: rowARef.current!, dir: 1, cruise: DRIFT_A, speed: 0, target: DRIFT_A, timer: undefined },
-      { el: rowBRef.current!, dir: -1, cruise: DRIFT_B, speed: 0, target: DRIFT_B, timer: undefined },
+      { el: rowARef.current!, dir: 1, cruise: DRIFT_A, speed: 0, target: DRIFT_A, timer: undefined, pos: 0 },
+      { el: rowBRef.current!, dir: -1, cruise: DRIFT_B, speed: 0, target: DRIFT_B, timer: undefined, pos: 0 },
     ].filter((r) => r.el);
 
     const cleanups: (() => void)[] = [];
@@ -107,12 +109,16 @@ export default function PhotoMosaic() {
       rows.forEach((row) => {
         const el = row.el;
         const half = el.scrollWidth / 2;
-        // Boucle sans couture (vaut aussi pour le scroll manuel)
-        if (el.scrollLeft >= half) el.scrollLeft -= half;
-        if (el.scrollLeft <= 0) el.scrollLeft += half;
+        if (half <= el.clientWidth) return; // images pas encore chargées
+        // Défilement manuel (doigt, molette) : on reprend depuis la position réelle.
+        if (Math.abs(el.scrollLeft - row.pos) > 2) row.pos = el.scrollLeft;
         // Frein / relance progressifs
         row.speed += (row.target - row.speed) * BRAKE;
-        if (Math.abs(row.speed) > 0.002) el.scrollLeft += row.dir * row.speed;
+        if (Math.abs(row.speed) > 0.002) row.pos += row.dir * row.speed;
+        // Boucle sans couture
+        if (row.pos >= half) row.pos -= half;
+        if (row.pos <= 0) row.pos += half;
+        el.scrollLeft = row.pos;
       });
       raf = requestAnimationFrame(tick);
     };
