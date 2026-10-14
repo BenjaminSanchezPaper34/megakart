@@ -131,3 +131,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-14 — Claude : bandeau accueil → photo pilote RX250 (galerie-26-pilote-rx250.jpg), aussi ajoutée à /photos ; casques restent dans la galerie.
 - 2026-10-14 — Claude : section « Un vrai circuit » refaite — vidéo plein cadre (CircuitVideo : reel-4 sur mobile, circuit-paysage.mp4 recadré sur ordinateur), titre grand format, 3 arguments courts avec émojis.
 - 2026-10-14 — Claude : « Un vrai circuit » + « 1000 m d'esses » fusionnées en une section ; la vidéo s'efface par masque d'opacité vers le bas, le tracé animé se pose sur la partie assombrie.
+- 2026-10-14 — Claude : « Les bons plans » au système titre/sous-titre + « Voir l'agenda » ; 3 offres au gabarit des cartes courses (quand, nom, résumé 3 lignes, prix + note 2 lignes, CTA rouge).

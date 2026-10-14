@@ -237,64 +237,56 @@ export default function HomePage() {
       </section>
 
       {/* ========== LES BONS PLANS ========== */}
-      <section className="bg-asphalt-2 py-20 md:py-28">
+      <section className="bg-asphalt-2 py-14 md:py-20">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-              Les bons plans
-              <br />
-              <span className="text-flag">de la semaine.</span>
-            </h2>
-            <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60 md:text-right">
-              Des offres qui reviennent chaque semaine, sans réservation
-              pour la plupart : il suffit de choisir son jour.
+          {/* Même système que « Cet automne, on court » : grand titre, sous-titre + lien sur une ligne. */}
+          <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
+            Les bons plans
+            <br />
+            <span className="text-flag">de la semaine.</span>
+          </h2>
+          <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+            <p data-reveal className="max-w-xl text-base leading-relaxed text-chalk md:text-xl">
+              Sans réservation pour la plupart : choisissez votre jour, on s&rsquo;occupe du reste.
             </p>
+            <Link href="/agenda" className="btn btn-ghost">
+              Voir l&rsquo;agenda
+            </Link>
           </div>
 
-          <div data-stagger className="mt-12 grid gap-6 md:grid-cols-3">
-            {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => (
-              <Link
-                key={deal.slug}
-                href={`/agenda#${deal.slug}`}
-                className="card group relative flex flex-col overflow-hidden p-7 transition-transform duration-300 hover:-translate-y-1"
-              >
-                <span
-                  aria-hidden="true"
-                  className={`absolute left-0 top-0 h-full w-1 ${
-                    deal.accent === "race"
-                      ? "bg-race"
-                      : deal.accent === "flag"
-                        ? "bg-flag"
-                        : "bg-chalk/40"
-                  }`}
-                />
-                <p
-                  className={`display text-base ${
-                    deal.accent === "race"
-                      ? "text-race"
-                      : deal.accent === "flag"
-                        ? "text-flag"
-                        : "text-chalk"
-                  }`}
+          {/* Trois cartes au même gabarit : quand, quoi, en une phrase, le prix, puis l'action. */}
+          <div data-stagger className="mt-10 grid gap-5 md:grid-cols-3">
+            {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => {
+              const tone =
+                deal.accent === "race" ? "text-race" : deal.accent === "flag" ? "text-flag" : "text-chalk";
+              return (
+                <article
+                  key={deal.slug}
+                  className="race-event-card flex flex-col border border-chalk/15 bg-asphalt p-5 sm:p-6"
                 >
-                  {deal.kicker}
-                </p>
-                <h3 className="display mt-1 text-2xl text-chalk transition-colors duration-300 group-hover:text-race">
-                  {deal.name}
-                </h3>
-                <p className="mt-3 flex-1 text-base leading-relaxed text-chalk-60">
-                  {deal.summary}
-                </p>
-                {deal.price && (
-                  <p className="display mt-5 flex items-baseline gap-2">
-                    <span className="text-3xl text-chalk">{deal.price}</span>
-                    {deal.priceNote && (
-                      <span className="text-sm text-chalk-60">{deal.priceNote}</span>
-                    )}
+                  <p className={`text-sm font-bold uppercase tracking-wide ${tone}`}>{deal.kicker}</p>
+                  <h3 className="display mt-2 text-3xl leading-tight text-chalk">{deal.name}</h3>
+                  <p className="mt-3 line-clamp-3 min-h-[3lh] text-base leading-snug text-chalk-60">
+                    {deal.summary}
                   </p>
-                )}
-              </Link>
-            ))}
+                  <div className="mt-5 border-t border-chalk/15 pt-4">
+                    <p className="display text-3xl text-chalk">{deal.price ?? "3e offerte"}</p>
+                    <p className="mt-1 line-clamp-2 min-h-[2lh] text-sm leading-snug text-chalk-60">
+                      {deal.priceNote ?? "2 sessions achetées, la troisième est pour nous"}
+                    </p>
+                  </div>
+                  <div className="mt-auto pt-5">
+                    <Link
+                      href={`/agenda#${deal.slug}`}
+                      data-track="bon-plan-accueil"
+                      className="btn btn-race w-full"
+                    >
+                      {deal.reservation ? "Réserver" : "En profiter"}
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
