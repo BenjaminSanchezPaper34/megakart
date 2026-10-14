@@ -87,7 +87,10 @@ export default function FX() {
       // Hero : parallaxe fond + fade contenu
       const heroBg = document.querySelector<HTMLElement>("[data-hero-bg]");
       const heroContent = document.querySelector<HTMLElement>("[data-hero-content]");
-      if (heroBg) {
+      // Mobile : le hero est animé en CSS (animation-timeline, globals.css), calculé
+      // par le compositeur au rythme du défilement natif. Le scrub GSAP, recalculé en
+      // JavaScript à chaque évènement de scroll, restait saccadé sur iPhone (14/10).
+      if (heroBg && !coarse) {
         gsap.to(heroBg, {
           yPercent: 18,
           // Au doigt, pas de zoom sur la vidéo : trop coûteux pendant le défilement natif.
@@ -102,7 +105,7 @@ export default function FX() {
           },
         });
       }
-      if (heroContent) {
+      if (heroContent && !coarse) {
         // Mobile : opacité + translation seulement. Le scale obligeait le navigateur
         // à recalculer le rendu du texte à chaque image → défilement saccadé (Benjamin, 14/10).
         heroContent.style.willChange = "transform, opacity";

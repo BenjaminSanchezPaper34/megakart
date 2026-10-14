@@ -413,3 +413,22 @@ body {
 
 .bleed-row-mobile { left: auto; width: auto; transform: none; padding-inline: 0; }
 }
+
+/* ---------- Hero mobile : sortie au défilement, pilotée par le navigateur ----------
+   Au doigt, GSAP ne s'en charge pas (FX.tsx) : l'animation suit le scroll natif sur le
+   compositeur, sans JavaScript. Navigateurs sans animation-timeline : texte fixe. */
+@keyframes hero-sortie {
+  to {
+    opacity: 0;
+    transform: translate3d(0, -12%, 0);
+  }
+}
+@media (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    [data-hero-content] {
+      animation: hero-sortie linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 55svh;
+    }
+  }
+}

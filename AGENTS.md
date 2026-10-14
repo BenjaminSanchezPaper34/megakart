@@ -124,3 +124,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-14 — Claude : fiches karts — badge (Nouveauté/Duo/Compétition) à cheval sur le haut de la carte, comme les cartes de courses.
 - 2026-10-14 — Claude : menu mobile — icônes réseaux en pastilles 56 px espacées (SocialIcons size="lg").
 - 2026-10-14 — Claude : icônes réseaux du header resserrées (w-9, gap-0) + soulignement rouge animé des onglets (.link-under-icon).
+- 2026-10-14 — Claude : hero mobile — sortie du texte en CSS scroll-driven (animation-timeline) au lieu du scrub GSAP au doigt ; parallaxe du fond coupée sur mobile.
