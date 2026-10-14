@@ -13,6 +13,8 @@ export type Kart = {
   note?: string;
   /** Visuel détouré (PNG transparent, vue 3/4 uniforme) */
   image?: string;
+  /** Hauteur du visuel sur 1200 px de large (défaut 720) — le biplace, reconstruit en entier, est plus haut. */
+  imageHeight?: number;
   /** Référence constructeur affichée sur la fiche (ex. « Sodi RT10 »). */
   model?: string;
   /** Libellé de la ligne d'accès (défaut « Âge ») */
@@ -66,6 +68,7 @@ export const KARTS: Kart[] = [
     engine: "4 temps · double commande",
     badge: "Duo",
     image: "sodi/sodi-2drive.webp",
+    imageHeight: 832,
     model: "Sodi 2Drive",
     priceHint: "Une session, deux pilotes",
     note: "L'adulte garde le contrôle du kart à tout moment.",
