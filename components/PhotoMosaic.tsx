@@ -172,10 +172,9 @@ export default function PhotoMosaic() {
         </div>
       </div>
 
-      {/* Deux bandes en dérive opposée */}
+      {/* Une seule bande, dérive de droite à gauche (choix Benjamin, 14/10) */}
       <div className="relative">
-        {renderRow(ROW_A, rowARef)}
-        {renderRow(ROW_B, rowBRef)}
+        {renderRow([...ROW_A, ...ROW_B], rowARef)}
       </div>
     </section>
   );
