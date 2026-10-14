@@ -132,7 +132,7 @@ export default function HomePage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* Respiration visuelle entre les courses et la flotte : bandeau fin, les casques du stand. */}
-      <div className="relative h-44 overflow-hidden sm:h-56 md:h-72">
+      <div className="relative h-64 overflow-hidden sm:h-80 md:h-[26rem]">
         <Image
           src="/images/galerie-25-casques.jpg"
           alt="Les casques du circuit MegaKart alignés sur les étagères du stand"
@@ -140,6 +140,8 @@ export default function HomePage() {
           sizes="100vw"
           className="object-cover object-[50%_40%]"
         />
+        {/* Fondu vers la flotte (fond asphalte) : la photo se dissout dans la section suivante. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-b from-transparent to-asphalt" aria-hidden="true" />
       </div>
 
       {/* ========== FLOTTE ========== */}
