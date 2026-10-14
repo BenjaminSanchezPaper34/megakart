@@ -165,7 +165,7 @@ export const DEALS: Operation[] = [
     kicker: "Jeudis, vendredis & vacances",
     name: "2 tickets = 1 offert",
     accent: "race",
-    summary: "Deux sessions achetées, la troisième offerte.",
+    summary: "Deux sessions achetées, la troisième offerte, de quoi s'entraîner.",
     details: [
       "L'offre est aussi simple que son nom : 2 tickets achetés = le 3e offert. Elle roule tous les jeudis et vendredis, du 17 septembre au 31 décembre — et tous les jours pendant les vacances scolaires de la Toussaint et de Noël — mercredis compris, puisque le roulage à volonté s'arrête pendant les vacances.",
     ],
