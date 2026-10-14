@@ -147,7 +147,7 @@ export default function HomePage() {
           aria-hidden="true"
           style={{
             background:
-              "linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--color-asphalt) 2%, transparent) 15%, color-mix(in srgb, var(--color-asphalt) 5%, transparent) 28%, color-mix(in srgb, var(--color-asphalt) 10%, transparent) 40%, color-mix(in srgb, var(--color-asphalt) 17%, transparent) 50%, color-mix(in srgb, var(--color-asphalt) 27%, transparent) 60%, color-mix(in srgb, var(--color-asphalt) 40%, transparent) 70%, color-mix(in srgb, var(--color-asphalt) 56%, transparent) 79%, color-mix(in srgb, var(--color-asphalt) 72%, transparent) 87%, color-mix(in srgb, var(--color-asphalt) 88%, transparent) 94%, var(--color-asphalt) 100%)",
+              "linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--color-asphalt) 3%, transparent) 15%, color-mix(in srgb, var(--color-asphalt) 8%, transparent) 28%, color-mix(in srgb, var(--color-asphalt) 15%, transparent) 40%, color-mix(in srgb, var(--color-asphalt) 24%, transparent) 50%, color-mix(in srgb, var(--color-asphalt) 36%, transparent) 60%, color-mix(in srgb, var(--color-asphalt) 50%, transparent) 70%, color-mix(in srgb, var(--color-asphalt) 65%, transparent) 78%, color-mix(in srgb, var(--color-asphalt) 79%, transparent) 85%, color-mix(in srgb, var(--color-asphalt) 90%, transparent) 91%, color-mix(in srgb, var(--color-asphalt) 97%, transparent) 96%, var(--color-asphalt) 100%)",
           }}
         />
       </div>
