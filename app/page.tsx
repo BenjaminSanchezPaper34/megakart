@@ -132,7 +132,7 @@ export default function HomePage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* Respiration visuelle entre les courses et la flotte : un pilote en RX250 en pleine courbe. */}
-      <div className="relative h-64 overflow-hidden sm:h-80 md:h-[26rem]">
+      <div className="relative h-72 overflow-hidden sm:h-96 md:h-[32rem]">
         <Image
           src="/images/galerie-26-pilote-rx250.jpg"
           alt="Pilote casqué en pleine courbe au volant d'un kart Sodi RX250 sur le circuit MegaKart"
@@ -141,19 +141,19 @@ export default function HomePage() {
           className="object-cover object-[50%_28%]"
         />
         {/* Fondu vers la flotte (fond asphalte) : la photo se dissout dans la section suivante. */}
-        {/* Dégradé en courbe (plusieurs paliers) sur toute la hauteur : pas de ligne de départ visible. */}
+        {/* Dégradé en courbe douce (10 paliers) sur toute la hauteur ; le titre de la flotte remonte par-dessus. */}
         <div
           className="pointer-events-none absolute inset-0"
           aria-hidden="true"
           style={{
             background:
-              "linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--color-asphalt) 4%, transparent) 25%, color-mix(in srgb, var(--color-asphalt) 15%, transparent) 42%, color-mix(in srgb, var(--color-asphalt) 35%, transparent) 58%, color-mix(in srgb, var(--color-asphalt) 62%, transparent) 74%, color-mix(in srgb, var(--color-asphalt) 86%, transparent) 88%, var(--color-asphalt) 100%)",
+              "linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--color-asphalt) 2%, transparent) 15%, color-mix(in srgb, var(--color-asphalt) 5%, transparent) 28%, color-mix(in srgb, var(--color-asphalt) 10%, transparent) 40%, color-mix(in srgb, var(--color-asphalt) 17%, transparent) 50%, color-mix(in srgb, var(--color-asphalt) 27%, transparent) 60%, color-mix(in srgb, var(--color-asphalt) 40%, transparent) 70%, color-mix(in srgb, var(--color-asphalt) 56%, transparent) 79%, color-mix(in srgb, var(--color-asphalt) 72%, transparent) 87%, color-mix(in srgb, var(--color-asphalt) 88%, transparent) 94%, var(--color-asphalt) 100%)",
           }}
         />
       </div>
 
       {/* ========== FLOTTE ========== */}
-      <section id="flotte" className="scroll-mt-24 py-20 md:py-28">
+      <section id="flotte" className="relative z-10 -mt-36 scroll-mt-24 pb-20 sm:-mt-48 md:-mt-60 md:pb-28">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
