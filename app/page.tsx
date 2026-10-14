@@ -181,8 +181,9 @@ export default function HomePage() {
           style={{ maskImage: "linear-gradient(to bottom, rgb(0 0 0 / 100%) 0%, rgb(0 0 0 / 100%) 50%, rgb(0 0 0 / 88%) 58%, rgb(0 0 0 / 68%) 66%, rgb(0 0 0 / 48%) 73%, rgb(0 0 0 / 30%) 80%, rgb(0 0 0 / 16%) 86%, rgb(0 0 0 / 6%) 92%, rgb(0 0 0 / 0%) 100%)", WebkitMaskImage: "linear-gradient(to bottom, rgb(0 0 0 / 100%) 0%, rgb(0 0 0 / 100%) 50%, rgb(0 0 0 / 88%) 58%, rgb(0 0 0 / 68%) 66%, rgb(0 0 0 / 48%) 73%, rgb(0 0 0 / 30%) 80%, rgb(0 0 0 / 16%) 86%, rgb(0 0 0 / 6%) 92%, rgb(0 0 0 / 0%) 100%)" }}
         >
           <CircuitVideo />
-          {/* Voile de lecture : par le bas sur mobile, par la gauche sur ordinateur. */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-asphalt via-asphalt/70 to-asphalt/10 lg:bg-gradient-to-r lg:from-asphalt/95 lg:via-asphalt/60 lg:to-transparent" />
+          {/* Voiles de lecture : assombrissement global, puis par le bas (mobile) / la gauche (ordinateur). */}
+          <div className="pointer-events-none absolute inset-0 bg-asphalt/45" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-asphalt via-asphalt/75 to-asphalt/30 lg:bg-gradient-to-r lg:from-asphalt/95 lg:via-asphalt/70 lg:to-asphalt/20" />
         </div>
 
         <div className="relative z-10 mx-auto flex min-h-[30rem] w-full max-w-7xl flex-col justify-end px-5 pb-8 pt-24 md:px-8 lg:min-h-[34rem] lg:justify-center lg:py-16">
