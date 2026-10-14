@@ -138,7 +138,7 @@ export default function HomePage() {
           alt="Pilote casqué en pleine courbe au volant d'un kart Sodi RX250 sur le circuit MegaKart"
           fill
           sizes="100vw"
-          className="object-cover object-[50%_45%]"
+          className="object-cover object-[50%_28%]"
         />
         {/* Fondu vers la flotte (fond asphalte) : la photo se dissout dans la section suivante. */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-b from-transparent to-asphalt" aria-hidden="true" />
