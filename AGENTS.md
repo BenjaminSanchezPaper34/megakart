@@ -128,3 +128,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-14 — Claude : bandeau photo fin (casques du stand, galerie-25-casques.jpg) entre « Cet automne » et la flotte ; photo ajoutée à /photos.
 - 2026-10-14 — Claude : bandeau casques plus haut (176/224/288 px).
 - 2026-10-14 — Claude : bandeau casques agrandi (256/320/416 px) + fondu vers la flotte.
+- 2026-10-14 — Claude : bandeau accueil → photo pilote RX250 (galerie-26-pilote-rx250.jpg), aussi ajoutée à /photos ; casques restent dans la galerie.

@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 const PHOTOS: { src: string; alt: string }[] = [
   { src: "galerie-23-aerien-nuit.jpg", alt: "Le circuit MegaKart illuminé de nuit, vu du ciel" },
   { src: "galerie-01-kart-adulte.jpg", alt: "Pilote adulte en pleine session sur le circuit" },
+  { src: "galerie-26-pilote-rx250.jpg", alt: "Pilote casqué en pleine courbe au volant d'un kart Sodi RX250" },
   { src: "galerie-07-baby-kart.jpg", alt: "Enfant au volant d'un Baby Kart électrique" },
   { src: "galerie-03-drapeau-damier.jpg", alt: "Le drapeau à damier agité en fin de course" },
   { src: "galerie-06-biplace.jpg", alt: "Kart biplace : un adulte et un enfant partagent la session" },

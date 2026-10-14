@@ -131,14 +131,14 @@ export default function HomePage() {
 
       <div className="kerb" aria-hidden="true" />
 
-      {/* Respiration visuelle entre les courses et la flotte : bandeau fin, les casques du stand. */}
+      {/* Respiration visuelle entre les courses et la flotte : un pilote en RX250 en pleine courbe. */}
       <div className="relative h-64 overflow-hidden sm:h-80 md:h-[26rem]">
         <Image
-          src="/images/galerie-25-casques.jpg"
-          alt="Les casques du circuit MegaKart alignés sur les étagères du stand"
+          src="/images/galerie-26-pilote-rx250.jpg"
+          alt="Pilote casqué en pleine courbe au volant d'un kart Sodi RX250 sur le circuit MegaKart"
           fill
           sizes="100vw"
-          className="object-cover object-[50%_40%]"
+          className="object-cover object-[50%_45%]"
         />
         {/* Fondu vers la flotte (fond asphalte) : la photo se dissout dans la section suivante. */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-b from-transparent to-asphalt" aria-hidden="true" />
