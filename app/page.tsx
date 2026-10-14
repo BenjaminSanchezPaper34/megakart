@@ -265,24 +265,27 @@ export default function HomePage() {
             {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => {
               const skin =
                 deal.slug === "2-plus-1"
-                  ? { card: "bg-promo text-white", soft: "text-white/80", rule: "border-white/30" }
+                  ? { card: "bg-promo text-white", soft: "text-white/80", rule: "border-white/30", label: "bg-white text-promo" }
                   : deal.accent === "flag"
-                    ? { card: "bg-flag text-asphalt", soft: "text-asphalt/75", rule: "border-asphalt/20" }
-                    : { card: "bg-chalk text-asphalt", soft: "text-asphalt/70", rule: "border-asphalt/15" };
+                    ? { card: "bg-flag text-asphalt", soft: "text-asphalt/75", rule: "border-asphalt/20", label: "bg-asphalt text-flag" }
+                    : { card: "bg-chalk text-asphalt", soft: "text-asphalt/70", rule: "border-asphalt/15", label: "bg-asphalt text-chalk" };
               return (
                 <article
                   key={deal.slug}
-                  className={`race-event-card flex snap-start flex-col p-5 sm:p-6 ${skin.card}`}
+                  className={`race-event-card flex snap-start flex-col gap-0 p-5 sm:p-6 ${skin.card}`}
                 >
-                  <p className="text-sm font-bold uppercase tracking-wide">{deal.kicker}</p>
-                  <h3 className="display mt-2 text-3xl leading-tight">{deal.name}</h3>
-                  <p className={`mt-3 line-clamp-3 min-h-[3lh] text-base leading-snug ${skin.soft}`}>
+                  {/* Quand : en label. */}
+                  <span className={`self-start rounded-full px-3 py-1 text-sm font-bold ${skin.label}`}>
+                    {deal.kicker}
+                  </span>
+                  <h3 className="display mt-4 text-4xl leading-none md:text-[2.75rem]">{deal.name}</h3>
+                  <p className={`mt-3 line-clamp-2 min-h-[2lh] text-base leading-snug ${skin.soft}`}>
                     {deal.summary}
                   </p>
-                  <div className={`mt-auto border-t pt-4 ${skin.rule}`}>
-                    <p className="display text-3xl">{deal.price ?? "3e offerte"}</p>
-                    <p className={`mt-1 line-clamp-2 min-h-[2lh] text-sm leading-snug ${skin.soft}`}>
-                      {deal.priceNote ?? "2 sessions achetées, la troisième est pour nous"}
+                  <div className={`mt-auto flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t pt-4 ${skin.rule}`}>
+                    <p className="display text-3xl leading-none">{deal.price ?? "3e offerte"}</p>
+                    <p className={`text-sm leading-snug ${skin.soft}`}>
+                      {deal.priceNote ?? "2 sessions achetées, la 3e pour nous"}
                     </p>
                   </div>
                 </article>
