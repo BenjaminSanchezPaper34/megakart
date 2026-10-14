@@ -245,41 +245,38 @@ export default function HomePage() {
             <p data-reveal className="max-w-xl text-base leading-relaxed text-chalk md:text-xl">
               Sans réservation pour la plupart : choisissez votre jour, on s&rsquo;occupe du reste.
             </p>
-            <Link href="/agenda" className="btn btn-ghost">
-              Voir l&rsquo;agenda
+            <Link href="/agenda#bons-plans" className="btn btn-ghost">
+              Voir les bons plans
             </Link>
           </div>
 
-          {/* Trois cartes au même gabarit : quand, quoi, en une phrase, le prix, puis l'action. */}
+          {/* Trois cartes au même gabarit, aux couleurs de l'agenda : mercredi jaune,
+              2 tickets = 1 offert bleu, dimanche blanc. Pas de bouton : la carte se suffit,
+              le lien « Voir les bons plans » mène au détail. */}
           <RowArrows target="[data-deals-row]" label="Bons plans" />
           <div data-stagger data-deals-row className="bleed-row-mobile no-scrollbar mt-4 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0">
             {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => {
-              const tone =
-                deal.accent === "race" ? "text-race" : deal.accent === "flag" ? "text-flag" : "text-chalk";
+              const skin =
+                deal.slug === "2-plus-1"
+                  ? { card: "bg-promo text-white", soft: "text-white/80", rule: "border-white/30" }
+                  : deal.accent === "flag"
+                    ? { card: "bg-flag text-asphalt", soft: "text-asphalt/75", rule: "border-asphalt/20" }
+                    : { card: "bg-chalk text-asphalt", soft: "text-asphalt/70", rule: "border-asphalt/15" };
               return (
                 <article
                   key={deal.slug}
-                  className="race-event-card flex snap-start flex-col border border-chalk/15 bg-asphalt p-5 sm:p-6"
+                  className={`race-event-card flex snap-start flex-col p-5 sm:p-6 ${skin.card}`}
                 >
-                  <p className={`text-sm font-bold uppercase tracking-wide ${tone}`}>{deal.kicker}</p>
-                  <h3 className="display mt-2 text-3xl leading-tight text-chalk">{deal.name}</h3>
-                  <p className="mt-3 line-clamp-3 min-h-[3lh] text-base leading-snug text-chalk-60">
+                  <p className="text-sm font-bold uppercase tracking-wide">{deal.kicker}</p>
+                  <h3 className="display mt-2 text-3xl leading-tight">{deal.name}</h3>
+                  <p className={`mt-3 line-clamp-3 min-h-[3lh] text-base leading-snug ${skin.soft}`}>
                     {deal.summary}
                   </p>
-                  <div className="mt-5 border-t border-chalk/15 pt-4">
-                    <p className="display text-3xl text-chalk">{deal.price ?? "3e offerte"}</p>
-                    <p className="mt-1 line-clamp-2 min-h-[2lh] text-sm leading-snug text-chalk-60">
+                  <div className={`mt-auto border-t pt-4 ${skin.rule}`}>
+                    <p className="display text-3xl">{deal.price ?? "3e offerte"}</p>
+                    <p className={`mt-1 line-clamp-2 min-h-[2lh] text-sm leading-snug ${skin.soft}`}>
                       {deal.priceNote ?? "2 sessions achetées, la troisième est pour nous"}
                     </p>
-                  </div>
-                  <div className="mt-auto pt-5">
-                    <Link
-                      href={`/agenda#${deal.slug}`}
-                      data-track="bon-plan-accueil"
-                      className="btn btn-race w-full"
-                    >
-                      {deal.reservation ? "Réserver" : "En profiter"}
-                    </Link>
                   </div>
                 </article>
               );

@@ -11,6 +11,8 @@
   --color-race: #e3051b;
   --color-race-deep: #b0111d;
   --color-flag: #fbba00;
+  /* Bleu « bon plan » de l'agenda (2 tickets = 1 offert) */
+  --color-promo: #2e7cf6;
 
   --font-display: var(--font-saira), "Arial Narrow", sans-serif;
   --font-body: var(--font-archivo), system-ui, sans-serif;

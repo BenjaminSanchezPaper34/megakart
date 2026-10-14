@@ -19,7 +19,7 @@ const TAG_COLORS = {
   pending: "bg-race/45 text-white",
   volonte: "bg-flag text-asphalt",
   pack: "bg-chalk text-asphalt",
-  promo: "bg-[#2e7cf6] text-white",
+  promo: "bg-promo text-white",
   ferie: "bg-asphalt-3 text-chalk-60",
 } as const;
 type TagKind = keyof typeof TAG_COLORS;
@@ -47,7 +47,7 @@ function cellState(d: CalendarDay) {
   if (d.event) return `${d.event.toConfirm ? "bg-race/45" : "bg-race"} text-white ${OPEN_MD}`;
   if (d.aVolonte) return `bg-flag text-asphalt ${OPEN_MD}`;
   if (d.packDecouverte) return `bg-chalk text-asphalt ${OPEN_MD}`;
-  if (d.promo) return `bg-[#2e7cf6] text-white ${OPEN_MD}`;
+  if (d.promo) return `bg-promo text-white ${OPEN_MD}`;
   return `bg-emerald-500/[0.14] text-chalk ${OPEN_MD}`;
 }
 

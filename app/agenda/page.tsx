@@ -337,7 +337,7 @@ export default function AgendaPage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* ========== LES BONS PLANS ========== */}
-      <section className="bg-asphalt-2 py-20 md:py-28">
+      <section id="bons-plans" className="scroll-mt-24 bg-asphalt-2 py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <h2
             data-reveal
