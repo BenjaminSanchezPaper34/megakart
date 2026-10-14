@@ -435,3 +435,16 @@ body {
   }
 }
 
+
+/* ---------- Le stand : photo de la terrasse fondue vers le texte ----------
+   Mobile : en haut de section, fondu vers le bas. Ordinateur : à droite, fondu vers la gauche. */
+.stand-photo {
+  mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+}
+@media (min-width: 1024px) {
+  .stand-photo {
+    mask-image: linear-gradient(to left, #000 35%, rgb(0 0 0 / 0.6) 65%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, #000 35%, rgb(0 0 0 / 0.6) 65%, transparent 100%);
+  }
+}
