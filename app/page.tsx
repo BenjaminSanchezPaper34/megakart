@@ -4,7 +4,7 @@ import Marquee from "@/components/Marquee";
 import HeroVideo from "@/components/HeroVideo";
 import Reviews from "@/components/Reviews";
 import PhotoMosaic from "@/components/PhotoMosaic";
-import ReelCard from "@/components/ReelCard";
+import CircuitVideo from "@/components/CircuitVideo";
 import TrackMap from "@/components/TrackMap";
 import FleetCarousel from "@/components/FleetCarousel";
 import OpenBadge from "@/components/OpenBadge";
@@ -170,61 +170,39 @@ export default function HomePage() {
 
       <div className="kerb" aria-hidden="true" />
 
-      {/* ========== EXPÉRIENCE (split-screen avec réel plein cadre) ========== */}
-      <section className="relative flex flex-col overflow-hidden bg-asphalt-2 lg:grid lg:grid-cols-[1.15fr_1fr] lg:grid-rows-[auto_1fr]">
-        {/* Titre */}
-        <div className="order-1 px-5 pt-20 md:px-8 md:pt-28 lg:col-start-1 lg:pl-12 xl:pl-[max(3rem,calc((100vw-80rem)/2+2rem))]">
-          <h2 data-reveal className="display max-w-2xl text-[clamp(2.2rem,5vw,4rem)] text-chalk">
+      {/* ========== EXPÉRIENCE : vidéo plein cadre, trois arguments courts ========== */}
+      <section className="relative flex min-h-[88svh] items-end overflow-hidden bg-asphalt-2 lg:min-h-[80svh] lg:items-center">
+        <CircuitVideo />
+        {/* Voile de lecture : par le bas sur mobile, par la gauche sur ordinateur. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-asphalt via-asphalt/70 to-asphalt/10 lg:bg-gradient-to-r lg:from-asphalt/95 lg:via-asphalt/60 lg:to-transparent"
+        />
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-32 md:px-8 lg:py-24">
+          <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
             Un vrai circuit,
             <br />
             <span className="display-outline">pas un manège.</span>
           </h2>
-        </div>
-
-        {/* Réel plein cadre : pleine hauteur de section sur desktop,
-            bande immersive pleine largeur entre titre et cartes sur mobile */}
-        <div className="relative order-3 -mt-52 h-[82svh] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:h-auto">
-          <ReelCard src="reel-4" flush />
-          {/* Fondu de raccord : long et progressif sur mobile (la vidéo
-              émerge de derrière les cartes), latéral sur desktop */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-asphalt-2 from-15% via-asphalt-2/70 via-45% to-transparent lg:inset-x-auto lg:inset-y-0 lg:left-0 lg:h-auto lg:w-20 lg:bg-gradient-to-r lg:from-asphalt-2 lg:from-0% lg:via-transparent lg:via-100%"
-          />
-        </div>
-
-        {/* Cartes */}
-        <div
-          data-stagger
-          className="relative z-10 order-2 grid gap-6 px-5 pb-2 pt-10 md:px-8 lg:col-start-1 lg:pb-28 lg:pl-12 lg:pt-12 xl:pl-[max(3rem,calc((100vw-80rem)/2+2rem))] lg:pr-12"
-        >
-          {[
-            {
-              title: "Chrono comme les pros",
-              text: "Chronométrage Apex Timing au dixième, classement en direct sur écran LED géant. Chaque session a son podium — et vos temps vous attendent au tour suivant.",
-              href: "/live",
-              cta: "Voir le chrono en direct",
-            },
-            {
-              title: "Sécurité niveau F1",
-              text: "Protections Tecpro dernière génération — les mêmes qu'en Formule 1 — circuit homologué FFSA et Préfecture, moniteurs diplômés au bord de la piste.",
-            },
-            {
-              title: "Zéro réservation",
-              text: "On ne bloque pas votre soirée trois semaines à l'avance : vous passez, vous choisissez votre kart, vous roulez. En été, jusqu'à minuit trente.",
-            },
-          ].map((f) => (
-            <article key={f.title} className="card max-w-2xl p-7">
-              <span className="checker-sm mb-4 block h-5 w-10 opacity-60" aria-hidden="true" />
-              <h3 className="display text-2xl text-chalk">{f.title}</h3>
-              <p className="mt-3 text-base leading-relaxed text-chalk-60">{f.text}</p>
-              {"href" in f && f.href && (
-                <Link href={f.href} className="link-under mt-4 inline-block text-base font-semibold text-chalk">
-                  {f.cta}
+          <ul data-stagger className="mt-8 grid max-w-xl gap-4 text-lg text-chalk md:text-xl">
+            <li className="flex items-start gap-3">
+              <span aria-hidden="true">⏱️</span>
+              <span>
+                Chrono au dixième sur écran géant.{" "}
+                <Link href="/live" className="link-under font-semibold text-flag">
+                  Le direct
                 </Link>
-              )}
-            </article>
-          ))}
+              </span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span aria-hidden="true">🛡️</span>
+              <span>Protections Tecpro, piste homologuée FFSA.</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span aria-hidden="true">🏁</span>
+              <span>Sans réservation : on arrive, on roule.</span>
+            </li>
+          </ul>
         </div>
       </section>
 

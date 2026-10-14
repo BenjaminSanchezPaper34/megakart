@@ -129,3 +129,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-14 — Claude : bandeau casques plus haut (176/224/288 px).
 - 2026-10-14 — Claude : bandeau casques agrandi (256/320/416 px) + fondu vers la flotte.
 - 2026-10-14 — Claude : bandeau accueil → photo pilote RX250 (galerie-26-pilote-rx250.jpg), aussi ajoutée à /photos ; casques restent dans la galerie.
+- 2026-10-14 — Claude : section « Un vrai circuit » refaite — vidéo plein cadre (CircuitVideo : reel-4 sur mobile, circuit-paysage.mp4 recadré sur ordinateur), titre grand format, 3 arguments courts avec émojis.
