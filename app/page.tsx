@@ -139,16 +139,9 @@ export default function HomePage() {
           fill
           sizes="100vw"
           className="object-cover object-[50%_28%]"
-        />
-        {/* Fondu vers la flotte (fond asphalte) : la photo se dissout dans la section suivante. */}
-        {/* Dégradé en courbe douce (10 paliers) sur toute la hauteur ; le titre de la flotte remonte par-dessus. */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          aria-hidden="true"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--color-asphalt) 3%, transparent) 15%, color-mix(in srgb, var(--color-asphalt) 8%, transparent) 28%, color-mix(in srgb, var(--color-asphalt) 15%, transparent) 40%, color-mix(in srgb, var(--color-asphalt) 24%, transparent) 50%, color-mix(in srgb, var(--color-asphalt) 36%, transparent) 60%, color-mix(in srgb, var(--color-asphalt) 50%, transparent) 70%, color-mix(in srgb, var(--color-asphalt) 65%, transparent) 78%, color-mix(in srgb, var(--color-asphalt) 79%, transparent) 85%, color-mix(in srgb, var(--color-asphalt) 90%, transparent) 91%, color-mix(in srgb, var(--color-asphalt) 97%, transparent) 96%, var(--color-asphalt) 100%)",
-          }}
+          // Fondu par masque d'opacité (courbe douce sur toute la hauteur) : la photo se
+          // dissout dans le fond de page, sans calque de couleur ni ligne de raccord.
+          style={{ maskImage: "linear-gradient(to bottom, rgb(0 0 0 / 100%) 0%, rgb(0 0 0 / 97%) 20%, rgb(0 0 0 / 92%) 32%, rgb(0 0 0 / 85%) 43%, rgb(0 0 0 / 76%) 53%, rgb(0 0 0 / 65%) 62%, rgb(0 0 0 / 53%) 70%, rgb(0 0 0 / 41%) 77%, rgb(0 0 0 / 30%) 83%, rgb(0 0 0 / 20%) 88%, rgb(0 0 0 / 12%) 92%, rgb(0 0 0 / 5%) 96%, rgb(0 0 0 / 0%) 100%)", WebkitMaskImage: "linear-gradient(to bottom, rgb(0 0 0 / 100%) 0%, rgb(0 0 0 / 97%) 20%, rgb(0 0 0 / 92%) 32%, rgb(0 0 0 / 85%) 43%, rgb(0 0 0 / 76%) 53%, rgb(0 0 0 / 65%) 62%, rgb(0 0 0 / 53%) 70%, rgb(0 0 0 / 41%) 77%, rgb(0 0 0 / 30%) 83%, rgb(0 0 0 / 20%) 88%, rgb(0 0 0 / 12%) 92%, rgb(0 0 0 / 5%) 96%, rgb(0 0 0 / 0%) 100%)" }}
         />
       </div>
 
