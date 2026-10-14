@@ -16,7 +16,7 @@ const BADGE: Record<NonNullable<Kart["badge"]>, string> = {
 
 export default function KartWidget({ kart }: { kart: Kart }) {
   return (
-    <article className="race-event-card relative flex min-h-[13.5rem] flex-col justify-between overflow-hidden border border-white/10 bg-gradient-to-br from-asphalt-2 via-asphalt-2 to-asphalt-3 p-5 sm:p-6">
+    <article className="race-event-card relative flex h-full flex-col justify-between overflow-hidden border border-white/10 bg-gradient-to-br from-asphalt-2 via-asphalt-2 to-asphalt-3 p-5 sm:p-6">
       {/* Filigrane : le tracé du circuit, comme les anneaux sur le widget. */}
       <Image
         src="/images/TRACECIRCUIT-MEGAKART.svg"
@@ -53,7 +53,7 @@ export default function KartWidget({ kart }: { kart: Kart }) {
         <p className="mt-1 max-w-[55%] text-sm text-chalk-60">{kart.age}</p>
       </div>
 
-      <div className="relative mt-6 flex items-center justify-between gap-3 text-sm">
+      <div className="relative mt-4 flex items-center justify-between gap-3 text-sm">
         <span className="flex min-w-0 items-center gap-2 text-chalk">
           <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-chalk-60">
             <circle cx="12" cy="13" r="8" fill="none" stroke="currentColor" strokeWidth="1.8" />

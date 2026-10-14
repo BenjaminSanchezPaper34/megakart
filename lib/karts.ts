@@ -61,7 +61,7 @@ export const KARTS: Kart[] = [
     tagline: "Deux sièges, deux volants : les sensations à partager",
     price: 25,
     session: "8 min",
-    age: "Dès 5 ans, avec un adulte",
+    age: "Dès 5 ans + 1 adulte",
     minAge: 5,
     engine: "4 temps · double commande",
     badge: "Duo",
