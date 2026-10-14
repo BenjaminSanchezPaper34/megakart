@@ -16,6 +16,13 @@ const BADGE: Record<NonNullable<Kart["badge"]>, string> = {
 
 export default function KartWidget({ kart }: { kart: Kart }) {
   return (
+    <div className="relative h-full">
+      {/* Label à cheval sur le haut de la carte, comme sur les cartes de courses. */}
+      {kart.badge && (
+        <span className={`absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-bold shadow-lg ${BADGE[kart.badge]}`}>
+          {kart.badge}
+        </span>
+      )}
     <article className="race-event-card relative flex h-full flex-col justify-between overflow-hidden border border-white/10 bg-gradient-to-br from-asphalt-2 via-asphalt-2 to-asphalt-3 p-5 sm:p-6">
       {/* Filigrane : le tracé du circuit, comme les anneaux sur le widget. */}
       <Image
@@ -44,12 +51,7 @@ export default function KartWidget({ kart }: { kart: Kart }) {
           <span className="text-5xl text-chalk sm:text-6xl">{kart.price} €</span>
           <span className="text-base text-chalk-60">/ {kart.session}</span>
         </p>
-        <div className="mt-3 flex flex-wrap items-center gap-2">
-          <h3 className="display text-2xl text-chalk">{kart.name}</h3>
-          {kart.badge && (
-            <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${BADGE[kart.badge]}`}>{kart.badge}</span>
-          )}
-        </div>
+        <h3 className="display mt-3 text-2xl text-chalk">{kart.name}</h3>
         <p className="mt-1 max-w-[55%] text-sm text-chalk-60">{kart.age}</p>
       </div>
 
@@ -64,5 +66,6 @@ export default function KartWidget({ kart }: { kart: Kart }) {
         {kart.model && <span className="shrink-0 text-xs font-semibold uppercase tracking-wide text-chalk-60">{kart.model}</span>}
       </div>
     </article>
+    </div>
   );
 }

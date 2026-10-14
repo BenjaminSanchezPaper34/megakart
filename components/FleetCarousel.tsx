@@ -80,7 +80,7 @@ export default function FleetCarousel({ karts }: { karts: Kart[] }) {
       <div
         ref={row}
         onScroll={update}
-        className="no-scrollbar mt-5 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2"
+        className="no-scrollbar mt-2 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 pt-5"
         style={{ paddingInline: GUTTER, scrollPaddingInline: GUTTER }}
       >
         {karts.map((k) => (
