@@ -314,7 +314,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div data-stagger className="mt-10 grid gap-5 md:grid-cols-3">
+        <div data-stagger className="mt-16 grid gap-x-5 gap-y-12 md:grid-cols-3">
           {[
             {
               emoji: "🎂",
@@ -335,9 +335,15 @@ export default function HomePage() {
               text: "Le team building qui met tout le monde d'accord : mêmes machines, même piste, un seul chrono. Formats course ou endurance, privatisation possible.",
             },
           ].map((e) => (
-            <article key={e.title} className="card flex flex-col p-5 sm:p-6">
-              <span aria-hidden="true" className="text-4xl leading-none">{e.emoji}</span>
-              <h3 className="display mt-4 text-3xl leading-tight text-chalk">{e.title}</h3>
+            <article key={e.title} className="card relative flex flex-col p-5 pt-12 sm:p-6 sm:pt-12">
+              {/* Émoji dans une pastille à cheval sur le bord du haut, centrée. */}
+              <span
+                aria-hidden="true"
+                className="absolute left-1/2 top-0 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-chalk/15 bg-asphalt-2 text-3xl shadow-lg"
+              >
+                {e.emoji}
+              </span>
+              <h3 className="display text-center text-3xl leading-tight text-chalk">{e.title}</h3>
               <p className="mt-3 flex-1 text-base leading-relaxed text-chalk-60">{e.text}</p>
               <Link href={e.href} className="btn btn-race mt-6 w-full">
                 Demander un devis
