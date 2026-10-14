@@ -1,8 +1,12 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 /**
  * Mosaïque photos : une bande bord à bord qui défile en continu de droite à
- * gauche (animation CSS .mosaic-track dans globals.css), pause au survol.
+ * gauche, pause au survol, et qu'on peut faire glisser au doigt, à la souris
+ * ou au trackpad (elle repart seule ensuite).
  * Le format de chaque case suit l'orientation de la photo (4/5, 3/2, 5/4).
  */
 type Tile = { src: string; alt: string; ratio: string };
@@ -34,12 +38,125 @@ const ROW_B: Tile[] = [
 const TILE_H = "h-56 md:h-80";
 
 
+const CRUISE = 40; // px/s, de droite à gauche
+const EASE = 4; // réactivité du frein / de la relance (par seconde)
+
 export default function PhotoMosaic() {
   const items = [...ROW_A, ...ROW_B];
+  const rowRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const row = rowRef.current;
+    const track = trackRef.current;
+    if (!row || !track) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Position flottante appliquée en translate3d : sous-pixel fluide, y compris
+    // Safari (le défilement par scrollLeft y vibrait, il arrondit au pixel).
+    let x = 0;
+    let speed = 0;
+    let target = reduced ? 0 : CRUISE;
+    let dragging = false;
+    let startX = 0;
+    let startOffset = 0;
+    let moved = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let last = performance.now();
+    let raf = 0;
+
+    const resume = (delay: number) => {
+      clearTimeout(timer);
+      if (!reduced) timer = setTimeout(() => (target = CRUISE), delay);
+    };
+    const wrap = () => {
+      const half = track.scrollWidth / 2;
+      if (half > 0) x = ((x % half) + half) % half;
+    };
+
+    const tick = (now: number) => {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      if (!dragging) {
+        speed += (target - speed) * Math.min(1, EASE * dt);
+        x += speed * dt;
+      }
+      wrap();
+      track.style.transform = `translate3d(${-x}px, 0, 0)`;
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    // Glisser (doigt ou souris) : la bande suit, puis repart d'elle-même.
+    const down = (e: PointerEvent) => {
+      dragging = true;
+      moved = 0;
+      startX = e.clientX;
+      startOffset = x;
+      target = 0;
+      speed = 0;
+      clearTimeout(timer);
+    };
+    const move = (e: PointerEvent) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      if (moved > 4 && !row.hasPointerCapture(e.pointerId)) row.setPointerCapture(e.pointerId);
+      x = startOffset - dx;
+    };
+    const up = (e: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      if (row.hasPointerCapture(e.pointerId)) row.releasePointerCapture(e.pointerId);
+      resume(e.pointerType === "mouse" ? 600 : 1500);
+    };
+    // Souris : pause au survol, relance à la sortie.
+    const enter = (e: PointerEvent) => {
+      if (e.pointerType === "mouse") {
+        target = 0;
+        clearTimeout(timer);
+      }
+    };
+    const leave = (e: PointerEvent) => {
+      if (e.pointerType === "mouse" && !dragging) resume(300);
+    };
+    // Trackpad / molette horizontale.
+    const wheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      x += e.deltaX;
+      target = 0;
+      resume(1200);
+    };
+
+    row.addEventListener("pointerdown", down);
+    row.addEventListener("pointermove", move);
+    row.addEventListener("pointerup", up);
+    row.addEventListener("pointercancel", up);
+    row.addEventListener("pointerenter", enter);
+    row.addEventListener("pointerleave", leave);
+    row.addEventListener("wheel", wheel, { passive: false });
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(timer);
+      row.removeEventListener("pointerdown", down);
+      row.removeEventListener("pointermove", move);
+      row.removeEventListener("pointerup", up);
+      row.removeEventListener("pointercancel", up);
+      row.removeEventListener("pointerenter", enter);
+      row.removeEventListener("pointerleave", leave);
+      row.removeEventListener("wheel", wheel);
+    };
+  }, []);
+
   const renderRow = () => (
-    <div className="mosaic-row overflow-hidden" aria-label="Photos du circuit — défilement automatique">
-      {/* Deux copies de la bande : l'animation glisse de -50 % puis boucle sans couture. */}
-      <div className="mosaic-track flex w-max items-center">
+    <div
+      ref={rowRef}
+      className="cursor-grab touch-pan-y select-none overflow-hidden active:cursor-grabbing"
+      aria-label="Photos du circuit — défilement automatique, à faire glisser"
+    >
+      {/* Deux copies de la bande : la position boucle sans couture sur la moitié. */}
+      <div ref={trackRef} className="flex w-max items-center will-change-transform">
         {[...items, ...items].map((item, i) => (
           <div
             key={`${item.src}-${i}`}
@@ -51,7 +168,8 @@ export default function PhotoMosaic() {
               src={`/images/${item.src}`}
               alt={i < items.length ? item.alt : ""}
               loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover"
+              draggable={false}
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover"
             />
           </div>
         ))}

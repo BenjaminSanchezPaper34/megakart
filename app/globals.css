@@ -435,26 +435,3 @@ body {
   }
 }
 
-/* ---------- Mosaïque photos : bande qui défile de droite à gauche ----------
-   translateX animé en CSS (compositeur) : fluide partout, y compris Safari/iPhone
-   où le défilement par scrollLeft vibrait. Pause au survol. */
-@keyframes mosaic-defile {
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-.mosaic-track {
-  animation: mosaic-defile 140s linear infinite;
-  will-change: transform;
-}
-.mosaic-row:hover .mosaic-track {
-  animation-play-state: paused;
-}
-@media (prefers-reduced-motion: reduce) {
-  .mosaic-track {
-    animation: none;
-  }
-  .mosaic-row {
-    overflow-x: auto;
-  }
-}
