@@ -69,12 +69,12 @@ export const RACES: Operation[] = [
   },
   {
     slug: "plein-gaz",
-    kicker: "Le trophée de la Toussaint",
+    kicker: "Le grand trophée d'automne",
     name: "Trophée Plein Gaz",
     accent: "flag",
     summary: "Essais, qualifs, course et finale — avec un baptême en voiture Vortex à gagner.",
     details: [
-      "Le grand rendez-vous du 1er novembre : un vrai week-end de Grand Prix condensé en une journée. 8 minutes d'essais, 8 minutes de qualifications, une course de 12 tours, puis une finale de 10 minutes entre les meilleurs.",      "Et pour le vainqueur, un prix qui ne se gagne nulle part ailleurs : un baptême à bord d'une voiture Vortex.",
+      "Le grand rendez-vous du 15 novembre : un vrai week-end de Grand Prix condensé en une journée. 8 minutes d'essais, 8 minutes de qualifications, une course de 12 tours, puis une finale de 10 minutes entre les meilleurs.",      "Et pour le vainqueur, un prix qui ne se gagne nulle part ailleurs : un baptême à bord d'une voiture Vortex.",
     ],
     facts: [
       "8 min essais + 8 min qualifications",
@@ -242,8 +242,8 @@ export const AGENDA: AgendaItem[] = [
     status: "confirme",
     note: "Ouvert de 14 h à minuit — sessions sans réservation",
   },
-  { date: "2026-11-01", op: "plein-gaz", label: "Trophée Plein Gaz", status: "confirme" },
   { date: "2026-11-08", op: "course-enfant", label: "Course Enfant", status: "confirme" },
+  { date: "2026-11-15", op: "plein-gaz", label: "Trophée Plein Gaz", status: "confirme" }, // reporté du 1/11 (Benjamin, 14/10)
   { date: "2026-12-06", op: "100-tours", label: "Les 100 Tours", status: "confirme" },
   { date: "2026-12-13", op: "course-enfant", label: "Course Enfant", status: "confirme" },
   { date: "2026-12-19", op: "12-heures", label: "Les 12 Heures", status: "confirme" },
