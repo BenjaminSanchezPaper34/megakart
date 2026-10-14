@@ -87,7 +87,7 @@ export default function FleetCarousel({ karts }: { karts: Kart[] }) {
           <div
             key={k.slug}
             data-kart={k.slug}
-            className={`w-[85%] shrink-0 snap-start rounded-[calc(var(--cta-height)/2+1.25rem)] transition-opacity duration-300 sm:w-[60%] md:w-[44%] lg:w-[38rem] ${
+            className={`w-[85%] shrink-0 snap-start rounded-[calc(var(--cta-height)/2+1.25rem)] transition-opacity duration-300 sm:w-[60%] md:w-[44%] lg:w-[calc((min(100vw-4rem,76rem)-2.5rem)/3)] ${
               reco && reco.primary.slug !== k.slug && !reco.alternatives.some((a) => a.slug === k.slug) ? "opacity-35" : ""
             }`}
           >
