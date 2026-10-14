@@ -152,7 +152,7 @@ export default function Reviews() {
   }, []);
 
   return (
-    <section className="overflow-hidden bg-asphalt-2 py-14 md:py-20">
+    <section className="overflow-hidden bg-asphalt-2 py-(--section-y)">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         {/* Même système que les autres sections : grand titre, puis note + lien sur une ligne. */}
         <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
@@ -186,7 +186,7 @@ export default function Reviews() {
       <div
         ref={trackRef}
         data-reveal
-        className="no-scrollbar mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth"
+        className="no-scrollbar mt-(--section-gap) flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth"
         style={{ paddingInline: "var(--site-gutter)", scrollPaddingInline: "var(--site-gutter)" }}
         aria-label="Avis Google des visiteurs — défilement horizontal"
       >

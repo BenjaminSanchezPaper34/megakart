@@ -43,7 +43,7 @@ export default function UpcomingRaces() {
   if (upcoming.length === 0) return null;
 
   return (
-    <div className="bleed-row-mobile no-scrollbar mt-4 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 pt-5 snap-x snap-mandatory sm:auto-cols-[45%] lg:mt-10 lg:auto-cols-auto lg:grid-flow-row lg:grid-cols-4 lg:gap-5" data-race-bento>
+    <div className="bleed-row-mobile no-scrollbar mt-[calc(var(--section-gap)-1.25rem)] grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 pt-5 snap-x snap-mandatory sm:auto-cols-[45%] lg:auto-cols-auto lg:grid-flow-row lg:grid-cols-4 lg:gap-5" data-race-bento>
       {upcoming.map((item, index) => {
         const op = getOperation(item.op!);
         const date = formatDate(item.date);

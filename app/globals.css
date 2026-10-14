@@ -19,6 +19,11 @@
 }
 
 :root {
+  /* Respiration uniforme des sections de l'accueil (14/10) :
+     --section-y   = marge haute et basse de chaque section
+     --section-gap = espace entre l'en-tête (titre + sous-titre) et le contenu */
+  --section-y: clamp(5rem, 10vw, 9rem);
+  --section-gap: clamp(2.5rem, 5vw, 4.5rem);
   color-scheme: dark;
   /* Système commun à tous les CTA, sur mobile comme sur desktop. */
   --cta-height: 3.5rem;

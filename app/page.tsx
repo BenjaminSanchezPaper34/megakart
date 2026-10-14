@@ -106,7 +106,7 @@ export default function HomePage() {
       </p>
 
       {/* ========== AGENDA (temps forts de fin d'année) ========== */}
-      <section id="courses-accueil" className="bg-asphalt-2 py-14 md:py-20">
+      <section id="courses-accueil" className="bg-asphalt-2 py-(--section-y)">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div>
             <h2 className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
@@ -151,7 +151,7 @@ export default function HomePage() {
       </div>
 
       {/* ========== FLOTTE ========== */}
-      <section id="flotte" className="relative z-10 -mt-36 scroll-mt-24 pb-20 sm:-mt-48 md:-mt-72 md:pb-28">
+      <section id="flotte" className="relative z-10 -mt-36 scroll-mt-24 pb-(--section-y) sm:-mt-48 md:-mt-72">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
         {/* Même système que « Cet automne, on court » : grand titre, sous-titre dessous.
             Ombre portée douce : le titre passe sur le bas de la photo du pilote. */}
@@ -190,7 +190,7 @@ export default function HomePage() {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-asphalt via-asphalt/75 to-asphalt/30 lg:bg-gradient-to-r lg:from-asphalt/95 lg:via-asphalt/70 lg:to-asphalt/20" />
         </div>
 
-        <div className="relative z-10 mx-auto flex min-h-[30rem] w-full max-w-7xl flex-col justify-end px-5 pb-8 pt-24 md:px-8 lg:min-h-[34rem] lg:justify-center lg:py-16">
+        <div className="relative z-10 mx-auto flex min-h-[30rem] w-full max-w-7xl flex-col justify-end px-5 pt-(--section-y) md:px-8 lg:min-h-[34rem] lg:justify-center">
           <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
             Un vrai circuit,
             <br />
@@ -212,7 +212,7 @@ export default function HomePage() {
           </ul>
         </div>
 
-        <div className="relative z-10 pb-16 md:pb-20">
+        <div className="relative z-10 pb-(--section-y) pt-(--section-gap)">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
           <div>
             <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
@@ -238,7 +238,7 @@ export default function HomePage() {
       </section>
 
       {/* ========== LES BONS PLANS ========== */}
-      <section className="bg-asphalt-2 py-14 md:py-20">
+      <section className="bg-asphalt-2 py-(--section-y)">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           {/* Même système que « Cet automne, on court » : grand titre, sous-titre + lien sur une ligne. */}
           <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
@@ -261,7 +261,7 @@ export default function HomePage() {
           {/* Trois cartes au même gabarit, aux couleurs de l'agenda : mercredi jaune,
               2 tickets = 1 offert bleu, dimanche blanc. Pas de bouton : la carte se suffit,
               le lien « Voir les bons plans » mène au détail. */}
-          <div data-stagger data-deals-row className="bleed-row-mobile no-scrollbar mt-8 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0">
+          <div data-stagger data-deals-row className="bleed-row-mobile no-scrollbar mt-(--section-gap) grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0">
             {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => {
               const skin =
                 deal.slug === "2-plus-1"
@@ -298,7 +298,7 @@ export default function HomePage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* ========== ÉVÉNEMENTS ========== */}
-      <section className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
+      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
         {/* Même système que « Cet automne, on court » : grand titre, sous-titre + lien sur une ligne. */}
         <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
           Les grands jours
@@ -314,7 +314,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div data-stagger className="mt-16 grid gap-x-5 gap-y-12 md:grid-cols-3">
+        <div data-stagger className="mt-(--section-gap) grid gap-x-5 gap-y-12 pt-6 md:grid-cols-3">
           {[
             {
               emoji: "🎂",
@@ -372,7 +372,7 @@ export default function HomePage() {
             className="object-cover object-[60%_55%]"
           />
         </div>
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-14 pt-64 md:px-8 lg:py-24">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-(--section-y) pt-64 md:px-8 lg:py-(--section-y)">
           {/* Même système que les autres sections : grand titre, sous-titre dessous. */}
           <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-asphalt">
             La pause
@@ -406,7 +406,7 @@ export default function HomePage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* ========== INFOS PRATIQUES ========== */}
-      <section className="bg-asphalt-2 py-20 md:py-28">
+      <section className="bg-asphalt-2 py-(--section-y)">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-3">
           <div data-reveal>
             <h2 className="display text-3xl text-chalk">Horaires</h2>
@@ -449,13 +449,13 @@ export default function HomePage() {
       </section>
 
       {/* ========== FAQ (ex-page Tarifs) ========== */}
-      <section id="faq" className="mx-auto max-w-4xl scroll-mt-24 px-5 py-20 md:px-8 md:py-28">
+      <section id="faq" className="mx-auto max-w-4xl scroll-mt-24 px-5 py-(--section-y) md:px-8">
         <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
           Questions
           <br />
           <span className="text-race">fréquentes.</span>
         </h2>
-        <div data-stagger className="mt-10 flex flex-col gap-4">
+        <div data-stagger className="mt-(--section-gap) flex flex-col gap-4">
           {FAQ.map((f) => (
             <details key={f.q} className="card group p-6 open:border-white/25">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold text-chalk [&::-webkit-details-marker]:hidden">
@@ -471,7 +471,7 @@ export default function HomePage() {
       </section>
 
       {/* ========== CTA FINAL ========== */}
-      <section className="relative overflow-hidden py-24 text-center md:py-36">
+      <section className="relative overflow-hidden py-(--section-y) text-center">
         <div className="checker absolute inset-x-0 top-0 h-5 opacity-[0.07]" aria-hidden="true" />
         <div className="mx-auto max-w-3xl px-5">
           <h2 data-reveal className="display text-[clamp(2.6rem,7vw,5.5rem)] text-chalk">

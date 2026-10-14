@@ -73,7 +73,7 @@ export default function FleetCarousel({ karts }: { karts: Kart[] }) {
 
   return (
     <>
-      <div className="mx-auto mt-8 flex max-w-7xl justify-end gap-3 px-5 md:px-8">
+      <div className="mx-auto mt-(--section-gap) flex max-w-7xl justify-end gap-3 px-5 md:px-8">
         {arrow(-1, edges.start)}
         {arrow(1, edges.end)}
       </div>

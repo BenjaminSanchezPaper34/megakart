@@ -178,7 +178,7 @@ export default function PhotoMosaic() {
   );
 
   return (
-    <section className="relative overflow-hidden bg-asphalt-2 pt-14 md:pt-20">
+    <section className="relative overflow-hidden bg-asphalt-2 pt-(--section-y)">
       {/* Même système que les autres sections : grand titre, sous-titre + lien sur une ligne. */}
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
@@ -186,7 +186,7 @@ export default function PhotoMosaic() {
           <br />
           <span className="text-flag">jour et nuit.</span>
         </h2>
-        <div className="mt-5 mb-10 flex flex-wrap items-end justify-between gap-4 md:mb-12">
+        <div className="mb-(--section-gap) mt-5 flex flex-wrap items-end justify-between gap-4">
           <p data-reveal className="max-w-xl text-base leading-relaxed text-chalk md:text-xl">
             Sessions au soleil, nocturnes sous les projecteurs, premiers tours en Baby Kart : le circuit en vrai.
           </p>
