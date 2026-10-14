@@ -389,7 +389,7 @@ export default function HomePage() {
               ["🥤", "Boissons fraîches"],
               ["⛱️", "Terrasse ombragée"],
             ].map(([emoji, item]) => (
-              <li key={item} className="flex items-center gap-3 whitespace-nowrap text-base font-semibold md:text-lg">
+              <li key={item} className="flex items-center gap-3 text-base font-semibold leading-tight md:text-lg lg:whitespace-nowrap">
                 <span aria-hidden="true" className="text-5xl leading-none">{emoji}</span>
                 {item}
               </li>
