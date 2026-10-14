@@ -5,6 +5,11 @@ import Marquee from "@/components/Marquee";
 import MonthPlanner from "@/components/MonthPlanner";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd, agendaJsonLd } from "@/lib/jsonld";
+import PageHero from "@/components/system/PageHero";
+import SectionHeader from "@/components/system/SectionHeader";
+import EmojiList from "@/components/system/EmojiList";
+import CtaFinal from "@/components/system/CtaFinal";
+import { dealSkin, factEmoji, LABEL_TONE } from "@/components/system/tones";
 import {
   RACES,
   DEALS,
@@ -12,7 +17,6 @@ import {
   SHOW_PROMOS,
   getOperation,
   formatDate,
-  type Operation,
 } from "@/lib/agenda";
 
 /* Les promos datées attendent le feu vert du client (voir SHOW_PROMOS). */
@@ -41,18 +45,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/agenda" },
 };
 
-/* Couleur d'accent par opération, alignée sur les liserés de la flotte. */
-const ACCENT_TEXT: Record<Operation["accent"], string> = {
-  race: "text-race",
-  flag: "text-flag",
-  chalk: "text-chalk",
-};
-const ACCENT_BG: Record<Operation["accent"], string> = {
-  race: "bg-race",
-  flag: "bg-flag",
-  chalk: "bg-chalk/30",
-};
-
 /** Dates connues d'une opération, formatées pour sa fiche. */
 function opDates(slug: string) {
   return AGENDA.filter((a) => a.op === slug && !a.endDate).map((a) => {
@@ -78,25 +70,14 @@ export default function AgendaPage() {
         }}
       />
 
-      {/* Hero court */}
-      <section className="relative overflow-hidden pb-16 pt-40 md:pb-24 md:pt-48">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <p className="display mb-3 text-lg text-flag">
-            Fin d&rsquo;année 2026 — le programme
-          </p>
-          <h1 className="display text-[clamp(2.8rem,7vw,6rem)] text-chalk">
-            Ça roule aussi
-            <br />
-            <span className="text-race">hors saison.</span>
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk-60">
-            Endurance, trophées, courses enfants, roulage à volonté et bons
-            plans : l&rsquo;automne et l&rsquo;hiver sont la vraie saison des
-            pilotes. Toutes les dates sont ici — les courses se réservent par
-            téléphone ou par e-mail.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        short
+        image={{ src: "/images/galerie-22-aerien-crepuscule.jpg", alt: "Le circuit MegaKart au crépuscule, vu du ciel", position: "object-[center_40%]" }}
+        label="Fin d'année 2026, le programme"
+        line1="Ça roule aussi"
+        line2="hors saison."
+        subtitle="Endurance, trophées, courses enfants, roulage à volonté et bons plans : l'automne et l'hiver sont la vraie saison des pilotes."
+      />
 
       <Marquee
         items={[
@@ -110,25 +91,24 @@ export default function AgendaPage() {
       />
 
       {/* ========== LE MOIS EN PISTE (calendrier mensuel) ========== */}
-      <section className="bg-asphalt-2 py-16 md:py-24">
+      <section className="bg-asphalt-2 py-(--section-y)">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <h2
-            data-reveal
-            className="display text-[clamp(2rem,4.5vw,3.4rem)] text-chalk"
-          >
-            Le mois en piste,{" "}
-            <span className="text-flag">en un coup d&rsquo;œil</span>
-          </h2>
-          <p data-reveal className="mt-3 max-w-xl text-base text-chalk-60">
-            Ouvert, fermé, à volonté ou jour de course : touchez un jour pour le
-            détail. Les jours de course, le classement défile en direct sur la
-            page{" "}
-            <Link href="/live" className="link-under font-semibold text-chalk">
-              chrono
-            </Link>
-            .
-          </p>
-          <div data-reveal className="mt-8">
+          <SectionHeader
+            line1="Le mois en piste,"
+            line2="en un coup d'œil."
+            accent="flag"
+            subtitle={
+              <>
+                Ouvert, fermé, à volonté ou jour de course : touchez un jour pour le détail. Les jours de course, le
+                classement défile en direct sur la page{" "}
+                <Link href="/live" className="link-under font-semibold">
+                  chrono
+                </Link>
+                .
+              </>
+            }
+          />
+          <div data-reveal className="mt-(--section-gap)">
             <MonthPlanner />
           </div>
           <p data-reveal className="mt-8 text-sm text-chalk-60">
@@ -141,21 +121,15 @@ export default function AgendaPage() {
             >
               Instagram
             </a>
-            . Pour les courses, les places sont limitées — réservation au{" "}
-            <a
-              href={SITE.phoneHref}
-              className="link-under font-semibold text-chalk"
-            >
+            . Pour les courses, les places sont limitées : réservation au{" "}
+            <a href={SITE.phoneHref} className="link-under font-semibold text-chalk">
               {SITE.phone}
             </a>
             {SITE.email && (
               <>
                 {" "}
                 ou par e-mail à{" "}
-                <a
-                  href={`mailto:${SITE.email}`}
-                  className="link-under font-semibold text-chalk"
-                >
+                <a href={`mailto:${SITE.email}`} className="link-under font-semibold text-chalk">
                   {SITE.email}
                 </a>
               </>
@@ -168,25 +142,15 @@ export default function AgendaPage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* ========== LES COURSES ========== */}
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-        <h2
-          data-reveal
-          className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk"
-        >
-          Les courses
-          <br />
-          <span className="display-outline">de fin d&rsquo;année.</span>
-        </h2>
-        <p
-          data-reveal
-          className="mt-4 max-w-xl text-base leading-relaxed text-chalk-60"
-        >
-          Le rythme est simple : une course adulte et une course enfant par
-          mois, toujours le dimanche — et le 19 décembre, le circuit passe aux
-          12 Heures.
-        </p>
+      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+        <SectionHeader
+          line1="Les courses"
+          line2="de fin d'année."
+          accent="outline"
+          subtitle="Le rythme est simple : une course adulte et une course enfant par mois, toujours le dimanche. Et le 19 décembre, le circuit passe aux 12 Heures."
+        />
 
-        <div className="mt-16 flex flex-col gap-20">
+        <div className="mt-(--section-gap) flex flex-col gap-(--section-y)">
           {RACES.map((race, i) => {
             const dates = opDates(race.slug);
             return (
@@ -198,24 +162,18 @@ export default function AgendaPage() {
                 }`}
               >
                 <div>
-                  <p
-                    data-reveal
-                    className={`display text-lg ${ACCENT_TEXT[race.accent]}`}
-                  >
+                  <p className={`mb-4 inline-flex rounded-full px-4 py-1.5 text-sm font-bold ${LABEL_TONE[race.accent]}`}>
                     {race.kicker}
                   </p>
-                  <h3
-                    data-reveal
-                    className="display mt-1 text-[clamp(2.2rem,5vw,4rem)] text-chalk"
-                  >
+                  <h3 data-reveal className="display text-[clamp(2.6rem,6vw,4.75rem)] leading-none text-chalk">
                     {race.name}
                   </h3>
                   {dates.length > 0 && (
-                    <p data-reveal className="mt-3 flex flex-wrap gap-2">
+                    <p data-reveal className="mt-5 flex flex-wrap gap-2">
                       {dates.map((d) => (
                         <span
                           key={d.date}
-                          className={`display px-3 py-1.5 text-sm tracking-wide ${
+                          className={`rounded-full px-3.5 py-1.5 text-sm font-semibold ${
                             d.date < AUJOURDHUI
                               ? "bg-white/5 text-chalk-60/60 line-through decoration-1"
                               : d.status === "confirme"
@@ -227,9 +185,9 @@ export default function AgendaPage() {
                           {d.text}
                           {d.date < AUJOURDHUI ? null : (
                             <>
-                              {d.status === "a-confirmer" && " — à confirmer"}
-                              {d.badge && ` — ${d.badge}`}
-                              {d.places !== undefined && (d.places === 0 ? " — complet" : d.places === 1 ? " — dernière place, 1 équipe" : ` — plus que ${d.places} équipes`)}
+                              {d.status === "a-confirmer" && " · à confirmer"}
+                              {d.badge && ` · ${d.badge}`}
+                              {d.places !== undefined && (d.places === 0 ? " · complet" : d.places === 1 ? " · dernière place" : ` · plus que ${d.places} équipes`)}
                             </>
                           )}
                         </span>
@@ -237,36 +195,21 @@ export default function AgendaPage() {
                     </p>
                   )}
                   {race.details.map((p) => (
-                    <p
-                      key={p}
-                      data-reveal
-                      className="mt-5 max-w-xl text-base leading-relaxed text-chalk-60"
-                    >
+                    <p key={p} data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-lg">
                       {p}
                     </p>
                   ))}
                   {race.price && (
-                    <p
-                      data-reveal
-                      className="display mt-6 flex items-baseline gap-3"
-                    >
+                    <p data-reveal className="display mt-6 flex flex-wrap items-baseline gap-x-3">
                       <span className="text-4xl text-chalk">{race.price}</span>
-                      {race.priceNote && (
-                        <span className="text-base text-chalk-60">
-                          {race.priceNote}
-                        </span>
-                      )}
+                      {race.priceNote && <span className="text-base text-chalk-60">{race.priceNote}</span>}
                     </p>
                   )}
-                  <div data-reveal className="mt-7 flex flex-wrap gap-4">
+                  <div data-reveal className="mt-8 flex flex-wrap gap-4">
                     {race.signup ? (
                       <>
                         {/* Inscription en ligne : le téléphone passe en second. */}
-                        <Link
-                          href={race.signup}
-                          data-track="inscription-ouverture"
-                          className="btn btn-race"
-                        >
+                        <Link href={race.signup} data-track="inscription-ouverture" className="btn btn-race">
                           {race.signupCta ?? "Inscrire mon équipe"}
                         </Link>
                         <a href={SITE.phoneHref} className="btn btn-ghost">
@@ -279,10 +222,7 @@ export default function AgendaPage() {
                           Réserver · {SITE.phone}
                         </a>
                         {SITE.email && (
-                          <a
-                            href={`mailto:${SITE.email}`}
-                            className="btn btn-ghost"
-                          >
+                          <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
                             Réserver par e-mail
                           </a>
                         )}
@@ -295,38 +235,14 @@ export default function AgendaPage() {
                     )}
                   </div>
                 </div>
-                {/* Colonne droite : l'affiche officielle quand elle existe, puis les faits. */}
+                {/* Colonne droite : l'affiche officielle quand elle existe, puis les faits à émojis. */}
                 <div
                   className={
-                    race.affiche
-                      ? "grid gap-6 sm:grid-cols-[minmax(0,240px)_1fr] sm:items-start"
-                      : ""
+                    race.affiche ? "grid gap-8 sm:grid-cols-[minmax(0,240px)_1fr] sm:items-center" : ""
                   }
                 >
-                  <Affiche
-                    op={race}
-                    className="mx-auto w-full max-w-[260px] sm:max-w-none"
-                  />
-                  <ul data-stagger className="flex flex-col gap-4">
-                    {race.facts.map((fact) => (
-                      <li
-                        key={fact}
-                        className="card relative flex items-center gap-4 overflow-hidden p-5"
-                      >
-                        <span
-                          aria-hidden="true"
-                          className={`absolute left-0 top-0 h-full w-1 ${ACCENT_BG[race.accent]}`}
-                        />
-                        <span
-                          className="checker-sm h-4 w-4 shrink-0 opacity-60"
-                          aria-hidden="true"
-                        />
-                        <span className="text-base font-medium text-chalk">
-                          {fact}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  <Affiche op={race} className="mx-auto w-full max-w-[260px] sm:max-w-none" />
+                  <EmojiList items={race.facts.map((f) => ({ emoji: factEmoji(f), text: f }))} />
                 </div>
               </article>
             );
@@ -337,107 +253,68 @@ export default function AgendaPage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* ========== LES BONS PLANS ========== */}
-      <section id="bons-plans" className="scroll-mt-24 bg-asphalt-2 py-20 md:py-28">
+      <section id="bons-plans" className="scroll-mt-24 bg-asphalt-2 py-(--section-y)">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <h2
-            data-reveal
-            className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk"
-          >
-            Les bons plans
-            <br />
-            <span className="text-flag">qui reviennent.</span>
-          </h2>
+          <SectionHeader
+            line1="Les bons plans"
+            line2="qui reviennent."
+            accent="flag"
+            subtitle="Sans réservation pour la plupart : choisissez votre jour, on s'occupe du reste."
+          />
+          {/* Aux couleurs du calendrier : mercredi jaune, 2+1 bleu, dimanche blanc. */}
           <div
             data-stagger
-            className={`mt-12 grid gap-6 ${
-              VISIBLE_DEALS.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"
-            }`}
+            className={`mt-(--section-gap) grid gap-5 ${VISIBLE_DEALS.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`}
           >
-            {VISIBLE_DEALS.map((deal) => (
-              <article
-                key={deal.slug}
-                id={deal.slug}
-                className="card group relative flex scroll-mt-28 flex-col overflow-hidden p-7"
-              >
-                <span
-                  aria-hidden="true"
-                  className={`absolute left-0 top-0 h-full w-1 ${ACCENT_BG[deal.accent]}`}
-                />
-                <p className={`display text-base ${ACCENT_TEXT[deal.accent]}`}>
-                  {deal.kicker}
-                </p>
-                <h3 className="display mt-1 text-3xl text-chalk">
-                  {deal.name}
-                </h3>
-                {deal.details.map((p) => (
-                  <p
-                    key={p}
-                    className="mt-4 text-base leading-relaxed text-chalk-60"
-                  >
-                    {p}
-                  </p>
-                ))}
-                {deal.price && (
-                  <p className="display mt-5 flex items-baseline gap-2">
-                    <span className="text-4xl text-chalk">{deal.price}</span>
-                    {deal.priceNote && (
-                      <span className="text-sm text-chalk-60">
-                        {deal.priceNote}
-                      </span>
-                    )}
-                  </p>
-                )}
-                <ul className="mt-5 flex flex-1 flex-col border-t border-white/10 text-sm text-chalk-60">
-                  {deal.facts.map((fact) => (
-                    <li
-                      key={fact}
-                      className="border-b border-white/5 py-2 last:border-b-0"
-                    >
-                      {fact}
-                    </li>
+            {VISIBLE_DEALS.map((deal) => {
+              const skin = dealSkin(deal);
+              return (
+                <article
+                  key={deal.slug}
+                  id={deal.slug}
+                  className={`race-event-card flex scroll-mt-28 flex-col items-center p-6 text-center sm:p-7 ${skin.card}`}
+                >
+                  <span className={`rounded-full px-3 py-1 text-sm font-bold ${skin.label}`}>{deal.kicker}</span>
+                  <h3 className="display mt-4 text-4xl leading-none md:text-[2.75rem]">{deal.name}</h3>
+                  {deal.details.map((p) => (
+                    <p key={p} className={`mt-4 text-base leading-relaxed ${skin.soft}`}>
+                      {p}
+                    </p>
                   ))}
-                </ul>
-              </article>
-            ))}
+                  <ul className={`mt-5 w-full border-t text-sm ${skin.rule}`}>
+                    {deal.facts.map((fact) => (
+                      <li key={fact} className={`border-b py-2 last:border-b-0 ${skin.rule}`}>
+                        {fact}
+                      </li>
+                    ))}
+                  </ul>
+                  {deal.price && (
+                    <div className={`mt-auto flex w-full flex-col items-center gap-1 border-t pt-4 ${skin.rule}`}>
+                      <p className="display text-4xl leading-none">{deal.price}</p>
+                      {deal.priceNote && <p className={`text-sm ${skin.soft}`}>{deal.priceNote}</p>}
+                    </div>
+                  )}
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ========== CTA ========== */}
-      <section className="relative overflow-hidden py-24 text-center md:py-32">
-        <div
-          className="checker absolute inset-x-0 top-0 h-5 opacity-[0.07]"
-          aria-hidden="true"
-        />
-        <div className="mx-auto max-w-2xl px-5">
-          <h2
-            data-reveal
-            className="display text-[clamp(2.4rem,6vw,4.5rem)] text-chalk"
-          >
-            Une date vous parle ?
-          </h2>
-          <p
-            data-reveal
-            className="mx-auto mt-5 max-w-md text-lg text-chalk-60"
-          >
-            Les courses et le Pack Découverte se réservent par téléphone ou par
-            e-mail — le roulage à volonté, c&rsquo;est sans réservation.
-          </p>
-          <div data-reveal className="mt-9 flex flex-wrap justify-center gap-4">
-            <a href={SITE.phoneHref} className="btn btn-race">
-              {SITE.phone}
-            </a>
-            {SITE.email && (
-              <a
-                href={`mailto:${SITE.email}`}
-                className="btn btn-ghost"
-              >
-                Écrire au circuit
-              </a>
-            )}
-          </div>
-        </div>
-      </section>
+      <CtaFinal
+        line1="Une date"
+        line2="vous parle ?"
+        subtitle="Les courses et le Pack Découverte se réservent par téléphone ou par e-mail. Le roulage à volonté, c'est sans réservation."
+      >
+        <a href={SITE.phoneHref} className="btn btn-race">
+          {SITE.phone}
+        </a>
+        {SITE.email && (
+          <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
+            Écrire au circuit
+          </a>
+        )}
+      </CtaFinal>
     </>
   );
 }

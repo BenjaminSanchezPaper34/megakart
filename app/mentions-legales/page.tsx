@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+import SectionHeader from "@/components/system/SectionHeader";
 
 export const metadata: Metadata = {
   title: "Mentions légales",
@@ -26,14 +27,12 @@ export default function MentionsLegalesPage() {
           ),
         }}
       />
-      <section className="mx-auto max-w-3xl px-5 pb-24 pt-40 md:px-8 md:pt-48">
-        <h1 className="display text-[clamp(2.4rem,6vw,4.5rem)] text-chalk">
-          Mentions légales
-        </h1>
+      <section className="mx-auto max-w-7xl px-5 pb-(--section-y) pt-40 md:px-8 md:pt-48">
+        <SectionHeader as="h1" line1="Mentions" line2="légales." accent="outline" />
 
-        <div className="mt-12 flex flex-col gap-10 text-base leading-relaxed text-chalk-60">
+        <div className="mt-(--section-gap) flex max-w-3xl flex-col gap-10 text-base leading-relaxed text-chalk-60">
           <div>
-            <h2 className="display mb-3 text-2xl text-chalk">Éditeur du site</h2>
+            <h2 className="display mb-3 text-3xl text-chalk">Éditeur du site</h2>
             <p>
               {SITE.legalName}, {SITE.company.form} au capital de{" "}
               {SITE.company.capital}, exploitant le circuit sous l&rsquo;enseigne{" "}
@@ -60,7 +59,7 @@ export default function MentionsLegalesPage() {
           </div>
 
           <div>
-            <h2 className="display mb-3 text-2xl text-chalk">Hébergement</h2>
+            <h2 className="display mb-3 text-3xl text-chalk">Hébergement</h2>
             <p>
               Vercel Inc.
               <br />
@@ -71,7 +70,7 @@ export default function MentionsLegalesPage() {
           </div>
 
           <div>
-            <h2 className="display mb-3 text-2xl text-chalk">
+            <h2 className="display mb-3 text-3xl text-chalk">
               Propriété intellectuelle
             </h2>
             <p>
@@ -84,7 +83,7 @@ export default function MentionsLegalesPage() {
           </div>
 
           <div>
-            <h2 className="display mb-3 text-2xl text-chalk">
+            <h2 className="display mb-3 text-3xl text-chalk">
               Conception &amp; réalisation
             </h2>
             <p>

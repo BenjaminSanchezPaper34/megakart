@@ -6,6 +6,10 @@ import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { AGENDA, formatDate, getOperation } from "@/lib/agenda";
 import { COURSE_ENFANT_SLUG, ENFANT } from "@/lib/inscription-enfant";
+import PageHero from "@/components/system/PageHero";
+import SectionHeader from "@/components/system/SectionHeader";
+import EmojiList from "@/components/system/EmojiList";
+import { factEmoji } from "@/components/system/tones";
 
 /* Les dates passées disparaissent d'elles-mêmes : page régénérée chaque jour. */
 export const revalidate = 86400;
@@ -45,34 +49,29 @@ export default function InscriptionCourseEnfantPage() {
         }}
       />
 
-      <section className="relative overflow-hidden pb-12 pt-40 md:pb-16 md:pt-48">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <p className="display mb-3 text-lg text-flag">
-            {op.kicker} · {DATES.map((d) => d.label).join(" · ")}
-          </p>
-          <h1 className="display text-[clamp(2.8rem,7vw,6rem)] text-chalk">
-            Inscrivez
-            <br />
-            <span className="text-race">votre enfant.</span>
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk-60">
-            De {ENFANT.ageMin} à {ENFANT.ageMax} ans, 1,40 m minimum. Un parent,
-            un ou plusieurs enfants : c&rsquo;est tout ce qu&rsquo;il faut.
-          </p>
-          {DATES.filter((d) => d.badge && d.iso >= new Date().toISOString().slice(0, 10)).map((d) => (
-            <p key={d.iso} className="display mt-6 inline-block bg-race px-4 py-2 text-lg tracking-wide text-chalk">
-              {d.label} : {d.badge}
-            </p>
-          ))}
-          <br />
-          <a href="#formulaire" className="btn btn-race mt-8">
-            Aller au formulaire
-          </a>
-        </div>
-      </section>
+      <PageHero
+        short
+        image={ src: "/images/galerie-16-jeune-pilote.jpg", alt: "Jeune pilote casqué prêt à s'élancer sur le circuit MegaKart", position: "object-[center_35%]" }
+        label={<>{op.kicker} · {DATES.map((d) => d.label).join(" · ")}</>}
+        line1="Inscrivez"
+        line2="votre enfant."
+        subtitle={`De ${ENFANT.ageMin} à ${ENFANT.ageMax} ans, 1,40 m minimum. Un parent, un ou plusieurs enfants : c'est tout ce qu'il faut.`}
+        action={
+          <>
+            {DATES.filter((d) => d.badge && d.iso >= new Date().toISOString().slice(0, 10)).map((d) => (
+              <span key={d.iso} className="rounded-full bg-race px-4 py-2 text-base font-bold text-white">
+                {d.label} : {d.badge}
+              </span>
+            ))}
+            <a href="#formulaire" className="btn btn-race">
+              Aller au formulaire
+            </a>
+          </>
+        }
+      />
 
       {/* Le contexte avant le formulaire — même schéma que les 100 Tours. */}
-      <section className="mx-auto max-w-5xl px-5 pb-16 md:px-8 md:pb-20">
+      <section className="mx-auto max-w-5xl px-5 pb-(--section-y) md:px-8">
         <div
           className={
             op.affiche
@@ -86,35 +85,19 @@ export default function InscriptionCourseEnfantPage() {
             className="mx-auto w-full max-w-[300px] md:order-2 md:max-w-none"
           />
           <div className="max-w-3xl">
-            <h2
-              data-reveal
-              className="display text-[clamp(1.8rem,4vw,2.6rem)] text-chalk"
-            >
+            <h2 data-reveal className="display text-[clamp(2.6rem,6vw,4.75rem)] leading-none text-chalk">
               {op.name}
             </h2>
             {op.details.map((par) => (
               <p
                 key={par}
                 data-reveal
-                className="mt-4 text-base leading-relaxed text-chalk-60"
+                className="mt-5 text-base leading-relaxed text-chalk md:text-lg"
               >
                 {par}
               </p>
             ))}
-            <ul data-stagger className="mt-8 grid gap-3 sm:grid-cols-2">
-              {op.facts.map((f) => (
-                <li
-                  key={f}
-                  className="card flex items-center gap-3 p-4 text-base text-chalk"
-                >
-                  <span
-                    className="checker-sm h-3 w-3 shrink-0 opacity-60"
-                    aria-hidden="true"
-                  />
-                  {f}
-                </li>
-              ))}
-            </ul>
+            <EmojiList items={op.facts.map((f) => ({ emoji: factEmoji(f), text: f }))} className="mt-8" />
             {op.price && (
               <p
                 data-reveal
@@ -134,24 +117,16 @@ export default function InscriptionCourseEnfantPage() {
 
       <section
         id="formulaire"
-        className="scroll-mt-28 bg-asphalt-2 py-16 md:py-20"
+        className="scroll-mt-28 bg-asphalt-2 py-(--section-y)"
       >
         <div className="mx-auto max-w-3xl px-5 md:px-8">
-          <h2
-            data-reveal
-            className="display text-[clamp(1.8rem,4vw,2.6rem)] text-chalk"
-          >
-            Inscrire <span className="text-race">votre enfant.</span>
-          </h2>
-          <p
-            data-reveal
-            className="mt-3 text-base leading-relaxed text-chalk-60"
-          >
+          <SectionHeader line1="Inscrire" line2="votre enfant." />
+          <p data-reveal className="mt-5 text-base leading-relaxed text-chalk md:text-xl">
             Le circuit vous rappelle sous 48 heures pour confirmer la place.
             Aucun paiement en ligne. L&rsquo;âge et la taille sont vérifiés à
             l&rsquo;accueil le jour J.
           </p>
-          <div className="mt-8">
+          <div className="mt-(--section-gap)">
             <InscriptionCourseEnfant dates={DATES} />
           </div>
           <div className="card mt-8 p-6">

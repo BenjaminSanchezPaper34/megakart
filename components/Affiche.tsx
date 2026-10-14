@@ -18,7 +18,7 @@ export default function Affiche({
 }) {
   if (!op.affiche) return null;
   return (
-    <figure data-reveal className={`card overflow-hidden p-2 ${className}`}>
+    <figure data-reveal className={`race-event-card overflow-hidden border border-chalk/15 shadow-[0_18px_48px_rgb(0_0_0/0.35)] ${className}`}>
       <Image
         src={op.affiche.src}
         alt={`Affiche officielle : ${op.name} chez MegaKart`}
@@ -26,7 +26,7 @@ export default function Affiche({
         height={op.affiche.height}
         sizes="(max-width: 767px) 80vw, 320px"
         priority={priority}
-        className="h-auto w-full"
+        className="block h-auto w-full"
       />
     </figure>
   );

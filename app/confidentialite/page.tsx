@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+import SectionHeader from "@/components/system/SectionHeader";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
@@ -21,14 +22,12 @@ export default function ConfidentialitePage() {
           ),
         }}
       />
-      <section className="mx-auto max-w-3xl px-5 pb-24 pt-40 md:px-8 md:pt-48">
-        <h1 className="display text-[clamp(2.4rem,6vw,4.5rem)] text-chalk">
-          Confidentialité
-        </h1>
+      <section className="mx-auto max-w-7xl px-5 pb-(--section-y) pt-40 md:px-8 md:pt-48">
+        <SectionHeader as="h1" line1="Confidentialité" line2="& cookies." accent="outline" />
 
-        <div className="mt-12 flex flex-col gap-10 text-base leading-relaxed text-chalk-60">
+        <div className="mt-(--section-gap) flex max-w-3xl flex-col gap-10 text-base leading-relaxed text-chalk-60">
           <div>
-            <h2 className="display mb-3 text-2xl text-chalk">L'essentiel</h2>
+            <h2 className="display mb-3 text-3xl text-chalk">L'essentiel</h2>
             <ul className="flex flex-col gap-2">
               <li>
                 · Ce site ne dépose <strong className="text-chalk">aucun cookie</strong>,
@@ -56,7 +55,7 @@ export default function ConfidentialitePage() {
           </div>
 
           <div>
-            <h2 className="display mb-3 text-2xl text-chalk">
+            <h2 className="display mb-3 text-3xl text-chalk">
               Responsable du traitement
             </h2>
             <p>
@@ -68,7 +67,7 @@ export default function ConfidentialitePage() {
           </div>
 
           <div>
-            <h2 className="display mb-3 text-2xl text-chalk">
+            <h2 className="display mb-3 text-3xl text-chalk">
               Données traitées
             </h2>
             <p>
@@ -89,7 +88,7 @@ export default function ConfidentialitePage() {
           </div>
 
           <div>
-            <h2 className="display mb-3 text-2xl text-chalk">
+            <h2 className="display mb-3 text-3xl text-chalk">
               Inscription aux courses (formulaires)
             </h2>
             <p>
@@ -134,7 +133,7 @@ export default function ConfidentialitePage() {
           </div>
 
           <div>
-            <h2 className="display mb-3 text-2xl text-chalk">
+            <h2 className="display mb-3 text-3xl text-chalk">
               Mesure d&rsquo;audience
             </h2>
             <p>
@@ -162,7 +161,7 @@ export default function ConfidentialitePage() {
           </div>
 
           <div>
-            <h2 className="display mb-3 text-2xl text-chalk">
+            <h2 className="display mb-3 text-3xl text-chalk">
               Carte Google Maps
             </h2>
             <p>
@@ -185,7 +184,7 @@ export default function ConfidentialitePage() {
           </div>
 
           <div>
-            <h2 className="display mb-3 text-2xl text-chalk">
+            <h2 className="display mb-3 text-3xl text-chalk">
               Chrono en direct (Apex Timing)
             </h2>
             <p>
@@ -200,7 +199,7 @@ export default function ConfidentialitePage() {
           </div>
 
           <div>
-            <h2 className="display mb-3 text-2xl text-chalk">Vos droits</h2>
+            <h2 className="display mb-3 text-3xl text-chalk">Vos droits</h2>
             <p>
               Conformément au RGPD et à la loi Informatique et Libertés, vous
               disposez de droits d'accès, de rectification, d'effacement,

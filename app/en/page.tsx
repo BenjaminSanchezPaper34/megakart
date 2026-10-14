@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Marquee from "@/components/Marquee";
 import OpenBadge from "@/components/OpenBadge";
 import { KARTS } from "@/lib/karts";
 import { SITE, SITE_URL } from "@/lib/site";
+import SectionHeader from "@/components/system/SectionHeader";
+import PageHero from "@/components/system/PageHero";
+import CtaFinal from "@/components/system/CtaFinal";
 
 export const metadata: Metadata = {
   title: "Go-Karting in Vias-Plage — 1000 m outdoor track, ages 3+",
@@ -48,41 +50,23 @@ export default function EnglishPage() {
       />
 
       {/* Hero */}
-      <section className="relative flex min-h-svh flex-col justify-end overflow-hidden">
-        <div data-hero-bg className="absolute inset-0">
-          <Image
-            src="/images/hero-drone.jpg"
-            alt="Aerial view of the 1000 m MegaKart circuit in Vias-Plage"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-asphalt/70 via-asphalt/35 to-asphalt" />
-        </div>
-        <div data-hero-content className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-24 pt-40 md:px-8">
-          <p className="display mb-4 text-lg text-flag md:text-xl">
-            Vias-Plage · South of France — next to Fabrikus &amp; Europark Indoor
-          </p>
-          <h1 className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
-            1000 metres,
-            <br />
-            <span className="text-race">full throttle.</span>
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk md:text-xl">
-            The outdoor go-kart circuit of Vias-Plage, FFSA-approved.
-            From age 3, no booking needed: walk in, gear up, race.
-          </p>
-          <div className="mt-9 flex flex-wrap gap-4">
+      <PageHero
+        image={{ src: "/images/hero-drone.jpg", alt: "Aerial view of the 1000 m MegaKart circuit in Vias-Plage" }}
+        label="Vias-Plage · South of France, next to Fabrikus & Europark Indoor"
+        line1="1000 metres,"
+        line2="full throttle."
+        subtitle="The outdoor go-kart circuit of Vias-Plage, FFSA-approved. From age 3, no booking needed: walk in, gear up, race."
+        action={
+          <>
             <a href={SITE.phoneHref} className="btn btn-race">
               {SITE.phone}
             </a>
             <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
               Directions
             </a>
-          </div>
-        </div>
-      </section>
+          </>
+        }
+      />
 
       <Marquee
         items={[
@@ -96,15 +80,13 @@ export default function EnglishPage() {
       />
 
       {/* Karts & prices */}
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-        <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-          Karts &amp; <span className="text-race">prices.</span>
-        </h2>
-        <p data-reveal className="mt-4 max-w-xl text-base leading-relaxed text-chalk-60">
-          8-minute sessions (5 minutes for the Baby Kart). Helmets provided.
-          Closed shoes required. We accept cards and cash.
-        </p>
-        <div data-stagger className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+        <SectionHeader
+          line1="Karts &"
+          line2="prices."
+          subtitle="8-minute sessions (5 minutes for the Baby Kart). Helmets provided. Closed shoes required. We accept cards and cash."
+        />
+        <div data-stagger className="mt-(--section-gap) grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {KARTS.map((k) => (
             <article key={k.slug} className="card flex items-center justify-between gap-4 p-5">
               <div>
@@ -123,10 +105,14 @@ export default function EnglishPage() {
       <div className="kerb" aria-hidden="true" />
 
       {/* Practical info */}
-      <section className="bg-asphalt-2 py-20 md:py-28">
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-3">
+      <section className="bg-asphalt-2 py-(--section-y)">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHeader line1="Good" line2="to know." accent="flag" />
+        </div>
+        <div className="mx-auto mt-(--section-gap) grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-3">
           <div data-reveal>
-            <h2 className="display text-3xl text-chalk">Opening hours</h2>
+            <span aria-hidden="true" className="text-5xl leading-none">🕑</span>
+            <h3 className="display mt-4 text-3xl text-chalk">Opening hours</h3>
             <div className="mt-4"><OpenBadge withDetail en /></div>
             <p className="mt-4 text-base leading-relaxed text-chalk-60">
               Summer season: every day, 10 am to 12:30 am, non-stop.
@@ -134,7 +120,8 @@ export default function EnglishPage() {
             </p>
           </div>
           <div data-reveal>
-            <h2 className="display text-3xl text-chalk">Getting here</h2>
+            <span aria-hidden="true" className="text-5xl leading-none">📍</span>
+            <h3 className="display mt-4 text-3xl text-chalk">Getting here</h3>
             <address className="mt-4 text-base not-italic leading-relaxed text-chalk-60">
               {SITE.address.street}
               <br />
@@ -147,7 +134,8 @@ export default function EnglishPage() {
             </address>
           </div>
           <div data-reveal>
-            <h2 className="display text-3xl text-chalk">Groups & parties</h2>
+            <span aria-hidden="true" className="text-5xl leading-none">🎂</span>
+            <h3 className="display mt-4 text-3xl text-chalk">Groups & parties</h3>
             <p className="mt-4 text-base leading-relaxed text-chalk-60">
               Birthdays, stag &amp; hen parties, team building: private race
               formats from 7 people, booked by phone or e-mail.
@@ -160,23 +148,11 @@ export default function EnglishPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 text-center md:py-32">
-        <div className="mx-auto max-w-3xl px-5">
-          <h2 data-reveal className="display text-[clamp(2.6rem,7vw,5rem)] text-chalk">
-            Lights out.
-            <br />
-            <span className="text-race">See you on the grid.</span>
-          </h2>
-          <p data-reveal className="mx-auto mt-6 max-w-md text-lg text-chalk-60">
-            No booking — just come and race. Full website in French:
-          </p>
-          <div data-reveal className="mt-8">
-            <a href="/" className="btn btn-ghost">
-              Site en français
-            </a>
-          </div>
-        </div>
-      </section>
+      <CtaFinal line1="Lights out." line2="See you on the grid." subtitle="No booking, just come and race. Full website in French:">
+        <a href="/" className="btn btn-ghost">
+          Site en français
+        </a>
+      </CtaFinal>
     </>
   );
 }

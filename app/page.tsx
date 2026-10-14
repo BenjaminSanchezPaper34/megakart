@@ -6,6 +6,10 @@ import Reviews from "@/components/Reviews";
 import PhotoMosaic from "@/components/PhotoMosaic";
 import CircuitVideo from "@/components/CircuitVideo";
 import RowArrows from "@/components/RowArrows";
+import SectionHeader from "@/components/system/SectionHeader";
+import CtaFinal from "@/components/system/CtaFinal";
+import Faq from "@/components/system/Faq";
+import { dealSkin } from "@/components/system/tones";
 import TrackMap from "@/components/TrackMap";
 import FleetCarousel from "@/components/FleetCarousel";
 import OpenBadge from "@/components/OpenBadge";
@@ -263,12 +267,7 @@ export default function HomePage() {
               le lien « Voir les bons plans » mène au détail. */}
           <div data-stagger data-deals-row className="bleed-row-mobile no-scrollbar mt-(--section-gap) grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0">
             {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => {
-              const skin =
-                deal.slug === "2-plus-1"
-                  ? { card: "bg-promo text-white", soft: "text-white/80", rule: "border-white/30", label: "bg-white text-promo" }
-                  : deal.accent === "flag"
-                    ? { card: "bg-flag text-asphalt", soft: "text-asphalt/75", rule: "border-asphalt/20", label: "bg-asphalt text-flag" }
-                    : { card: "bg-chalk text-asphalt", soft: "text-asphalt/70", rule: "border-asphalt/15", label: "bg-asphalt text-chalk" };
+              const skin = dealSkin(deal);
               return (
                 <article
                   key={deal.slug}
@@ -407,92 +406,69 @@ export default function HomePage() {
 
       {/* ========== INFOS PRATIQUES ========== */}
       <section className="bg-asphalt-2 py-(--section-y)">
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-3">
-          <div data-reveal>
-            <h2 className="display text-3xl text-chalk">Horaires</h2>
-            <div className="mt-4">
-              <OpenBadge withDetail />
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHeader line1="Infos" line2="pratiques." accent="flag" />
+          <div className="mt-(--section-gap) grid gap-12 lg:grid-cols-3">
+            <div data-reveal>
+              <span aria-hidden="true" className="text-5xl leading-none">🕑</span>
+              <h3 className="display mt-4 text-3xl text-chalk">Horaires</h3>
+              <div className="mt-4">
+                <OpenBadge withDetail />
+              </div>
+              <p className="mt-4 text-base leading-relaxed text-chalk-60">
+                Hors saison, ouvert tous les jours de 14 h à 19 h (fermé lundi et
+                mardi en octobre, hors vacances) — jusqu&rsquo;à
+                minuit trente en été. Fermeture annuelle en janvier et février.
+              </p>
             </div>
-            <p className="mt-4 text-base leading-relaxed text-chalk-60">
-              Hors saison, ouvert tous les jours de 14 h à 19 h (fermé lundi et
-              mardi en octobre, hors vacances) — jusqu&rsquo;à
-              minuit trente en été. Fermeture annuelle en janvier et février.
-            </p>
-          </div>
-          <div data-reveal>
-            <h2 className="display text-3xl text-chalk">Accès</h2>
-            <address className="mt-4 text-base not-italic leading-relaxed text-chalk-60">
-              {SITE.address.street}
-              <br />
-              {SITE.address.zip} {SITE.address.city}
-              <br />
-              {SITE.landmark}
-            </address>
-            <a
-              href={SITE.mapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-under mt-3 inline-block text-base font-semibold text-chalk"
-            >
-              Itinéraire Google Maps
-            </a>
-          </div>
-          <div data-reveal>
-            <h2 className="display text-3xl text-chalk">Le règlement</h2>
-            <ul className="mt-4 flex flex-col gap-2 text-base leading-relaxed text-chalk-60">
-              <li>· Chaussures fermées type baskets obligatoires</li>
-              <li>· Vêtements flottants (écharpes, foulards…) interdits</li>
-              <li>· CB, espèces et chèques-vacances acceptés</li>
-            </ul>
+            <div data-reveal>
+              <span aria-hidden="true" className="text-5xl leading-none">📍</span>
+              <h3 className="display mt-4 text-3xl text-chalk">Accès</h3>
+              <address className="mt-4 text-base not-italic leading-relaxed text-chalk-60">
+                {SITE.address.street}
+                <br />
+                {SITE.address.zip} {SITE.address.city}
+                <br />
+                {SITE.landmark}
+              </address>
+              <a
+                href={SITE.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-under mt-3 inline-block text-base font-semibold text-chalk"
+              >
+                Itinéraire Google Maps
+              </a>
+            </div>
+            <div data-reveal>
+              <span aria-hidden="true" className="text-5xl leading-none">📋</span>
+              <h3 className="display mt-4 text-3xl text-chalk">Le règlement</h3>
+              <ul className="mt-4 flex flex-col gap-2 text-base leading-relaxed text-chalk-60">
+                <li>· Chaussures fermées type baskets obligatoires</li>
+                <li>· Vêtements flottants (écharpes, foulards…) interdits</li>
+                <li>· CB, espèces et chèques-vacances acceptés</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ========== FAQ (ex-page Tarifs) ========== */}
-      <section id="faq" className="mx-auto max-w-4xl scroll-mt-24 px-5 py-(--section-y) md:px-8">
-        <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-          Questions
-          <br />
-          <span className="text-race">fréquentes.</span>
-        </h2>
-        <div data-stagger className="mt-(--section-gap) flex flex-col gap-4">
-          {FAQ.map((f) => (
-            <details key={f.q} className="card group p-6 open:border-white/25">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold text-chalk [&::-webkit-details-marker]:hidden">
-                {f.q}
-                <span aria-hidden="true" className="display shrink-0 text-2xl text-race transition-transform duration-300 group-open:rotate-45">
-                  +
-                </span>
-              </summary>
-              <p className="mt-4 text-base leading-relaxed text-chalk-60">{f.a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
+      <Faq items={FAQ} id="faq" />
 
       {/* ========== CTA FINAL ========== */}
-      <section className="relative overflow-hidden py-(--section-y) text-center">
-        <div className="checker absolute inset-x-0 top-0 h-5 opacity-[0.07]" aria-hidden="true" />
-        <div className="mx-auto max-w-3xl px-5">
-          <h2 data-reveal className="display text-[clamp(2.6rem,7vw,5.5rem)] text-chalk">
-            Feux verts.
-            <br />
-            <span className="text-race">On vous attend.</span>
-          </h2>
-          <p data-reveal className="mx-auto mt-6 max-w-md text-lg text-chalk-60">
-            Pas de réservation, pas d'attente inutile : le circuit est à
-            deux minutes de Vias-plage.
-          </p>
-          <div data-reveal className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href={SITE.phoneHref} className="btn btn-race">
-              {SITE.phone}
-            </a>
-            <Link href="/contact" className="btn btn-ghost">
-              Comment venir
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CtaFinal
+        line1="Feux verts."
+        line2="On vous attend."
+        subtitle="Pas de réservation, pas d'attente inutile : le circuit est à deux minutes de Vias-plage."
+      >
+        <a href={SITE.phoneHref} className="btn btn-race">
+          {SITE.phone}
+        </a>
+        <Link href="/contact" className="btn btn-ghost">
+          Comment venir
+        </Link>
+      </CtaFinal>
     </>
   );
 }
