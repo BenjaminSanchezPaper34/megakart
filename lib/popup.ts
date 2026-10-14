@@ -33,6 +33,8 @@ export type PopupCampagne = {
    * (FORMATS). Seul le rapport largeur/hauteur compte pour la mise en page.
    */
   formats?: { wide: Dimensions; tall: Dimensions };
+  /** Dates couvertes par le visuel (affiche datée) ; absent = toutes les dates de l'opération. */
+  dates?: string[];
   /**
    * Clé de mémorisation. En changer (suffixe -2, -b…) fait réapparaître le
    * pop-up chez les visiteurs qui l'avaient déjà fermé : à ne faire que pour
@@ -50,6 +52,8 @@ export const CAMPAGNES: PopupCampagne[] = [
     wide: "/images/popup/100-tours-couverture.jpg",
     tall: "/images/popup/100-tours-post.jpg",
     key: "megakart-popup-100-tours-2026",
+    // L'affiche porte « dimanche 18 octobre » : jamais pour une autre date.
+    dates: ["2026-10-18"],
   },
   {
     // Un seul visuel, le post 3:4 : sur ordinateur il s'affiche en portrait
@@ -57,11 +61,12 @@ export const CAMPAGNES: PopupCampagne[] = [
     op: "course-enfant",
     href: "/inscription/course-enfant",
     cta: "En savoir plus",
-    alt: "Course Enfants, dimanche 11 octobre chez MegaKart — un jeune pilote casqué au volant d'un kart Sodi. Infos et inscriptions.",
-    wide: "/images/popup/course-enfant-post.jpg",
-    tall: "/images/popup/course-enfant-post.jpg",
-    formats: { wide: { width: 1440, height: 1920 }, tall: { width: 1440, height: 1920 } },
-    key: "megakart-popup-course-enfant-2026-10",
+    alt: "Course Enfants chez MegaKart — un jeune pilote casqué au volant d'un kart Sodi. Infos et inscriptions.",
+    // Affiche sans date : valable pour toutes les Course Enfant à venir.
+    wide: "/images/popup/course-enfant-sans-date.jpg",
+    tall: "/images/popup/course-enfant-sans-date.jpg",
+    formats: { wide: { width: 2250, height: 3000 }, tall: { width: 2250, height: 3000 } },
+    key: "megakart-popup-course-enfant-2026-11",
   },
 ];
 
@@ -85,7 +90,7 @@ export function campagneDuJour(today: string): (PopupCampagne & { until: string 
   let choix: (PopupCampagne & { until: string }) | null = null;
   for (const c of CAMPAGNES) {
     const prochaine = AGENDA.filter(
-      (a) => a.op === c.op && a.status === "confirme" && !a.endDate && a.date > today
+      (a) => a.op === c.op && a.status === "confirme" && !a.endDate && a.date > today && a.places !== 0 && (!c.dates || c.dates.includes(a.date))
     ).map((a) => a.date).sort()[0];
     if (prochaine && (!choix || prochaine < choix.until)) choix = { ...c, until: prochaine };
   }

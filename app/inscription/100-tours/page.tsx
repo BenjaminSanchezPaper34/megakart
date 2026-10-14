@@ -27,6 +27,9 @@ const DATES = AGENDA.filter(
   return { iso: a.date, label: `${f.weekday} ${f.day} ${f.month}`, places: a.places };
 });
 
+/* Les dates complètes restent annoncées mais sortent du formulaire. */
+const OUVERTES = DATES.filter((d) => d.places !== 0);
+
 export default function InscriptionCentToursPage() {
   const op = getOperation(CENT_TOURS_SLUG)!;
   return (
@@ -62,7 +65,7 @@ export default function InscriptionCentToursPage() {
           </p>
           {DATES.filter((d) => d.places !== undefined).map((d) => (
             <p key={d.iso} className="display mt-6 inline-block bg-race px-4 py-2 text-lg tracking-wide text-chalk">
-              {d.label} : {d.places === 1 ? "dernière place, 1 équipe" : `plus que ${d.places} équipes`}
+              {d.label} : {d.places === 0 ? "complet" : d.places === 1 ? "dernière place, 1 équipe" : `plus que ${d.places} équipes`}
             </p>
           ))}
           <br />
@@ -164,7 +167,7 @@ export default function InscriptionCentToursPage() {
           </p>
 
           <div className="mt-8">
-            <InscriptionCentTours dates={DATES} />
+            <InscriptionCentTours dates={OUVERTES} />
           </div>
 
           <div className="card mt-8 p-6">

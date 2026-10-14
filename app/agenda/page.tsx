@@ -229,7 +229,7 @@ export default function AgendaPage() {
                             <>
                               {d.status === "a-confirmer" && " — à confirmer"}
                               {d.badge && ` — ${d.badge}`}
-                              {d.places !== undefined && (d.places === 1 ? " — dernière place, 1 équipe" : ` — plus que ${d.places} équipes`)}
+                              {d.places !== undefined && (d.places === 0 ? " — complet" : d.places === 1 ? " — dernière place, 1 équipe" : ` — plus que ${d.places} équipes`)}
                             </>
                           )}
                         </span>

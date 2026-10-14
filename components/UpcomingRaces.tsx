@@ -62,9 +62,9 @@ export default function UpcomingRaces() {
         return (
           <div key={item.date + item.op} className="relative flex snap-start">
           {/* Rareté : label jaune à cheval sur le haut de la carte (comme la croix du pop-up). */}
-          {item.places !== undefined && item.places > 0 && (
-            <span className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-flag px-4 py-2 text-sm font-bold text-asphalt shadow-lg">
-              {item.places === 1 ? "Dernières inscriptions" : `Plus que ${item.places} équipes`}
+          {item.places !== undefined && (
+            <span className={`absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold shadow-lg ${item.places === 0 ? "bg-chalk text-asphalt" : "bg-flag text-asphalt"}`}>
+              {item.places === 0 ? "Complet" : item.places === 1 ? "Dernières inscriptions" : `Plus que ${item.places} équipes`}
             </span>
           )}
           <article className="race-event-card flex w-full flex-col overflow-hidden border border-chalk/15 bg-asphalt">
@@ -106,13 +106,19 @@ export default function UpcomingRaces() {
               <p className="mt-4 text-base font-bold text-chalk">{op?.price ?? "Tarif à venir"}</p>
               <p className="mt-1 line-clamp-2 min-h-[2lh] text-sm leading-snug text-chalk-60">{op?.priceNote ?? op?.facts?.[0] ?? ""}</p>
               <div className="mt-auto pt-4">
-                <Link
-                  href={href}
-                  data-track={featured ? "inscription-ouverture" : "course-accueil"}
-                  className="btn btn-race w-full"
-                >
-                  S&rsquo;inscrire
-                </Link>
+                {item.places === 0 ? (
+                  <Link href={op?.page ?? `/agenda#${item.op}`} className="btn btn-ghost w-full">
+                    Complet · voir la course
+                  </Link>
+                ) : (
+                  <Link
+                    href={href}
+                    data-track={featured ? "inscription-ouverture" : "course-accueil"}
+                    className="btn btn-race w-full"
+                  >
+                    S&rsquo;inscrire
+                  </Link>
+                )}
               </div>
             </div>
           </article>
