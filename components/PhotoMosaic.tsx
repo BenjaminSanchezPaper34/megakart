@@ -1,19 +1,10 @@
-"use client";
-
-import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 /**
- * Mosaïque photos : deux bandes de tuiles qui dérivent automatiquement en
- * sens opposés. Tuiles alignées, même hauteur, arrondi concentrique des cartes ;
- * le format de chaque case suit l'orientation de la photo (4/5, 3/2, 5/4).
- *
- * Prise en main : frein progressif à l'approche du pointeur (la dérive
- * décélère en douceur jusqu'à l'arrêt), ré-accélération progressive
- * quand on repart — le scroll manuel reste possible à tout moment,
- * avec une boucle sans couture.
+ * Mosaïque photos : une bande bord à bord qui défile en continu de droite à
+ * gauche (animation CSS .mosaic-track dans globals.css), pause au survol.
+ * Le format de chaque case suit l'orientation de la photo (4/5, 3/2, 5/4).
  */
-
 type Tile = { src: string; alt: string; ratio: string };
 
 const ROW_A: Tile[] = [
@@ -41,110 +32,19 @@ const ROW_B: Tile[] = [
 /* Tuiles bord à bord, même hauteur par bande, sans arrondi ni espace ; la section
    suivante démarre directement sous les photos (choix Benjamin, 14/10). */
 const TILE_H = "h-56 md:h-80";
-const TILE_RADIUS = "";
 
-const DRIFT_A = 0.45; // px/frame vers la gauche
-const DRIFT_B = 0.55; // px/frame vers la droite
-const BRAKE = 0.055; // inertie du frein/relance (lerp par frame)
 
 export default function PhotoMosaic() {
-  const rowARef = useRef<HTMLDivElement>(null);
-  const rowBRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    type RowState = {
-      el: HTMLDivElement;
-      dir: number;
-      cruise: number; // vitesse de croisière
-      speed: number; // vitesse instantanée (lerp vers target)
-      target: number;
-      timer: ReturnType<typeof setTimeout> | undefined;
-      pos: number; // position flottante : Safari arrondit scrollLeft à l'entier,
-      // un += 0,45 px n'y avançait jamais (bande figée sur iPhone/Safari).
-    };
-    const rows: RowState[] = [
-      { el: rowARef.current!, dir: 1, cruise: DRIFT_A, speed: 0, target: DRIFT_A, timer: undefined, pos: 0 },
-      { el: rowBRef.current!, dir: -1, cruise: DRIFT_B, speed: 0, target: DRIFT_B, timer: undefined, pos: 0 },
-    ].filter((r) => r.el);
-
-    const cleanups: (() => void)[] = [];
-    rows.forEach((row) => {
-      const el = row.el;
-      if (row.dir === -1) el.scrollLeft = el.scrollWidth / 2;
-
-      const brake = () => {
-        row.target = 0;
-        clearTimeout(row.timer);
-      };
-      const release = () => {
-        clearTimeout(row.timer);
-        row.timer = setTimeout(() => (row.target = row.cruise), 350);
-      };
-      // Molette / drag : frein, puis relance après une pause courte
-      const brakeThenRelease = () => {
-        row.target = 0;
-        clearTimeout(row.timer);
-        row.timer = setTimeout(() => (row.target = row.cruise), 1800);
-      };
-
-      el.addEventListener("pointerenter", brake);
-      el.addEventListener("pointerleave", release);
-      el.addEventListener("touchstart", brakeThenRelease, { passive: true });
-      el.addEventListener("touchmove", brakeThenRelease, { passive: true });
-      el.addEventListener("wheel", brakeThenRelease, { passive: true });
-      cleanups.push(() => {
-        clearTimeout(row.timer);
-        el.removeEventListener("pointerenter", brake);
-        el.removeEventListener("pointerleave", release);
-        el.removeEventListener("touchstart", brakeThenRelease);
-        el.removeEventListener("touchmove", brakeThenRelease);
-        el.removeEventListener("wheel", brakeThenRelease);
-      });
-    });
-
-    let raf: number;
-    const tick = () => {
-      rows.forEach((row) => {
-        const el = row.el;
-        const half = el.scrollWidth / 2;
-        if (half <= el.clientWidth) return; // images pas encore chargées
-        // Défilement manuel (doigt, molette) : on reprend depuis la position réelle.
-        if (Math.abs(el.scrollLeft - row.pos) > 2) row.pos = el.scrollLeft;
-        // Frein / relance progressifs
-        row.speed += (row.target - row.speed) * BRAKE;
-        if (Math.abs(row.speed) > 0.002) row.pos += row.dir * row.speed;
-        // Boucle sans couture
-        if (row.pos >= half) row.pos -= half;
-        if (row.pos <= 0) row.pos += half;
-        el.scrollLeft = row.pos;
-      });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      cleanups.forEach((fn) => fn());
-    };
-  }, []);
-
-  const renderRow = (
-    items: Tile[],
-    ref: React.RefObject<HTMLDivElement | null>,
-  ) => (
-    <div
-      ref={ref}
-      className="no-scrollbar overflow-x-auto"
-      aria-label="Photos du circuit — défilement horizontal"
-    >
-      <div className="flex w-max items-center">
+  const items = [...ROW_A, ...ROW_B];
+  const renderRow = () => (
+    <div className="mosaic-row overflow-hidden" aria-label="Photos du circuit — défilement automatique">
+      {/* Deux copies de la bande : l'animation glisse de -50 % puis boucle sans couture. */}
+      <div className="mosaic-track flex w-max items-center">
         {[...items, ...items].map((item, i) => (
           <div
             key={`${item.src}-${i}`}
             aria-hidden={i >= items.length}
-            className={`relative flex-shrink-0 overflow-hidden ${TILE_RADIUS} ${TILE_H} ${item.ratio}`}
+            className={`relative flex-shrink-0 overflow-hidden ${TILE_H} ${item.ratio}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -180,7 +80,7 @@ export default function PhotoMosaic() {
 
       {/* Une seule bande, dérive de droite à gauche (choix Benjamin, 14/10) */}
       <div className="relative">
-        {renderRow([...ROW_A, ...ROW_B], rowARef)}
+        {renderRow()}
       </div>
     </section>
   );
