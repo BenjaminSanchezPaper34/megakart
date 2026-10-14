@@ -38,6 +38,11 @@ export default function FX() {
       return () => {};
     }
 
+    // iOS : la barre d'adresse qui se rétracte redimensionne la fenêtre ; sans ça,
+    // ScrollTrigger recalcule tout en plein geste et le hero saute.
+    ScrollTrigger.config({ ignoreMobileResize: true });
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+
     const ctx = gsap.context(() => {
       // Reveals simples
       document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
@@ -85,8 +90,10 @@ export default function FX() {
       if (heroBg) {
         gsap.to(heroBg, {
           yPercent: 18,
-          scale: 1.08,
+          // Au doigt, pas de zoom sur la vidéo : trop coûteux pendant le défilement natif.
+          scale: coarse ? 1 : 1.08,
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: heroBg.parentElement,
             start: "top top",
@@ -96,11 +103,15 @@ export default function FX() {
         });
       }
       if (heroContent) {
+        // Mobile : opacité + translation seulement. Le scale obligeait le navigateur
+        // à recalculer le rendu du texte à chaque image → défilement saccadé (Benjamin, 14/10).
+        heroContent.style.willChange = "transform, opacity";
         gsap.to(heroContent, {
           opacity: 0,
-          yPercent: -25,
-          scale: 0.96,
+          yPercent: coarse ? -12 : -25,
+          scale: coarse ? 1 : 0.96,
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: heroContent.parentElement,
             start: "top top",

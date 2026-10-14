@@ -45,7 +45,7 @@ export default function HomePage() {
           </div>
 
           <div data-hero-content className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-10 pt-28 md:px-8 md:pb-20 md:pt-40 [@media(max-height:740px)]:pb-6 [@media(max-height:740px)]:pt-24">
-            <div className="mb-4 inline-flex rounded-full border border-white/15 bg-asphalt/50 px-4 py-2 backdrop-blur-sm">
+            <div className="mb-4 inline-flex rounded-full border border-white/15 bg-asphalt/70 px-4 py-2 md:bg-asphalt/50 md:backdrop-blur-sm">
               <OpenBadge />
             </div>
             <p className="display mb-3 text-lg text-flag md:text-xl">
