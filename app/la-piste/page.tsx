@@ -7,6 +7,7 @@ import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import PageHero from "@/components/system/PageHero";
 import SectionHeader from "@/components/system/SectionHeader";
+import EmojiList from "@/components/system/EmojiList";
 
 export const metadata: Metadata = {
   title: "La piste — 1000 m homologués FFSA à Vias",
@@ -41,8 +42,14 @@ export default function PistePage() {
       />
 
       {/* Specs */}
-      <section className="mx-auto max-w-7xl px-5 pb-(--section-y) md:px-8">
-        <dl data-stagger className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+        <SectionHeader
+          line1="La fiche"
+          line2="technique."
+          accent="flag"
+          subtitle="Un circuit de catégorie 1.1, homologué pour la location comme pour la compétition."
+        />
+        <dl data-stagger className="mt-(--section-gap) grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
           {SPECS.map((s) => (
             <div key={s.label} className="flex flex-col items-center text-center">
               <span aria-hidden="true" className="text-5xl leading-none">{s.emoji}</span>
@@ -73,35 +80,54 @@ export default function PistePage() {
 
       <div className="kerb" aria-hidden="true" />
 
-      {/* Sécurité + chrono */}
+      {/* Sécurité */}
       <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
-        <SectionHeader line1="Sensations," line2="sans les surprises." accent="outline" />
-        <div data-stagger className="mt-(--section-gap) grid gap-x-5 gap-y-12 pt-6 md:grid-cols-2">
-          <article className="card relative p-6 pt-12 sm:p-8 sm:pt-12">
-            <span aria-hidden="true" className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 text-5xl leading-none drop-shadow-[0_6px_10px_rgb(0_0_0/0.5)]">🛡️</span>
-            <h2 className="display text-center text-3xl text-chalk">Sécurité type Formule 1</h2>
-            <p className="mt-4 text-base leading-relaxed text-chalk-60">
-              Le circuit est équipé des protections Tecpro dernière génération, la même technologie que sur les
-              circuits de Formule 1. Homologations régulières FFSA et Préfecture, moniteurs diplômés et personnel
-              qualifié en permanence au bord de la piste.
-            </p>
-          </article>
-          <article className="card relative p-6 pt-12 sm:p-8 sm:pt-12">
-            <span aria-hidden="true" className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 text-5xl leading-none drop-shadow-[0_6px_10px_rgb(0_0_0/0.5)]">⏱️</span>
-            <h2 className="display text-center text-3xl text-chalk">Le chrono, juge de paix</h2>
-            <p className="mt-4 text-base leading-relaxed text-chalk-60">
-              Chronométrage professionnel Apex Timing : chaque tour est mesuré au dixième et le classement
-              s&rsquo;affiche en direct sur l&rsquo;écran LED géant. On repart toujours avec un temps à battre.
-            </p>
-            <Link href="/live" className="link-under mt-4 inline-block text-base font-semibold text-chalk">
-              Voir le chrono en direct
-            </Link>
-          </article>
+        <div className="grid items-center gap-(--section-gap) lg:grid-cols-[1.1fr_1fr]">
+          <SectionHeader
+            line1="Sécurité"
+            line2="type Formule 1."
+            subtitle="Les sensations, sans les mauvaises surprises : la même technologie de protection que sur les circuits de Formule 1, et une équipe qualifiée en permanence au bord de la piste."
+          />
+          <EmojiList
+            items={[
+              { emoji: "🛡️", text: "Protections Tecpro dernière génération, comme en F1" },
+              { emoji: "✅", text: "Homologations régulières FFSA et Préfecture" },
+              { emoji: "🧑‍🏫", text: "Moniteurs diplômés au bord de la piste" },
+              { emoji: "⛑️", text: "Casques fournis à chaque pilote" },
+            ]}
+          />
         </div>
       </section>
 
+      {/* Chrono */}
+      <section className="bg-asphalt-2 py-(--section-y)">
+        <div className="mx-auto grid max-w-7xl items-center gap-(--section-gap) px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
+          <SectionHeader
+            line1="Le chrono,"
+            line2="juge de paix."
+            accent="flag"
+            subtitle="Chronométrage professionnel Apex Timing : chaque tour est mesuré, le classement s'affiche en direct. On repart toujours avec un temps à battre."
+            action={
+              <Link href="/live" className="btn btn-ghost">
+                Voir le chrono en direct
+              </Link>
+            }
+          />
+          <EmojiList
+            items={[
+              { emoji: "⏱️", text: "Chaque tour mesuré au dixième" },
+              { emoji: "📺", text: "Classement en direct sur l'écran LED géant" },
+              { emoji: "📱", text: "Le même classement en direct sur le site" },
+              { emoji: "🏁", text: "Un temps à battre à chaque session" },
+            ]}
+          />
+        </div>
+      </section>
+
+      <div className="kerb" aria-hidden="true" />
+
       {/* Histoire — frise + archives familiales */}
-      <section id="histoire" className="scroll-mt-28 bg-asphalt-2 py-(--section-y)">
+      <section id="histoire" className="scroll-mt-28 py-(--section-y)">
         <div className="mx-auto max-w-5xl px-5 md:px-8">
           <p className="mb-5 inline-flex rounded-full bg-flag px-4 py-1.5 text-sm font-bold text-asphalt">
             Trente-quatre ans de piste
