@@ -155,13 +155,15 @@ export default function HomePage() {
       {/* ========== FLOTTE ========== */}
       <section id="flotte" className="relative z-10 -mt-28 scroll-mt-24 pb-20 sm:-mt-36 md:-mt-48 md:pb-28">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
+        {/* Même système que « Cet automne, on court » : grand titre, sous-titre dessous.
+            Ombre portée douce : le titre passe sur le bas de la photo du pilote. */}
+        <div className="[text-shadow:0_2px_24px_rgb(11_13_18/0.85)]">
+          <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
             Une flotte pour
             <br />
             <span className="text-race">chaque pilote.</span>
           </h2>
-          <p data-reveal className="max-w-sm text-base leading-relaxed text-chalk-60 md:text-right">
+          <p data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-xl">
             Du Baby Kart électrique dès 3 ans au 250 RX de compétition :
             {" "}{KARTS.length} machines, de {KARTS[0].price}€ à {KARTS[KARTS.length - 1].price}€ la session.
           </p>
