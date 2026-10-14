@@ -170,15 +170,21 @@ export default function HomePage() {
 
       <div className="kerb" aria-hidden="true" />
 
-      {/* ========== EXPÉRIENCE : vidéo plein cadre, trois arguments courts ========== */}
-      <section className="relative flex min-h-[88svh] items-end overflow-hidden bg-asphalt-2 lg:min-h-[80svh] lg:items-center">
-        <CircuitVideo />
-        {/* Voile de lecture : par le bas sur mobile, par la gauche sur ordinateur. */}
+      {/* ========== EXPÉRIENCE + PISTE : une seule section sur la vidéo ==========
+          La vidéo couvre le haut puis s'efface (masque d'opacité) dans le fond de page :
+          « 1000 m d'esses… » et le tracé animé se posent sur la partie assombrie. */}
+      <section className="relative overflow-hidden">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-asphalt via-asphalt/70 to-asphalt/10 lg:bg-gradient-to-r lg:from-asphalt/95 lg:via-asphalt/60 lg:to-transparent"
-        />
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-32 md:px-8 lg:py-24">
+          className="absolute inset-0"
+          style={{ maskImage: "linear-gradient(to bottom, rgb(0 0 0 / 100%) 0%, rgb(0 0 0 / 100%) 34%, rgb(0 0 0 / 90%) 42%, rgb(0 0 0 / 72%) 50%, rgb(0 0 0 / 50%) 58%, rgb(0 0 0 / 30%) 66%, rgb(0 0 0 / 15%) 74%, rgb(0 0 0 / 6%) 82%, rgb(0 0 0 / 0%) 90%)", WebkitMaskImage: "linear-gradient(to bottom, rgb(0 0 0 / 100%) 0%, rgb(0 0 0 / 100%) 34%, rgb(0 0 0 / 90%) 42%, rgb(0 0 0 / 72%) 50%, rgb(0 0 0 / 50%) 58%, rgb(0 0 0 / 30%) 66%, rgb(0 0 0 / 15%) 74%, rgb(0 0 0 / 6%) 82%, rgb(0 0 0 / 0%) 90%)" }}
+        >
+          <CircuitVideo />
+          {/* Voile de lecture : par le bas sur mobile, par la gauche sur ordinateur. */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-asphalt via-asphalt/70 to-asphalt/10 lg:bg-gradient-to-r lg:from-asphalt/95 lg:via-asphalt/60 lg:to-transparent" />
+        </div>
+
+        <div className="relative z-10 mx-auto flex min-h-[80svh] w-full max-w-7xl flex-col justify-end px-5 pb-12 pt-32 md:px-8 lg:min-h-[72svh] lg:justify-center lg:py-24">
           <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
             Un vrai circuit,
             <br />
@@ -204,10 +210,8 @@ export default function HomePage() {
             </li>
           </ul>
         </div>
-      </section>
 
-      {/* ========== PISTE ========== */}
-      <section className="relative overflow-hidden py-20 md:py-28">
+        <div className="relative z-10 pb-20 pt-8 md:pb-28 md:pt-12">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
           <div>
             <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
@@ -228,6 +232,7 @@ export default function HomePage() {
             </Link>
           </div>
           <TrackMap className="w-full" />
+        </div>
         </div>
       </section>
 
