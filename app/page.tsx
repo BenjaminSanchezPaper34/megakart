@@ -5,6 +5,7 @@ import HeroVideo from "@/components/HeroVideo";
 import Reviews from "@/components/Reviews";
 import PhotoMosaic from "@/components/PhotoMosaic";
 import CircuitVideo from "@/components/CircuitVideo";
+import RowArrows from "@/components/RowArrows";
 import TrackMap from "@/components/TrackMap";
 import FleetCarousel from "@/components/FleetCarousel";
 import OpenBadge from "@/components/OpenBadge";
@@ -250,7 +251,8 @@ export default function HomePage() {
           </div>
 
           {/* Trois cartes au même gabarit : quand, quoi, en une phrase, le prix, puis l'action. */}
-          <div data-stagger className="bleed-row-mobile no-scrollbar mt-10 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0">
+          <RowArrows target="[data-deals-row]" label="Bons plans" />
+          <div data-stagger data-deals-row className="bleed-row-mobile no-scrollbar mt-4 grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0">
             {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => {
               const tone =
                 deal.accent === "race" ? "text-race" : deal.accent === "flag" ? "text-flag" : "text-chalk";
