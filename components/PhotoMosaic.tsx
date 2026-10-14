@@ -38,10 +38,10 @@ const ROW_B: Tile[] = [
   { src: "galerie-20-famille.jpg", alt: "Sortie karting en famille", ratio: "aspect-[5/4]" },
 ];
 
-/* Tuiles alignées, même hauteur par bande, arrondi concentrique des cartes
-   du site (plus de coupe en parallélogramme ni de décalage : refonte 14/10). */
+/* Tuiles bord à bord, même hauteur par bande, sans arrondi ni espace ; la section
+   suivante démarre directement sous les photos (choix Benjamin, 14/10). */
 const TILE_H = "h-56 md:h-80";
-const TILE_RADIUS = "rounded-[calc(var(--cta-height)/2+1rem)]";
+const TILE_RADIUS = "";
 
 const DRIFT_A = 0.45; // px/frame vers la gauche
 const DRIFT_B = 0.55; // px/frame vers la droite
@@ -133,7 +133,7 @@ export default function PhotoMosaic() {
       className="no-scrollbar overflow-x-auto"
       aria-label="Photos du circuit — défilement horizontal"
     >
-      <div className="flex w-max items-center gap-4 px-5 md:gap-5 md:px-8">
+      <div className="flex w-max items-center">
         {[...items, ...items].map((item, i) => (
           <div
             key={`${item.src}-${i}`}
@@ -154,7 +154,7 @@ export default function PhotoMosaic() {
   );
 
   return (
-    <section className="relative overflow-hidden bg-asphalt-2 py-14 md:py-20">
+    <section className="relative overflow-hidden bg-asphalt-2 pt-14 md:pt-20">
       {/* Même système que les autres sections : grand titre, sous-titre + lien sur une ligne. */}
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
@@ -173,7 +173,7 @@ export default function PhotoMosaic() {
       </div>
 
       {/* Deux bandes en dérive opposée */}
-      <div className="relative space-y-4 md:space-y-5">
+      <div className="relative">
         {renderRow(ROW_A, rowARef)}
         {renderRow(ROW_B, rowBRef)}
       </div>
