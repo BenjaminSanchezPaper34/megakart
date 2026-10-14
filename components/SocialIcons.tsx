@@ -34,7 +34,7 @@ export default function SocialIcons({ className = "", size = "md" }: { className
     { label: "TikTok", href: SITE.social.tiktok },
   ].filter((l) => l.href) as { label: keyof typeof ICONS; href: string }[];
   return (
-    <ul className={`flex items-center ${lg ? "gap-3" : "gap-1"} ${className}`}>
+    <ul className={`flex items-center ${lg ? "gap-3" : "gap-0"} ${className}`}>
       {links.map((l) => (
         <li key={l.label}>
           <a
@@ -45,7 +45,7 @@ export default function SocialIcons({ className = "", size = "md" }: { className
             className={
               lg
                 ? "grid h-14 w-14 place-items-center rounded-full border border-white/20 text-2xl text-chalk transition-colors active:bg-white/10"
-                : "grid h-11 w-11 place-items-center text-base text-chalk transition-colors hover:text-white"
+                : "link-under link-under-icon grid h-11 w-9 place-items-center text-base text-chalk transition-colors hover:text-white"
             }
           >
             {ICONS[l.label]}

@@ -224,6 +224,12 @@ body {
   transform: scaleX(1);
   transform-origin: left;
 }
+/* Icônes réseaux du header : même trait, limité à la largeur de l'icône. */
+.link-under-icon::after {
+  left: 50%;
+  width: 1.25em;
+  margin-left: -0.625em;
+}
 
 /* ---------- Cards ---------- */
 /* Cartes génériques : même arrondi concentrique que les cartes courses
