@@ -336,10 +336,10 @@ export default function HomePage() {
             },
           ].map((e) => (
             <article key={e.title} className="card relative flex flex-col p-5 pt-12 sm:p-6 sm:pt-12">
-              {/* Émoji dans une pastille à cheval sur le bord du haut, centrée. */}
+              {/* Émoji seul, à cheval sur le bord du haut, centré. */}
               <span
                 aria-hidden="true"
-                className="absolute left-1/2 top-0 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-chalk/15 bg-asphalt-2 text-3xl shadow-lg"
+                className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 text-5xl leading-none drop-shadow-[0_6px_10px_rgb(0_0_0/0.5)]"
               >
                 {e.emoji}
               </span>
