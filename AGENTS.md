@@ -126,3 +126,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-14 — Claude : icônes réseaux du header resserrées (w-9, gap-0) + soulignement rouge animé des onglets (.link-under-icon).
 - 2026-10-14 — Claude : hero mobile — sortie du texte en CSS scroll-driven (animation-timeline) au lieu du scrub GSAP au doigt ; parallaxe du fond coupée sur mobile.
 - 2026-10-14 — Claude : bandeau photo fin (casques du stand, galerie-25-casques.jpg) entre « Cet automne » et la flotte ; photo ajoutée à /photos.
+- 2026-10-14 — Claude : bandeau casques plus haut (176/224/288 px).
