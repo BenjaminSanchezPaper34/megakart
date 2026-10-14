@@ -117,3 +117,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-14 — Claude : flotte desktop (≥1024) à 3 cartes visibles alignées sur les butées (lg:w calc 76rem/3) au lieu de 38rem — en ligne. Aucune session en cours.
 - 2026-10-14 — Claude : « Trouve ton kart » compacté — le CTA laisse place au choix d âge sur la même ligne (mobile : titre + croix, puis 4 pastilles sur une rangée), bouton de fermeture qui remet la flotte à plat, recommandation sur une ligne — en ligne. Aucune session en cours.
 - 2026-10-14 — Claude : 100 Tours du 18/10 COMPLET (places: 0 dans lib/agenda.ts → label « Complet » sur l accueil, agenda, page d inscription ; la date sort du formulaire, seule la 6/12 reste). Pop-up : dates complètes ignorées, champ dates (affiche 100 Tours limitée au 18/10), Course Enfant sur l affiche sans date (clé -2026-11) — en ligne. Aucune session en cours.
+- 2026-10-14 — Claude : 12 Heures → 9 équipes engagées (placesPrises: 9, 6 places restantes) — en ligne.
