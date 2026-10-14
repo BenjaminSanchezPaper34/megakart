@@ -357,11 +357,13 @@ export default function HomePage() {
       {/* ========== MOSAÏQUE PHOTOS ========== */}
       <PhotoMosaic />
 
+      <div className="kerb" aria-hidden="true" />
+
       {/* ========== LE STAND (pause fraîcheur) ==========
           Section blanche ; la photo de la terrasse occupe la droite (le haut sur mobile),
           légèrement transparente et fondue vers le texte (masque .stand-photo). */}
       <section className="relative overflow-hidden bg-chalk text-asphalt">
-        <div className="stand-photo absolute inset-x-0 top-0 h-80 opacity-85 lg:inset-y-0 lg:left-auto lg:right-0 lg:h-auto lg:w-[62%]">
+        <div className="stand-photo absolute inset-x-0 top-0 h-80 opacity-60 lg:inset-y-0 lg:left-auto lg:right-0 lg:h-auto lg:w-[62%]">
           <Image
             src="/images/galerie-09-terrasse.jpg"
             alt="Le stand du circuit MegaKart de nuit : glaces, boissons, granités et la terrasse aux chaises rouges"
