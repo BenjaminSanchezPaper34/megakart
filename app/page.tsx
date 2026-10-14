@@ -272,17 +272,17 @@ export default function HomePage() {
               return (
                 <article
                   key={deal.slug}
-                  className={`race-event-card flex snap-start flex-col gap-0 p-5 sm:p-6 ${skin.card}`}
+                  className={`race-event-card flex snap-start flex-col items-center gap-0 p-5 text-center sm:p-6 ${skin.card}`}
                 >
                   {/* Quand : en label. */}
-                  <span className={`self-start rounded-full px-3 py-1 text-sm font-bold ${skin.label}`}>
+                  <span className={`rounded-full px-3 py-1 text-sm font-bold ${skin.label}`}>
                     {deal.kicker}
                   </span>
                   <h3 className="display mt-4 text-4xl leading-none md:text-[2.75rem]">{deal.name}</h3>
                   <p className={`mt-3 line-clamp-2 min-h-[2lh] text-base leading-snug ${skin.soft}`}>
                     {deal.summary}
                   </p>
-                  <div className={`mt-auto flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t pt-4 ${skin.rule}`}>
+                  <div className={`mt-auto flex w-full flex-col items-center gap-1 border-t pt-4 ${skin.rule}`}>
                     <p className="display text-3xl leading-none">{deal.price ?? "3e offerte"}</p>
                     <p className={`text-sm leading-snug ${skin.soft}`}>
                       {deal.priceNote ?? "2 sessions achetées, la 3e pour nous"}
