@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import Marquee from "@/components/Marquee";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/jsonld";
+import PageHero from "@/components/system/PageHero";
+import SectionHeader from "@/components/system/SectionHeader";
+import EmojiCards from "@/components/system/EmojiCards";
+import Faq from "@/components/system/Faq";
+import CtaFinal from "@/components/system/CtaFinal";
 
 export const metadata: Metadata = {
   title: "Anniversaire karting à Vias — dès 7 ans, près d'Agde et Béziers",
@@ -44,64 +48,43 @@ export default function AnniversairesPage() {
         }}
       />
 
-      {/* Hero */}
-      <section className="relative flex min-h-[72svh] items-end overflow-hidden">
-        <div data-hero-bg className="absolute inset-0">
-          <Image
-            src="/images/racer-kid.jpg"
-            alt="Enfant hilare au volant d'un kart lors d'un anniversaire chez MegaKart"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[center_30%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-asphalt/65 via-asphalt/35 to-asphalt" />
-        </div>
-        <div data-hero-content className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-44 md:px-8">
-          <p className="display mb-3 text-lg text-flag">Dès 7 participants · sur réservation</p>
-          <h1 className="display text-[clamp(2.8rem,7vw,6rem)] text-chalk">
-            L'anniversaire
-            <br />
-            <span className="text-race">pole position.</span>
-          </h1>
-        </div>
-      </section>
+      <PageHero
+        image={{ src: "/images/racer-kid.jpg", alt: "Enfant hilare au volant d'un kart lors d'un anniversaire chez MegaKart", position: "object-[center_30%]" }}
+        label="Dès 7 participants · sur réservation"
+        line1="L'anniversaire"
+        line2="pole position."
+        subtitle="Une course à son nom, le chrono sur l'écran géant, le podium, puis le gâteau sur la terrasse."
+      />
 
       {/* Déroulé */}
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-        <h2 data-reveal className="display max-w-3xl text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
-          Une vraie course, <span className="display-outline">pas une animation.</span>
-        </h2>
-        <div data-stagger className="mt-12 grid gap-6 md:grid-cols-3">
-          {[
-            {
-              step: "01",
-              title: "La grille de départ",
-              text: "Briefing pilotes, casques fournis, et chacun son kart adapté à son âge — du Baby Kart électrique au 160cc junior.",
-            },
-            {
-              step: "02",
-              title: "La course à son nom",
-              text: "Sprint ou endurance, défis sur mesure : le chrono Apex Timing affiche les temps en direct sur l'écran LED géant.",
-            },
-            {
-              step: "03",
-              title: "Podium & goûter",
-              text: "Remise de prix pour la star du jour, puis gâteau sur la terrasse ombragée pendant que les parents soufflent.",
-            },
-          ].map((s) => (
-            <article key={s.step} className="card p-7">
-              <p className="display text-4xl text-race">{s.step}</p>
-              <h3 className="display mt-3 text-2xl text-chalk">{s.title}</h3>
-              <p className="mt-3 text-base leading-relaxed text-chalk-60">{s.text}</p>
-            </article>
-          ))}
+      <section className="bg-asphalt-2 py-(--section-y)">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHeader
+            line1="Une vraie course,"
+            line2="pas une animation."
+            accent="outline"
+            subtitle="À deux minutes de Vias-plage, à un quart d'heure d'Agde et de Béziers : circuit homologué FFSA, moniteurs diplômés au bord de la piste."
+          />
+          <EmojiCards
+            items={[
+              {
+                emoji: "🏁",
+                title: "La grille de départ",
+                text: "Briefing pilotes, casques fournis, et chacun son kart adapté à son âge, du Baby Kart électrique au 160cc junior.",
+              },
+              {
+                emoji: "⏱️",
+                title: "La course à son nom",
+                text: "Sprint ou endurance, défis sur mesure : le chrono Apex Timing affiche les temps en direct sur l'écran LED géant.",
+              },
+              {
+                emoji: "🎂",
+                title: "Podium & goûter",
+                text: "Remise de prix pour la star du jour, puis gâteau sur la terrasse ombragée pendant que les parents soufflent.",
+              },
+            ]}
+          />
         </div>
-        <p data-reveal className="mt-10 max-w-2xl text-base leading-relaxed text-chalk-60">
-          À deux minutes de Vias-plage, entre Fabrikus World et Europark
-          Indoor — et à un quart d'heure d'Agde et de Béziers. Le circuit
-          est homologué FFSA, avec moniteurs diplômés au bord de la piste.
-        </p>
       </section>
 
       <Marquee
@@ -114,52 +97,25 @@ export default function AnniversairesPage() {
         ]}
       />
 
-      {/* FAQ */}
-      <section className="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
-        <h2 data-reveal className="display text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
-          Les questions des parents
-        </h2>
-        <div data-stagger className="mt-10 flex flex-col gap-4">
-          {FAQ.map((f) => (
-            <details key={f.q} className="card group p-6 open:border-white/25">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold text-chalk [&::-webkit-details-marker]:hidden">
-                {f.q}
-                <span
-                  aria-hidden="true"
-                  className="display shrink-0 text-2xl text-race transition-transform duration-300 group-open:rotate-45"
-                >
-                  +
-                </span>
-              </summary>
-              <p className="mt-4 text-base leading-relaxed text-chalk-60">{f.a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
+      <Faq items={FAQ} line1="Les questions" line2="des parents." />
 
-      {/* CTA */}
-      <section className="bg-asphalt-2 py-20 text-center md:py-28">
-        <div className="mx-auto max-w-2xl px-5">
-          <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-            On réserve la date ?
-          </h2>
-          <p data-reveal className="mt-5 text-lg leading-relaxed text-chalk-60">
-            Un coup de fil ou un e-mail suffit : date, nombre de pilotes,
-            format — et l'anniversaire est sur la grille.
-          </p>
-          <div data-reveal className="mt-9 flex flex-wrap justify-center gap-4">
-            <a href={SITE.phoneHref} className="btn btn-race">
-              {SITE.phone}
-            </a>
-            <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
-              {SITE.email}
-            </a>
-            <Link href="/evenements" className="btn btn-ghost">
-              EVG, EVJF &amp; entreprises
-            </Link>
-          </div>
-        </div>
-      </section>
+      <div className="kerb" aria-hidden="true" />
+
+      <CtaFinal
+        line1="On réserve"
+        line2="la date ?"
+        subtitle="Un coup de fil ou un e-mail suffit : date, nombre de pilotes, format, et l'anniversaire est sur la grille."
+      >
+        <a href={SITE.phoneHref} className="btn btn-race">
+          {SITE.phone}
+        </a>
+        <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
+          {SITE.email}
+        </a>
+        <Link href="/evenements" className="btn btn-ghost">
+          EVG, EVJF &amp; entreprises
+        </Link>
+      </CtaFinal>
     </>
   );
 }

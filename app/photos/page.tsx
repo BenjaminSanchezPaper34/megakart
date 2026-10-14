@@ -5,6 +5,9 @@ import GalleryGrid from "@/components/GalleryGrid";
 import ReelsRow from "@/components/ReelsRow";
 import { SITE, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+import PageHero from "@/components/system/PageHero";
+import SectionHeader from "@/components/system/SectionHeader";
+import CtaFinal from "@/components/system/CtaFinal";
 
 export const metadata: Metadata = {
   title: "Photos & vidéos — le circuit en plein jour et en nocturne",
@@ -72,56 +75,56 @@ export default function PhotosPage() {
         }}
       />
 
-      <section className="mx-auto max-w-7xl px-5 pb-10 pt-40 md:px-8 md:pt-48">
-        <p className="display mb-3 text-lg text-flag">Jour &amp; nocturne</p>
-        <h1 className="display text-[clamp(2.8rem,7vw,6rem)] text-chalk">
-          Le circuit
-          <br />
-          <span className="text-race">en images.</span>
-        </h1>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk-60">
-          Sessions de jour, nocturnes sous les projecteurs, premiers tours
-          en Baby Kart et vues du ciel — et un photographe sur place pour
-          repartir avec vos propres souvenirs.
-        </p>
-      </section>
+      <PageHero
+        short
+        image={{ src: "/images/galerie-15-nocturne-grande-roue.jpg", alt: "Session nocturne sur le circuit MegaKart, grande roue illuminée en arrière-plan", position: "object-[center_45%]" }}
+        label="Jour & nocturne"
+        line1="Le circuit"
+        line2="en images."
+        subtitle="Sessions de jour, nocturnes sous les projecteurs, premiers tours en Baby Kart et vues du ciel, avec un photographe sur place pour repartir avec vos souvenirs."
+      />
 
       <Souvenirs />
 
       {/* Les réels du circuit (verticaux, lecture au survol/tap) */}
-      <section className="overflow-hidden pb-16 md:pb-20">
-        <div className="mx-auto mb-8 flex max-w-7xl flex-wrap items-end justify-between gap-4 px-5 md:px-8">
-          <h2 data-reveal className="display text-[clamp(1.8rem,4vw,2.8rem)] text-chalk">
-            Les réels <span className="text-race">du circuit</span>
-          </h2>
-          <a
-            href={SITE.social.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-under text-sm font-semibold text-chalk"
-          >
-            Suivre @karting_megakart
-          </a>
+      <section className="overflow-hidden bg-asphalt-2 py-(--section-y)">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHeader
+            line1="Les réels"
+            line2="du circuit."
+            action={
+              <a
+                href={SITE.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost"
+              >
+                Suivre @karting_megakart
+              </a>
+            }
+          />
         </div>
-        <ReelsRow />
+        <div className="mt-(--section-gap)">
+          <ReelsRow />
+        </div>
       </section>
 
       {/* Grille masonry + lightbox plein écran */}
-      <section className="mx-auto max-w-7xl px-5 pb-24 md:px-8">
-        <h2 data-reveal className="display mb-8 text-[clamp(1.8rem,4vw,2.8rem)] text-chalk">
-          La galerie
-        </h2>
-        <GalleryGrid photos={PHOTOS} />
-
-        <div className="mt-12 flex flex-wrap gap-4">
-          <a href={SITE.phoneHref} className="btn btn-race">
-            Venir rouler · {SITE.phone}
-          </a>
-          <Link href="/la-piste" className="btn btn-ghost">
-            Découvrir la piste
-          </Link>
+      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+        <SectionHeader line1="La" line2="galerie." accent="flag" />
+        <div className="mt-(--section-gap)">
+          <GalleryGrid photos={PHOTOS} />
         </div>
       </section>
+
+      <CtaFinal line1="À votre tour" line2="de rouler." subtitle="Sans réservation : on arrive, on s'équipe, on roule.">
+        <a href={SITE.phoneHref} className="btn btn-race">
+          Venir rouler · {SITE.phone}
+        </a>
+        <Link href="/la-piste" className="btn btn-ghost">
+          Découvrir la piste
+        </Link>
+      </CtaFinal>
     </>
   );
 }

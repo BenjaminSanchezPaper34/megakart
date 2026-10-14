@@ -6,6 +6,10 @@ import InscriptionDouzeHeures from "@/components/InscriptionDouzeHeures";
 import { SITE, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { formatDate } from "@/lib/agenda";
+import PageHero from "@/components/system/PageHero";
+import SectionHeader from "@/components/system/SectionHeader";
+import EmojiCards from "@/components/system/EmojiCards";
+import EmojiList from "@/components/system/EmojiList";
 import { DOUZE_H, placesRestantes, prixEquipe } from "@/lib/inscription-12h";
 
 /*
@@ -63,46 +67,49 @@ const EVENT_JSONLD = {
 /* Le déroulé, vulgarisé depuis le règlement présenté par Vortex (réunion du 29/09/2026). */
 const FORMAT = [
   {
-    step: "01",
+    emoji: "🕛",
     title: `De ${DOUZE_H.depart} à ${DOUZE_H.arrivee}`,
     text: `Accueil des équipes à ${DOUZE_H.accueil}, essais et qualifications à ${DOUZE_H.essais}, puis départ en plein jour et arrivée sous les projecteurs : douze heures de relais sur les 1000 m du circuit.`,
   },
   {
-    step: "02",
+    emoji: "⛽",
     title: "Un ravitaillement par heure",
     text: `${DOUZE_H.ravitos} ravitaillements imposés, un par heure, annoncés au gyrophare, et ${DOUZE_H.arretsMin} arrêts au minimum sur la course. Le reste, c'est votre stratégie : qui roule, quand, combien de temps.`,
   },
   {
-    step: "03",
+    emoji: "🔄",
     title: "Un nouveau kart à chaque ravito",
     text: "À chaque ravitaillement, l'équipe repart sur un autre kart : personne ne garde « le bon » toute la journée. Votre numéro vous suit sur le transpondeur, pas sur la machine.",
   },
   {
-    step: "04",
+    emoji: "⏱️",
     title: "Le chrono en direct",
     text: "Chronométrage Apex Timing en continu, classement sur l'écran géant et sur la page chrono du site pour ceux qui suivent la course de loin.",
   },
 ];
 
 const ACCUEIL = [
-  "Un grand hangar chauffé, un espace réservé à chaque équipe",
-  "Écran de suivi de course et restauration sur place",
-  "Pilotes nourris toute la journée : petit-déjeuner, déjeuner, goûter et dîner",
-  "Boissons en libre-service pour tous",
-  "Équipement non fourni : casque et combinaison disponibles sur place",
-  "Trophée, podium et lots RSS en fin de course",
+  { emoji: "🔥", text: "Un grand hangar chauffé, un espace réservé à chaque équipe" },
+  { emoji: "📺", text: "Écran de suivi de course et restauration sur place" },
+  { emoji: "🍽️", text: "Pilotes nourris toute la journée : petit-déjeuner, déjeuner, goûter et dîner" },
+  { emoji: "🥤", text: "Boissons en libre-service pour tous" },
+  { emoji: "⛑️", text: "Équipement non fourni : casque et combinaison disponibles sur place" },
+  { emoji: "🏆", text: "Trophée, podium et lots RSS en fin de course" },
 ];
 
 const PUBLICS = [
   {
+    emoji: "🤝",
     title: "Entre amis",
     text: "Pas besoin d'être licencié : si vous avez déjà roulé en loisir, vous avez votre place. C'est la tête et la régularité qui gagnent une endurance.",
   },
   {
+    emoji: "💼",
     title: "En entreprise",
     text: "Une fin d'année qui change du restaurant : une équipe, un objectif, douze heures pour se serrer les coudes. Facture au nom de l'entreprise.",
   },
   {
+    emoji: "🏎️",
     title: "Habitués et équipages Vortex",
     text: "Les pilotes de la communauté Vortex et les habitués du circuit seront sur la grille. De quoi se mesurer aux meilleurs, dans une ambiance qui reste celle du loisir.",
   },
@@ -118,33 +125,14 @@ export default function DouzeHeuresPage() {
         }}
       />
 
-      {/* Hero */}
-      <section className="relative flex min-h-[78svh] items-end overflow-hidden">
-        <div data-hero-bg className="absolute inset-0">
-          <Image
-            src="/images/galerie-17-nocturne-action.jpg"
-            alt="Karts en action sur le circuit MegaKart éclairé de nuit"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[center_45%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-asphalt/70 via-asphalt/40 to-asphalt" />
-        </div>
-        <div data-hero-content className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-44 md:px-8">
-          <p className="display mb-3 text-lg text-flag">
-            {DATE_LABEL} · {DOUZE_H.depart} → {DOUZE_H.arrivee} · avec l&rsquo;écurie Vortex
-          </p>
-          <h1 className="display text-[clamp(2.8rem,8vw,6.5rem)] text-chalk">
-            Les 12 Heures
-            <br />
-            <span className="text-race">de MegaKart.</span>
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk">
-            Le plus grand format jamais couru sur le circuit : douze heures d&rsquo;endurance par équipes, du jour à la
-            nuit, sur les 1000 m de Vias-plage.
-          </p>
-          <div className="mt-9 flex flex-wrap items-center gap-4">
+      <PageHero
+        image={{ src: "/images/galerie-17-nocturne-action.jpg", alt: "Karts en action sur le circuit MegaKart éclairé de nuit", position: "object-[center_45%]" }}
+        label={<>{DATE_LABEL} · {DOUZE_H.depart} → {DOUZE_H.arrivee} · avec l&rsquo;écurie Vortex</>}
+        line1="Les 12 Heures"
+        line2="de MegaKart."
+        subtitle="Le plus grand format jamais couru sur le circuit : douze heures d'endurance par équipes, du jour à la nuit, sur les 1000 m de Vias-plage."
+        action={
+          <>
             <a href="#formulaire" className="btn btn-race">
               Inscrire mon équipe
             </a>
@@ -154,12 +142,12 @@ export default function DouzeHeuresPage() {
                   Plus que <span className="text-flag">{RESTANTES}</span> places sur {DOUZE_H.placesMax}
                 </>
               ) : (
-                "Complet — liste d'attente par téléphone"
+                "Complet, liste d'attente par téléphone"
               )}
             </p>
-          </div>
-        </div>
-      </section>
+          </>
+        }
+      />
 
       <Marquee
         items={[
@@ -173,54 +161,32 @@ export default function DouzeHeuresPage() {
       />
 
       {/* Le format */}
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-        <h2 data-reveal className="display max-w-3xl text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-          Douze heures,
-          <br />
-          <span className="display-outline">une seule équipe.</span>
-        </h2>
-        <p data-reveal className="mt-6 max-w-2xl text-base leading-relaxed text-chalk-60">
-          L&rsquo;épreuve est coorganisée avec l&rsquo;écurie Vortex : leur équipe technique travaille aux côtés de celle
-          du circuit pour que la journée tienne du vrai meeting d&rsquo;endurance. Les karts sont les {DOUZE_H.karts} du
-          circuit, préparés pour l&rsquo;épreuve.
-        </p>
-        <div data-stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {FORMAT.map((s) => (
-            <article key={s.step} className="card p-7">
-              <p className="display text-4xl text-race">{s.step}</p>
-              <h3 className="display mt-3 text-2xl text-chalk">{s.title}</h3>
-              <p className="mt-3 text-base leading-relaxed text-chalk-60">{s.text}</p>
-            </article>
-          ))}
-        </div>
+      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+        <SectionHeader
+          line1="Douze heures,"
+          line2="une seule équipe."
+          accent="outline"
+          subtitle={`L'épreuve est coorganisée avec l'écurie Vortex, pour que la journée tienne du vrai meeting d'endurance. Les karts sont les ${DOUZE_H.karts} du circuit, préparés pour l'épreuve.`}
+        />
+        <EmojiCards items={FORMAT} cols={4} />
       </section>
 
       {/* L'accueil des équipes */}
-      <section className="bg-asphalt-2 py-20 md:py-28">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
+      <section className="bg-asphalt-2 py-(--section-y)">
+        <div className="mx-auto grid max-w-7xl items-center gap-(--section-gap) px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
           <div>
-            <p data-reveal className="display text-lg text-flag">
+            <p className="mb-5 inline-flex rounded-full bg-flag px-4 py-1.5 text-sm font-bold text-asphalt">
               Votre camp de base
             </p>
-            <h2 data-reveal className="display mt-1 text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
-              Au chaud entre deux relais.
-            </h2>
-            <p data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk-60">
-              Décembre au bord de la mer, ça peut piquer : pilotes et accompagnants se retrouvent dans un grand hangar
-              chauffé, avec un espace par équipe pour se reposer, manger et suivre la course. Les accompagnants sont les
-              bienvenus
-              {DOUZE_H.repasAccompagnant ? ` : repas à environ ${DOUZE_H.repasAccompagnant} € par personne (matin, midi et soir)` : ", repas en supplément"}.
-            </p>
-            <ul data-stagger className="mt-8 flex flex-col gap-3">
-              {ACCUEIL.map((item) => (
-                <li key={item} className="card flex items-center gap-4 p-4">
-                  <span className="checker-sm h-4 w-4 shrink-0 opacity-60" aria-hidden="true" />
-                  <span className="text-base text-chalk">{item}</span>
-                </li>
-              ))}
-            </ul>
+            <SectionHeader
+              line1="Au chaud"
+              line2="entre deux relais."
+              accent="flag"
+              subtitle={`Pilotes et accompagnants se retrouvent dans un grand hangar chauffé, avec un espace par équipe pour se reposer, manger et suivre la course${DOUZE_H.repasAccompagnant ? ` (repas accompagnant : environ ${DOUZE_H.repasAccompagnant} €, matin, midi et soir)` : ""}.`}
+            />
+            <EmojiList items={ACCUEIL} className="mt-(--section-gap)" />
           </div>
-          <div data-reveal className="overflow-hidden rounded-sm">
+          <div data-reveal className="race-event-card overflow-hidden">
             <Image
               src="/images/galerie-23-aerien-nuit.jpg"
               alt="Vue aérienne du circuit MegaKart éclairé la nuit"
@@ -234,40 +200,27 @@ export default function DouzeHeuresPage() {
       </section>
 
       {/* Pour qui */}
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-        <h2 data-reveal className="display max-w-3xl text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-          Ouvert à tous
-          <span className="text-race"> les équipages.</span>
-        </h2>
-        <div data-stagger className="mt-12 grid gap-6 md:grid-cols-3">
-          {PUBLICS.map((p) => (
-            <article key={p.title} className="card p-7">
-              <h3 className="display text-2xl text-chalk">{p.title}</h3>
-              <p className="mt-3 text-base leading-relaxed text-chalk-60">{p.text}</p>
-            </article>
-          ))}
-        </div>
+      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+        <SectionHeader line1="Ouvert à tous" line2="les équipages." />
+        <EmojiCards items={PUBLICS} />
       </section>
 
       <div className="kerb" aria-hidden="true" />
 
       {/* Inscription — le formulaire après le décor, comme toutes les pages d'inscription. */}
-      <section id="formulaire" className="scroll-mt-28 bg-asphalt-2 py-16 md:py-20">
+      <section id="formulaire" className="scroll-mt-28 bg-asphalt-2 py-(--section-y)">
         <div className="mx-auto max-w-3xl px-5 md:px-8">
-          <p data-reveal className="display text-lg text-flag">
+          <p className="mb-5 inline-flex rounded-full bg-flag px-4 py-1.5 text-sm font-bold text-asphalt">
             Inscription
           </p>
-          <h2 data-reveal className="display mt-1 text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
-            {PRIX} <span className="text-chalk-60">l&rsquo;équipe</span>
-          </h2>
-          <p data-reveal className="mt-3 text-base leading-relaxed text-chalk-60">
-            Le même tarif de {DOUZE_H.pilotesMin} à {DOUZE_H.pilotesMax} pilotes, repas compris. Pas d&rsquo;acompte :
-            tout se règle sur place le jour de la course. Ouvert dès {DOUZE_H.ageMin} ans, inscriptions jusqu&rsquo;à
-            ce que la grille soit complète.
-            {RESTANTES > 0 ? ` ${RESTANTES} places restantes sur ${DOUZE_H.placesMax}.` : ""}
-          </p>
+          <SectionHeader
+            line1={PRIX}
+            line2="l'équipe."
+            accent="flag"
+            subtitle={`Le même tarif de ${DOUZE_H.pilotesMin} à ${DOUZE_H.pilotesMax} pilotes, repas compris. Pas d'acompte : tout se règle sur place. Ouvert dès ${DOUZE_H.ageMin} ans.${RESTANTES > 0 ? ` ${RESTANTES} places restantes sur ${DOUZE_H.placesMax}.` : ""}`}
+          />
 
-          <div className="mt-8">
+          <div className="mt-(--section-gap)">
             <InscriptionDouzeHeures dateLabel={DATE_LABEL} />
           </div>
 
@@ -289,7 +242,7 @@ export default function DouzeHeuresPage() {
       </section>
 
       {/* Liens */}
-      <section className="mx-auto max-w-7xl px-5 py-16 text-center md:px-8 md:py-24">
+      <section className="mx-auto max-w-7xl px-5 py-(--section-y) text-center md:px-8">
         <div className="flex flex-wrap justify-center gap-4">
           <Link href="/agenda" className="btn btn-ghost">
             Tout l&rsquo;agenda

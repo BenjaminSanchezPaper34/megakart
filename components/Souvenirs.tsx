@@ -1,4 +1,5 @@
 import Image from "next/image";
+import SectionHeader from "./system/SectionHeader";
 import { GALERIE_BASE, GALERIES, archivesVisibles } from "@/lib/souvenirs";
 import { formatDate } from "@/lib/agenda";
 
@@ -10,16 +11,14 @@ import { formatDate } from "@/lib/agenda";
 export default function Souvenirs() {
   const archives = archivesVisibles();
   return (
-    <section className="mx-auto max-w-5xl px-5 pb-20 md:px-8">
-      <h2 data-reveal className="display text-[clamp(1.8rem,4vw,2.8rem)] text-chalk">
-        Les courses <span className="text-race">en photos</span>
-      </h2>
-      <p data-reveal className="mt-3 max-w-2xl text-base leading-relaxed text-chalk-60">
-        Vous avez roulé lors d&rsquo;une course ou d&rsquo;un événement ? Retrouvez vos photos et téléchargez-les
-        en qualité originale.
-      </p>
+    <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+      <SectionHeader
+        line1="Les courses"
+        line2="en photos."
+        subtitle="Vous avez roulé lors d'une course ou d'un événement ? Retrouvez vos photos et téléchargez-les en qualité originale."
+      />
 
-      <ol className="relative mt-10 border-l border-white/15 pl-6 md:pl-10">
+      <ol className="relative mt-(--section-gap) max-w-5xl border-l border-white/15 pl-6 md:pl-10">
         {GALERIES.map((g) => {
           const f = formatDate(g.date);
           const url = g.slug ? `${GALERIE_BASE}/${g.slug}` : null;
@@ -69,7 +68,7 @@ export default function Souvenirs() {
                   Voir les photos
                 </a>
               ) : (
-                <p className="mt-4 inline-block border border-white/15 px-4 py-2 text-sm text-chalk-60">
+                <p className="mt-4 inline-block rounded-full border border-white/15 px-4 py-2 text-sm text-chalk-60">
                   Photos en cours de tri — bientôt en ligne ici
                 </p>
               )}

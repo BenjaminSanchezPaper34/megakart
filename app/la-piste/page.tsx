@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import TrackMap from "@/components/TrackMap";
 import Marquee from "@/components/Marquee";
 import Histoire from "@/components/Histoire";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+import PageHero from "@/components/system/PageHero";
+import SectionHeader from "@/components/system/SectionHeader";
+import EmojiList from "@/components/system/EmojiList";
 
 export const metadata: Metadata = {
   title: "La piste — 1000 m homologués FFSA à Vias",
@@ -15,10 +17,10 @@ export const metadata: Metadata = {
 };
 
 const SPECS = [
-  { value: "1000 m", label: "de longueur" },
-  { value: "8,5 m", label: "de largeur" },
-  { value: "Cat. 1.1", label: "location & compétition" },
-  { value: "Tecpro", label: "protections type F1" },
+  { emoji: "📏", value: "1000 m", label: "de longueur" },
+  { emoji: "↔️", value: "8,5 m", label: "de largeur" },
+  { emoji: "🏁", value: "Cat. 1.1", label: "location & compétition" },
+  { emoji: "🛡️", value: "Tecpro", label: "protections type F1" },
 ];
 
 export default function PistePage() {
@@ -31,112 +33,111 @@ export default function PistePage() {
         }}
       />
 
-      {/* Hero photo aérienne */}
-      <section className="relative flex min-h-[72svh] items-end overflow-hidden">
-        <div data-hero-bg className="absolute inset-0">
-          <Image
-            src="/images/galerie-23-aerien-nuit.jpg"
-            alt="Le circuit MegaKart illuminé de nuit, vu du ciel au cœur de la zone de loisirs de Vias-plage"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-asphalt/55 via-asphalt/25 to-asphalt" />
-        </div>
-        <div data-hero-content className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-44 md:px-8">
-          <p className="display mb-3 text-lg text-flag">Homologué FFSA &amp; Préfecture · éclairé en nocturne</p>
-          <h1 className="display text-[clamp(2.8rem,7vw,6rem)] text-chalk">
-            La piste.
-          </h1>
-        </div>
-      </section>
+      <PageHero
+        image={{ src: "/images/galerie-23-aerien-nuit.jpg", alt: "Le circuit MegaKart illuminé de nuit, vu du ciel au cœur de la zone de loisirs de Vias-plage" }}
+        label="Homologué FFSA & Préfecture · éclairé en nocturne"
+        line1="La piste."
+        line2="1000 m de pilotage."
+        subtitle="Esses, épingles, relances et vraies lignes droites, sur un tracé large de 8,5 m."
+      />
 
       {/* Specs */}
-      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8">
-        <dl data-stagger className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+        <SectionHeader
+          line1="La fiche"
+          line2="technique."
+          accent="flag"
+          subtitle="Un circuit de catégorie 1.1, homologué pour la location comme pour la compétition."
+        />
+        <dl data-stagger className="mt-(--section-gap) grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
           {SPECS.map((s) => (
-            <div key={s.label} className="text-center">
-              <dd className="display text-4xl text-chalk md:text-5xl">{s.value}</dd>
-              <dt className="mt-2 text-sm text-chalk-60">{s.label}</dt>
+            <div key={s.label} className="flex flex-col items-center text-center">
+              <span aria-hidden="true" className="text-5xl leading-none">{s.emoji}</span>
+              <dd className="display mt-4 text-4xl text-chalk md:text-5xl">{s.value}</dd>
+              <dt className="mt-2 text-base text-chalk-60">{s.label}</dt>
             </div>
           ))}
         </dl>
       </section>
 
       {/* Tracé animé */}
-      <section className="bg-asphalt-2 py-16 md:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
-          <TrackMap className="order-2 w-full lg:order-1" />
-          <div className="order-1 lg:order-2">
-            <h2 data-reveal className="display text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
-              Un tracé qui se
-              <br />
-              <span className="text-race">mérite.</span>
-            </h2>
-            <p data-reveal className="mt-6 text-base leading-relaxed text-chalk-60">
-              Enchaînements d'esses, épingles serrées, relances et vraies
-              lignes droites : 1000 mètres dessinés pour apprendre les
-              trajectoires — et les soigner. La largeur de 8,5 m laisse
-              toujours la place de tenter un dépassement proprement.
-            </p>
-            <p data-reveal className="mt-4 text-base leading-relaxed text-chalk-60">
-              Le soir en été, la piste s'éclaire et le circuit roule
-              jusqu'à minuit trente : les sessions nocturnes sont une
-              autre expérience.
+      <section className="bg-asphalt-2 py-(--section-y)">
+        <div className="mx-auto grid max-w-7xl items-center gap-(--section-gap) px-5 md:px-8 lg:grid-cols-2">
+          <div>
+            <SectionHeader
+              line1="Un tracé qui se"
+              line2="mérite."
+              subtitle="Enchaînements d'esses, épingles serrées, relances et vraies lignes droites : 1000 mètres dessinés pour apprendre les trajectoires, et les soigner. La largeur de 8,5 m laisse toujours la place de tenter un dépassement proprement."
+            />
+            <p data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-lg">
+              Le soir en été, la piste s&rsquo;éclaire et le circuit roule jusqu&rsquo;à minuit trente : les sessions
+              nocturnes sont une autre expérience.
             </p>
           </div>
+          <TrackMap className="w-full" />
         </div>
       </section>
 
       <div className="kerb" aria-hidden="true" />
 
-      {/* Sécurité + chrono */}
-      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
-        <div data-stagger className="grid gap-6 md:grid-cols-2">
-          <article className="card p-8">
-            <span className="checker-sm mb-5 block h-5 w-10 opacity-60" aria-hidden="true" />
-            <h2 className="display text-3xl text-chalk">Sécurité type Formule 1</h2>
-            <p className="mt-4 text-base leading-relaxed text-chalk-60">
-              Le circuit est équipé des protections Tecpro dernière
-              génération — la même technologie que sur les circuits de
-              Formule 1. Homologations régulières FFSA et Préfecture,
-              moniteurs diplômés et personnel qualifié en permanence au
-              bord de la piste : les sensations, sans les mauvaises surprises.
-            </p>
-          </article>
-          <article className="card p-8">
-            <span className="checker-sm mb-5 block h-5 w-10 opacity-60" aria-hidden="true" />
-            <h2 className="display text-3xl text-chalk">Le chrono, juge de paix</h2>
-            <p className="mt-4 text-base leading-relaxed text-chalk-60">
-              Chronométrage professionnel Apex Timing : chaque tour est
-              mesuré au dixième et le classement s'affiche en direct sur
-              l'écran LED géant. On repart toujours avec un temps à battre —
-              le vôtre, ou celui de la table d'à côté.
-            </p>
-            <Link href="/live" className="link-under mt-4 inline-block text-base font-semibold text-chalk">
-              Voir le chrono en direct
-            </Link>
-          </article>
+      {/* Sécurité */}
+      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+        <div className="grid items-center gap-(--section-gap) lg:grid-cols-[1.1fr_1fr]">
+          <SectionHeader
+            line1="Sécurité"
+            line2="type Formule 1."
+            subtitle="Les sensations, sans les mauvaises surprises : la même technologie de protection que sur les circuits de Formule 1, et une équipe qualifiée en permanence au bord de la piste."
+          />
+          <EmojiList
+            items={[
+              { emoji: "🛡️", text: "Protections Tecpro dernière génération, comme en F1" },
+              { emoji: "✅", text: "Homologations régulières FFSA et Préfecture" },
+              { emoji: "🧑‍🏫", text: "Moniteurs diplômés au bord de la piste" },
+              { emoji: "⛑️", text: "Casques fournis à chaque pilote" },
+            ]}
+          />
         </div>
       </section>
 
+      {/* Chrono */}
+      <section className="bg-asphalt-2 py-(--section-y)">
+        <div className="mx-auto grid max-w-7xl items-center gap-(--section-gap) px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
+          <SectionHeader
+            line1="Le chrono,"
+            line2="juge de paix."
+            accent="flag"
+            subtitle="Chronométrage professionnel Apex Timing : chaque tour est mesuré, le classement s'affiche en direct. On repart toujours avec un temps à battre."
+            action={
+              <Link href="/live" className="btn btn-ghost">
+                Voir le chrono en direct
+              </Link>
+            }
+          />
+          <EmojiList
+            items={[
+              { emoji: "⏱️", text: "Chaque tour mesuré au dixième" },
+              { emoji: "📺", text: "Classement en direct sur l'écran LED géant" },
+              { emoji: "📱", text: "Le même classement en direct sur le site" },
+              { emoji: "🏁", text: "Un temps à battre à chaque session" },
+            ]}
+          />
+        </div>
+      </section>
+
+      <div className="kerb" aria-hidden="true" />
+
       {/* Histoire — frise + archives familiales */}
-      <section id="histoire" className="scroll-mt-28 bg-asphalt-2 py-16 md:py-24">
+      <section id="histoire" className="scroll-mt-28 py-(--section-y)">
         <div className="mx-auto max-w-5xl px-5 md:px-8">
-          <p data-reveal className="display text-lg text-flag">
+          <p className="mb-5 inline-flex rounded-full bg-flag px-4 py-1.5 text-sm font-bold text-asphalt">
             Trente-quatre ans de piste
           </p>
-          <h2 data-reveal className="display mt-1 text-[clamp(2rem,4.5vw,3.4rem)] text-chalk">
-            Depuis 1992,
-            <br />
-            <span className="display-outline">et toujours plus vite.</span>
-          </h2>
-          <p data-reveal className="mt-6 max-w-2xl text-base leading-relaxed text-chalk-60">
-            Le circuit a vu passer trois décennies de pilotes, des premiers
-            tours de roue en famille aux chronos de compétition. Voici son
-            histoire, année après année.
-          </p>
+          <SectionHeader
+            line1="Depuis 1992,"
+            line2="et toujours plus vite."
+            accent="outline"
+            subtitle="Le circuit a vu passer trois décennies de pilotes, des premiers tours de roue en famille aux chronos de compétition. Voici son histoire, année après année."
+          />
 
           <Histoire />
 

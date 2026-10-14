@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+import PageHero from "@/components/system/PageHero";
+import SectionHeader from "@/components/system/SectionHeader";
+import EmojiList from "@/components/system/EmojiList";
+import CtaFinal from "@/components/system/CtaFinal";
 
 export const metadata: Metadata = {
   title: "Anniversaires, EVG/EVJF & team building sur circuit",
@@ -20,7 +23,12 @@ const EVENTS = [
       "Un anniversaire chez MegaKart, c'est une vraie course à son nom : grille de départ, chrono sur l'écran géant, podium — et des copains qui en parlent encore à la rentrée.",
       "La terrasse ombragée et les tables de pique-nique accueillent le gâteau et les parents. Dès 7 participants, sur réservation.",
     ],
-    facts: ["Dès 7 participants", "Courses & défis sur mesure", "Terrasse ombragée pour le goûter"],
+    emoji: "🎂",
+    facts: [
+      { emoji: "👥", text: "Dès 7 participants" },
+      { emoji: "🏁", text: "Courses & défis sur mesure" },
+      { emoji: "⛱️", text: "Terrasse ombragée pour le goûter" },
+    ],
     cta: { href: "/anniversaires", label: "Tout sur les anniversaires" },
   },
   {
@@ -31,7 +39,12 @@ const EVENTS = [
       "Enterrez une vie de célibataire à pleine vitesse : défis d'équipe, course d'endurance sur mesure, remise de prix — et un futur marié ou une future mariée qu'on attend au tournant, littéralement.",
       "Le format se construit avec vous : sprint, endurance, grille inversée… Sur réservation, dès 7 personnes.",
     ],
-    facts: ["Formats sprint ou endurance", "Défis personnalisés", "Photo de podium garantie"],
+    emoji: "🥂",
+    facts: [
+      { emoji: "⏱️", text: "Formats sprint ou endurance" },
+      { emoji: "🎯", text: "Défis personnalisés" },
+      { emoji: "📸", text: "Photo de podium garantie" },
+    ],
   },
   {
     id: "entreprise",
@@ -41,10 +54,11 @@ const EVENTS = [
       "Une activité originale pour créer du lien : sur la piste, l'organigramme disparaît — il ne reste que le chrono. Challenges ludiques pensés pour renforcer l'esprit d'équipe et les moments conviviaux.",
       "Séminaires, sorties CE, fins de projet : on construit le format avec vous, du groupe d'une dizaine de personnes à la privatisation complète du circuit pour une soixantaine de participants.",
     ],
+    emoji: "🏆",
     facts: [
-      "Privatisation jusqu'à 60 personnes",
-      "Classements par équipe, chrono Apex Timing",
-      "À 15 min de Béziers et d'Agde",
+      { emoji: "👥", text: "Privatisation jusqu'à 60 personnes" },
+      { emoji: "⏱️", text: "Classements par équipe, chrono Apex Timing" },
+      { emoji: "📍", text: "À 15 min de Béziers et d'Agde" },
     ],
   },
 ];
@@ -61,91 +75,57 @@ export default function EvenementsPage() {
         }}
       />
 
-      {/* Hero */}
-      <section className="relative flex min-h-[72svh] items-end overflow-hidden">
-        <div data-hero-bg className="absolute inset-0">
-          <Image
-            src="/images/galerie-03-drapeau-damier.jpg"
-            alt="Le drapeau à damier s'abaisse en fin de course chez MegaKart"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[center_30%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-asphalt/65 via-asphalt/35 to-asphalt" />
-        </div>
-        <div data-hero-content className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-44 md:px-8">
-          <p className="display mb-3 text-lg text-flag">Uniquement sur réservation</p>
-          <h1 className="display text-[clamp(2.8rem,7vw,6rem)] text-chalk">
-            Vos événements,
-            <br />
-            <span className="text-race">départ lancé.</span>
-          </h1>
-        </div>
-      </section>
+      <PageHero
+        image={{ src: "/images/galerie-03-drapeau-damier.jpg", alt: "Le drapeau à damier s'abaisse en fin de course chez MegaKart", position: "object-[center_30%]" }}
+        label="Uniquement sur réservation"
+        line1="Vos événements,"
+        line2="départ lancé."
+        subtitle="Anniversaires, enterrements de vie, sorties d'équipe : on construit le format avec vous."
+      />
 
-      {/* Les 3 formats */}
-      <section className="mx-auto flex max-w-7xl flex-col gap-20 px-5 py-20 md:px-8 md:py-28">
-        {EVENTS.map((e, i) => (
-          <article
-            key={e.id}
-            id={e.id}
-            className={`grid scroll-mt-28 items-center gap-10 lg:grid-cols-2 ${
-              i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
-            }`}
-          >
+      {/* Les 3 formats : une section chacun, fonds alternés */}
+      {EVENTS.map((e, i) => (
+        <section
+          key={e.id}
+          id={e.id}
+          className={`scroll-mt-24 py-(--section-y) ${i % 2 === 1 ? "bg-asphalt-2" : ""}`}
+        >
+          <div className="mx-auto grid max-w-7xl items-center gap-(--section-gap) px-5 md:px-8 lg:grid-cols-[1.2fr_1fr]">
             <div>
-              <p data-reveal className="display text-lg text-flag">
-                {e.kicker}
+              <p className="mb-5 inline-flex items-center gap-2 rounded-full bg-flag px-4 py-1.5 text-sm font-bold text-asphalt">
+                <span aria-hidden="true">{e.emoji}</span> {e.kicker}
               </p>
-              <h2 data-reveal className="display mt-1 text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-                {e.title}
-              </h2>
+              <SectionHeader line1={e.title} />
               {e.text.map((p) => (
-                <p key={p} data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk-60">
+                <p key={p} data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-lg">
                   {p}
                 </p>
               ))}
               {"cta" in e && e.cta && (
-                <Link href={e.cta.href} data-reveal className="btn btn-ghost mt-7">
+                <Link href={e.cta.href} data-reveal className="btn btn-ghost mt-8">
                   {e.cta.label}
                 </Link>
               )}
             </div>
-            <ul data-stagger className="flex flex-col gap-4">
-              {e.facts.map((f) => (
-                <li key={f} className="card flex items-center gap-4 p-5">
-                  <span className="checker-sm h-4 w-4 shrink-0 opacity-60" aria-hidden="true" />
-                  <span className="text-base font-medium text-chalk">{f}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </section>
+            <EmojiList items={e.facts} />
+          </div>
+        </section>
+      ))}
 
       <div className="kerb" aria-hidden="true" />
 
-      {/* CTA réservation */}
-      <section className="bg-asphalt-2 py-20 text-center md:py-28">
-        <div className="mx-auto max-w-2xl px-5">
-          <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-            On cale une date ?
-          </h2>
-          <p data-reveal className="mt-5 text-lg leading-relaxed text-chalk-60">
-            Les événements se préparent par téléphone ou par e-mail : nombre
-            de pilotes, format de course, date — en cinq minutes, c'est réglé.
-          </p>
-          <div data-reveal className="mt-9 flex flex-wrap justify-center gap-4">
-            <a href={SITE.phoneHref} className="btn btn-race">
-              {SITE.phone}
-            </a>
-            <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
-              {SITE.email}
-            </a>
-          </div>
-        </div>
-      </section>
+      <CtaFinal
+        line1="On cale"
+        line2="une date ?"
+        subtitle="Les événements se préparent par téléphone ou par e-mail : nombre de pilotes, format de course, date. En cinq minutes, c'est réglé."
+      >
+        <a href={SITE.phoneHref} className="btn btn-race">
+          {SITE.phone}
+        </a>
+        <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
+          {SITE.email}
+        </a>
+      </CtaFinal>
     </>
   );
 }
