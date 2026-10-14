@@ -4,10 +4,9 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 /**
- * Mosaïque photos façon Paper34 : deux bandes de tuiles qui dérivent
- * automatiquement en sens opposés. Le format de chaque case suit
- * l'orientation de la photo (portrait 4/5, paysage 3/2 ou 5/4) et les
- * images restent intactes (aucun filtre).
+ * Mosaïque photos : deux bandes de tuiles qui dérivent automatiquement en
+ * sens opposés. Tuiles alignées, même hauteur, arrondi concentrique des cartes ;
+ * le format de chaque case suit l'orientation de la photo (4/5, 3/2, 5/4).
  *
  * Prise en main : frein progressif à l'approche du pointeur (la dérive
  * décélère en douceur jusqu'à l'arrêt), ré-accélération progressive
@@ -18,6 +17,7 @@ import Link from "next/link";
 type Tile = { src: string; alt: string; ratio: string };
 
 const ROW_A: Tile[] = [
+  { src: "galerie-26-pilote-rx250.jpg", alt: "Pilote en RX250 en pleine courbe", ratio: "aspect-[3/2]" },
   { src: "galerie-01-kart-adulte.jpg", alt: "Pilote adulte en pleine session", ratio: "aspect-[4/5]" },
   { src: "galerie-07-baby-kart.jpg", alt: "Enfant au volant d'un Baby Kart", ratio: "aspect-[4/5]" },
   { src: "galerie-03-drapeau-damier.jpg", alt: "Drapeau à damier en fin de course", ratio: "aspect-[3/2]" },
@@ -30,6 +30,7 @@ const ROW_A: Tile[] = [
 const ROW_B: Tile[] = [
   { src: "galerie-02-kart-enfant.jpg", alt: "Jeune pilote en kart enfant", ratio: "aspect-[3/2]" },
   { src: "galerie-14-enfant-nocturne.jpg", alt: "Enfant en session du soir", ratio: "aspect-[4/5]" },
+  { src: "galerie-25-casques.jpg", alt: "Les casques alignés au stand", ratio: "aspect-[3/2]" },
   { src: "galerie-16-jeune-pilote.jpg", alt: "Jeune pilote casqué", ratio: "aspect-[4/5]" },
   { src: "galerie-19-famille.jpg", alt: "Parent et enfant en biplace", ratio: "aspect-[4/5]" },
   { src: "galerie-22-aerien-crepuscule.jpg", alt: "Le circuit au crépuscule vu du ciel", ratio: "aspect-[4/5]" },
@@ -37,26 +38,10 @@ const ROW_B: Tile[] = [
   { src: "galerie-20-famille.jpg", alt: "Sortie karting en famille", ratio: "aspect-[5/4]" },
 ];
 
-/* Rythme des tuiles : hauteur, décalage, plan (0=premier plan) —
-   plus de rotation : la coupe parallélogramme .clip-race porte
-   l'inclinaison, cohérente avec les boutons et l'italique du site. */
-const RHYTHM = [
-  { h: "h-52 md:h-72", offset: "mt-0", depth: 1 },
-  { h: "h-40 md:h-56", offset: "mt-8 md:mt-14", depth: 2 },
-  { h: "h-60 md:h-80", offset: "mt-1 md:mt-3", depth: 0 },
-  { h: "h-44 md:h-60", offset: "mt-10 md:mt-16", depth: 2 },
-  { h: "h-48 md:h-64", offset: "mt-4 md:mt-7", depth: 1 },
-  { h: "h-56 md:h-72", offset: "mt-0", depth: 0 },
-  { h: "h-40 md:h-52", offset: "mt-9 md:mt-14", depth: 2 },
-];
-
-/* Ombres en filter (sur le parent) pour épouser la coupe clip-path */
-const DEPTH_SHADOW = [
-  "drop-shadow-[0_24px_22px_rgba(0,0,0,0.55)]",
-  "drop-shadow-[0_14px_14px_rgba(0,0,0,0.3)]",
-  "",
-];
-const DEPTH_Z = ["z-20", "z-10", "z-0"];
+/* Tuiles alignées, même hauteur par bande, arrondi concentrique des cartes
+   du site (plus de coupe en parallélogramme ni de décalage : refonte 14/10). */
+const TILE_H = "h-56 md:h-80";
+const TILE_RADIUS = "rounded-[calc(var(--cta-height)/2+1rem)]";
 
 const DRIFT_A = 0.45; // px/frame vers la gauche
 const DRIFT_B = 0.55; // px/frame vers la droite
@@ -142,65 +127,55 @@ export default function PhotoMosaic() {
   const renderRow = (
     items: Tile[],
     ref: React.RefObject<HTMLDivElement | null>,
-    offsetIndex: number
   ) => (
     <div
       ref={ref}
       className="no-scrollbar overflow-x-auto"
       aria-label="Photos du circuit — défilement horizontal"
     >
-      <div className="flex w-max items-start gap-4 px-5 md:gap-6 md:px-8">
-        {[...items, ...items].map((item, i) => {
-          const r = RHYTHM[(i + offsetIndex) % RHYTHM.length];
-          return (
-            <div
-              key={`${item.src}-${i}`}
-              aria-hidden={i >= items.length}
-              className={`relative flex-shrink-0 ${r.offset} ${DEPTH_Z[r.depth]} ${DEPTH_SHADOW[r.depth]}`}
-            >
-              <div
-                className={`clip-race relative overflow-hidden ${r.h} ${item.ratio}`}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`/images/${item.src}`}
-                  alt={i < items.length ? item.alt : ""}
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-              </div>
-            </div>
-          );
-        })}
+      <div className="flex w-max items-center gap-4 px-5 md:gap-5 md:px-8">
+        {[...items, ...items].map((item, i) => (
+          <div
+            key={`${item.src}-${i}`}
+            aria-hidden={i >= items.length}
+            className={`relative flex-shrink-0 overflow-hidden ${TILE_RADIUS} ${TILE_H} ${item.ratio}`}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`/images/${item.src}`}
+              alt={i < items.length ? item.alt : ""}
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
 
   return (
-    <section className="relative overflow-hidden bg-asphalt-2 py-20 md:py-28">
-      {/* Halo d'ambiance */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[70vw] max-h-[52rem] w-[70vw] max-w-[52rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-race/10 blur-[120px]"
-      />
-
+    <section className="relative overflow-hidden bg-asphalt-2 py-14 md:py-20">
+      {/* Même système que les autres sections : grand titre, sous-titre + lien sur une ligne. */}
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
-        <div className="mb-12 flex flex-wrap items-end justify-between gap-6 md:mb-16">
-          <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-            Sur la piste,
-            <br />
-            <span className="text-flag">jour et nuit.</span>
-          </h2>
-          <Link href="/photos" data-reveal className="btn btn-ghost">
+        <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
+          Sur la piste,
+          <br />
+          <span className="text-flag">jour et nuit.</span>
+        </h2>
+        <div className="mt-5 mb-10 flex flex-wrap items-end justify-between gap-4 md:mb-12">
+          <p data-reveal className="max-w-xl text-base leading-relaxed text-chalk md:text-xl">
+            Sessions au soleil, nocturnes sous les projecteurs, premiers tours en Baby Kart : le circuit en vrai.
+          </p>
+          <Link href="/photos" className="btn btn-ghost">
             Toutes les photos
           </Link>
         </div>
       </div>
 
       {/* Deux bandes en dérive opposée */}
-      <div className="relative space-y-4 md:space-y-8">
-        {renderRow(ROW_A, rowARef, 0)}
-        {renderRow(ROW_B, rowBRef, 3)}
+      <div className="relative space-y-4 md:space-y-5">
+        {renderRow(ROW_A, rowARef)}
+        {renderRow(ROW_B, rowBRef)}
       </div>
     </section>
   );
