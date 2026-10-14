@@ -136,7 +136,7 @@ export default function Reviews() {
       if (pausedRef.current) return;
       const card = track.querySelector<HTMLElement>("[data-review-card]");
       if (!card) return;
-      const step = card.offsetWidth + 24; // gap-6
+      const step = card.offsetWidth + 20; // gap-5
       const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - step / 2;
       track.scrollTo({ left: atEnd ? 0 : track.scrollLeft + step, behavior: "smooth" });
     }, AUTO_ADVANCE_MS);
@@ -152,35 +152,49 @@ export default function Reviews() {
   }, []);
 
   return (
-    <section className="overflow-hidden bg-asphalt-2 py-20 md:py-28">
+    <section className="overflow-hidden bg-asphalt-2 py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <h2 data-reveal className="display text-[clamp(2.2rem,5vw,4rem)] text-chalk">
-            Ils ont roulé <span className="text-flag">ici.</span>
-          </h2>
-          <div data-reveal className="flex items-baseline gap-3">
-            <p className="display text-5xl text-chalk">{GOOGLE_RATING.score}/5</p>
-            <p className="text-sm leading-tight text-chalk-60">
+        {/* Même système que les autres sections : grand titre, puis note + lien sur une ligne. */}
+        <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
+          Ils ont roulé
+          <br />
+          <span className="text-flag">ici.</span>
+        </h2>
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
+          {/* Note et nombre d'avis alignés sur le même axe vertical. */}
+          <div data-reveal className="flex items-center gap-3">
+            <p className="display text-5xl leading-none text-chalk">{GOOGLE_RATING.score}/5</p>
+            <p className="text-base leading-tight text-chalk md:text-lg">
               {GOOGLE_RATING.count} avis
               <br />
-              sur Google
+              <span className="text-chalk-60">sur Google</span>
             </p>
           </div>
+          <a
+            href={SITE.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-ghost"
+          >
+            Lire les avis sur Google
+          </a>
         </div>
       </div>
 
-      {/* Carrousel : scroll horizontal libre + avance auto */}
+      {/* Carrousel : scroll horizontal libre + avance auto. Butées alignées sur la
+          grille du site (padding + scroll-padding), le premier avis ne colle plus au bord. */}
       <div
         ref={trackRef}
         data-reveal
-        className="no-scrollbar mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-5 md:px-[max(2rem,calc((100vw-80rem)/2+2rem))]"
+        className="no-scrollbar mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth"
+        style={{ paddingInline: "var(--site-gutter)", scrollPaddingInline: "var(--site-gutter)" }}
         aria-label="Avis Google des visiteurs — défilement horizontal"
       >
         {REVIEWS.map((r) => (
           <figure
             key={r.author}
             data-review-card
-            className="card flex w-[85vw] max-w-[420px] shrink-0 snap-start flex-col p-6 md:p-7"
+            className="flex w-[85vw] max-w-[420px] shrink-0 snap-start flex-col rounded-[calc(var(--cta-height)/2+1rem)] border border-chalk/10 bg-asphalt p-6 md:p-7"
           >
             <span className="checker-sm block h-4 w-8 opacity-50" aria-hidden="true" />
             <blockquote className="mt-4 flex-1 text-base leading-relaxed text-chalk">
@@ -191,17 +205,6 @@ export default function Reviews() {
             </figcaption>
           </figure>
         ))}
-      </div>
-
-      <div className="mx-auto mt-10 max-w-7xl px-5 md:px-8">
-        <a
-          href={SITE.mapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn-ghost"
-        >
-          Lire les {GOOGLE_RATING.count} avis sur Google
-        </a>
       </div>
     </section>
   );

@@ -138,3 +138,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-14 — Claude : « Sur la piste, jour et nuit » modernisée — titre/sous-titre/lien, tuiles alignées même hauteur à arrondi concentrique (fin des parallélogrammes, décalages et halo), + photos pilote RX250 et casques.
 - 2026-10-14 — Claude : « La pause fraîcheur » au système titre/sous-titre, pastilles arrondies avec émojis (🍦 🧊 🥤 ⛱️), kicker « Le stand » retiré.
 - 2026-10-14 — Claude : « La pause fraîcheur » en plein cadre sur la photo de la terrasse (galerie-09), voiles de lecture, pastilles claires ; photo granités retirée de l'accueil.
+- 2026-10-14 — Claude : « Ils ont roulé ici » — titre grand format, note + nombre d'avis alignés avec « Lire les avis sur Google » sur la même ligne, cartes sans effet au survol, butées --site-gutter (1er avis plus collé au bord sur mobile).
