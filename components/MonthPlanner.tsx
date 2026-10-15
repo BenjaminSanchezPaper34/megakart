@@ -280,6 +280,7 @@ export default function MonthPlanner() {
             m={selected.m}
             d={selected.d}
             isToday={selected.d.iso === todayIso}
+            isPast={!!todayIso && selected.d.iso < todayIso}
             onStep={step}
             canStep={(delta) => neighbour(delta) !== null}
           />
@@ -332,18 +333,23 @@ function DayDetail({
   m,
   d,
   isToday,
+  isPast,
   onStep,
   canStep,
 }: {
   m: CalendarMonth;
   d: CalendarDay;
   isToday: boolean;
+  isPast: boolean;
   onStep: (delta: -1 | 1) => void;
   canStep: (delta: -1 | 1) => boolean;
 }) {
   const op = d.event?.op ? getOperation(d.event.op) : undefined;
   const weekday = WEEKDAYS_FULL[d.weekdayIdx];
   const { skin, label } = dayHeader(d);
+  // Course complète ou déjà courue : plus d'inscription ni de réservation
+  const closed = !!d.event?.full || isPast;
+  const signup = closed ? undefined : op?.signup;
 
   return (
     <div className="card overflow-hidden p-0">
@@ -365,6 +371,11 @@ function DayDetail({
         {d.event && (
           <div className="mb-5 text-center">
             <p className="display text-[clamp(2rem,5vw,3rem)] leading-none text-chalk">{d.event.label}</p>
+            {(d.event.full || isPast) && (
+              <span className="display mt-3 inline-block rounded-full bg-race px-3 py-1 text-sm tracking-wide text-white">
+                {isPast ? "Course terminée" : "Complet"}
+              </span>
+            )}
             {d.event.toConfirm && (
               <span className="mt-3 inline-block rounded-full bg-flag px-3 py-1 text-sm font-bold text-asphalt">
                 Date à confirmer
@@ -412,13 +423,13 @@ function DayDetail({
 
         {/* Actions */}
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
-          {op?.signup && (
-            <a href={op.signup} data-track="inscription-ouverture" className="btn btn-race">
+          {signup && (
+            <a href={signup} data-track="inscription-ouverture" className="btn btn-race">
               {op.signupCta ?? "S'inscrire"}
             </a>
           )}
           {op && (
-            <a href={`#${op.slug}`} className={`btn ${op.signup ? "btn-ghost" : "btn-race"}`}>
+            <a href={`#${op.slug}`} className={`btn ${signup || closed ? "btn-ghost" : "btn-race"}`}>
               Voir la course
             </a>
           )}
@@ -427,9 +438,9 @@ function DayDetail({
               Le Pack Découverte
             </a>
           )}
-          {(d.open || (op && !op.signup)) && (
+          {!isPast && (d.open || (op && !signup && !closed)) && (
             <a href={SITE.phoneHref} data-track="tel" className="btn btn-ghost">
-              {op && !op.signup ? "Réserver" : "Une question"} · {SITE.phone}
+              {op && !op.signup && !closed ? "Réserver" : "Une question"} · {SITE.phone}
             </a>
           )}
         </div>

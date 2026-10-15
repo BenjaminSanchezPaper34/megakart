@@ -335,7 +335,7 @@ export type CalendarDay = {
   aVolonte: boolean;
   promo: boolean;
   ferie?: string;
-  event?: { label: string; op?: string; toConfirm: boolean; note?: string };
+  event?: { label: string; op?: string; toConfirm: boolean; full: boolean; note?: string };
   /** Pack Découverte (coaching) proposé ce jour — tous les dimanches jusqu'en décembre. */
   packDecouverte: boolean;
 };
@@ -361,6 +361,7 @@ export function buildCalendar(): CalendarMonth[] {
         label: a.label ?? getOperation(a.op ?? "")?.name ?? "",
         op: a.op,
         toConfirm: a.status === "a-confirmer",
+        full: a.places === 0,
         note: a.note,
       },
     ])
