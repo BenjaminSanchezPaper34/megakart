@@ -1,5 +1,6 @@
 import Link from "next/link";
 import LogoAnime from "./LogoAnime";
+import LogoAnimeEmpile from "./LogoAnimeEmpile";
 
 /**
  * Logos officiels MegaKart (SVG fournis par le client) :
@@ -27,14 +28,8 @@ export default function Logo({
         // En-tête : logo animé en 3 blocs (MEGA, KART, damier).
         <LogoAnime className="h-8 w-auto transition-transform duration-300 group-hover:scale-105 md:h-9" />
       ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src="/images/LOGO-MEGAKART.svg"
-          alt="MegaKart"
-          width={187}
-          height={91}
-          className={`${large ? "h-24 md:h-32" : "h-20"} w-auto transition-transform duration-300 group-hover:scale-105`}
-        />
+        // Pied de page : logo empilé, animé à son entrée à l'écran.
+        <LogoAnimeEmpile className={`${large ? "h-24 md:h-32" : "h-20"} w-auto transition-transform duration-300 group-hover:scale-105`} />
       )}
     </Link>
   );

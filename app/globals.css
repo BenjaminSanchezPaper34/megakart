@@ -507,3 +507,17 @@ body {
   a:hover > .logo-anime .logo-flag polygon:nth-child(7), a:focus-visible > .logo-anime .logo-flag polygon:nth-child(7) { animation-delay: 0.30s; }
   a:hover > .logo-anime .logo-flag polygon:nth-child(8), a:focus-visible > .logo-anime .logo-flag polygon:nth-child(8) { animation-delay: 0.35s; }
 }
+
+/* ---------- Logo empilé du pied de page (components/LogoAnimeEmpile.tsx) ----------
+   Même grammaire que l'en-tête, déclenchée à l'entrée à l'écran (classe .joue). */
+.logo-empile.pret g { opacity: 0; }
+.logo-empile.joue .logo-mega,
+.logo-empile.joue .logo-kart {
+  animation: logo-arrivee 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.logo-empile.joue .logo-kart { animation-delay: 0.2s; }
+.logo-empile .logo-flag { transform-box: fill-box; transform-origin: center; }
+.logo-empile.joue .logo-flag {
+  animation: logo-case 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s both;
+}
+a:hover > .logo-empile.joue .logo-flag { animation: logo-ondule 0.6s ease-in-out both; }

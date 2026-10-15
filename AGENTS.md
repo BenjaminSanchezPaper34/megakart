@@ -186,3 +186,4 @@ Claude relit ce journal en reprenant la main.
 - 15/10 (Claude) — Photos : après les galeries, plus de titres ; 3 réels en grille (ReelsRow `grid limit={3}`, mêmes colonnes que la galerie) suivis directement des photos.
 - 15/10 (Claude) — Index /galeries supprimé (redirigé vers /photos#galeries) : toutes les galeries sont listées sur la page Photos.
 - 15/10 (Claude) — Logo d'en-tête animé (`components/LogoAnime.tsx`, SVG inline, 3 groupes) : MEGA glisse de la gauche, KART suit, damier case par case ; ondulation du damier au survol ; CSS dans globals.css (.logo-anime), coupé en reduced-motion.
+- 15/10 (Claude) — Logo animé : MEGA au premier plan (ordre du SVG d'origine) ; logo empilé du footer animé aussi (`LogoAnimeEmpile`, déclenché à l'entrée à l'écran, classes .pret/.joue).
