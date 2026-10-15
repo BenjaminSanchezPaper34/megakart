@@ -200,17 +200,17 @@ export default function HomePage() {
             <br />
             <span className="display-outline">pas un manège.</span>
           </h2>
-          <ul data-stagger className="mt-8 grid max-w-xl gap-5 text-lg text-chalk md:text-xl">
-            <li className="flex items-center gap-4">
-              <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none">⏱️</span>
+          <ul data-stagger className="mt-8 grid max-w-xl gap-5 text-lg text-chalk md:text-xl lg:mt-12 lg:max-w-4xl lg:grid-cols-3 lg:gap-10">
+            <li className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-4">
+              <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none lg:w-auto lg:text-left">⏱️</span>
               <span>Chrono au dixième sur écran géant.</span>
             </li>
-            <li className="flex items-center gap-4">
-              <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none">🛡️</span>
+            <li className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-4">
+              <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none lg:w-auto lg:text-left">🛡️</span>
               <span>Protections Tecpro, homologuée FFSA.</span>
             </li>
-            <li className="flex items-center gap-4">
-              <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none">🏁</span>
+            <li className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-4">
+              <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none lg:w-auto lg:text-left">🏁</span>
               <span>Sans réservation : on arrive, on roule.</span>
             </li>
           </ul>
