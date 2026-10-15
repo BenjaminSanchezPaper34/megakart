@@ -30,11 +30,11 @@ const RULES: [RegExp, string][] = [
   [/repas|chauff/i, "🍽️"],
   [/coaching|moniteur/i, "🧑‍🏫"],
   [/équipe|pilote/i, "👥"],
+  [/sodi|kart|\dcc\b|rx250/i, "🏎️"],
   [/enfant|\bans\b|1,\d0 m/i, "🧒"],
   [/jeudi|vendredi|dimanche|vacances|jours|décembre|octobre/i, "📅"],
   [/course|finale|manche|relais|tours/i, "🏁"],
   [/essai|qualif|min\b|minute|heure|chrono|apex|\d+h/i, "⏱️"],
-  [/sodi|kart|cc\b|rx250/i, "🏎️"],
 ];
 
 export function factEmoji(text: string) {

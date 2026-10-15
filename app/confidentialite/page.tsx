@@ -108,6 +108,12 @@ export default function ConfidentialitePage() {
               d&rsquo;accès à la course (8 à 14 ans, 1,40 m) — ainsi que le nom, le
               téléphone et l&rsquo;e-mail du parent, qui déclare être le responsable
               légal. Le formulaire{" "}
+              <Link href="/inscription/plein-gaz" className="link-under text-chalk">
+                d&rsquo;inscription au Trophée Plein Gaz
+              </Link>{" "}
+              recueille la date choisie, le prénom et le nom de chaque pilote
+              inscrit, s&rsquo;il a déjà roulé chez MegaKart, le nom, le téléphone et
+              l&rsquo;e-mail de la personne qui inscrit, et un éventuel message. Le formulaire{" "}
               <Link href="/12-heures#formulaire" className="link-under text-chalk">
                 d&rsquo;inscription aux 12 Heures
               </Link>{" "}

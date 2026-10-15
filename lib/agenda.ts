@@ -86,6 +86,8 @@ export const RACES: Operation[] = [
     price: "85€ / pilote",
     priceValue: 85,
     reservation: true,
+    signup: "/inscription/plein-gaz",
+    signupCta: "Inscrire mes pilotes",
   },
   {
     slug: "course-enfant",

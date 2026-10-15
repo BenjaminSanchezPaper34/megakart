@@ -61,7 +61,8 @@
 - Rythme : une course adulte et une course enfant par mois, le dimanche
 - Nocturne Halloween : samedi 31 octobre, ouvert de 14 h à minuit
 - Trophée Plein Gaz : dimanche 15 novembre (reporté du 1er novembre) — 8 min essais, 8 min qualifications,
-  course de 12 tours + finale de 10 min, 85 €/pilote ; à gagner : un baptême en voiture Vortex
+  course de 12 tours + finale de 10 min, 85 €/pilote ; à gagner : un baptême en voiture Vortex.
+  Inscription en ligne : https://megakart.fr/inscription/plein-gaz (1 à 4 pilotes par envoi, le circuit confirme la place)
 - Mercredi à volonté : tous les mercredis hors vacances scolaires, du 16 septembre à décembre —
   roulage à volonté, 29 € enfant, 59 € en 280cc, 69 € en 390cc (selon conditions)
 - 2 tickets achetés = 1 offert : tous les jeudis et vendredis du 17 septembre au 31 décembre,
@@ -69,7 +70,7 @@
   mercredis compris : pendant les vacances, une seule offre par jour, le 2+1
 - Pack Découverte : les dimanches hors vacances scolaires, jusqu'en décembre — 3 sessions de 8 min
   (390cc, 390cc, RX250 16 CV) avec coaching privé offert par un moniteur, 49 € au lieu de 76 €
-- Réservation des courses et du Pack Découverte : par téléphone ou par e-mail ; les 100 Tours et la Course Enfant aussi en ligne
+- Réservation des courses et du Pack Découverte : par téléphone ou par e-mail ; les 100 Tours, la Course Enfant et le Trophée Plein Gaz aussi en ligne
 
 ## Événements (sur réservation, dès 7 participants)
 - Anniversaires : courses et défis sur mesure, terrasse ombragée, tables de pique-nique
@@ -84,6 +85,7 @@
 - /live : chrono en direct du circuit (live timing Apex Timing, chargement au clic)
 - /inscription/100-tours : formulaire d'inscription d'une équipe de 2 ou 3 pilotes aux 100 Tours
 - /inscription/course-enfant : formulaire d'inscription d'un ou plusieurs enfants (8-14 ans) à la Course Enfant
+- /inscription/plein-gaz : formulaire d'inscription d'un à quatre pilotes au Trophée Plein Gaz
 - /agenda : le programme de fin d'année 2026 — courses (100 Tours, Trophée Plein Gaz,
   courses enfants) et offres (mercredi à volonté, 2 tickets = 1 offert,
   Pack Découverte coaching), avec toutes les dates
@@ -131,4 +133,4 @@
 - YouTube : https://www.youtube.com/channel/UC-r14_i1pUWRY6-i0VbkI_g
 - TripAdvisor : https://www.tripadvisor.fr/Attraction_Review-g1080326-d8621170-Reviews-MegaKart-Vias_Herault_Occitanie.html
 
-Dernière mise à jour : 2026-10-14
+Dernière mise à jour : 2026-10-15

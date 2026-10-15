@@ -27,7 +27,7 @@ type TagKind = keyof typeof TAG_COLORS;
 function Tag({ kind, children }: { kind: TagKind; children: ReactNode }) {
   return (
     <span
-      className={`display max-w-full truncate px-1.5 py-0.5 text-xs leading-tight tracking-wide ${TAG_COLORS[kind]}`}
+      className={`display max-w-full truncate rounded-full px-2 py-0.5 text-xs leading-tight tracking-wide ${TAG_COLORS[kind]}`}
     >
       {children}
     </span>
@@ -97,7 +97,7 @@ function MonthGrid({
             >
               <span
                 className={`display text-base leading-none ${
-                  isToday ? "bg-flag px-1.5 py-0.5 text-asphalt md:ring-1 md:ring-asphalt/40" : ""
+                  isToday ? "rounded-full bg-flag px-1.5 py-0.5 text-asphalt md:ring-1 md:ring-asphalt/40" : ""
                 }`}
               >
                 {d.day}
@@ -137,7 +137,13 @@ function MonthGrid({
  * jour sélectionné s'affiche sous la grille.
  */
 export default function MonthPlanner() {
-  const months = useMemo(buildCalendar, []);
+  // Les mois entièrement passés disparaissent (la page est régénérée chaque jour).
+  const months = useMemo(() => {
+    const all = buildCalendar();
+    const today = new Date().toISOString().slice(0, 10);
+    const next = all.filter((m) => m.days[m.days.length - 1].iso >= today);
+    return next.length ? next : all;
+  }, []);
   const [monthIdx, setMonthIdx] = useState(0);
   const [selected, setSelected] = useState<Selection>(null);
   const [todayIso, setTodayIso] = useState<string | null>(null);
@@ -186,7 +192,7 @@ export default function MonthPlanner() {
             role="tab"
             aria-selected={i === monthIdx}
             onClick={() => goTo(i)}
-            className={`display px-4 py-2.5 text-base capitalize transition-all duration-300 ${
+            className={`display rounded-full px-5 py-2.5 text-base capitalize transition-all duration-300 ${
               i === monthIdx
                 ? "glow-race bg-race text-white"
                 : "bg-asphalt-3 text-chalk-60 hover:text-chalk"
@@ -226,10 +232,10 @@ export default function MonthPlanner() {
       {/* Légende */}
       <ul className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-chalk-60">
         <li className="flex items-center gap-2">
-          <span className="h-3 w-3 bg-emerald-500/40" aria-hidden="true" /> Ouvert (horaires indiqués)
+          <span className="h-3 w-3 rounded-full bg-emerald-500/40" aria-hidden="true" /> Ouvert (horaires indiqués)
         </li>
         <li className="flex items-center gap-2">
-          <span className="h-3 w-3 border border-white/10 bg-black/40" aria-hidden="true" /> Fermé
+          <span className="h-3 w-3 rounded-full border border-white/10 bg-black/40" aria-hidden="true" /> Fermé
         </li>
         <li><Tag kind="course">Course</Tag></li>
         <li><Tag kind="volonte">À volonté</Tag></li>
@@ -271,7 +277,7 @@ function DayDetail({ m, d }: { m: CalendarMonth; d: CalendarDay }) {
           <p className="mt-2 text-base leading-relaxed text-chalk">
             <span className="display text-race">{d.event.label}</span>
             {d.event.toConfirm && (
-              <span className="display ml-2 border border-flag/60 px-2 py-0.5 text-xs tracking-wider text-flag">
+              <span className="display ml-2 rounded-full border border-flag/60 px-2.5 py-0.5 text-xs tracking-wider text-flag">
                 Date à confirmer
               </span>
             )}
@@ -285,12 +291,18 @@ function DayDetail({ m, d }: { m: CalendarMonth; d: CalendarDay }) {
                 Voir la fiche complète
               </a>
             )}
-            {op && (
-              <a href={SITE.phoneHref} className="link-under text-sm font-semibold text-chalk">
-                Réserver · {SITE.phone}
+            {op?.signup ? (
+              <a href={op.signup} data-track="inscription-ouverture" className="btn btn-race">
+                {op.signupCta ?? "S'inscrire"}
               </a>
+            ) : (
+              op && (
+                <a href={SITE.phoneHref} className="link-under text-sm font-semibold text-chalk">
+                  Réserver · {SITE.phone}
+                </a>
+              )
             )}
-            {op && SITE.email && (
+            {op && !op.signup && SITE.email && (
               <a href={`mailto:${SITE.email}`} className="link-under text-sm font-semibold text-chalk">
                 Réserver par e-mail
               </a>

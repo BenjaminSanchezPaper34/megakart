@@ -12,6 +12,7 @@ const PAGES = [
   { href: "/12-heures", label: "Les 12 Heures" },
   { href: "/inscription/100-tours", label: "Inscription 100 Tours" },
   { href: "/inscription/course-enfant", label: "Inscription Course Enfant" },
+  { href: "/inscription/plein-gaz", label: "Inscription Trophée Plein Gaz" },
   { href: "/anniversaires", label: "Anniversaires" },
   { href: "/evenements", label: "Événements & groupes" },
   { href: "/photos", label: "Photos" },

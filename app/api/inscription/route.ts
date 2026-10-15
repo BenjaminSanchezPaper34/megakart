@@ -12,12 +12,19 @@ import {
   type InscriptionEnfant,
 } from "@/lib/inscription-enfant";
 import { DOUZE_H, DOUZE_H_SLUG, parseInscriptionDouzeH, prixEquipe, type InscriptionDouzeH } from "@/lib/inscription-12h";
+import {
+  PLEIN_GAZ,
+  PLEIN_GAZ_SLUG,
+  parseInscriptionPleinGaz,
+  pleinGazDates,
+  type InscriptionPleinGaz,
+} from "@/lib/inscription-plein-gaz";
 
 export const runtime = "nodejs";
 
 /**
  * Réception d'une inscription — 100 Tours ou 12 Heures (équipe), Course Enfant
- * (parent + enfants), selon `type`. Deux e-mails partent à chaque fois : la fiche
+ * (parent + enfants), Trophée Plein Gaz (responsable + pilotes), selon `type`. Deux e-mails partent à chaque fois : la fiche
  * complète au circuit (SITE.email), avec « répondre à » = la personne qui
  * s'inscrit ; un accusé de réception à cette personne, avec « répondre à »
  * = circuit. Rien n'est stocké côté site : la boîte du circuit est la seule copie.
@@ -142,6 +149,55 @@ async function envoyerEnfant(resend: Resend, raw: unknown) {
   return { status: 200, body: { ok: true } };
 }
 
+/* ---------- Trophée Plein Gaz ---------- */
+function recapPleinGaz(d: InscriptionPleinGaz, dateLabel: string) {
+  const pilotes = d.pilotes
+    .map((p, i) =>
+      row(
+        d.pilotes.length > 1 ? `Pilote ${i + 1}` : "Pilote",
+        `${p.prenom} ${p.nom}${p.habitue ? ", a déjà roulé chez MegaKart" : ", première fois"}`
+      )
+    )
+    .join("");
+  return table(
+    row("Course", `Trophée Plein Gaz, ${dateLabel}`) +
+      pilotes +
+      row("Tarif", `${PLEIN_GAZ.prix}€ par pilote · ${PLEIN_GAZ.prix * d.pilotes.length}€ au total`) +
+      row("Responsable", d.responsable.name) +
+      row("Téléphone", d.responsable.phone) +
+      row("E-mail", d.responsable.email) +
+      (d.message ? row("Message", d.message) : "")
+  );
+}
+
+async function envoyerPleinGaz(resend: Resend, raw: unknown) {
+  const dates = pleinGazDates();
+  const parsed = parseInscriptionPleinGaz(raw, dates.map((d) => d.iso));
+  if (!parsed.ok) return { status: 422, body: { ok: false, errors: parsed.errors } };
+  const d = parsed.data;
+  if (d.website) return { status: 200, body: { ok: true } };
+  const op = getOperation(PLEIN_GAZ_SLUG);
+  const dateLabel = dates.find((x) => x.iso === d.date)?.label ?? d.date;
+  const prenoms = d.pilotes.map((p) => p.prenom).join(" et ");
+
+  await resend.emails.send({
+    from: FROM, to: TO, replyTo: d.responsable.email,
+    subject: `Inscription Trophée Plein Gaz · ${dateLabel} · ${prenoms} (${d.pilotes.length})`,
+    html: shell(`<h2 style="margin:0 0 6px;font-size:22px">Nouvelle inscription au Trophée Plein Gaz</h2>
+      <p style="margin:0 0 14px;color:#555">Reçue depuis le formulaire du site.</p>
+      ${aFaire(d.responsable.name)}${recapPleinGaz(d, dateLabel)}`),
+  });
+  await resend.emails.send({
+    from: FROM, to: d.responsable.email, replyTo: TO,
+    subject: `${prenoms} : pré-inscription au Trophée Plein Gaz, ${dateLabel}`,
+    html: shell(`<h2 style="margin:0 0 6px;font-size:22px">C'est noté, ${esc(d.responsable.name)} !</h2>
+      <p style="margin:0 0 18px;color:#555;line-height:1.55"><strong>${esc(prenoms)}</strong> ${d.pilotes.length > 1 ? "sont pré-inscrits" : "est pré-inscrit·e"} au Trophée Plein Gaz du <strong>${esc(dateLabel)}</strong>. ${delai}</p>
+      ${recapPleinGaz(d, dateLabel)}
+      ${encart(`<strong style="color:#111">Le format</strong> : ${esc(op?.facts.join(" · ") ?? "")}.<br><strong style="color:#111">Tarif</strong> : ${PLEIN_GAZ.prix}€ par pilote, réglé sur place le jour de la course. Aucun paiement en ligne.`)}`),
+  });
+  return { status: 200, body: { ok: true } };
+}
+
 /* ---------- 12 Heures ---------- */
 function recapDouzeH(d: InscriptionDouzeH, dateLabel: string) {
   const autres = d.pilots.map((n, i) => row(`${i + 2}e pilote`, n || "à communiquer")).join("");
@@ -203,7 +259,9 @@ export async function POST(req: Request) {
         ? await envoyerEnfant(resend, raw)
         : type === DOUZE_H_SLUG
           ? await envoyerDouzeH(resend, raw)
-          : await envoyerCentTours(resend, raw);
+          : type === PLEIN_GAZ_SLUG
+            ? await envoyerPleinGaz(resend, raw)
+            : await envoyerCentTours(resend, raw);
     return NextResponse.json(r.body, { status: r.status });
   } catch (err) {
     console.error("[inscription] envoi impossible :", err);
