@@ -22,10 +22,13 @@ export default function PageHero({
   short = false,
   children,
   video,
+  bottom,
 }: {
   image: { src: string; alt: string; position?: string };
   /** Vidéo de fond (la photo sert d'affiche et de repli). */
   video?: { desktop: string; mobile: string };
+  /** Bloc posé en bas du hero, sous le titre, sur la photo (ex. les chiffres de La piste). */
+  bottom?: ReactNode;
   label?: ReactNode;
   line1: ReactNode;
   line2?: ReactNode;
@@ -47,6 +50,7 @@ export default function PageHero({
         </p>
       )}
       <SectionHeader as="h1" line1={line1} line2={line2} accent={accent} subtitle={subtitle} action={action} />
+      {bottom && <div className="mt-(--section-gap)">{bottom}</div>}
     </>
   );
   return (

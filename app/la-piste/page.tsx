@@ -37,29 +37,23 @@ export default function PistePage() {
       <PageHero
         image={{ src: "/images/piste-drone.jpg", alt: "Vol de drone au ras de la piste du circuit MegaKart, kart en pleine courbe" }}
         video={{ desktop: "/videos/piste-drone.mp4", mobile: "/videos/piste-drone-mobile.mp4" }}
+        bottom={
+          // La fiche technique en 4 chiffres, en bas du hero (choix Benjamin 15/10).
+            <dl className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+              {SPECS.map((s) => (
+                <div key={s.label} className="flex flex-col items-center text-center">
+                  <span aria-hidden="true" className="text-5xl leading-none">{s.emoji}</span>
+                  <dd className="display mt-4 text-4xl text-chalk md:text-5xl">{s.value}</dd>
+                  <dt className="mt-2 text-base text-chalk-60">{s.label}</dt>
+                </div>
+              ))}
+            </dl>
+        }
         line1="La piste."
         line2="1000 m de pilotage."
         subtitle="Esses, épingles, relances et vraies lignes droites, sur un tracé large de 8,5 m."
       />
 
-      {/* Specs */}
-      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
-        <SectionHeader
-          line1="La fiche"
-          line2="technique."
-          accent="flag"
-          subtitle="Un circuit de catégorie 1.1, homologué pour la location comme pour la compétition."
-        />
-        <dl data-stagger className="mt-(--section-gap) grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
-          {SPECS.map((s) => (
-            <div key={s.label} className="flex flex-col items-center text-center">
-              <span aria-hidden="true" className="text-5xl leading-none">{s.emoji}</span>
-              <dd className="display mt-4 text-4xl text-chalk md:text-5xl">{s.value}</dd>
-              <dt className="mt-2 text-base text-chalk-60">{s.label}</dt>
-            </div>
-          ))}
-        </dl>
-      </section>
 
       {/* Tracé animé */}
       <section className="bg-asphalt-2 py-(--section-y)">
