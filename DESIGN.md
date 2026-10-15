@@ -1,6 +1,6 @@
 # DESIGN.md — MegaKart (megakart.fr)
 
-Système tiré de la refonte de l'accueil validée par Benjamin le 14/10/2026, puis appliqué à toutes les pages.
+Système tiré de la refonte de l'accueil validée par Benjamin le 14/10/2026, puis appliqué à toutes les pages (mis à jour le 15/10 : parcours d'inscription, galeries, logos animés).
 Référence pour toute évolution (Claude comme Codex). Les briques vivent dans `components/system/`.
 
 ## 0. Message
@@ -59,6 +59,12 @@ Un hex dans un composant = un bug : passer par ces tokens.
 | `CtaFinal` | appel final centré en bas de page |
 | `tones.ts` | `dealSkin` (couleurs des bons plans), `LABEL_TONE`, `factEmoji` |
 | `RowArrows` (`components/`) | flèches précédent/suivant, visibles seulement si la rangée dépasse |
+| `PageCourse` | page d'une course : formulaire en tête (pleine largeur), puis « Tout savoir » |
+| `CoursesAVenir` (`components/`) | « Cet automne, on court » : une carte par date (affiche/photo + essentiel + inscription), bande pleine largeur comme les karts — identique accueil/agenda |
+| `BonsPlans`, `DealCard`, `DealConditions` | section bons plans identique accueil/agenda, conditions dépliables animées |
+| `Faq` / `FaqItem` | FAQ en 2 colonnes, même dépliage animé que les bons plans |
+| `LogoAnime`, `LogoAnimeEmpile` (`components/`) | logos animés en 3 blocs (MEGA, KART, damier), en-tête au chargement, pied de page à l'entrée à l'écran |
+| `components/galerie/` | galeries photos publiques des événements (R2, téléchargement original), listées sur /photos |
 
 ## 5. Animation
 
@@ -76,3 +82,6 @@ Un hex dans un composant = un bug : passer par ces tokens.
 - Calque de couleur pour fondre une photo dans le fond (utiliser un masque).
 - Effet de survol qui déplace une carte d'avis ; cartes karts cliquables.
 - Déployer depuis le Mac (`vercel --prod`) : la prod part de GitHub (`git push origin main`).
+- Pastilles jaunes de label en haut des pages et des sections (retirées partout le 15/10) ; étiquettes à cheval sur les cartes de courses.
+- Boutons téléphone répétés dans les cartes et fiches (le numéro vit dans le pied de page et l'appel final).
+- Formulaire caché en bas de page : sur une page de course, il vient juste après le titre.
