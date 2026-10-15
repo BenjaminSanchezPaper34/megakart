@@ -92,7 +92,7 @@ function Carte({ item, today, first }: { item: AgendaItem; today: string | null;
             width={1200}
             height={720}
             sizes="(min-width: 1024px) 220px, 50vw"
-            className="pointer-events-none absolute -right-[10%] top-[30%] w-[58%] object-contain drop-shadow-[0_16px_14px_rgba(0,0,0,0.55)]"
+            className="pointer-events-none absolute -right-[10%] top-[40%] w-[52%] object-contain drop-shadow-[0_16px_14px_rgba(0,0,0,0.55)]"
           />
         ) : visuel.emoji ? (
           <span aria-hidden="true" className="pointer-events-none absolute right-4 top-[22%] text-[5.5rem] leading-none drop-shadow-[0_12px_14px_rgba(0,0,0,0.5)] sm:right-6">
@@ -111,12 +111,12 @@ function Carte({ item, today, first }: { item: AgendaItem; today: string | null;
             {f.weekday.charAt(0).toUpperCase() + f.weekday.slice(1)}
             {j === 0 ? " · aujourd'hui" : j === 1 ? " · demain" : j !== null && j > 1 ? ` · dans ${j} jours` : ""}
           </p>
-          <h3 className="display mt-4 text-2xl leading-tight text-chalk">
+          <h3 className="display mt-4 max-w-[62%] text-2xl leading-tight text-chalk">
             <Link href={page} className="hover:text-flag">
               {item.label ?? op?.name}
             </Link>
           </h3>
-          <p className="mt-0.5 text-sm text-chalk-60">{op?.kicker ?? soiree?.kicker}</p>
+          <p className="mt-0.5 max-w-[60%] text-sm text-chalk-60">{op?.kicker ?? soiree?.kicker}</p>
         </div>
 
         {/* L'essentiel, à gauche du kart. */}
