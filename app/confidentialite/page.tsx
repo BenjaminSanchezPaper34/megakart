@@ -41,9 +41,9 @@ export default function ConfidentialitePage() {
                 personnes.
               </li>
               <li>
-                · Un seul formulaire : l'inscription des équipes aux courses.
-                Ce que vous y saisissez part par e-mail au circuit, pour
-                traiter votre inscription — et rien d'autre. Le reste du
+                · Deux sortes de formulaires : l&rsquo;inscription aux courses et la
+                demande d&rsquo;événement privé. Ce que vous y saisissez part par e-mail
+                au circuit, pour traiter votre inscription ou votre demande — et rien d&rsquo;autre. Le reste du
                 contact se fait par téléphone ou par e-mail.
               </li>
               <li>
@@ -121,7 +121,14 @@ export default function ConfidentialitePage() {
               habitués) et, pour une entreprise, sa raison sociale pour la
               facture, le nom, le téléphone et l&rsquo;e-mail du capitaine, le nom
               des coéquipiers s&rsquo;il est déjà connu, le nombre d&rsquo;accompagnants
-              pour le repas et un éventuel message. Les données d&rsquo;un mineur ne sont jamais utilisées à une
+              pour le repas et un éventuel message. Le formulaire de{" "}
+              <Link href="/evenements#demande" className="link-under text-chalk">
+                demande d&rsquo;événement
+              </Link>{" "}
+              (anniversaire, EVG/EVJF, entreprise) recueille le type d&rsquo;événement, la
+              date souhaitée, le nombre de participants, l&rsquo;âge fêté pour un
+              anniversaire ou le nom de l&rsquo;entreprise, le nom, le téléphone et
+              l&rsquo;e-mail de la personne qui écrit, et la description du projet. Les données d&rsquo;un mineur ne sont jamais utilisées à une
               autre fin que l&rsquo;organisation de la course à laquelle il est inscrit. Ces données servent uniquement à enregistrer votre
               équipe et à vous recontacter pour confirmer la place — base légale :
               les mesures précontractuelles que vous demandez.

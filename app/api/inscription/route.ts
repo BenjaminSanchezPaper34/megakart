@@ -20,6 +20,8 @@ import {
   type InscriptionPleinGaz,
 } from "@/lib/inscription-plein-gaz";
 
+import { EVENEMENT_SLUG, FORMULES, parseDemandeEvenement, type DemandeEvenement } from "@/lib/demande-evenement";
+
 export const runtime = "nodejs";
 
 /**
@@ -242,6 +244,49 @@ async function envoyerDouzeH(resend: Resend, raw: unknown) {
   return { status: 200, body: { ok: true } };
 }
 
+/* ---------- Demande d'événement (anniversaire, EVG/EVJF, entreprise & CE) ---------- */
+function recapEvenement(d: DemandeEvenement, formuleLabel: string, dateLabel: string) {
+  return table(
+    row("Événement", formuleLabel) +
+      row("Date souhaitée", `${dateLabel}${d.flexible ? " (dates souples)" : ""}`) +
+      row("Participants", String(d.participants)) +
+      (d.age !== undefined ? row("Âge fêté", `${d.age} ans`) : "") +
+      (d.societe ? row("Entreprise / CE", d.societe) : "") +
+      row("Contact", d.contact.name) +
+      row("Téléphone", d.contact.phone) +
+      row("E-mail", d.contact.email) +
+      (d.message ? row("Projet", d.message) : "")
+  );
+}
+
+async function envoyerEvenement(resend: Resend, raw: unknown) {
+  const parsed = parseDemandeEvenement(raw);
+  if (!parsed.ok) return { status: 422, body: { ok: false, errors: parsed.errors } };
+  const d = parsed.data;
+  if (d.website) return { status: 200, body: { ok: true } };
+  const formuleLabel = FORMULES.find((f) => f.id === d.formule)!.label;
+  const f = formatDate(d.date);
+  const dateLabel = `${f.weekday} ${f.day} ${f.monthFull}`;
+
+  await resend.emails.send({
+    from: FROM, to: TO, replyTo: d.contact.email,
+    subject: `Demande ${formuleLabel} · ${dateLabel} · ${d.participants} pers. · ${d.contact.name}`,
+    html: shell(`<h2 style="margin:0 0 6px;font-size:22px">Nouvelle demande d'événement : ${esc(formuleLabel)}</h2>
+      <p style="margin:0 0 14px;color:#555">Reçue depuis le formulaire de la page Événements.</p>
+      <div style="margin:0 0 18px;padding:12px 14px;background:#fff1f1;border-left:4px solid #e3051b;font-size:15px;line-height:1.5;color:#111"><strong>À faire :</strong> rappeler ${esc(d.contact.name)} pour construire la formule — répondre à ce message suffit, il lui écrit directement.</div>
+      ${recapEvenement(d, formuleLabel, dateLabel)}`),
+  });
+  await resend.emails.send({
+    from: FROM, to: d.contact.email, replyTo: TO,
+    subject: `Votre demande ${formuleLabel.toLowerCase()} chez MegaKart — ${dateLabel}`,
+    html: shell(`<h2 style="margin:0 0 6px;font-size:22px">Demande bien reçue, ${esc(d.contact.name)} !</h2>
+      <p style="margin:0 0 18px;color:#555;line-height:1.55">Merci pour votre demande (<strong>${esc(formuleLabel)}</strong>, ${esc(dateLabel)}). Le circuit revient vers vous <strong>sous 48 heures</strong>, par téléphone ou par e-mail, pour construire la formule avec vous. Si quelque chose change d'ici là, répondez simplement à ce message.</p>
+      ${recapEvenement(d, formuleLabel, dateLabel)}
+      ${encart(`<strong style="color:#111">Bon à savoir</strong> : casques fournis sur place, chaussures fermées type baskets obligatoires. Aucun paiement en ligne : la formule et le tarif sont confirmés avec le circuit.`)}`),
+  });
+  return { status: 200, body: { ok: true } };
+}
+
 export async function POST(req: Request) {
   let raw: unknown;
   try {
@@ -261,7 +306,9 @@ export async function POST(req: Request) {
           ? await envoyerDouzeH(resend, raw)
           : type === PLEIN_GAZ_SLUG
             ? await envoyerPleinGaz(resend, raw)
-            : await envoyerCentTours(resend, raw);
+            : type === EVENEMENT_SLUG
+              ? await envoyerEvenement(resend, raw)
+              : await envoyerCentTours(resend, raw);
     return NextResponse.json(r.body, { status: r.status });
   } catch (err) {
     console.error("[inscription] envoi impossible :", err);

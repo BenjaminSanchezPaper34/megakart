@@ -5,7 +5,7 @@ import Faq from "@/components/system/Faq";
 import PageHero from "@/components/system/PageHero";
 import SectionHeader from "@/components/system/SectionHeader";
 import EmojiList from "@/components/system/EmojiList";
-import CtaFinal from "@/components/system/CtaFinal";
+import DemandeEvenement from "@/components/DemandeEvenement";
 
 export const metadata: Metadata = {
   title: "Anniversaire karting, EVG/EVJF & team building CE à Vias",
@@ -139,7 +139,13 @@ export default function EvenementsPage() {
                   </p>
                 ))}
               </div>
-              <EmojiList items={e.facts} />
+              <div>
+                <EmojiList items={e.facts} />
+                {/* Pré-coche la formule dans le formulaire du bas (écouté par DemandeEvenement). */}
+                <a href="#demande" data-formule={e.id} className="btn btn-race mt-8">
+                  Demander une date
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -149,18 +155,31 @@ export default function EvenementsPage() {
 
       <div className="kerb" aria-hidden="true" />
 
-      <CtaFinal
-        line1="On cale"
-        line2="une date ?"
-        subtitle="Les événements se préparent par téléphone ou par e-mail : nombre de pilotes, format de course, date. En cinq minutes, c'est réglé."
-      >
-        <a href={SITE.phoneHref} className="btn btn-race">
-          {SITE.phone}
-        </a>
-        <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
-          {SITE.email}
-        </a>
-      </CtaFinal>
+      {/* Demande d'événement : un formulaire pour les 3 formules, à la place des boutons téléphone / e-mail. */}
+      <section id="demande" className="relative scroll-mt-24 overflow-hidden py-(--section-y)">
+        <div className="checker absolute inset-x-0 top-0 h-5 opacity-[0.07]" aria-hidden="true" />
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHeader
+            line1="On cale"
+            line2="une date ?"
+            subtitle="Anniversaire, EVG/EVJF ou sortie d'entreprise : dites-nous l'essentiel, le circuit vous rappelle sous 48 heures pour construire la formule."
+          />
+          <div data-reveal className="mt-(--section-gap)">
+            <DemandeEvenement />
+          </div>
+          <p className="mt-6 max-w-3xl text-base leading-relaxed text-chalk-60">
+            Plutôt de vive voix ? Le{" "}
+            <a href={SITE.phoneHref} className="link-under font-semibold text-chalk">
+              {SITE.phone}
+            </a>{" "}
+            et{" "}
+            <a href={`mailto:${SITE.email}`} className="link-under font-semibold text-chalk">
+              {SITE.email}
+            </a>{" "}
+            répondent aussi.
+          </p>
+        </div>
+      </section>
     </>
   );
 }
