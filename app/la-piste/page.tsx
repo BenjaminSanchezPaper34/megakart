@@ -75,34 +75,42 @@ export default function PistePage() {
 
       <div className="kerb" aria-hidden="true" />
 
-      {/* Sécurité : texte + émojis à gauche, l'ancienne photo du hero (le circuit de nuit) à droite. */}
-      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
-        {/* Titre pleine largeur (« Sécurité type » sur une ligne), puis émojis et photo côte à côte. */}
-        <SectionHeader
-          line1="Sécurité type"
-          line2="Formule 1."
-          subtitle="Les sensations, sans les mauvaises surprises : la même technologie de protection que sur les circuits de Formule 1, et une équipe qualifiée en permanence au bord de la piste."
-        />
-        <div className="mt-(--section-gap) grid items-center gap-(--section-gap) lg:grid-cols-[1.1fr_1fr]">
-          <div>
-            <EmojiList
-              items={[
-                { emoji: "🛡️", text: "Protections Tecpro dernière génération, comme en F1" },
-                { emoji: "✅", text: "Homologations régulières FFSA et Préfecture" },
-                { emoji: "🧑‍🏫", text: "Moniteurs diplômés au bord de la piste" },
-                { emoji: "⛑️", text: "Casques fournis à chaque pilote" },
-              ]}
-            />
-          </div>
-          <div data-reveal className="race-event-card relative aspect-[4/3] overflow-hidden">
-            <Image
-              src="/images/galerie-23-aerien-nuit.jpg"
-              alt="Le circuit MegaKart illuminé de nuit, vu du ciel au cœur de la zone de loisirs de Vias-plage"
-              fill
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
-            />
-          </div>
+      {/* Sécurité : la photo du circuit de nuit en fond de toute la section (fondue haut et bas
+          par masque, voile asphalte pour la lecture), titre et émojis par-dessus. */}
+      <section className="relative overflow-hidden py-(--section-y)">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            maskImage: "linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%)",
+          }}
+        >
+          <Image
+            src="/images/galerie-23-aerien-nuit.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-asphalt/55" />
+          <div className="absolute inset-0 bg-gradient-to-r from-asphalt/80 via-asphalt/40 to-transparent" />
+        </div>
+        <div className="relative mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHeader
+            line1="Sécurité type"
+            line2="Formule 1."
+            subtitle="Les sensations, sans les mauvaises surprises : la même technologie de protection que sur les circuits de Formule 1, et une équipe qualifiée en permanence au bord de la piste."
+          />
+          <EmojiList
+            className="mt-(--section-gap)"
+            items={[
+              { emoji: "🛡️", text: "Protections Tecpro dernière génération, comme en F1" },
+              { emoji: "✅", text: "Homologations régulières FFSA et Préfecture" },
+              { emoji: "🧑‍🏫", text: "Moniteurs diplômés au bord de la piste" },
+              { emoji: "⛑️", text: "Casques fournis à chaque pilote" },
+            ]}
+          />
         </div>
       </section>
 
