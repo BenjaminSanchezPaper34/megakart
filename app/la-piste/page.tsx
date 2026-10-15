@@ -93,8 +93,8 @@ export default function PistePage() {
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-asphalt/55" />
-          <div className="absolute inset-0 bg-gradient-to-r from-asphalt/80 via-asphalt/40 to-transparent" />
+          <div className="absolute inset-0 bg-asphalt/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-asphalt/85 via-asphalt/30 to-transparent" />
         </div>
         <div className="relative mx-auto max-w-7xl px-5 md:px-8">
           <SectionHeader
