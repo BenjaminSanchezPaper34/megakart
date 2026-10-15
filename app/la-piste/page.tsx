@@ -35,7 +35,6 @@ export default function PistePage() {
 
       <PageHero
         image={{ src: "/images/galerie-23-aerien-nuit.jpg", alt: "Le circuit MegaKart illuminé de nuit, vu du ciel au cœur de la zone de loisirs de Vias-plage" }}
-        label="Homologué FFSA & Préfecture · éclairé en nocturne"
         line1="La piste."
         line2="1000 m de pilotage."
         subtitle="Esses, épingles, relances et vraies lignes droites, sur un tracé large de 8,5 m."
@@ -129,9 +128,6 @@ export default function PistePage() {
       {/* Histoire — frise + archives familiales */}
       <section id="histoire" className="scroll-mt-28 py-(--section-y)">
         <div className="mx-auto max-w-5xl px-5 md:px-8">
-          <p className="mb-5 inline-flex rounded-full bg-flag px-4 py-1.5 text-sm font-bold text-asphalt">
-            Trente-quatre ans de piste
-          </p>
           <SectionHeader
             line1="Depuis 1992,"
             line2="et toujours plus vite."
