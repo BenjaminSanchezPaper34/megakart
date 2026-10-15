@@ -4,17 +4,14 @@
  * sœurs) ; les conditions d'accès sont celles du client (23/09/2026) :
  * 8 à 14 ans le jour de la course, 1,40 m minimum, 32 € par enfant.
  */
-import { AGENDA, formatDate } from "./agenda";
+import { datesOuvertes, formatDate } from "./agenda";
 
 export const COURSE_ENFANT_SLUG = "course-enfant";
 export const ENFANT = { ageMin: 8, ageMax: 14, tailleMin: 140, prix: 32, debut: "14h" } as const;
 export const MAX_ENFANTS = 4;
 
 export function courseEnfantDates(today = new Date()) {
-  const iso = today.toISOString().slice(0, 10);
-  return AGENDA.filter(
-    (a) => a.op === COURSE_ENFANT_SLUG && a.status === "confirme" && !a.endDate && a.date >= iso
-  ).map((a) => {
+  return datesOuvertes(COURSE_ENFANT_SLUG, today).map((a) => {
     const f = formatDate(a.date);
     return { iso: a.date, label: `${f.weekday} ${f.day} ${f.month}` };
   });

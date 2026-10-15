@@ -253,6 +253,22 @@ export const AGENDA: AgendaItem[] = [
 ];
 
 /**
+ * Dates encore ouvertes à l'inscription pour une épreuve : confirmées, à venir,
+ * pas complètes (`places: 0`). Source unique pour les formulaires, la route API,
+ * les boutons de l'agenda et de l'accueil : complet ou passé = plus de formulaire.
+ */
+export function datesOuvertes(slug: string, today = new Date()): AgendaItem[] {
+  const iso = today.toISOString().slice(0, 10);
+  return AGENDA.filter(
+    (a) => a.op === slug && a.status === "confirme" && !a.endDate && a.date >= iso && a.places !== 0
+  );
+}
+
+export function inscriptionOuverte(slug: string, today = new Date()): boolean {
+  return datesOuvertes(slug, today).length > 0;
+}
+
+/**
  * Affichage des promos datées (2 tickets = 1 offert). Activé le 06/09/2026
  * après la réunion client du 03/09 (le gérant veut les mettre en avant).
  * Repasser à false pour tout masquer d'un coup si besoin.

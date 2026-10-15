@@ -19,6 +19,7 @@ import {
   SHOW_PROMOS,
   getOperation,
   formatDate,
+  inscriptionOuverte,
 } from "@/lib/agenda";
 
 /* Les promos datées attendent le feu vert du client (voir SHOW_PROMOS). */
@@ -247,7 +248,7 @@ export default function AgendaPage() {
                     </p>
                   )}
                   <div data-reveal className="mt-8 flex flex-wrap gap-4">
-                    {race.signup ? (
+                    {race.signup && inscriptionOuverte(race.slug) ? (
                       <>
                         {/* Inscription en ligne : le téléphone passe en second. */}
                         <Link href={race.signup} data-track="inscription-ouverture" className="btn btn-race">
@@ -255,6 +256,16 @@ export default function AgendaPage() {
                         </Link>
                         <a href={SITE.phoneHref} className="btn btn-ghost">
                           {SITE.phone}
+                        </a>
+                      </>
+                    ) : race.signup ? (
+                      <>
+                        {/* Complet ou passé : plus de formulaire, seulement une question au circuit. */}
+                        <span className="display inline-flex min-h-(--cta-height) items-center rounded-full bg-race px-6 text-base tracking-wide text-white">
+                          Inscriptions closes
+                        </span>
+                        <a href={SITE.phoneHref} className="btn btn-ghost">
+                          Une question · {SITE.phone}
                         </a>
                       </>
                     ) : (

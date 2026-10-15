@@ -4,7 +4,7 @@ import Affiche from "@/components/Affiche";
 import InscriptionPleinGaz from "@/components/InscriptionPleinGaz";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
-import { AGENDA, formatDate, getOperation } from "@/lib/agenda";
+import { datesOuvertes, formatDate, getOperation } from "@/lib/agenda";
 import { PLEIN_GAZ, PLEIN_GAZ_SLUG } from "@/lib/inscription-plein-gaz";
 import PageHero from "@/components/system/PageHero";
 import SectionHeader from "@/components/system/SectionHeader";
@@ -24,9 +24,7 @@ export const metadata: Metadata = {
 };
 
 /* Toutes les dates confirmées ; le composant écarte celles déjà passées. */
-const DATES = AGENDA.filter(
-  (a) => a.op === PLEIN_GAZ_SLUG && a.status === "confirme" && !a.endDate && a.date >= new Date().toISOString().slice(0, 10),
-).map((a) => {
+const DATES = datesOuvertes(PLEIN_GAZ_SLUG).map((a) => {
   const f = formatDate(a.date);
   return { iso: a.date, label: `${f.weekday} ${f.day} ${f.month}`, badge: a.badge };
 });
@@ -64,9 +62,11 @@ export default function InscriptionPleinGazPage() {
                 {d.label} : {d.badge}
               </span>
             ))}
-            <a href="#formulaire" className="btn btn-race">
-              Aller au formulaire
-            </a>
+            {DATES.length > 0 && (
+              <a href="#formulaire" className="btn btn-race">
+                Aller au formulaire
+              </a>
+            )}
           </>
         }
       />

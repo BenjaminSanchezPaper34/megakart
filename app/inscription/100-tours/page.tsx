@@ -4,7 +4,7 @@ import Affiche from "@/components/Affiche";
 import InscriptionCentTours from "@/components/InscriptionCentTours";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
-import { AGENDA, formatDate, getOperation } from "@/lib/agenda";
+import { AGENDA, datesOuvertes, formatDate, getOperation } from "@/lib/agenda";
 import { CENT_TOURS_SLUG } from "@/lib/inscription";
 import PageHero from "@/components/system/PageHero";
 import SectionHeader from "@/components/system/SectionHeader";
@@ -32,7 +32,7 @@ const DATES = AGENDA.filter(
 });
 
 /* Les dates complètes restent annoncées mais sortent du formulaire. */
-const OUVERTES = DATES.filter((d) => d.places !== 0);
+const OUVERTES = datesOuvertes(CENT_TOURS_SLUG).map((a) => DATES.find((d) => d.iso === a.date)!);
 
 export default function InscriptionCentToursPage() {
   const op = getOperation(CENT_TOURS_SLUG)!;
@@ -67,9 +67,11 @@ export default function InscriptionCentToursPage() {
                 {d.label} : {d.places === 0 ? "complet" : d.places === 1 ? "dernière place" : `plus que ${d.places} équipes`}
               </span>
             ))}
-            <a href="#formulaire" className="btn btn-race">
-              Aller au formulaire
-            </a>
+            {OUVERTES.length > 0 && (
+              <a href="#formulaire" className="btn btn-race">
+                Aller au formulaire
+              </a>
+            )}
           </>
         }
       />

@@ -3,16 +3,13 @@
  * (client) et la route d'envoi (serveur). La validation vit ici pour que
  * les deux côtés refusent exactement les mêmes choses.
  */
-import { AGENDA, formatDate } from "./agenda";
+import { datesOuvertes, formatDate } from "./agenda";
 
 export const CENT_TOURS_SLUG = "100-tours";
 
 /** Dates ouvertes à l'inscription : celles de l'agenda, confirmées, à venir. */
 export function centToursDates(today = new Date()) {
-  const iso = today.toISOString().slice(0, 10);
-  return AGENDA.filter(
-    (a) => a.op === CENT_TOURS_SLUG && a.status === "confirme" && !a.endDate && a.date >= iso
-  ).map((a) => {
+  return datesOuvertes(CENT_TOURS_SLUG, today).map((a) => {
     const f = formatDate(a.date);
     return { iso: a.date, label: `${f.weekday} ${f.day} ${f.month}` };
   });
