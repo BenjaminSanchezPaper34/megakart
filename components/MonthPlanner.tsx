@@ -218,7 +218,7 @@ export default function MonthPlanner() {
   return (
     <div>
       {/* Onglets mois */}
-      <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap" role="tablist" aria-label="Choisir le mois">
+      <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:justify-center" role="tablist" aria-label="Choisir le mois">
         {months.map((m, i) => (
           <button
             key={m.month}
@@ -238,7 +238,7 @@ export default function MonthPlanner() {
       </div>
 
       {/* Légende, au-dessus de la grille (choix Benjamin 15/10) */}
-      <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-lg text-chalk md:justify-start md:text-xl">
+      <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-lg text-chalk md:text-xl">
         <li className="flex items-center gap-2">
           <span className="h-6 w-6 rounded-full bg-emerald-500/40" aria-hidden="true" /> Ouvert (horaires indiqués)
         </li>
