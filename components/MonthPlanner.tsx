@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { SITE } from "@/lib/site";
 import {
   buildCalendar,
   getOperation,
@@ -385,6 +386,72 @@ function DayDetail({
   const weekday = WEEKDAYS_FULL[d.weekdayIdx];
   const { skin, label } = dayHeader(d);
 
+  // Les faits du jour, par ordre d'importance, complétés pour en avoir toujours 3.
+  const facts: { key: string; emoji: string; text: ReactNode }[] = [];
+  if (d.open && d.hours)
+    facts.push({
+      key: "heures",
+      emoji: "⏰",
+      text: (
+        <>
+          {d.event ? "Circuit ouvert " : "Ouvert "}
+          <strong>{d.hours}</strong>
+          {d.vacances ? " · vacances scolaires" : ""}
+        </>
+      ),
+    });
+  if (!d.open && !d.event)
+    facts.push({ key: "ferme", emoji: "🚧", text: <>Circuit fermé ce jour-là{d.ferie ? ` (${d.ferie})` : ""}.</> });
+  if (d.ferie && d.open) facts.push({ key: "ferie", emoji: "🎉", text: <>Jour férié : {d.ferie}</> });
+  if (op?.price)
+    facts.push({
+      key: "prix",
+      emoji: "💶",
+      text: (
+        <>
+          <strong>{op.price}</strong>
+          {op.priceNote ? ` · ${op.priceNote}` : ""}
+        </>
+      ),
+    });
+  if (d.event?.note) facts.push({ key: "note", emoji: "📝", text: d.event.note });
+  if (d.aVolonte)
+    facts.push({
+      key: "volonte",
+      emoji: "🔁",
+      text: (
+        <>
+          Roulage à volonté : <strong>29€</strong> enfant · <strong>59€</strong> 280cc · <strong>69€</strong> 390cc
+        </>
+      ),
+    });
+  if (d.packDecouverte)
+    facts.push({
+      key: "pack",
+      emoji: "🎓",
+      text: (
+        <>
+          Pack Découverte {op?.endsAt ? `après la course (fin ${op.endsAt})` : ""} : 3 sessions + coaching,{" "}
+          <strong>49€</strong> au lieu de 76€
+        </>
+      ),
+    });
+  if (d.promo) facts.push({ key: "promo", emoji: "🎁", text: <strong>2 tickets achetés = 1 offert</strong> });
+  if (d.open && !d.event) facts.push({ key: "libre", emoji: "🏁", text: "Sessions sans réservation, venez directement." });
+  // Compléments, selon le jour, jusqu'à 3 colonnes.
+  const complements: { key: string; emoji: string; text: ReactNode }[] = d.open
+    ? [
+        { key: "karts", emoji: "🏎️", text: "Des karts dès 3 ans, de 5€ à 45€ la session" },
+        { key: "piste", emoji: "⏱️", text: "1000 m de piste, chrono Apex Timing" },
+        { key: "casque", emoji: "⛑️", text: "Casques fournis, baskets obligatoires" },
+      ]
+    : [
+        { key: "vert", emoji: "📅", text: "Les jours ouverts sont en couleur dans le calendrier" },
+        { key: "tel", emoji: "📞", text: <>Une question ? {SITE.phone}</> },
+        { key: "events", emoji: "🎂", text: "Anniversaires et groupes sur réservation" },
+      ];
+  for (const c of complements) if (facts.length < 3) facts.push(c);
+
   return (
     <div className="card overflow-hidden p-0">
       {/* Bandeau à la couleur de la case */}
@@ -419,41 +486,13 @@ function DayDetail({
           </div>
         )}
 
-        {/* 3 colonnes : émoji, texte centré dessous. */}
+        {/* Toujours 3 colonnes : émoji, texte centré dessous (choix Benjamin 15/10). */}
         <ul className="grid gap-6 sm:grid-cols-3">
-          {d.open && d.hours && (
-            <Fact emoji="⏰">
-              {d.event ? "Circuit ouvert " : "Ouvert "}
-              <strong>{d.hours}</strong>
-              {d.vacances ? " · vacances scolaires" : ""}
+          {facts.slice(0, 3).map((f) => (
+            <Fact key={f.key} emoji={f.emoji}>
+              {f.text}
             </Fact>
-          )}
-          {!d.open && !d.event && <Fact emoji="🚧">Circuit fermé ce jour-là{d.ferie ? ` (${d.ferie})` : ""}.</Fact>}
-          {d.ferie && d.open && <Fact emoji="🎉">Jour férié : {d.ferie}</Fact>}
-          {op?.price && (
-            <Fact emoji="💶">
-              <strong>{op.price}</strong>
-              {op.priceNote ? ` · ${op.priceNote}` : ""}
-            </Fact>
-          )}
-          {d.event?.note && <Fact emoji="📝">{d.event.note}</Fact>}
-          {d.aVolonte && (
-            <Fact emoji="🔁">
-              Roulage à volonté : <strong>29€</strong> enfant · <strong>59€</strong> 280cc · <strong>69€</strong> 390cc
-            </Fact>
-          )}
-          {d.packDecouverte && (
-            <Fact emoji="🎓">
-              Pack Découverte {op?.endsAt ? `après la course (fin ${op.endsAt})` : ""} : 3 sessions + coaching,{" "}
-              <strong>49€</strong> au lieu de 76€
-            </Fact>
-          )}
-          {d.promo && (
-            <Fact emoji="🎁">
-              <strong>2 tickets achetés = 1 offert</strong>
-            </Fact>
-          )}
-          {d.open && !d.event && <Fact emoji="🏁">Sessions sans réservation, venez directement.</Fact>}
+          ))}
         </ul>
       </div>
     </div>
