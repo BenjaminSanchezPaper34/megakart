@@ -32,6 +32,23 @@ export default function Nav() {
   // Referme le menu mobile à chaque navigation
   useEffect(() => setOpen(false), [pathname]);
 
+  // Lien du menu mobile : on referme et on libère le scroll AVANT la navigation.
+  // Sinon un lien d'ancre sur la même page (« Tarifs » → /#flotte depuis l'accueil)
+  // ne fait rien : le chemin ne change pas, le menu reste ouvert, le scroll bloqué.
+  const onMenuLink = (href: string) => (e: React.MouseEvent) => {
+    document.documentElement.style.overflow = "";
+    setOpen(false);
+    const [path, hash] = href.split("#");
+    if (hash && (path || "/") === pathname) {
+      e.preventDefault();
+      window.history.replaceState(null, "", href);
+      // Laisse le menu se refermer, puis descend jusqu'à la section.
+      setTimeout(() => {
+        document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 60);
+    }
+  };
+
   // Bloque le scroll derrière le menu mobile
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
@@ -115,6 +132,7 @@ export default function Nav() {
             >
               <Link
                 href={l.href}
+                onClick={onMenuLink(l.href)}
                 className={`display block py-2 text-3xl ${pathname === l.href ? "text-race" : "text-chalk"}`}
               >
                 {l.label}
