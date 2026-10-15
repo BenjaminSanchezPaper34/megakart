@@ -1,10 +1,11 @@
-import Souvenirs from "@/components/Souvenirs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import GalleryGrid from "@/components/GalleryGrid";
 import ReelsRow from "@/components/ReelsRow";
 import { SITE, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { getGaleries } from "@/lib/galeries";
+import CarteGalerie from "@/components/galerie/CarteGalerie";
 import PageHero from "@/components/system/PageHero";
 import SectionHeader from "@/components/system/SectionHeader";
 import CtaFinal from "@/components/system/CtaFinal";
@@ -82,7 +83,28 @@ export default function PhotosPage() {
         subtitle="Sessions de jour, nocturnes sous les projecteurs, premiers tours en Baby Kart et vues du ciel, avec un photographe sur place pour repartir avec vos souvenirs."
       />
 
-      <Souvenirs />
+      {/* Les galeries des événements (photos à télécharger) : elles ont leur page, /galeries. */}
+      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+        <SectionHeader
+          line1="Vous avez roulé"
+          line2="chez nous ?"
+          subtitle="Courses, sorties d'entreprise, sessions : retrouvez-vous dans les galeries et téléchargez vos photos en qualité originale."
+          action={
+            <Link href="/galeries" className="btn btn-race">
+              Toutes les galeries
+            </Link>
+          }
+        />
+        <div data-stagger className="mt-(--section-gap) grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {getGaleries()
+            .slice(0, 3)
+            .map((g) => (
+              <CarteGalerie key={g.slug} g={g} />
+            ))}
+        </div>
+      </section>
+
+      <div className="kerb" aria-hidden="true" />
 
       {/* Les réels du circuit (verticaux, lecture au survol/tap) */}
       <section className="overflow-hidden bg-asphalt-2 py-(--section-y)">

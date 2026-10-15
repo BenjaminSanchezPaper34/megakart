@@ -88,6 +88,20 @@ export default function ConfidentialitePage() {
           </div>
 
           <div>
+            <h2 className="display mb-3 text-3xl text-chalk">Photos des événements</h2>
+            <p>
+              Les photos prises lors des courses et des événements du circuit sont publiées dans les{" "}
+              <Link href="/galeries" className="link-under text-chalk">
+                galeries
+              </Link>{" "}
+              du site, en accès libre, pour que les participants puissent les télécharger. Les fichiers sont
+              hébergés chez <strong className="text-chalk">Cloudflare</strong> (stockage R2). Vous apparaissez sur
+              une photo et souhaitez qu&rsquo;elle soit retirée ? Écrivez à {SITE.email} en indiquant la galerie et
+              la photo : elle est retirée rapidement, sans avoir à vous justifier.
+            </p>
+          </div>
+
+          <div>
             <h2 className="display mb-3 text-3xl text-chalk">
               Inscription aux courses (formulaires)
             </h2>
