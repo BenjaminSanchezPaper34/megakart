@@ -8,7 +8,6 @@ import {
   type CalendarDay,
   type CalendarMonth,
 } from "@/lib/agenda";
-import { SITE } from "@/lib/site";
 
 const WEEKDAYS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
 const WEEKDAYS_FULL = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
@@ -354,9 +353,6 @@ function DayDetail({
   const op = d.event?.op ? getOperation(d.event.op) : undefined;
   const weekday = WEEKDAYS_FULL[d.weekdayIdx];
   const { skin, label } = dayHeader(d);
-  // Course complète ou déjà courue : plus d'inscription ni de réservation
-  const closed = !!d.event?.full || isPast;
-  const signup = closed ? undefined : op?.signup;
 
   return (
     <div className="card overflow-hidden p-0">
@@ -427,30 +423,6 @@ function DayDetail({
           )}
           {d.open && !d.event && <Fact emoji="🏁">Sessions sans réservation, venez directement.</Fact>}
         </ul>
-
-        {/* Actions */}
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
-          {signup && (
-            <a href={signup} data-track="inscription-ouverture" className="btn btn-race">
-              {op?.signupCta ?? "S'inscrire"}
-            </a>
-          )}
-          {op && (
-            <a href={`#${op.slug}`} className={`btn ${signup || closed ? "btn-ghost" : "btn-race"}`}>
-              Voir la course
-            </a>
-          )}
-          {d.packDecouverte && (
-            <a href="#pack-decouverte" className="btn btn-ghost">
-              Le Pack Découverte
-            </a>
-          )}
-          {!isPast && (d.open || (op && !signup && !closed)) && (
-            <a href={SITE.phoneHref} data-track="tel" className="btn btn-ghost">
-              {op && !op.signup && !closed ? "Réserver" : "Une question"} · {SITE.phone}
-            </a>
-          )}
-        </div>
       </div>
     </div>
   );

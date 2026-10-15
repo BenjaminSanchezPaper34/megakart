@@ -152,3 +152,4 @@ Claude relit ce journal en reprenant la main.
 - 15/10 (Claude) — Agenda : hero et calendrier fusionnés (PageHero accepte `children`, photo limitée à 80svh fondue derrière). Pastille « Fin d'année 2026 » et bandeau défilant retirés ; en-tête « Le mois en piste » supprimé, lien chrono passé dans la note sous le calendrier.
 - 15/10 (Claude) — Agenda : raccourcis de courses retirés du hero ; onglets mois agrandis (text-xl → 2xl) ; légende du calendrier très agrandie (pastilles `Tag large`) et tout ce qui suit la grille centré (légende, consigne, fiche du jour max-w-3xl, note).
 - 15/10 (Claude) — Bons plans agenda : « Les conditions » passe du <details> brut à `components/system/DealConditions.tsx` (client) : hauteur animée grid-rows 0fr→1fr 500 ms, lignes en fondu décalé (60 ms), « + » qui pivote, inert quand fermé, coupé en reduced-motion.
+- 15/10 (Claude) — Fiche du jour : plus aucun bouton (ni inscription, ni course, ni téléphone), infos seules.
