@@ -64,8 +64,8 @@ export default function PistePage() {
         <div className="mx-auto grid max-w-7xl items-center gap-(--section-gap) px-5 md:px-8 lg:grid-cols-2">
           <div>
             <SectionHeader
-              line1="Un tracé qui se"
-              line2="mérite."
+              line1="Un tracé"
+              line2="qui se mérite."
               subtitle="Enchaînements d'esses, épingles serrées, relances et vraies lignes droites : 1000 mètres dessinés pour apprendre les trajectoires, et les soigner. La largeur de 8,5 m laisse toujours la place de tenter un dépassement proprement."
             />
             <p data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-lg">
@@ -83,8 +83,8 @@ export default function PistePage() {
       <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
         <div className="grid items-center gap-(--section-gap) lg:grid-cols-[1.1fr_1fr]">
           <SectionHeader
-            line1="Sécurité"
-            line2="type Formule 1."
+            line1="Sécurité type"
+            line2="Formule 1."
             subtitle="Les sensations, sans les mauvaises surprises : la même technologie de protection que sur les circuits de Formule 1, et une équipe qualifiée en permanence au bord de la piste."
           />
           <EmojiList
