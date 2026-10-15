@@ -200,7 +200,7 @@ export default function HomePage() {
             <br />
             <span className="display-outline">pas un manège.</span>
           </h2>
-          <ul data-stagger className="mt-8 grid max-w-xl gap-5 text-lg text-chalk md:text-xl lg:mt-12 lg:max-w-4xl lg:grid-cols-3 lg:gap-10">
+          <ul data-stagger className="mt-8 grid max-w-xl gap-5 text-lg text-chalk md:text-xl lg:mt-12 lg:max-w-none lg:grid-cols-3 lg:gap-10">
             <li className="flex items-center gap-4 lg:flex-col lg:items-center lg:gap-4 lg:text-center">
               <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none lg:w-auto">⏱️</span>
               <span>Chrono au dixième sur écran géant.</span>
