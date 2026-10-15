@@ -9,7 +9,7 @@ import PageHero from "@/components/system/PageHero";
 import SectionHeader from "@/components/system/SectionHeader";
 import EmojiList from "@/components/system/EmojiList";
 import CtaFinal from "@/components/system/CtaFinal";
-import { dealSkin, factEmoji, LABEL_TONE } from "@/components/system/tones";
+import { dealSkin, factEmoji } from "@/components/system/tones";
 import RowArrows from "@/components/RowArrows";
 import {
   RACES,
@@ -194,9 +194,6 @@ export default function AgendaPage() {
                 }`}
               >
                 <div>
-                  <p className={`mb-4 inline-flex rounded-full px-4 py-1.5 text-sm font-bold ${LABEL_TONE[race.accent]}`}>
-                    {race.kicker}
-                  </p>
                   <h3 data-reveal className="display text-[clamp(2.6rem,6vw,4.75rem)] leading-none text-chalk">
                     {race.name}
                   </h3>
