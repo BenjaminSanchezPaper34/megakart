@@ -348,10 +348,10 @@ function DayDetail({
   return (
     <div className="card overflow-hidden p-0">
       {/* Bandeau à la couleur de la case */}
-      <div className={`flex items-center gap-3 px-5 py-4 md:px-6 ${skin}`}>
+      <div className={`flex items-center gap-2 px-4 py-4 md:px-6 ${skin}`}>
         <StepButton dir={-1} onClick={() => onStep(-1)} disabled={!canStep(-1)} />
         <div className="min-w-0 flex-1 text-center">
-          <p className="text-sm font-bold uppercase tracking-widest opacity-80">
+          <p className="text-sm font-bold uppercase tracking-wide opacity-80">
             {isToday ? "Aujourd'hui" : label}
           </p>
           <p className="display mt-1 text-3xl leading-none capitalize md:text-4xl">
