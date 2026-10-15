@@ -352,8 +352,7 @@ function DayDetail({
         <StepButton dir={-1} onClick={() => onStep(-1)} disabled={!canStep(-1)} />
         <div className="min-w-0 flex-1 text-center">
           <p className="text-sm font-bold uppercase tracking-widest opacity-80">
-            {isToday ? "Aujourd'hui · " : ""}
-            {label}
+            {isToday ? "Aujourd'hui" : label}
           </p>
           <p className="display mt-1 text-3xl leading-none capitalize md:text-4xl">
             {weekday} {d.day} {m.name}
