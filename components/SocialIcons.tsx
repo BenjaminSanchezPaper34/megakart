@@ -45,7 +45,7 @@ export default function SocialIcons({ className = "", size = "md" }: { className
             className={
               lg
                 ? "grid h-14 w-14 place-items-center rounded-full border border-white/20 text-2xl text-chalk transition-colors active:bg-white/10"
-                : "link-under link-under-icon grid h-11 w-9 place-items-center text-base text-chalk transition-colors hover:text-white"
+                : "link-under link-under-icon grid h-11 w-10 place-items-center text-lg text-chalk transition-colors hover:text-white xl:w-11 xl:text-xl"
             }
           >
             {ICONS[l.label]}

@@ -64,14 +64,14 @@ export default function Nav() {
         <Logo className="relative z-50" />
 
         {/* Desktop */}
-        <ul className="hidden items-center gap-6 lg:flex xl:gap-8">
+        <ul className="hidden items-center gap-6 lg:flex xl:gap-9">
           {LINKS.map((l) => {
             const active = l.href === "/evenements" ? EVENT_PATHS.includes(pathname) : pathname === l.href;
             return (
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className={`link-under inline-flex min-h-11 items-center font-display text-base font-bold uppercase italic tracking-wide transition-colors ${
+                  className={`link-under inline-flex min-h-11 items-center font-display text-lg font-bold uppercase italic tracking-wide transition-colors xl:text-xl ${
                     active ? "text-race" : "text-chalk hover:text-white"
                   }`}
                   style={{ fontFamily: "var(--font-display)" }}
