@@ -237,6 +237,20 @@ export default function MonthPlanner() {
         ))}
       </div>
 
+      {/* Légende, au-dessus de la grille (choix Benjamin 15/10) */}
+      <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-lg text-chalk md:justify-start md:text-xl">
+        <li className="flex items-center gap-2">
+          <span className="h-6 w-6 rounded-full bg-emerald-500/40" aria-hidden="true" /> Ouvert (horaires indiqués)
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="h-6 w-6 rounded-full border border-white/20 bg-black/40" aria-hidden="true" /> Fermé
+        </li>
+        <li><Tag large kind="course">Course</Tag></li>
+        <li><Tag large kind="volonte">À volonté</Tag></li>
+        <li><Tag large kind="pack">Pack Découverte</Tag></li>
+        {SHOW_PROMOS && <li><Tag large kind="promo">2 tickets = 1 offert</Tag></li>}
+      </ul>
+
       {/* Mobile : carrousel des mois, swipe gauche/droite */}
       <div
         ref={scroller}
@@ -262,20 +276,6 @@ export default function MonthPlanner() {
           onSelect={pick}
         />
       </div>
-
-      {/* Légende */}
-      <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-lg text-chalk md:text-xl">
-        <li className="flex items-center gap-2">
-          <span className="h-6 w-6 rounded-full bg-emerald-500/40" aria-hidden="true" /> Ouvert (horaires indiqués)
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="h-6 w-6 rounded-full border border-white/20 bg-black/40" aria-hidden="true" /> Fermé
-        </li>
-        <li><Tag large kind="course">Course</Tag></li>
-        <li><Tag large kind="volonte">À volonté</Tag></li>
-        <li><Tag large kind="pack">Pack Découverte</Tag></li>
-        {SHOW_PROMOS && <li><Tag large kind="promo">2 tickets = 1 offert</Tag></li>}
-      </ul>
 
       {/* Détail du jour sélectionné */}
       <div ref={detail} aria-live="polite" className="mt-8">

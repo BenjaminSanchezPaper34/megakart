@@ -154,3 +154,4 @@ Claude relit ce journal en reprenant la main.
 - 15/10 (Claude) — Bons plans agenda : « Les conditions » passe du <details> brut à `components/system/DealConditions.tsx` (client) : hauteur animée grid-rows 0fr→1fr 500 ms, lignes en fondu décalé (60 ms), « + » qui pivote, inert quand fermé, coupé en reduced-motion.
 - 15/10 (Claude) — Fiche du jour : plus aucun bouton (ni inscription, ni course, ni téléphone), infos seules.
 - 15/10 (Claude) — Bons plans : conditions des 3 offres uniformisées sur le gabarit du mercredi (2 paragraphes courts + 4 faits courts) ; 2+1 et Pack Découverte réécrits sans perdre dates, tarifs, progression 390cc → RX250, coaching.
+- 15/10 (Claude) — Calendrier : numéro du jour plus entouré (seul le contour de la case marque aujourd'hui) ; légende déplacée entre les onglets et la grille (centrée mobile, alignée à gauche ordinateur).
