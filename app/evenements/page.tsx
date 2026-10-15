@@ -15,22 +15,39 @@ export const metadata: Metadata = {
 };
 
 /* Questions des familles et des organisateurs (ex-page /anniversaires, fusionnée le 15/10). */
+// 8 questions (2 × 4 sur ordinateur), courtes pour tenir sur une ligne ; les 3 formules couvertes.
 const FAQ = [
   {
-    q: "À partir de quel âge peut-on fêter un anniversaire chez MegaKart ?",
-    a: "Dès que les enfants peuvent piloter : Baby Kart électrique dès 3 ans sur piste dédiée, Kart Enfant 160cc dès 7 ans (1,30 m minimum), et biplace avec un adulte dès 5 ans. Le format s'adapte à l'âge du groupe.",
+    q: "Dès quel âge fêter un anniversaire ?",
+    a: "Dès que les enfants peuvent piloter : Baby Kart électrique dès 3 ans sur piste dédiée, biplace avec un adulte dès 5 ans, Kart Enfant 160cc dès 7 ans (1,30 m minimum). Le format s'adapte à l'âge du groupe.",
   },
   {
-    q: "Combien de participants minimum pour un événement ?",
-    a: "Les anniversaires et les EVG/EVJF se réservent à partir de 7 participants ; pour les entreprises, du groupe d'une dizaine de personnes à la privatisation complète du circuit pour une soixantaine de participants. Appelez le 09 50 28 95 91 ou écrivez à contact@megakart.fr pour construire la formule.",
+    q: "Peut-on apporter le gâteau ?",
+    a: "Oui : la terrasse ombragée et les tables de pique-nique accueillent le gâteau et les boissons, avec les parents en tribune pendant la course.",
   },
   {
-    q: "Peut-on apporter le gâteau et les boissons ?",
-    a: "Oui : la terrasse ombragée et les tables de pique-nique accueillent le goûter d'anniversaire, avec les parents en tribune.",
+    q: "Quel format pour un EVG ou un EVJF ?",
+    a: "Il se construit avec vous : sprint, endurance ou grille inversée, défis personnalisés pour le futur marié ou la future mariée, remise de prix et photo de podium. Dès 7 personnes.",
   },
   {
-    q: "Les événements sont-ils possibles toute l'année ?",
+    q: "Peut-on privatiser le circuit pour un CE ?",
+    a: "Oui : séminaires, sorties CE, fins de projet, du groupe d'une dizaine de personnes à la privatisation complète pour une soixantaine de participants, avec classements par équipe au chrono Apex Timing.",
+  },
+  {
+    q: "Combien de participants minimum ?",
+    a: "Les anniversaires et les EVG/EVJF se réservent dès 7 participants. Pour les entreprises, on construit la formule à partir d'une dizaine de personnes.",
+  },
+  {
+    q: "Comment réserver un événement ?",
+    a: "Par téléphone au 09 50 28 95 91 ou par e-mail à contact@megakart.fr : date, nombre de pilotes et format souhaité, et le circuit construit la formule avec vous.",
+  },
+  {
+    q: "C'est possible toute l'année ?",
     a: "Oui, sur réservation : le circuit est ouvert tous les jours, de 10 h à minuit trente en saison estivale et de 14 h à 19 h le reste de l'année.",
+  },
+  {
+    q: "Faut-il un équipement particulier ?",
+    a: "Les casques sont fournis sur place. Chaussures fermées type baskets obligatoires, vêtements flottants (écharpes, foulards…) interdits.",
   },
 ];
 
