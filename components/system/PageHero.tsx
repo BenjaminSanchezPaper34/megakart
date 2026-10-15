@@ -30,7 +30,8 @@ export default function PageHero({
   /** Bloc posé en bas du hero, sous le titre, sur la photo (ex. les chiffres de La piste). */
   bottom?: ReactNode;
   label?: ReactNode;
-  line1: ReactNode;
+  /** Absent : hero photo seule, sans titre (page Photos). */
+  line1?: ReactNode;
   line2?: ReactNode;
   accent?: "race" | "flag" | "outline";
   subtitle?: ReactNode;
@@ -41,7 +42,9 @@ export default function PageHero({
 }) {
   // Hero plein (non `short`) avec contenu dessous (agenda) : le titre garde exactement la
   // place d'un hero classique (78svh, calé en bas de la photo), le contenu suit après.
-  const tall = !!children && !short;
+  // Titre calé en bas d'un écran de 78svh (même hauteur que les autres pages), puis
+  // le contenu (enfants ou bloc `bottom`) à la suite.
+  const tall = (!!children || !!bottom) && !short;
   const head = (
     <>
       {label && (
@@ -49,8 +52,7 @@ export default function PageHero({
           {label}
         </p>
       )}
-      <SectionHeader as="h1" line1={line1} line2={line2} accent={accent} subtitle={subtitle} action={action} />
-      {bottom && <div className="mt-(--section-gap)">{bottom}</div>}
+      {line1 && <SectionHeader as="h1" line1={line1} line2={line2} accent={accent} subtitle={subtitle} action={action} />}
     </>
   );
   return (
@@ -60,7 +62,7 @@ export default function PageHero({
       {/* Avec du contenu dessous, la photo garde la hauteur d'un hero et se fond derrière lui. */}
       <div
         data-hero-bg
-        className={tall ? "absolute inset-x-0 top-0 h-[78svh]" : children ? "absolute inset-x-0 top-0 h-[80svh]" : "absolute inset-0"}
+        className={tall && !bottom ? "absolute inset-x-0 top-0 h-[78svh]" : children ? "absolute inset-x-0 top-0 h-[80svh]" : "absolute inset-0"}
         style={{ maskImage: FADE, WebkitMaskImage: FADE }}
       >
         <Image
@@ -80,6 +82,7 @@ export default function PageHero({
           <div data-hero-content className="flex min-h-[78svh] flex-col justify-end pb-(--section-gap) pt-40">
             {head}
           </div>
+          {bottom}
           {children}
         </div>
       ) : (

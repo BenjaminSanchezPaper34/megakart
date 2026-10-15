@@ -4,6 +4,7 @@ import GalleryGrid from "@/components/GalleryGrid";
 import ReelsRow from "@/components/ReelsRow";
 import { SITE, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+import PageHero from "@/components/system/PageHero";
 import { getGaleries } from "@/lib/galeries";
 import CarteGalerie from "@/components/galerie/CarteGalerie";
 import SectionHeader from "@/components/system/SectionHeader";
@@ -77,8 +78,12 @@ export default function PhotosPage() {
 
 
       {/* Les galeries des événements (photos à télécharger) : elles ont leur page, /galeries. */}
-      {/* Sans hero (choix Benjamin 15/10) : la page s'ouvre directement sur les galeries, titre en h1. */}
-      <section id="galeries" className="mx-auto max-w-7xl scroll-mt-24 px-5 pb-(--section-y) pt-36 md:px-8 md:pt-44">
+      {/* Hero photo seule, sans texte (choix Benjamin 15/10) ; le titre de page (h1) est celui des galeries. */}
+      <PageHero
+        image={{ src: "/images/galerie-15-nocturne-grande-roue.jpg", alt: "Session nocturne sur le circuit MegaKart, grande roue illuminée en arrière-plan", position: "object-[center_45%]" }}
+      />
+
+      <section id="galeries" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-(--section-y) md:px-8">
         <SectionHeader
           as="h1"
           line1="Vous avez roulé"
