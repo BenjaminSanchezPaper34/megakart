@@ -556,3 +556,13 @@ input[type="date"] {
   min-height: 3.125rem;
 }
 input[type="date"]::-webkit-date-and-time-value { text-align: left; }
+
+/* Rangée qui part de la grille du site et file jusqu'au bord droit du navigateur
+   (cartes des courses). La zone de contenu garde la largeur du site : 3 cartes calées
+   sur la grille, les suivantes visibles à droite jusqu'au bord de l'écran. */
+@media (min-width: 1024px) {
+  .bleed-row-right {
+    margin-right: calc(-1 * var(--site-gutter));
+    padding-right: var(--site-gutter);
+  }
+}

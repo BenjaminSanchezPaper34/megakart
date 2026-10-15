@@ -158,7 +158,7 @@ export default function UpcomingRaces() {
   return (
     <div
       data-race-bento
-      className="bleed-row-mobile no-scrollbar mt-[calc(var(--section-gap)-1rem)] grid auto-cols-[85%] grid-flow-col gap-5 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[calc((100%-1.25rem)/2)] lg:auto-cols-[calc((100%-2.5rem)/3)]"
+      className="bleed-row-mobile bleed-row-right no-scrollbar mt-[calc(var(--section-gap)-1rem)] grid auto-cols-[85%] grid-flow-col gap-5 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[calc((100%-1.25rem)/2)] lg:auto-cols-[calc((100%-2.5rem)/3)]"
     >
       {items.map((item, i) => (
         <Carte key={item.date + (item.op ?? item.label)} item={item} today={today} first={i === 0} />
