@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
+import SocialIcons from "./SocialIcons";
 import PaperSignature from "./PaperSignature";
 import { SITE } from "@/lib/site";
 
@@ -17,17 +18,8 @@ const PAGES = [
   { href: "/photos", label: "Photos" },
   { href: "/live", label: "Chrono en direct" },
   { href: "/contact", label: "Contact" },
-  { href: "/en", label: "English" },
 ];
 
-/* Réseaux en boutons (ex-section « La course continue en ligne » de la page Contact). */
-const SOCIALS = [
-  { label: "Instagram", href: SITE.social.instagram, handle: "@karting_megakart", emoji: "📸" },
-  { label: "Facebook", href: SITE.social.facebook, handle: "megakart.karting", emoji: "👍" },
-  { label: "TikTok", href: SITE.social.tiktok, handle: "@megakart34", emoji: "🎵" },
-  { label: "YouTube", href: SITE.social.youtube, handle: "MegaKart", emoji: "▶️" },
-  { label: "TripAdvisor", href: SITE.social.tripadvisor, handle: "Avis voyageurs", emoji: "⭐" },
-].filter((s) => s.href);
 
 export default function Footer() {
   return (
@@ -78,30 +70,24 @@ export default function Footer() {
 
         <div className="text-sm">
           <h3 className="display mb-3 text-lg text-chalk">Suivre MegaKart</h3>
-          <ul className="flex flex-col gap-2.5">
-            {SOCIALS.map((s) => (
-              <li key={s.label}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex min-h-12 items-center gap-3 rounded-full border border-white/15 px-4 py-2 transition-colors hover:border-chalk/50 hover:bg-white/5"
-                >
-                  <span aria-hidden="true" className="text-xl leading-none">{s.emoji}</span>
-                  <span className="flex flex-col leading-tight">
-                    <span className="display text-base text-chalk transition-colors group-hover:text-race">{s.label}</span>
-                    <span className="text-sm text-chalk-60">{s.handle}</span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          {/* Mêmes logos que l'en-tête. */}
+          <SocialIcons className="-ml-2" />
         </div>
       </div>
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-5 text-xs text-chalk-60/80 md:flex-row md:px-8">
-          <p>© {new Date().getFullYear()} {SITE.name} — Tous droits réservés</p>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+            {/* Version anglaise : touristes de Vias-plage. */}
+            <Link
+              href="/en"
+              hrefLang="en"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/15 px-4 text-sm font-semibold text-chalk transition-colors hover:border-chalk/50 hover:bg-white/5"
+            >
+              <span aria-hidden="true" className="text-lg leading-none">🇬🇧</span> English
+            </Link>
+            <p>© {new Date().getFullYear()} {SITE.name} — Tous droits réservés</p>
+          </div>
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-1">
             <li>
               <Link href="/mentions-legales" className="hover:text-chalk">
