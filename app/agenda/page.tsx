@@ -57,7 +57,6 @@ export default function AgendaPage() {
       />
 
       <PageHero
-        short
         image={{ src: "/images/galerie-22-aerien-crepuscule.jpg", alt: "Le circuit MegaKart au crépuscule, vu du ciel", position: "object-[center_40%]" }}
         line1="Ça roule aussi"
         line2="hors saison."

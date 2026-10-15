@@ -169,3 +169,4 @@ Claude relit ce journal en reprenant la main.
 - 15/10 (Claude) — Pages courses uniformes : les 12 Heures passent aussi par `PageCourse` (formulaire en tête, Tout savoir, puis ses sections propres via children) ; formulaire sur toute la largeur du site pour toutes les courses.
 - 15/10 (Claude) — Page Événements : pastilles jaunes retirées (label du hero « Uniquement sur réservation » et kicker de chaque formule).
 - 15/10 (Claude) — Page /anniversaires supprimée et fusionnée dans /evenements (redirection 301 → /evenements#anniversaire dans next.config.ts). Section anniversaire enrichie du déroulé, FAQ commune (+ JSON-LD FAQPage) sur Événements ; liens accueil, footer, nav, sitemap, llms.txt mis à jour.
+- 15/10 (Claude) — Agenda : hero à la hauteur d'Événements (titre calé en bas d'une photo 78svh, mode `tall` de PageHero quand children sans short), calendrier dessous.
