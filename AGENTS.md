@@ -164,3 +164,4 @@ Claude relit ce journal en reprenant la main.
   - Pop-up Course Enfant → `#formulaire`, bouton « Inscrire mon enfant ».
   - Calendrier : flèches mois précédent/suivant dans l'en-tête de la grille.
 - 15/10 (Claude) — Affiche 100 Tours sans date : `public/images/popup/100-tours-sans-date.jpg` (date effacée + flou), utilisée pour la carte et la page course ; le pop-up du 18/10 garde l'affiche datée.
+- 15/10 (Claude) — FAQ : 6e question (la piste : 1000 m, FFSA, Tecpro, Apex) ; composant Faq en 2 colonnes sur ordinateur, pleine largeur.

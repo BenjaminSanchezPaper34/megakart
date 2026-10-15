@@ -17,7 +17,8 @@ export default function Faq({
   return (
     <section id={id} className={`mx-auto max-w-7xl scroll-mt-24 px-5 py-(--section-y) md:px-8 ${className}`}>
       <SectionHeader line1={line1} line2={line2} />
-      <div data-stagger className="mt-(--section-gap) flex max-w-4xl flex-col gap-4">
+      {/* Deux colonnes sur ordinateur, sur toute la largeur du site (6 questions = 2 × 3). */}
+      <div data-stagger className="mt-(--section-gap) grid items-start gap-4 lg:grid-cols-2">
         {items.map((f) => (
           <details key={f.q} className="card group p-6 open:border-white/25">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold text-chalk [&::-webkit-details-marker]:hidden">

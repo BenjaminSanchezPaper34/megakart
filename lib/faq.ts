@@ -20,4 +20,8 @@ export const FAQ = [
     q: "Y a-t-il des règles d'équipement ?",
     a: "Oui : chaussures fermées type baskets obligatoires, vêtements flottants (écharpes, foulards…) interdits. Casques fournis sur place.",
   },
+  {
+    q: "Comment est la piste ?",
+    a: "Un vrai circuit outdoor de 1000 m de long et 8,5 m de large, homologué FFSA depuis 2012 pour la compétition, avec des protections Tecpro comme en F1 et un chronométrage Apex Timing, consultable en direct sur la page chrono du site.",
+  },
 ];
