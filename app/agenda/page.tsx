@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Affiche from "@/components/Affiche";
-import Marquee from "@/components/Marquee";
 import MonthPlanner from "@/components/MonthPlanner";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd, agendaJsonLd } from "@/lib/jsonld";
@@ -88,10 +87,9 @@ export default function AgendaPage() {
       <PageHero
         short
         image={{ src: "/images/galerie-22-aerien-crepuscule.jpg", alt: "Le circuit MegaKart au crépuscule, vu du ciel", position: "object-[center_40%]" }}
-        label="Fin d'année 2026, le programme"
         line1="Ça roule aussi"
         line2="hors saison."
-        subtitle="Endurance, trophées, courses enfants, roulage à volonté et bons plans : l'automne et l'hiver sont la vraie saison des pilotes."
+        subtitle="Courses, roulage à volonté et bons plans : touchez un jour du calendrier pour le détail."
         action={
           <nav aria-label="Prochaines courses" className="flex flex-wrap gap-2">
             {RACCOURCIS.map((r) => (
@@ -111,68 +109,38 @@ export default function AgendaPage() {
             </a>
           </nav>
         }
-      />
-
-      <Marquee
-        items={[
-          "Mercredi à volonté",
-          ...(SHOW_PROMOS ? ["2 tickets = 1 offert"] : []),
-          "Les 100 Tours",
-          "Trophée Plein Gaz",
-          "Pack Découverte",
-          "Chrono Apex Timing",
-        ]}
-      />
-
-      {/* ========== LE MOIS EN PISTE (calendrier mensuel) ========== */}
-      <section className="bg-asphalt-2 py-(--section-y)">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <SectionHeader
-            line1="Le mois en piste,"
-            line2="en un coup d'œil."
-            accent="flag"
-            subtitle={
-              <>
-                Ouvert, fermé, à volonté ou jour de course : touchez un jour pour le détail. Les jours de course, le
-                classement défile en direct sur la page{" "}
-                <Link href="/live" className="link-under font-semibold">
-                  chrono
-                </Link>
-                .
-              </>
-            }
-          />
-          <div data-reveal className="mt-(--section-gap)">
-            <MonthPlanner />
-          </div>
-          <p data-reveal className="mt-8 text-sm text-chalk-60">
-            Les dates « à confirmer » seront validées ici et sur{" "}
-            <a
-              href={SITE.social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-under font-semibold text-chalk"
-            >
-              Instagram
-            </a>
-            . Pour les courses, les places sont limitées : réservation au{" "}
-            <a href={SITE.phoneHref} className="link-under font-semibold text-chalk">
-              {SITE.phone}
-            </a>
-            {SITE.email && (
-              <>
-                {" "}
-                ou par e-mail à{" "}
-                <a href={`mailto:${SITE.email}`} className="link-under font-semibold text-chalk">
-                  {SITE.email}
-                </a>
-              </>
-            )}
-            .
-          </p>
-        </div>
-      </section>
-
+      >
+        <MonthPlanner />
+        <p className="mt-8 text-sm text-chalk-60">
+          Les jours de course, le classement défile en direct sur la page{" "}
+          <Link href="/live" className="link-under font-semibold text-chalk">
+            chrono
+          </Link>
+          . Les dates « à confirmer » seront validées ici et sur{" "}
+          <a
+            href={SITE.social.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-under font-semibold text-chalk"
+          >
+            Instagram
+          </a>
+          . Pour les courses, les places sont limitées : réservation au{" "}
+          <a href={SITE.phoneHref} className="link-under font-semibold text-chalk">
+            {SITE.phone}
+          </a>
+          {SITE.email && (
+            <>
+              {" "}
+              ou par e-mail à{" "}
+              <a href={`mailto:${SITE.email}`} className="link-under font-semibold text-chalk">
+                {SITE.email}
+              </a>
+            </>
+          )}
+          .
+        </p>
+      </PageHero>
       <div className="kerb" aria-hidden="true" />
 
       {/* ========== LES COURSES ========== */}

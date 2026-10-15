@@ -19,6 +19,7 @@ export default function PageHero({
   subtitle,
   action,
   short = false,
+  children,
 }: {
   image: { src: string; alt: string; position?: string };
   label?: ReactNode;
@@ -28,14 +29,17 @@ export default function PageHero({
   subtitle?: ReactNode;
   action?: ReactNode;
   short?: boolean;
+  /** Contenu posé directement sous le titre, sur la photo fondue (ex. le calendrier de l'agenda). */
+  children?: ReactNode;
 }) {
   return (
     <section
       className={`relative flex items-end overflow-hidden ${short ? "min-h-[56svh]" : "min-h-[78svh]"}`}
     >
+      {/* Avec du contenu dessous, la photo garde la hauteur d'un hero et se fond derrière lui. */}
       <div
         data-hero-bg
-        className="absolute inset-0"
+        className={children ? "absolute inset-x-0 top-0 h-[80svh]" : "absolute inset-0"}
         style={{ maskImage: FADE, WebkitMaskImage: FADE }}
       >
         <Image
@@ -49,13 +53,17 @@ export default function PageHero({
         <div aria-hidden="true" className="absolute inset-0 bg-asphalt/45" />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-asphalt/80 via-transparent to-asphalt/40" />
       </div>
-      <div data-hero-content className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-(--section-gap) pt-40 md:px-8">
+      <div
+        data-hero-content={children ? undefined : ""}
+        className={`relative z-10 mx-auto w-full max-w-7xl px-5 pt-40 md:px-8 ${children ? "pb-(--section-y)" : "pb-(--section-gap)"}`}
+      >
         {label && (
           <p className="mb-5 inline-flex rounded-full bg-flag px-4 py-1.5 text-sm font-bold text-asphalt">
             {label}
           </p>
         )}
         <SectionHeader as="h1" line1={line1} line2={line2} accent={accent} subtitle={subtitle} action={action} />
+        {children && <div className="mt-(--section-gap)">{children}</div>}
       </div>
     </section>
   );
