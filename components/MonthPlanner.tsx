@@ -24,10 +24,12 @@ const TAG_COLORS = {
 } as const;
 type TagKind = keyof typeof TAG_COLORS;
 
-function Tag({ kind, children }: { kind: TagKind; children: ReactNode }) {
+function Tag({ kind, children, large = false }: { kind: TagKind; children: ReactNode; large?: boolean }) {
   return (
     <span
-      className={`display max-w-full truncate rounded-full px-2 py-0.5 text-xs leading-tight tracking-wide ${TAG_COLORS[kind]}`}
+      className={`display max-w-full truncate rounded-full leading-tight tracking-wide ${
+        large ? "px-5 py-2 text-lg md:text-xl" : "px-2 py-0.5 text-xs"
+      } ${TAG_COLORS[kind]}`}
     >
       {children}
     </span>
@@ -214,7 +216,7 @@ export default function MonthPlanner() {
   return (
     <div>
       {/* Onglets mois */}
-      <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap" role="tablist" aria-label="Choisir le mois">
+      <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap" role="tablist" aria-label="Choisir le mois">
         {months.map((m, i) => (
           <button
             key={m.month}
@@ -222,7 +224,7 @@ export default function MonthPlanner() {
             role="tab"
             aria-selected={i === monthIdx}
             onClick={() => goTo(i)}
-            className={`display rounded-full px-5 py-2.5 text-center text-base capitalize transition-all duration-300 ${
+            className={`display rounded-full px-6 py-3.5 text-center text-xl capitalize md:px-8 md:text-2xl transition-all duration-300 ${
               i === monthIdx
                 ? "glow-race bg-race text-white"
                 : "bg-asphalt-3 text-chalk-60 hover:text-chalk"
@@ -245,7 +247,7 @@ export default function MonthPlanner() {
           </div>
         ))}
       </div>
-      <p className="mt-2 text-xs text-chalk-60 md:hidden">
+      <p className="mt-3 text-center text-sm text-chalk-60 md:hidden">
         Glissez vers la gauche ou la droite pour changer de mois.
       </p>
 
@@ -260,21 +262,21 @@ export default function MonthPlanner() {
       </div>
 
       {/* Légende */}
-      <ul className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-chalk-60">
+      <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-lg text-chalk md:text-xl">
         <li className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full bg-emerald-500/40" aria-hidden="true" /> Ouvert (horaires indiqués)
+          <span className="h-6 w-6 rounded-full bg-emerald-500/40" aria-hidden="true" /> Ouvert (horaires indiqués)
         </li>
         <li className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full border border-white/10 bg-black/40" aria-hidden="true" /> Fermé
+          <span className="h-6 w-6 rounded-full border border-white/20 bg-black/40" aria-hidden="true" /> Fermé
         </li>
-        <li><Tag kind="course">Course</Tag></li>
-        <li><Tag kind="volonte">À volonté</Tag></li>
-        <li><Tag kind="pack">Pack Découverte</Tag></li>
-        {SHOW_PROMOS && <li><Tag kind="promo">2 tickets = 1 offert</Tag></li>}
+        <li><Tag large kind="course">Course</Tag></li>
+        <li><Tag large kind="volonte">À volonté</Tag></li>
+        <li><Tag large kind="pack">Pack Découverte</Tag></li>
+        {SHOW_PROMOS && <li><Tag large kind="promo">2 tickets = 1 offert</Tag></li>}
       </ul>
 
       {/* Détail du jour sélectionné */}
-      <div ref={detail} aria-live="polite" className="mt-6">
+      <div ref={detail} aria-live="polite" className="mx-auto mt-8 max-w-3xl">
         {selected ? (
           <DayDetail
             m={selected.m}
@@ -285,7 +287,7 @@ export default function MonthPlanner() {
             canStep={(delta) => neighbour(delta) !== null}
           />
         ) : (
-          <p className="text-sm text-chalk-60">
+          <p className="text-center text-base text-chalk-60">
             Touchez un jour pour voir le détail.
           </p>
         )}

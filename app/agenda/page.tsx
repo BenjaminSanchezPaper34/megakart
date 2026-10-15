@@ -67,11 +67,6 @@ export default function AgendaPage() {
       .sort()[0];
   /* Courses dans l'ordre de leur prochaine date ouverte ; complètes ou passées en dernier. */
   const COURSES = [...RACES].sort((a, b) => (prochaine(a.slug) ?? "9999").localeCompare(prochaine(b.slug) ?? "9999"));
-  /* Raccourcis du haut de page : les prochaines dates ouvertes, une par course. */
-  const RACCOURCIS = COURSES.filter((r) => prochaine(r.slug)).map((r) => {
-    const f = formatDate(prochaine(r.slug)!);
-    return { slug: r.slug, label: `${f.day} ${f.month} · ${r.name}` };
-  });
   return (
     <>
       <script
@@ -90,28 +85,9 @@ export default function AgendaPage() {
         line1="Ça roule aussi"
         line2="hors saison."
         subtitle="Courses, roulage à volonté et bons plans : touchez un jour du calendrier pour le détail."
-        action={
-          <nav aria-label="Prochaines courses" className="flex flex-wrap gap-2">
-            {RACCOURCIS.map((r) => (
-              <a
-                key={r.slug}
-                href={`#${r.slug}`}
-                className="rounded-full border border-chalk/30 bg-asphalt/60 px-4 py-2 text-sm font-semibold text-chalk transition-colors hover:border-chalk hover:bg-chalk hover:text-asphalt"
-              >
-                {r.label}
-              </a>
-            ))}
-            <a
-              href="#bons-plans"
-              className="rounded-full bg-flag px-4 py-2 text-sm font-bold text-asphalt transition-colors hover:bg-chalk"
-            >
-              Bons plans
-            </a>
-          </nav>
-        }
       >
         <MonthPlanner />
-        <p className="mt-8 text-sm text-chalk-60">
+        <p className="mx-auto mt-8 max-w-3xl text-center text-base text-chalk-60">
           Les jours de course, le classement défile en direct sur la page{" "}
           <Link href="/live" className="link-under font-semibold text-chalk">
             chrono
