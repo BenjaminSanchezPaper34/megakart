@@ -99,9 +99,7 @@ function MonthGrid({
               } ${isToday ? "today-glow z-[1]" : ""}`}
             >
               <span
-                className={`display text-base leading-none md:text-2xl ${
-                  isToday ? "rounded-full bg-flag px-1.5 py-0.5 text-asphalt md:ring-1 md:ring-asphalt/40" : ""
-                }`}
+                className="display text-base leading-none md:text-2xl"
               >
                 {d.day}
               </span>
