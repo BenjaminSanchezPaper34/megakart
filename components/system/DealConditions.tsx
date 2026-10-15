@@ -29,12 +29,12 @@ export default function DealConditions({
         aria-expanded={open}
         aria-controls={id}
         onClick={() => setOpen((o) => !o)}
-        className="flex min-h-11 w-full items-center justify-center gap-2 text-sm font-bold"
+        className="flex min-h-11 w-full items-center justify-center gap-2 text-base font-bold md:text-lg"
       >
         Les conditions
         <span
           aria-hidden="true"
-          className={`display text-lg transition-transform duration-500 ease-[cubic-bezier(.2,.8,.2,1)] ${open ? "rotate-45" : ""}`}
+          className={`display text-2xl transition-transform duration-500 ease-[cubic-bezier(.2,.8,.2,1)] ${open ? "rotate-45" : ""}`}
         >
           +
         </span>
@@ -51,9 +51,9 @@ export default function DealConditions({
               <li
                 key={line.text}
                 style={{ transitionDelay: open ? `${120 + i * 60}ms` : "0ms" }}
-                className={`text-sm leading-relaxed transition-[opacity,transform] duration-500 ease-out motion-reduce:transition-none ${
+                className={`text-base leading-relaxed transition-[opacity,transform] md:text-lg duration-500 ease-out motion-reduce:transition-none ${
                   open ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"
-                } ${line.fact ? `border-b py-2 last:border-b-0 ${rule} ${i === details.length ? `mt-3 border-t ${rule}` : ""}` : `mt-3 ${soft}`}`}
+                } ${line.fact ? `border-b py-2.5 last:border-b-0 ${rule} ${i === details.length ? `mt-3 border-t ${rule}` : ""}` : `mt-3 ${soft}`}`}
               >
                 {line.text}
               </li>
