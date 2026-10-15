@@ -16,17 +16,25 @@ export default function LogoAnimeEmpile({ className = "" }: { className?: string
     const el = ref.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     setEtat("pret");
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setEtat("joue");
-          io.disconnect();
-        }
-      },
-      { threshold: 0.6 }
-    );
+    // Déclenchement dès qu'un bout du logo est à l'écran ; filet de sécurité au scroll
+    // (le logo ne doit jamais rester masqué si l'observateur ne se déclenche pas).
+    const jouer = () => {
+      setEtat("joue");
+      io.disconnect();
+      window.removeEventListener("scroll", verifier);
+    };
+    const verifier = () => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) jouer();
+    };
+    const io = new IntersectionObserver(([e]) => e.isIntersecting && jouer(), { threshold: 0.2 });
     io.observe(el);
-    return () => io.disconnect();
+    window.addEventListener("scroll", verifier, { passive: true });
+    verifier();
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", verifier);
+    };
   }, []);
 
   return (

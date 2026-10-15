@@ -544,3 +544,15 @@ body {
   a:hover > .logo-empile.joue .logo-flag > g:nth-child(7), a:focus-visible > .logo-empile.joue .logo-flag > g:nth-child(7) { animation-delay: 0.30s; }
   a:hover > .logo-empile.joue .logo-flag > g:nth-child(8), a:focus-visible > .logo-empile.joue .logo-flag > g:nth-child(8) { animation-delay: 0.35s; }
 }
+
+/* Champs date (formulaires) : sur iPhone, Safari leur impose une largeur propre qui
+   déborde du cadre. On les ramène à la largeur de leur colonne. */
+input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  min-width: 0;
+  max-width: 100%;
+  display: block;
+  min-height: 3.125rem;
+}
+input[type="date"]::-webkit-date-and-time-value { text-align: left; }
