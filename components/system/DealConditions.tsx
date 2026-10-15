@@ -1,0 +1,66 @@
+"use client";
+
+import { useId, useState } from "react";
+
+/**
+ * « Les conditions » d'une carte bon plan : dépliage animé (hauteur en
+ * grid-rows 0fr → 1fr, puis les lignes arrivent en fondu décalé). Remplace
+ * un <details> natif dont l'ouverture était brute et non animable sur Safari.
+ */
+export default function DealConditions({
+  details,
+  facts,
+  rule,
+  soft,
+}: {
+  details: string[];
+  facts: string[];
+  rule: string;
+  soft: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  const lines = [...details.map((text) => ({ text, fact: false })), ...facts.map((text) => ({ text, fact: true }))];
+
+  return (
+    <div className={`mt-4 w-full border-t pt-3 text-left ${rule}`}>
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={id}
+        onClick={() => setOpen((o) => !o)}
+        className="flex min-h-11 w-full items-center justify-center gap-2 text-sm font-bold"
+      >
+        Les conditions
+        <span
+          aria-hidden="true"
+          className={`display text-lg transition-transform duration-500 ease-[cubic-bezier(.2,.8,.2,1)] ${open ? "rotate-45" : ""}`}
+        >
+          +
+        </span>
+      </button>
+      <div
+        id={id}
+        className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(.2,.8,.2,1)] motion-reduce:transition-none ${
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden" inert={!open}>
+          <ul className="pb-1">
+            {lines.map((line, i) => (
+              <li
+                key={line.text}
+                style={{ transitionDelay: open ? `${120 + i * 60}ms` : "0ms" }}
+                className={`text-sm leading-relaxed transition-[opacity,transform] duration-500 ease-out motion-reduce:transition-none ${
+                  open ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"
+                } ${line.fact ? `border-b py-2 last:border-b-0 ${rule} ${i === details.length ? `mt-3 border-t ${rule}` : ""}` : `mt-3 ${soft}`}`}
+              >
+                {line.text}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}

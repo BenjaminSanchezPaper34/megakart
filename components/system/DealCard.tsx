@@ -1,5 +1,6 @@
 import type { Operation } from "@/lib/agenda";
 import { dealSkin } from "./tones";
+import DealConditions from "./DealConditions";
 
 /**
  * Carte « bon plan » commune à l'accueil et à l'agenda (même gabarit partout) :
@@ -23,26 +24,7 @@ export default function DealCard({ deal, expandable = false }: { deal: Operation
         </p>
       </div>
       {expandable && (
-        <details className={`group mt-4 w-full border-t pt-3 text-left ${skin.rule}`}>
-          <summary className="flex cursor-pointer list-none items-center justify-center gap-2 text-sm font-bold [&::-webkit-details-marker]:hidden">
-            Les conditions
-            <span aria-hidden="true" className="display text-lg transition-transform duration-300 group-open:rotate-45">
-              +
-            </span>
-          </summary>
-          {deal.details.map((p) => (
-            <p key={p} className={`mt-3 text-sm leading-relaxed ${skin.soft}`}>
-              {p}
-            </p>
-          ))}
-          <ul className={`mt-3 border-t text-sm ${skin.rule}`}>
-            {deal.facts.map((fact) => (
-              <li key={fact} className={`border-b py-2 last:border-b-0 ${skin.rule}`}>
-                {fact}
-              </li>
-            ))}
-          </ul>
-        </details>
+        <DealConditions details={deal.details} facts={deal.facts} rule={skin.rule} soft={skin.soft} />
       )}
     </article>
   );
