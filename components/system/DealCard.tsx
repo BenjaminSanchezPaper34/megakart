@@ -15,7 +15,17 @@ export default function DealCard({ deal, expandable = false }: { deal: Operation
       className={`race-event-card flex scroll-mt-28 snap-start flex-col items-center gap-0 p-5 text-center sm:p-6 ${skin.card}`}
     >
       <span className={`rounded-full px-3 py-1 text-sm font-bold ${skin.label}`}>{deal.kicker}</span>
-      <h3 className="display mt-4 text-4xl leading-none md:text-[2.75rem]">{deal.name}</h3>
+      <h3 className="display mt-4 text-4xl leading-none md:text-[2.75rem]">
+        {/* Mobile : coupe fixe (« Mercredi / à volonté ») ; ordinateur : sur une ligne. */}
+        {deal.nameLines
+          ? deal.nameLines.map((line, i) => (
+              <span key={line} className="block md:inline">
+                {i > 0 && <span className="hidden md:inline"> </span>}
+                {line}
+              </span>
+            ))
+          : deal.name}
+      </h3>
       <p className={`mt-3 line-clamp-2 min-h-[2lh] text-base leading-snug ${skin.soft}`}>{deal.summary}</p>
       <div className={`mt-auto flex w-full flex-col items-center gap-1 border-t pt-4 ${skin.rule}`}>
         <p className="display text-3xl leading-none">{deal.price ?? "3e offerte"}</p>

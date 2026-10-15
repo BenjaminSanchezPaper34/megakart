@@ -22,6 +22,8 @@ export type Operation = {
    * 3 lignes courtes — horaire, public, format. Ne rien y mettre qui ne soit confirmé.
    */
   essentiel?: string[];
+  /** Coupe du nom sur mobile (cartes bons plans) : une entrée par ligne. */
+  nameLines?: string[];
   price?: string;
   /** Heure de fin annoncée, quand elle est connue (ex. « 15h30 »). */
   endsAt?: string;
@@ -156,6 +158,7 @@ export const DEALS: Operation[] = [
     slug: "mercredi-a-volonte",
     kicker: "Les mercredis hors vacances",
     name: "Mercredi à volonté",
+    nameLines: ["Mercredi", "à volonté"],
     accent: "flag",
     summary: "Un tarif unique, du roulage à volonté toute la journée.",
     details: [
@@ -176,6 +179,7 @@ export const DEALS: Operation[] = [
     slug: "2-plus-1",
     kicker: "Jeudis, vendredis & vacances",
     name: "2 tickets = 1 offert",
+    nameLines: ["2 tickets", "= 1 offert"],
     accent: "race",
     summary: "Deux sessions achetées, la troisième offerte, de quoi s'entraîner.",
     // Conditions calées sur le gabarit du mercredi : 2 paragraphes courts + 4 faits.
@@ -195,6 +199,7 @@ export const DEALS: Operation[] = [
     slug: "pack-decouverte",
     kicker: "Le dimanche, avec coaching",
     name: "Pack Découverte",
+    nameLines: ["Pack", "Découverte"],
     accent: "chalk",
     summary: "3 sessions + coaching privé par un moniteur : la progression 390cc → RX250.",
     details: [
