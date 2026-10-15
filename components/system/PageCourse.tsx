@@ -25,6 +25,7 @@ export default function PageCourse({
   form,
   priceNote,
   ouvert,
+  children,
 }: {
   op: Operation;
   image: { src: string; alt: string; position?: string };
@@ -39,14 +40,17 @@ export default function PageCourse({
   priceNote?: string;
   /** Au moins une date encore ouverte (sinon pas de rappel vers le formulaire). */
   ouvert: boolean;
+  /** Sections propres à la course, après « Tout savoir » (ex. les 12 Heures). */
+  children?: ReactNode;
 }) {
   return (
     <>
       <PageHero short image={image} label={label} line1={line1} line2={line2} subtitle={subtitle} action={badges}>
-        <div id="formulaire" className="max-w-3xl scroll-mt-28">
-          <p className="mb-5 text-base leading-relaxed text-chalk md:text-lg">{intro}</p>
+        {/* Le formulaire sur toute la largeur du site, même gabarit pour chaque course. */}
+        <div id="formulaire" className="scroll-mt-28">
+          <p className="mb-5 max-w-3xl text-base leading-relaxed text-chalk md:text-lg">{intro}</p>
           {form}
-          <p className="mt-6 text-base leading-relaxed text-chalk-60">
+          <p className="mt-6 max-w-3xl text-base leading-relaxed text-chalk-60">
             Plutôt de vive voix ? Le circuit prend aussi les inscriptions au{" "}
             <a href={SITE.phoneHref} className="link-under font-semibold text-chalk">
               {SITE.phone}
@@ -99,6 +103,8 @@ export default function PageCourse({
           </div>
         </div>
       </section>
+
+      {children}
     </>
   );
 }

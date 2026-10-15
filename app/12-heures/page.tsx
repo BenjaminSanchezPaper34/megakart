@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import Marquee from "@/components/Marquee";
 import InscriptionDouzeHeures from "@/components/InscriptionDouzeHeures";
 import { SITE, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
-import { formatDate } from "@/lib/agenda";
-import PageHero from "@/components/system/PageHero";
+import { formatDate, getOperation } from "@/lib/agenda";
+import PageCourse from "@/components/system/PageCourse";
 import SectionHeader from "@/components/system/SectionHeader";
 import EmojiCards from "@/components/system/EmojiCards";
 import EmojiList from "@/components/system/EmojiList";
@@ -20,6 +18,7 @@ const f = formatDate(DOUZE_H.date);
 const DATE_LABEL = `${f.weekday} ${f.day} ${f.monthFull}`;
 const PRIX = prixEquipe();
 const RESTANTES = placesRestantes();
+const OP = getOperation("12-heures")!;
 
 export const metadata: Metadata = {
   title: `Les 12 Heures — endurance par équipes avec Vortex, ${DATE_LABEL}`,
@@ -125,136 +124,69 @@ export default function DouzeHeuresPage() {
         }}
       />
 
-      <PageHero
+      <PageCourse
+        op={OP}
+        ouvert={RESTANTES > 0}
         image={{ src: "/images/galerie-17-nocturne-action.jpg", alt: "Karts en action sur le circuit MegaKart éclairé de nuit", position: "object-[center_45%]" }}
-        label={<>{DATE_LABEL} · {DOUZE_H.depart} → {DOUZE_H.arrivee} · avec l&rsquo;écurie Vortex</>}
-        line1="Les 12 Heures"
-        line2="de MegaKart."
-        subtitle="Le plus grand format jamais couru sur le circuit : douze heures d'endurance par équipes, du jour à la nuit, sur les 1000 m de Vias-plage."
-        action={
-          <>
-            <a href="#formulaire" className="btn btn-race">
-              Inscrire mon équipe
-            </a>
-            <p className="display text-lg text-chalk">
-              {RESTANTES > 0 ? (
-                <>
-                  Plus que <span className="text-flag">{RESTANTES}</span> places sur {DOUZE_H.placesMax}
-                </>
-              ) : (
-                "Complet, liste d'attente par téléphone"
-              )}
-            </p>
-          </>
+        label={<>{OP.name} · {DATE_LABEL} · {DOUZE_H.depart} → {DOUZE_H.arrivee}</>}
+        line1="Inscrivez"
+        line2="votre équipe."
+        subtitle={`Douze heures d'endurance avec l'écurie Vortex, de ${DOUZE_H.pilotesMin} à ${DOUZE_H.pilotesMax} pilotes, dès ${DOUZE_H.ageMin} ans. ${PRIX} l'équipe, repas compris.`}
+        badges={
+          <span className="rounded-full bg-race px-4 py-2 text-base font-bold text-white">
+            {RESTANTES > 0 ? `Plus que ${RESTANTES} places sur ${DOUZE_H.placesMax}` : "Complet, liste d'attente par téléphone"}
+          </span>
         }
-      />
-
-      <Marquee
-        items={[
-          DATE_LABEL,
-          `${DOUZE_H.depart} → ${DOUZE_H.arrivee}`,
-          `Équipes de ${DOUZE_H.pilotesMin} à ${DOUZE_H.pilotesMax}`,
-          `${DOUZE_H.placesMax} équipes max`,
-          "Avec Vortex",
-          "Chrono Apex Timing",
-        ]}
-      />
-
-      {/* Le format */}
-      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
-        <SectionHeader
-          line1="Douze heures,"
-          line2="une seule équipe."
-          accent="outline"
-          subtitle={`L'épreuve est coorganisée avec l'écurie Vortex, pour que la journée tienne du vrai meeting d'endurance. Les karts sont les ${DOUZE_H.karts} du circuit, préparés pour l'épreuve.`}
-        />
-        <EmojiCards items={FORMAT} cols={4} />
-      </section>
-
-      {/* L'accueil des équipes */}
-      <section className="bg-asphalt-2 py-(--section-y)">
-        <div className="mx-auto grid max-w-7xl items-center gap-(--section-gap) px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
-          <div>
-            <p className="mb-5 inline-flex rounded-full bg-flag px-4 py-1.5 text-sm font-bold text-asphalt">
-              Votre camp de base
-            </p>
-            <SectionHeader
-              line1="Au chaud"
-              line2="entre deux relais."
-              accent="flag"
-              subtitle={`Pilotes et accompagnants se retrouvent dans un grand hangar chauffé, avec un espace par équipe pour se reposer, manger et suivre la course${DOUZE_H.repasAccompagnant ? ` (repas accompagnant : environ ${DOUZE_H.repasAccompagnant} €, matin, midi et soir)` : ""}.`}
-            />
-            <EmojiList items={ACCUEIL} className="mt-(--section-gap)" />
-          </div>
-          <div data-reveal className="race-event-card overflow-hidden">
-            <Image
-              src="/images/galerie-23-aerien-nuit.jpg"
-              alt="Vue aérienne du circuit MegaKart éclairé la nuit"
-              width={1200}
-              height={800}
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              className="h-full w-full object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Pour qui */}
-      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
-        <SectionHeader line1="Ouvert à tous" line2="les équipages." />
-        <EmojiCards items={PUBLICS} />
-      </section>
-
-      <div className="kerb" aria-hidden="true" />
-
-      {/* Inscription — le formulaire après le décor, comme toutes les pages d'inscription. */}
-      <section id="formulaire" className="scroll-mt-28 bg-asphalt-2 py-(--section-y)">
-        <div className="mx-auto max-w-3xl px-5 md:px-8">
-          <p className="mb-5 inline-flex rounded-full bg-flag px-4 py-1.5 text-sm font-bold text-asphalt">
-            Inscription
-          </p>
+        intro="Pas d'acompte : tout se règle sur place. Le circuit vous rappelle pour confirmer l'inscription de l'équipe."
+        form={<InscriptionDouzeHeures dateLabel={DATE_LABEL} />}
+        priceNote="repas compris, réglé sur place"
+      >
+        {/* Le format */}
+        <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
           <SectionHeader
-            line1={PRIX}
-            line2="l'équipe."
-            accent="flag"
-            subtitle={`Le même tarif de ${DOUZE_H.pilotesMin} à ${DOUZE_H.pilotesMax} pilotes, repas compris. Pas d'acompte : tout se règle sur place. Ouvert dès ${DOUZE_H.ageMin} ans.${RESTANTES > 0 ? ` ${RESTANTES} places restantes sur ${DOUZE_H.placesMax}.` : ""}`}
+            line1="Douze heures,"
+            line2="une seule équipe."
+            accent="outline"
+            subtitle={`L'épreuve est coorganisée avec l'écurie Vortex, pour que la journée tienne du vrai meeting d'endurance. Les karts sont les ${DOUZE_H.karts} du circuit, préparés pour l'épreuve.`}
           />
+          <EmojiCards items={FORMAT} cols={4} />
+        </section>
 
-          <div className="mt-(--section-gap)">
-            <InscriptionDouzeHeures dateLabel={DATE_LABEL} />
-          </div>
-
-          <div className="card mt-8 p-6">
-            <p className="display text-lg text-chalk">Plutôt de vive voix ?</p>
-            <p className="mt-2 text-base leading-relaxed text-chalk-60">
-              L&rsquo;équipe du circuit prend aussi les inscriptions au téléphone et par e-mail.
-            </p>
-            <div className="mt-4 flex flex-col gap-2">
-              <a href={SITE.phoneHref} className="link-under w-fit text-base font-semibold text-chalk">
-                {SITE.phone}
-              </a>
-              <a href={`mailto:${SITE.email}`} className="link-under w-fit text-base font-semibold text-chalk">
-                {SITE.email}
-              </a>
+        {/* L'accueil des équipes */}
+        <section className="bg-asphalt-2 py-(--section-y)">
+          <div className="mx-auto grid max-w-7xl items-center gap-(--section-gap) px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
+            <div>
+              <p className="mb-5 inline-flex rounded-full bg-flag px-4 py-1.5 text-sm font-bold text-asphalt">
+                Votre camp de base
+              </p>
+              <SectionHeader
+                line1="Au chaud"
+                line2="entre deux relais."
+                accent="flag"
+                subtitle={`Pilotes et accompagnants se retrouvent dans un grand hangar chauffé, avec un espace par équipe pour se reposer, manger et suivre la course${DOUZE_H.repasAccompagnant ? ` (repas accompagnant : environ ${DOUZE_H.repasAccompagnant} €, matin, midi et soir)` : ""}.`}
+              />
+              <EmojiList items={ACCUEIL} className="mt-(--section-gap)" />
+            </div>
+            <div data-reveal className="race-event-card overflow-hidden">
+              <Image
+                src="/images/galerie-23-aerien-nuit.jpg"
+                alt="Vue aérienne du circuit MegaKart éclairé la nuit"
+                width={1200}
+                height={800}
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="h-full w-full object-cover"
+              />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Liens */}
-      <section className="mx-auto max-w-7xl px-5 py-(--section-y) text-center md:px-8">
-        <div className="flex flex-wrap justify-center gap-4">
-          <Link href="/agenda" className="btn btn-ghost">
-            Tout l&rsquo;agenda
-          </Link>
-          <Link href="/live" className="btn btn-ghost">
-            Le chrono en direct
-          </Link>
-          <Link href="/la-piste" className="btn btn-ghost">
-            La piste
-          </Link>
-        </div>
-      </section>
+        {/* Pour qui */}
+        <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+          <SectionHeader line1="Ouvert à tous" line2="les équipages." />
+          <EmojiCards items={PUBLICS} />
+        </section>
+
+      </PageCourse>
     </>
   );
 }
