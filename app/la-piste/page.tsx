@@ -3,6 +3,7 @@ import Link from "next/link";
 import TrackMap from "@/components/TrackMap";
 import Marquee from "@/components/Marquee";
 import Histoire from "@/components/Histoire";
+import RowArrows from "@/components/RowArrows";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import PageHero from "@/components/system/PageHero";
@@ -127,12 +128,19 @@ export default function PistePage() {
 
       {/* Histoire — frise + archives familiales */}
       <section id="histoire" className="scroll-mt-28 py-(--section-y)">
-        <div className="mx-auto max-w-5xl px-5 md:px-8">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
           <SectionHeader
-            line1="Depuis 1992,"
-            line2="et toujours plus vite."
+            line1="Depuis 1992"
+            line2={
+              <>
+                et toujours
+                <br />
+                plus vite.
+              </>
+            }
             accent="outline"
             subtitle="Le circuit a vu passer trois décennies de pilotes, des premiers tours de roue en famille aux chronos de compétition. Voici son histoire, année après année."
+            action={<RowArrows target="[data-histoire]" label="Histoire" className="flex gap-3" />}
           />
 
           <Histoire />
