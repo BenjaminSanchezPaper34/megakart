@@ -333,11 +333,11 @@ function dayHeader(d: CalendarDay): { skin: string; label: string } {
 
 function Fact({ emoji, children }: { emoji: string; children: ReactNode }) {
   return (
-    <li className="flex items-center gap-4 text-base leading-snug text-chalk">
-      <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none">
+    <li className="flex flex-col items-center gap-3 text-center text-base leading-snug text-chalk">
+      <span aria-hidden="true" className="text-5xl leading-none">
         {emoji}
       </span>
-      <span>{children}</span>
+      <span className="max-w-xs">{children}</span>
     </li>
   );
 }
@@ -419,7 +419,8 @@ function DayDetail({
           </div>
         )}
 
-        <ul className="grid gap-4 sm:grid-cols-2">
+        {/* 3 colonnes : émoji, texte centré dessous. */}
+        <ul className="grid gap-6 sm:grid-cols-3">
           {d.open && d.hours && (
             <Fact emoji="⏰">
               {d.event ? "Circuit ouvert " : "Ouvert "}
