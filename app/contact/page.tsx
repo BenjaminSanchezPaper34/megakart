@@ -13,13 +13,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
-const SOCIALS = [
-  { label: "Instagram", href: SITE.social.instagram, handle: "@karting_megakart", emoji: "📸" },
-  { label: "Facebook", href: SITE.social.facebook, handle: "megakart.karting", emoji: "👍" },
-  { label: "TikTok", href: SITE.social.tiktok, handle: "@megakart34", emoji: "🎵" },
-  { label: "YouTube", href: SITE.social.youtube, handle: "MegaKart", emoji: "▶️" },
-  { label: "TripAdvisor", href: SITE.social.tripadvisor, handle: "Avis voyageurs", emoji: "⭐" },
-].filter((s) => s.href);
 
 /* Carte d'info à émoji à cheval sur le haut (même motif que « Les grands jours »). */
 const INFO_CARD = "card relative flex flex-col gap-4 p-6 pt-12 sm:p-7 sm:pt-12";
@@ -109,31 +102,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <div className="kerb" aria-hidden="true" />
-
-      {/* Réseaux */}
-      <section className="bg-asphalt-2 py-(--section-y)">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <SectionHeader line1="La course continue" line2="en ligne." accent="flag" />
-          <div data-stagger className="mt-(--section-gap) grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {SOCIALS.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="card group flex items-center gap-4 p-5"
-              >
-                <span aria-hidden="true" className="text-4xl leading-none">{s.emoji}</span>
-                <span>
-                  <span className="display block text-xl text-chalk transition-colors group-hover:text-race">{s.label}</span>
-                  <span className="block text-sm text-chalk-60">{s.handle}</span>
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
     </>
   );
 }
