@@ -1,3 +1,4 @@
+import FaqItem from "./FaqItem";
 import SectionHeader from "./SectionHeader";
 
 /** Bloc FAQ du système : en-tête standard + questions dépliables (cartes). */
@@ -20,18 +21,7 @@ export default function Faq({
       {/* Deux colonnes sur ordinateur, sur toute la largeur du site (6 questions = 2 × 3). */}
       <div data-stagger className="mt-(--section-gap) grid items-start gap-4 lg:grid-cols-2">
         {items.map((f) => (
-          <details key={f.q} className="card group p-6 open:border-white/25">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold text-chalk [&::-webkit-details-marker]:hidden">
-              {f.q}
-              <span
-                aria-hidden="true"
-                className="display shrink-0 text-2xl text-race transition-transform duration-300 group-open:rotate-45"
-              >
-                +
-              </span>
-            </summary>
-            <p className="mt-4 text-base leading-relaxed text-chalk-60">{f.a}</p>
-          </details>
+          <FaqItem key={f.q} q={f.q} a={f.a} />
         ))}
       </div>
     </section>
