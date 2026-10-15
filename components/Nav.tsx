@@ -23,7 +23,7 @@ const LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-const EVENT_PATHS = ["/evenements", "/anniversaires"];
+const EVENT_PATHS = ["/evenements"];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);

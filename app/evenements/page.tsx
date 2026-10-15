@@ -1,18 +1,38 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { SITE } from "@/lib/site";
-import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/jsonld";
+import Faq from "@/components/system/Faq";
 import PageHero from "@/components/system/PageHero";
 import SectionHeader from "@/components/system/SectionHeader";
 import EmojiList from "@/components/system/EmojiList";
 import CtaFinal from "@/components/system/CtaFinal";
 
 export const metadata: Metadata = {
-  title: "Anniversaires, EVG/EVJF & team building sur circuit",
+  title: "Anniversaire karting, EVG/EVJF & team building CE à Vias",
   description:
-    "Privatisez le circuit MegaKart à Vias : anniversaires dès 7 participants, EVG/EVJF, séminaires et team building d'entreprise. Courses d'endurance sur mesure, terrasse ombragée. Sur réservation.",
+    "Anniversaires dès 7 participants, EVG/EVJF, sorties CE et team building sur le circuit MegaKart de Vias, près d'Agde et Béziers : course à son nom, chrono sur écran géant, podium, terrasse ombragée. Sur réservation.",
   alternates: { canonical: "/evenements" },
 };
+
+/* Questions des familles et des organisateurs (ex-page /anniversaires, fusionnée le 15/10). */
+const FAQ = [
+  {
+    q: "À partir de quel âge peut-on fêter un anniversaire chez MegaKart ?",
+    a: "Dès que les enfants peuvent piloter : Baby Kart électrique dès 3 ans sur piste dédiée, Kart Enfant 160cc dès 7 ans (1,30 m minimum), et biplace avec un adulte dès 5 ans. Le format s'adapte à l'âge du groupe.",
+  },
+  {
+    q: "Combien de participants minimum pour un événement ?",
+    a: "Les anniversaires et les EVG/EVJF se réservent à partir de 7 participants ; pour les entreprises, du groupe d'une dizaine de personnes à la privatisation complète du circuit pour une soixantaine de participants. Appelez le 09 50 28 95 91 ou écrivez à contact@megakart.fr pour construire la formule.",
+  },
+  {
+    q: "Peut-on apporter le gâteau et les boissons ?",
+    a: "Oui : la terrasse ombragée et les tables de pique-nique accueillent le goûter d'anniversaire, avec les parents en tribune.",
+  },
+  {
+    q: "Les événements sont-ils possibles toute l'année ?",
+    a: "Oui, sur réservation : le circuit est ouvert tous les jours, de 10 h à minuit trente en saison estivale et de 14 h à 19 h le reste de l'année.",
+  },
+];
 
 const EVENTS = [
   {
@@ -21,15 +41,17 @@ const EVENTS = [
     title: "Anniversaires",
     text: [
       "Un anniversaire chez MegaKart, c'est une vraie course à son nom : grille de départ, chrono sur l'écran géant, podium — et des copains qui en parlent encore à la rentrée.",
+      "Briefing pilotes, casques fournis, et chacun son kart adapté à son âge, du Baby Kart électrique au 160cc junior. Sprint ou endurance, le chrono Apex Timing s'affiche en direct sur l'écran géant, puis podium et remise de prix pour la star du jour.",
       "La terrasse ombragée et les tables de pique-nique accueillent le gâteau et les parents. Dès 7 participants, sur réservation.",
     ],
     emoji: "🎂",
     facts: [
       { emoji: "👥", text: "Dès 7 participants" },
       { emoji: "🏁", text: "Courses & défis sur mesure" },
+      { emoji: "🧒", text: "Dès 3 ans en Baby Kart, 7 ans en Kart Enfant" },
+      { emoji: "🏆", text: "Podium & remise de prix" },
       { emoji: "⛱️", text: "Terrasse ombragée pour le goûter" },
     ],
-    cta: { href: "/anniversaires", label: "Tout sur les anniversaires" },
   },
   {
     id: "evg-evjf",
@@ -70,7 +92,7 @@ export default function EvenementsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            breadcrumbJsonLd([{ name: "Événements", path: "/evenements" }])
+            [breadcrumbJsonLd([{ name: "Événements", path: "/evenements" }]), faqJsonLd(FAQ)]
           ),
         }}
       />
@@ -97,16 +119,13 @@ export default function EvenementsPage() {
                   {p}
                 </p>
               ))}
-              {"cta" in e && e.cta && (
-                <Link href={e.cta.href} data-reveal className="btn btn-ghost mt-8">
-                  {e.cta.label}
-                </Link>
-              )}
             </div>
             <EmojiList items={e.facts} />
           </div>
         </section>
       ))}
+
+      <Faq items={FAQ} />
 
       <div className="kerb" aria-hidden="true" />
 

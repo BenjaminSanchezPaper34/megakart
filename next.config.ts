@@ -3,7 +3,11 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Page Tarifs fusionnée dans l'accueil (13/10/2026).
   async redirects() {
-    return [{ source: "/tarifs", destination: "/#flotte", permanent: true }];
+    return [
+      { source: "/tarifs", destination: "/#flotte", permanent: true },
+      // Page Anniversaires fusionnée dans Événements (15/10/2026) : une seule page pour les 3 formules.
+      { source: "/anniversaires", destination: "/evenements#anniversaire", permanent: true },
+    ];
   },
   images: {
     formats: ["image/avif", "image/webp"],

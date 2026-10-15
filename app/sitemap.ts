@@ -15,7 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/inscription/plein-gaz`, lastModified: LASTMOD, priority: 0.8 },
     { url: `${SITE_URL}/live`, lastModified: LASTMOD, priority: 0.7 },
     { url: `${SITE_URL}/la-piste`, lastModified: LASTMOD, priority: 0.8 },
-    { url: `${SITE_URL}/anniversaires`, lastModified: LASTMOD, priority: 0.8 },
     { url: `${SITE_URL}/evenements`, lastModified: LASTMOD, priority: 0.8 },
     { url: `${SITE_URL}/photos`, lastModified: LASTMOD, priority: 0.6 },
     { url: `${SITE_URL}/en`, lastModified: LASTMOD, priority: 0.7 },

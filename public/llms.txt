@@ -91,8 +91,7 @@
   Pack Découverte coaching), avec toutes les dates
 - /la-piste : caractéristiques techniques, sécurité, chrono, et la frise historique du circuit
   (1992 création, 2012 agrandissement et passage en compétition catégorie 1.1, 2023 reprise par Lucas PAINA)
-- /anniversaires : anniversaires enfants sur circuit — déroulé, FAQ parents, dès 7 participants
-- /evenements : EVG/EVJF, team building entreprise, privatisation
+- /evenements : les 3 formules privées sur une page — anniversaires (déroulé, dès 7 participants), EVG/EVJF, entreprises & CE (team building, privatisation jusqu'à 60), FAQ
 - /photos : photos & vidéos — réels verticaux du circuit, galerie (sessions jour et nocturnes, Baby Kart, vues aériennes)
 - /contact : adresse, horaires, accès, réseaux sociaux
 - /en : English summary — prices, opening hours, directions (tourist-friendly)

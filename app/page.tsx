@@ -267,7 +267,7 @@ export default function HomePage() {
             {
               emoji: "🎂",
               title: "Anniversaires",
-              href: "/anniversaires",
+              href: "/evenements#anniversaire",
               text: "Une course d'endurance à son nom, le podium, la terrasse ombragée pour le gâteau : l'anniversaire dont on parle encore à la rentrée. Dès 7 participants.",
             },
             {
