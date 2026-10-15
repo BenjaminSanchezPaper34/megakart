@@ -143,6 +143,8 @@ export function agendaJsonLd(
     date: string;
     name: string;
     slug?: string;
+    /** Page de la course (sinon l'agenda). */
+    path?: string;
     description: string;
     price?: number;
     /** Chemin d'image depuis /images (sinon l'OG du site). */
@@ -192,14 +194,14 @@ export function agendaJsonLd(
           organizer,
           // Pas de tête d'affiche : c'est le circuit qui fait le spectacle.
           performer: organizer,
-          url: `${SITE_URL}/agenda${e.slug ? `#${e.slug}` : ""}`,
+          url: `${SITE_URL}${e.path ?? "/agenda"}`,
           ...(e.price !== undefined && {
             offers: {
               "@type": "Offer",
               price: e.price,
               priceCurrency: "EUR",
               availability: "https://schema.org/InStock",
-              url: `${SITE_URL}/agenda${e.slug ? `#${e.slug}` : ""}`,
+              url: `${SITE_URL}${e.path ?? "/agenda"}`,
             },
           }),
         },

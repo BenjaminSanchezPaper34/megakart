@@ -2,13 +2,17 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
 // Mettre à jour la date à chaque modification de contenu d'une page.
-const LASTMOD = "2026-10-14";
+const LASTMOD = "2026-10-15";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: `${SITE_URL}`, lastModified: LASTMOD, priority: 1 },
     { url: `${SITE_URL}/agenda`, lastModified: LASTMOD, priority: 0.9 },
     { url: `${SITE_URL}/12-heures`, lastModified: LASTMOD, priority: 0.8 },
+    // Pages des courses (formulaire + détail) depuis le 15/10.
+    { url: `${SITE_URL}/inscription/100-tours`, lastModified: LASTMOD, priority: 0.8 },
+    { url: `${SITE_URL}/inscription/course-enfant`, lastModified: LASTMOD, priority: 0.8 },
+    { url: `${SITE_URL}/inscription/plein-gaz`, lastModified: LASTMOD, priority: 0.8 },
     { url: `${SITE_URL}/live`, lastModified: LASTMOD, priority: 0.7 },
     { url: `${SITE_URL}/la-piste`, lastModified: LASTMOD, priority: 0.8 },
     { url: `${SITE_URL}/anniversaires`, lastModified: LASTMOD, priority: 0.8 },

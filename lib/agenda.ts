@@ -17,6 +17,11 @@ export type Operation = {
   details: string[];
   /** Format, conditions, à gagner… */
   facts: string[];
+  /**
+   * L'essentiel pour choisir en un coup d'œil (carte course, accueil et agenda) :
+   * 3 lignes courtes — horaire, public, format. Ne rien y mettre qui ne soit confirmé.
+   */
+  essentiel?: string[];
   price?: string;
   /** Heure de fin annoncée, quand elle est connue (ex. « 15h30 »). */
   endsAt?: string;
@@ -67,6 +72,7 @@ export const RACES: Operation[] = [
     priceNote: "en équipe de 3 — 88€ en équipe de 2",
     reservation: true,
     signup: "/inscription/100-tours",
+    essentiel: ["Rendez-vous à 10h, départ à 10h15", "Équipes de 2 ou 3 pilotes", "100 tours en relais, Sodi RT10 390cc"],
   },
   {
     slug: "plein-gaz",
@@ -87,6 +93,7 @@ export const RACES: Operation[] = [
     priceValue: 85,
     reservation: true,
     signup: "/inscription/plein-gaz",
+    essentiel: ["Essais, qualifs et course de 12 tours", "Finale de 10 minutes", "À gagner : un baptême en voiture Vortex"],
     signupCta: "Inscrire mes pilotes",
   },
   {
@@ -112,6 +119,7 @@ export const RACES: Operation[] = [
     priceValue: 32,
     reservation: true,
     signup: "/inscription/course-enfant",
+    essentiel: ["De 8 à 14 ans, 1,40 m minimum", "Rendez-vous à 14h", "3 manches de 8 min en Kart Enfant 160cc"],
     signupCta: "Inscrire mon enfant",
   },
 
@@ -137,6 +145,7 @@ export const RACES: Operation[] = [
     priceValue: 1500,
     page: "/12-heures",
     signup: "/12-heures#formulaire",
+    essentiel: ["De midi à minuit", "Équipes de 2 à 6 pilotes, dès 14 ans", "Repas pilotes compris, 15 équipes max"],
     reservation: true,
   },
 ];
@@ -265,6 +274,18 @@ export function datesOuvertes(slug: string, today = new Date()): AgendaItem[] {
   return AGENDA.filter(
     (a) => a.op === slug && a.status === "confirme" && !a.endDate && a.date >= iso && a.places !== 0
   );
+}
+
+/** Page d'une course : sa page dédiée, sinon sa page d'inscription (qui la présente). */
+export function pageCourse(op: Operation): string {
+  return op.page ?? op.signup?.split("#")[0] ?? `/agenda#${op.slug}`;
+}
+
+/** Lien direct vers le formulaire, date déjà cochée quand le formulaire la propose. */
+export function lienInscription(op: Operation, iso?: string): string | undefined {
+  if (!op.signup) return undefined;
+  const [path] = op.signup.split("#");
+  return iso && path.startsWith("/inscription/") ? `${path}?date=${iso}#formulaire` : `${path}#formulaire`;
 }
 
 export function inscriptionOuverte(slug: string, today = new Date()): boolean {

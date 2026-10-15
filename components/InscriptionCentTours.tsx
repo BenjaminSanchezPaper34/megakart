@@ -52,12 +52,15 @@ export default function InscriptionCentTours({ dates }: { dates: DateOption[] })
   // Les dates passées disparaissent après montage : la page est prérendue,
   // seule cette étape connaît la date du jour du visiteur.
   const [open, setOpen] = useState<DateOption[]>(dates);
+  const [date, setDate] = useState("");
   useEffect(() => {
     const today = new Date().toISOString().slice(0, 10);
-    setOpen(dates.filter((d) => d.iso >= today));
+    const ouvertes = dates.filter((d) => d.iso >= today);
+    setOpen(ouvertes);
+    // Lien depuis une carte course (?date=AAAA-MM-JJ) : la date arrive déjà cochée.
+    const voulue = new URLSearchParams(window.location.search).get("date");
+    if (voulue && ouvertes.some((d) => d.iso === voulue)) setDate(voulue);
   }, [dates]);
-
-  const [date, setDate] = useState("");
   const [team, setTeam] = useState("");
   const [captain, setCaptain] = useState({ name: "", phone: "", email: "" });
   const [teamSize, setTeamSize] = useState<TeamSize>(3);
@@ -112,7 +115,7 @@ export default function InscriptionCentTours({ dates }: { dates: DateOption[] })
           aux heures d&rsquo;ouverture.
         </p>
         <div className="mt-6 flex flex-wrap gap-4">
-          <Link href="/agenda#100-tours" className="btn btn-ghost">
+          <Link href="/agenda" className="btn btn-ghost">
             Retour à l&rsquo;agenda
           </Link>
           <Link href="/live" className="btn btn-ghost">

@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Affiche from "@/components/Affiche";
 import MonthPlanner from "@/components/MonthPlanner";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd, agendaJsonLd } from "@/lib/jsonld";
 import PageHero from "@/components/system/PageHero";
 import SectionHeader from "@/components/system/SectionHeader";
-import EmojiList from "@/components/system/EmojiList";
+import UpcomingRaces from "@/components/UpcomingRaces";
+import RowArrows from "@/components/RowArrows";
 import CtaFinal from "@/components/system/CtaFinal";
-import { factEmoji } from "@/components/system/tones";
 import BonsPlans from "@/components/system/BonsPlans";
 import {
-  RACES,
   AGENDA,
   getOperation,
-  formatDate,
-  inscriptionOuverte,
+  pageCourse,
 } from "@/lib/agenda";
 
 
@@ -28,6 +25,7 @@ const JSONLD_EVENTS = AGENDA.filter(
     date: a.date,
     name: a.label ?? op?.name ?? "",
     slug: a.op,
+    path: op ? pageCourse(op) : undefined,
     description: op ? `${op.summary} ${op.facts.join(" · ")}.` : (a.note ?? ""),
     price: op?.priceValue,
     image:
@@ -42,26 +40,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/agenda" },
 };
 
-/** Dates connues d'une opération, formatées pour sa fiche. */
-function opDates(slug: string) {
-  return AGENDA.filter((a) => a.op === slug && !a.endDate).map((a) => {
-    const f = formatDate(a.date);
-    return { ...a, text: `${f.weekday} ${f.day} ${f.month}` };
-  });
-}
-
 /* Dates passées grisées : la page est régénérée chaque jour. */
 export const revalidate = 86400;
 
 export default function AgendaPage() {
-  const AUJOURDHUI = new Date().toISOString().slice(0, 10);
-  /* Prochaine date encore ouverte de chaque course (ni passée, ni complète). */
-  const prochaine = (slug: string) =>
-    AGENDA.filter((a) => a.op === slug && a.status === "confirme" && !a.endDate && a.date >= AUJOURDHUI && a.places !== 0)
-      .map((a) => a.date)
-      .sort()[0];
-  /* Courses dans l'ordre de leur prochaine date ouverte ; complètes ou passées en dernier. */
-  const COURSES = [...RACES].sort((a, b) => (prochaine(a.slug) ?? "9999").localeCompare(prochaine(b.slug) ?? "9999"));
   return (
     <>
       <script
@@ -121,105 +103,11 @@ export default function AgendaPage() {
           line2="de fin d'année."
           accent="outline"
           subtitle="Le rythme est simple : une course adulte et une course enfant par mois, toujours le dimanche. Et le 19 décembre, le circuit passe aux 12 Heures."
+          action={<RowArrows target="[data-race-bento]" label="Courses" className="flex gap-3" />}
         />
 
-        <div className="mt-(--section-gap) flex flex-col gap-(--section-y)">
-          {COURSES.map((race) => {
-            const dates = opDates(race.slug);
-            return (
-              <article
-                key={race.slug}
-                id={race.slug}
-                // Même disposition pour toutes les courses (texte à gauche, affiche et faits à droite) : on compare d'un coup d'œil.
-                className="grid scroll-mt-28 items-center gap-10 lg:grid-cols-2"
-              >
-                <div>
-                  <h3 data-reveal className="display text-[clamp(2.6rem,6vw,4.75rem)] leading-none text-chalk">
-                    {race.name}
-                  </h3>
-                  {dates.length > 0 && (
-                    <p data-reveal className="mt-5 flex flex-wrap gap-2">
-                      {dates.map((d) => (
-                        <span
-                          key={d.date}
-                          className={`rounded-full px-3.5 py-1.5 text-sm font-semibold ${
-                            d.date < AUJOURDHUI
-                              ? "bg-white/5 text-chalk-60/60 line-through decoration-1"
-                              : d.status === "confirme"
-                                ? "bg-chalk text-asphalt"
-                                : "border border-white/20 text-chalk-60"
-                          }`}
-                          title={d.date < AUJOURDHUI ? "Date passée" : undefined}
-                        >
-                          {d.text}
-                          {d.date < AUJOURDHUI ? null : (
-                            <>
-                              {d.status === "a-confirmer" && " · à confirmer"}
-                              {d.badge && ` · ${d.badge}`}
-                              {d.places !== undefined && (d.places === 0 ? " · complet" : d.places === 1 ? " · dernière place" : ` · plus que ${d.places} équipes`)}
-                            </>
-                          )}
-                        </span>
-                      ))}
-                    </p>
-                  )}
-                  <p data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-lg">
-                    {race.details[0]}
-                  </p>
-                  {race.details.length > 1 && (
-                    <details className="group mt-3 max-w-xl">
-                      <summary className="inline-flex cursor-pointer list-none items-center gap-2 text-base font-semibold text-chalk [&::-webkit-details-marker]:hidden">
-                        <span className="link-under">En savoir plus</span>
-                        <span aria-hidden="true" className="display text-xl text-race transition-transform duration-300 group-open:rotate-45">+</span>
-                      </summary>
-                      {race.details.slice(1).map((p) => (
-                        <p key={p} className="mt-4 text-base leading-relaxed text-chalk-60">
-                          {p}
-                        </p>
-                      ))}
-                    </details>
-                  )}
-                  {race.price && (
-                    <p data-reveal className="display mt-6 flex flex-wrap items-baseline gap-x-3">
-                      <span className="text-4xl text-chalk">{race.price}</span>
-                      {race.priceNote && <span className="text-base text-chalk-60">{race.priceNote}</span>}
-                    </p>
-                  )}
-                  <div data-reveal className="mt-8 flex flex-wrap gap-4">
-                    {/* Un seul bouton : l'inscription en ligne (le numéro est déjà partout ailleurs). */}
-                    {race.signup && inscriptionOuverte(race.slug) ? (
-                      <Link href={race.signup} data-track="inscription-ouverture" className="btn btn-race">
-                        {race.signupCta ?? "Inscrire mon équipe"}
-                      </Link>
-                    ) : race.signup ? (
-                      <span className="display inline-flex min-h-(--cta-height) items-center rounded-full bg-race px-6 text-base tracking-wide text-white">
-                        Inscriptions closes
-                      </span>
-                    ) : (
-                      <a href={SITE.phoneHref} className="btn btn-race">
-                        Réserver · {SITE.phone}
-                      </a>
-                    )}
-                    {race.page && (
-                      <Link href={race.page} className="btn btn-ghost">
-                        La page de l&rsquo;épreuve
-                      </Link>
-                    )}
-                  </div>
-                </div>
-                {/* Colonne droite : l'affiche officielle quand elle existe, puis les faits à émojis. */}
-                <div
-                  className={
-                    race.affiche ? "grid gap-8 sm:grid-cols-[minmax(0,240px)_1fr] sm:items-center" : ""
-                  }
-                >
-                  <Affiche op={race} className="mx-auto hidden w-full max-w-[260px] sm:block sm:max-w-none" />
-                  <EmojiList size="sm" items={race.facts.map((f) => ({ emoji: factEmoji(f), text: f }))} />
-                </div>
-              </article>
-            );
-          })}
-        </div>
+        {/* Mêmes cartes que l'accueil : l'essentiel + inscription directe, date cochée. */}
+        <UpcomingRaces />
       </section>
 
       <div className="kerb" aria-hidden="true" />

@@ -109,7 +109,7 @@ export default function InscriptionDouzeHeures({ dateLabel }: { dateLabel: strin
           le jour de la course, sans acompte. Une question d&rsquo;ici là ? Le {SITE.phone} répond aux heures d&rsquo;ouverture.
         </p>
         <div className="mt-6 flex flex-wrap gap-4">
-          <Link href="/agenda#12-heures" className="btn btn-ghost">
+          <Link href="/agenda" className="btn btn-ghost">
             Retour à l&rsquo;agenda
           </Link>
           <Link href="/live" className="btn btn-ghost">

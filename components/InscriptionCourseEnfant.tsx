@@ -49,12 +49,15 @@ function verdict(e: EnfantSaisi, date: string): { age?: number; ok: boolean; tex
 
 export default function InscriptionCourseEnfant({ dates }: { dates: DateOption[] }) {
   const [open, setOpen] = useState<DateOption[]>(dates);
+  const [date, setDate] = useState("");
   useEffect(() => {
     const today = new Date().toISOString().slice(0, 10);
-    setOpen(dates.filter((d) => d.iso >= today));
+    const ouvertes = dates.filter((d) => d.iso >= today);
+    setOpen(ouvertes);
+    // Lien depuis une carte course (?date=AAAA-MM-JJ) : la date arrive déjà cochée.
+    const voulue = new URLSearchParams(window.location.search).get("date");
+    if (voulue && ouvertes.some((d) => d.iso === voulue)) setDate(voulue);
   }, [dates]);
-
-  const [date, setDate] = useState("");
   const [enfants, setEnfants] = useState<EnfantSaisi[]>([vide()]);
   const [parent, setParent] = useState({ name: "", phone: "", email: "" });
   const [message, setMessage] = useState("");
@@ -115,7 +118,7 @@ export default function InscriptionCourseEnfant({ dates }: { dates: DateOption[]
           {chosen ? ` pour le ${chosen.label}` : ""}, rendez-vous à {ENFANT.debut}. Une question d&rsquo;ici là ? Le {SITE.phone} répond aux heures d&rsquo;ouverture.
         </p>
         <div className="mt-6 flex flex-wrap gap-4">
-          <Link href="/agenda#course-enfant" className="btn btn-ghost">Retour à l&rsquo;agenda</Link>
+          <Link href="/agenda" className="btn btn-ghost">Retour à l&rsquo;agenda</Link>
           <Link href="/#flotte" className="btn btn-ghost">Les karts</Link>
         </div>
       </div>

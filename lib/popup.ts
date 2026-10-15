@@ -59,8 +59,8 @@ export const CAMPAGNES: PopupCampagne[] = [
     // Un seul visuel, le post 3:4 : sur ordinateur il s'affiche en portrait
     // (la boîte se resserre), sur mobile c'est le format natif.
     op: "course-enfant",
-    href: "/inscription/course-enfant",
-    cta: "En savoir plus",
+    href: "/inscription/course-enfant#formulaire",
+    cta: "Inscrire mon enfant",
     alt: "Course Enfants chez MegaKart — un jeune pilote casqué au volant d'un kart Sodi. Infos et inscriptions.",
     // Affiche sans date : valable pour toutes les Course Enfant à venir.
     wide: "/images/popup/course-enfant-sans-date.jpg",

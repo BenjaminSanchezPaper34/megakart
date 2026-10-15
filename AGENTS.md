@@ -157,3 +157,9 @@ Claude relit ce journal en reprenant la main.
 - 15/10 (Claude) — Calendrier : numéro du jour plus entouré (seul le contour de la case marque aujourd'hui) ; légende déplacée entre les onglets et la grille (centrée mobile, alignée à gauche ordinateur).
 - 15/10 (Claude) — Agenda : onglets mois + légende centrés ; fiches courses sans bouton téléphone (inscription seule, ou « Inscriptions closes ») — le téléphone ne reste qu'en repli pour une course sans inscription en ligne.
 - 15/10 (Claude) — Bons plans : section commune `components/system/BonsPlans.tsx` (version agenda, conditions dépliables) sur l'accueil ET l'agenda ; l'ancienne section de l'accueil (« de la semaine », lien Voir les bons plans) est remplacée.
+- 15/10 (Claude) — Parcours d'inscription simplifié (validé par Benjamin) :
+  - `components/UpcomingRaces.tsx` = LA carte course, sur l'accueil ET l'agenda (les longues fiches de l'agenda sont supprimées). Une carte par course sur sa prochaine date ouverte, « Aussi le … » pour les autres, 3 lignes `essentiel` (nouveau champ `Operation.essentiel` dans lib/agenda.ts, rien de non confirmé), bouton direct vers le formulaire avec la date cochée.
+  - `lienInscription(op, iso)` → `/inscription/<slug>?date=AAAA-MM-JJ#formulaire` ; les 3 formulaires lisent `?date=` au montage. `pageCourse(op)` = page dédiée sinon page d'inscription.
+  - Pages `/inscription/*` = pages des courses via `components/system/PageCourse.tsx` : formulaire directement sous le titre (sur la photo), puis « Tout savoir » (affiche, texte, faits, prix). Désormais indexables + sitemap. JSON-LD des événements pointe vers ces pages.
+  - Pop-up Course Enfant → `#formulaire`, bouton « Inscrire mon enfant ».
+  - Calendrier : flèches mois précédent/suivant dans l'en-tête de la grille.
