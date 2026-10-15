@@ -14,12 +14,12 @@ export default function LogoAnimeEmpile({ className = "" }: { className?: string
   useEffect(() => {
     const el = ref.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    // Classes posées directement sur le SVG : aucun rendu React à attendre.
-    el.classList.add("pret");
+    // État posé sur un attribut que React ne gère pas (il ne l'écrase pas au rendu).
+    el.setAttribute("data-etat", "pret");
     // Déclenchement dès qu'un bout du logo est à l'écran ; filet de sécurité au scroll
     // (le logo ne doit jamais rester masqué si l'observateur ne se déclenche pas).
     const jouer = () => {
-      el.classList.replace("pret", "joue");
+      el.setAttribute("data-etat", "joue");
       io.disconnect();
       window.removeEventListener("scroll", verifier);
     };
