@@ -83,15 +83,15 @@ export default function PistePage() {
 
       {/* Sécurité : texte + émojis à gauche, l'ancienne photo du hero (le circuit de nuit) à droite. */}
       <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
-        <div className="grid items-center gap-(--section-gap) lg:grid-cols-[1.1fr_1fr]">
+        {/* Titre pleine largeur (« Sécurité type » sur une ligne), puis émojis et photo côte à côte. */}
+        <SectionHeader
+          line1="Sécurité type"
+          line2="Formule 1."
+          subtitle="Les sensations, sans les mauvaises surprises : la même technologie de protection que sur les circuits de Formule 1, et une équipe qualifiée en permanence au bord de la piste."
+        />
+        <div className="mt-(--section-gap) grid items-center gap-(--section-gap) lg:grid-cols-[1.1fr_1fr]">
           <div>
-            <SectionHeader
-              line1="Sécurité type"
-              line2="Formule 1."
-              subtitle="Les sensations, sans les mauvaises surprises : la même technologie de protection que sur les circuits de Formule 1, et une équipe qualifiée en permanence au bord de la piste."
-            />
             <EmojiList
-              className="mt-(--section-gap)"
               items={[
                 { emoji: "🛡️", text: "Protections Tecpro dernière génération, comme en F1" },
                 { emoji: "✅", text: "Homologations régulières FFSA et Préfecture" },
@@ -100,7 +100,7 @@ export default function PistePage() {
               ]}
             />
           </div>
-          <div data-reveal className="race-event-card relative aspect-[4/5] overflow-hidden">
+          <div data-reveal className="race-event-card relative aspect-[4/3] overflow-hidden">
             <Image
               src="/images/galerie-23-aerien-nuit.jpg"
               alt="Le circuit MegaKart illuminé de nuit, vu du ciel au cœur de la zone de loisirs de Vias-plage"
