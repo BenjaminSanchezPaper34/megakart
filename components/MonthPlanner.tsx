@@ -281,7 +281,7 @@ export default function MonthPlanner() {
       </ul>
 
       {/* Détail du jour sélectionné */}
-      <div ref={detail} aria-live="polite" className="mx-auto mt-8 max-w-3xl">
+      <div ref={detail} aria-live="polite" className="mt-8">
         {selected ? (
           <DayDetail
             m={selected.m}
