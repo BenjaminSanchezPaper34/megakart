@@ -9,13 +9,12 @@ import RowArrows from "@/components/RowArrows";
 import SectionHeader from "@/components/system/SectionHeader";
 import CtaFinal from "@/components/system/CtaFinal";
 import Faq from "@/components/system/Faq";
-import DealCard from "@/components/system/DealCard";
+import BonsPlans from "@/components/system/BonsPlans";
 import TrackMap from "@/components/TrackMap";
 import FleetCarousel from "@/components/FleetCarousel";
 import OpenBadge from "@/components/OpenBadge";
 import UpcomingRaces from "@/components/UpcomingRaces";
 import TodayOffer from "@/components/TodayOffer";
-import { DEALS, SHOW_PROMOS } from "@/lib/agenda";
 import { KARTS } from "@/lib/karts";
 import { SITE } from "@/lib/site";
 import { localBusinessJsonLd, webSiteJsonLd, faqJsonLd } from "@/lib/jsonld";
@@ -241,37 +240,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ========== LES BONS PLANS ========== */}
-      <section className="bg-asphalt-2 py-(--section-y)">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          {/* Même système que « Cet automne, on court » : grand titre, sous-titre + lien sur une ligne. */}
-          <h2 data-reveal className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
-            Les bons plans
-            <br />
-            <span className="text-flag">de la semaine.</span>
-          </h2>
-          <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
-            <p data-reveal className="max-w-xl text-base leading-relaxed text-chalk md:text-xl">
-              Sans réservation pour la plupart : choisissez votre jour, on s&rsquo;occupe du reste.
-            </p>
-            <div className="flex w-full items-center justify-between gap-3 md:w-auto">
-              <Link href="/agenda#bons-plans" className="btn btn-ghost">
-                Voir les bons plans
-              </Link>
-              <RowArrows target="[data-deals-row]" label="Bons plans" className="flex gap-3" />
-            </div>
-          </div>
-
-          {/* Trois cartes au même gabarit, aux couleurs de l'agenda : mercredi jaune,
-              2 tickets = 1 offert bleu, dimanche blanc. Pas de bouton : la carte se suffit,
-              le lien « Voir les bons plans » mène au détail. */}
-          <div data-stagger data-deals-row className="bleed-row-mobile no-scrollbar mt-(--section-gap) grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0">
-            {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => (
-              <DealCard key={deal.slug} deal={deal} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ========== LES BONS PLANS (même section que l'agenda) ========== */}
+      <BonsPlans />
 
       <div className="kerb" aria-hidden="true" />
 

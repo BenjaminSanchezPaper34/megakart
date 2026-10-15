@@ -9,20 +9,15 @@ import SectionHeader from "@/components/system/SectionHeader";
 import EmojiList from "@/components/system/EmojiList";
 import CtaFinal from "@/components/system/CtaFinal";
 import { factEmoji } from "@/components/system/tones";
-import DealCard from "@/components/system/DealCard";
-import RowArrows from "@/components/RowArrows";
+import BonsPlans from "@/components/system/BonsPlans";
 import {
   RACES,
-  DEALS,
   AGENDA,
-  SHOW_PROMOS,
   getOperation,
   formatDate,
   inscriptionOuverte,
 } from "@/lib/agenda";
 
-/* Les promos datées attendent le feu vert du client (voir SHOW_PROMOS). */
-const VISIBLE_DEALS = DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1");
 
 /* Événements JSON-LD : uniquement les dates confirmées à jour unique. */
 const JSONLD_EVENTS = AGENDA.filter(
@@ -229,28 +224,8 @@ export default function AgendaPage() {
 
       <div className="kerb" aria-hidden="true" />
 
-      {/* ========== LES BONS PLANS ========== */}
-      <section id="bons-plans" className="scroll-mt-24 bg-asphalt-2 py-(--section-y)">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <SectionHeader
-            line1="Les bons plans"
-            line2="qui reviennent."
-            accent="flag"
-            subtitle="Sans réservation pour la plupart : choisissez votre jour, on s'occupe du reste."
-            action={<RowArrows target="[data-deals-agenda]" label="Bons plans" className="flex gap-3" />}
-          />
-          {/* Aux couleurs du calendrier : mercredi jaune, 2+1 bleu, dimanche blanc. */}
-          <div
-            data-stagger
-            data-deals-agenda
-            className="bleed-row-mobile no-scrollbar mt-(--section-gap) grid auto-cols-[85%] grid-flow-col items-start gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0"
-          >
-            {VISIBLE_DEALS.map((deal) => (
-              <DealCard key={deal.slug} deal={deal} expandable />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ========== LES BONS PLANS (même section que l'accueil) ========== */}
+      <BonsPlans />
 
       <CtaFinal
         line1="Une date"

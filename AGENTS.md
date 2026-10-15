@@ -156,3 +156,4 @@ Claude relit ce journal en reprenant la main.
 - 15/10 (Claude) — Bons plans : conditions des 3 offres uniformisées sur le gabarit du mercredi (2 paragraphes courts + 4 faits courts) ; 2+1 et Pack Découverte réécrits sans perdre dates, tarifs, progression 390cc → RX250, coaching.
 - 15/10 (Claude) — Calendrier : numéro du jour plus entouré (seul le contour de la case marque aujourd'hui) ; légende déplacée entre les onglets et la grille (centrée mobile, alignée à gauche ordinateur).
 - 15/10 (Claude) — Agenda : onglets mois + légende centrés ; fiches courses sans bouton téléphone (inscription seule, ou « Inscriptions closes ») — le téléphone ne reste qu'en repli pour une course sans inscription en ligne.
+- 15/10 (Claude) — Bons plans : section commune `components/system/BonsPlans.tsx` (version agenda, conditions dépliables) sur l'accueil ET l'agenda ; l'ancienne section de l'accueil (« de la semaine », lien Voir les bons plans) est remplacée.
