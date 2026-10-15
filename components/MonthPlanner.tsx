@@ -40,8 +40,8 @@ function compactHours(hours: string) {
 }
 
 /** Couleur de case : mobile = couleur de l'offre ; desktop = vert « ouvert » + labels. */
-const OPEN_MD =
-  "md:bg-emerald-500/[0.14] md:text-chalk md:shadow-[inset_0_0_0_1px_rgb(52_211_153/0.18)]";
+/* Ordinateur comme mobile : la case prend la couleur de l'offre du jour (choix Benjamin 15/10). */
+const OPEN_MD = "";
 function cellState(d: CalendarDay) {
   if (!d.open) return "bg-black/40 text-chalk-60/40";
   if (d.event) return `${d.event.toConfirm ? "bg-race/45" : "bg-race"} text-white ${OPEN_MD}`;
@@ -66,7 +66,7 @@ function MonthGrid({
   onSelect: (sel: Selection) => void;
 }) {
   return (
-    <div className="card overflow-hidden !p-0">
+    <div className="overflow-hidden rounded-2xl border border-white/10 bg-asphalt-2">
       <div className="grid grid-cols-7 border-b border-white/10 bg-asphalt-3/60">
         {WEEKDAYS.map((w) => (
           <div
@@ -91,7 +91,9 @@ function MonthGrid({
               onClick={() => onSelect({ m: month, d })}
               aria-pressed={isSelected}
               aria-label={`${WEEKDAYS_FULL[d.weekdayIdx]} ${d.day} ${month.name}`}
-              className={`relative flex flex-col items-start gap-1 border-b border-r border-white/5 p-1.5 text-left transition-colors duration-200 hover:bg-white/5 md:min-h-[5.5rem] md:p-2 ${cellState(d)} ${
+              className={`relative flex flex-col items-start gap-1 border-b border-r border-white/5 p-1.5 text-left transition-colors duration-200 hover:bg-white/5 md:min-h-[6rem] md:p-2.5 ${cellState(d)} ${
+                todayIso && d.iso < todayIso ? "opacity-40 saturate-[0.35]" : ""
+              } ${
                 isSelected ? "ring-2 ring-inset ring-chalk/70" : ""
               } ${isToday ? "today-glow z-[1]" : ""}`}
             >
@@ -102,22 +104,22 @@ function MonthGrid({
               >
                 {d.day}
               </span>
-              {/* Desktop : labels en chips (la case est verte) */}
-              <span className="hidden flex-col items-start gap-1 md:flex">
+              {/* Desktop : libellés en texte sur la case déjà colorée */}
+              <span className="hidden flex-col items-start gap-0.5 text-sm font-bold leading-tight md:flex">
                 {d.event && (
-                  <Tag kind={d.event.toConfirm ? "pending" : "course"}>
+                  <span>
                     {d.event.label}
                     {d.event.toConfirm && " ?"}
-                  </Tag>
+                  </span>
                 )}
-                {d.aVolonte && <Tag kind="volonte">À volonté</Tag>}
-                {d.packDecouverte && <Tag kind="pack">Pack Découverte</Tag>}
-                {d.promo && !d.event && !d.aVolonte && <Tag kind="promo">2 tickets = 1 offert</Tag>}
-                {d.ferie && <Tag kind="ferie">Férié</Tag>}
+                {d.aVolonte && <span>À volonté</span>}
+                {d.packDecouverte && <span>{d.event ? "+ " : ""}Pack Découverte</span>}
+                {d.promo && !d.event && !d.aVolonte && <span>2 tickets = 1 offert</span>}
+                {d.ferie && <span className="font-normal opacity-80">Férié</span>}
               </span>
               {/* Horaires : compacts sur mobile (la case porte la couleur de l'offre) */}
               {d.open && d.hours && (
-                <span className="whitespace-nowrap text-xs leading-none md:mt-auto">
+                <span className="whitespace-nowrap text-xs leading-none md:mt-auto md:text-sm">
                   <span className="md:hidden">{compactHours(d.hours)}</span>
                   <span className="hidden md:inline">{d.hours}</span>
                 </span>
@@ -137,13 +139,8 @@ function MonthGrid({
  * jour sélectionné s'affiche sous la grille.
  */
 export default function MonthPlanner() {
-  // Les mois entièrement passés disparaissent (la page est régénérée chaque jour).
-  const months = useMemo(() => {
-    const all = buildCalendar();
-    const today = new Date().toISOString().slice(0, 10);
-    const next = all.filter((m) => m.days[m.days.length - 1].iso >= today);
-    return next.length ? next : all;
-  }, []);
+  // Tous les mois restent, septembre compris : on voit ce qui s'est déjà couru (jours passés grisés).
+  const months = useMemo(buildCalendar, []);
   const [monthIdx, setMonthIdx] = useState(0);
   const [selected, setSelected] = useState<Selection>(null);
   const [todayIso, setTodayIso] = useState<string | null>(null);
