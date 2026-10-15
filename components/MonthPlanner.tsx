@@ -425,7 +425,7 @@ function DayDetail({
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
           {signup && (
             <a href={signup} data-track="inscription-ouverture" className="btn btn-race">
-              {op.signupCta ?? "S'inscrire"}
+              {op?.signupCta ?? "S'inscrire"}
             </a>
           )}
           {op && (
