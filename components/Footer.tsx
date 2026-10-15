@@ -45,7 +45,7 @@ const PLAN = [
   },
 ];
 
-const BLOC = "flex flex-col gap-3 border-t border-white/15 pt-5";
+const BLOC = "flex flex-col gap-3";
 const BLOC_TITRE = "text-sm font-semibold uppercase tracking-widest text-chalk-60";
 
 export default function Footer() {
