@@ -191,37 +191,19 @@ export default function AgendaPage() {
                     </p>
                   )}
                   <div data-reveal className="mt-8 flex flex-wrap gap-4">
+                    {/* Un seul bouton : l'inscription en ligne (le numéro est déjà partout ailleurs). */}
                     {race.signup && inscriptionOuverte(race.slug) ? (
-                      <>
-                        {/* Inscription en ligne : le téléphone passe en second. */}
-                        <Link href={race.signup} data-track="inscription-ouverture" className="btn btn-race">
-                          {race.signupCta ?? "Inscrire mon équipe"}
-                        </Link>
-                        <a href={SITE.phoneHref} className="btn btn-ghost">
-                          {SITE.phone}
-                        </a>
-                      </>
+                      <Link href={race.signup} data-track="inscription-ouverture" className="btn btn-race">
+                        {race.signupCta ?? "Inscrire mon équipe"}
+                      </Link>
                     ) : race.signup ? (
-                      <>
-                        {/* Complet ou passé : plus de formulaire, seulement une question au circuit. */}
-                        <span className="display inline-flex min-h-(--cta-height) items-center rounded-full bg-race px-6 text-base tracking-wide text-white">
-                          Inscriptions closes
-                        </span>
-                        <a href={SITE.phoneHref} className="btn btn-ghost">
-                          Une question · {SITE.phone}
-                        </a>
-                      </>
+                      <span className="display inline-flex min-h-(--cta-height) items-center rounded-full bg-race px-6 text-base tracking-wide text-white">
+                        Inscriptions closes
+                      </span>
                     ) : (
-                      <>
-                        <a href={SITE.phoneHref} className="btn btn-race">
-                          Réserver · {SITE.phone}
-                        </a>
-                        {SITE.email && (
-                          <a href={`mailto:${SITE.email}`} className="btn btn-ghost">
-                            Réserver par e-mail
-                          </a>
-                        )}
-                      </>
+                      <a href={SITE.phoneHref} className="btn btn-race">
+                        Réserver · {SITE.phone}
+                      </a>
                     )}
                     {race.page && (
                       <Link href={race.page} className="btn btn-ghost">
