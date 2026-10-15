@@ -143,7 +143,10 @@ export default function UpcomingRaces() {
   return (
     <div
       data-race-bento
-      className="bleed-row-mobile bleed-row-right no-scrollbar mt-[calc(var(--section-gap)-1rem)] grid auto-cols-[85%] grid-flow-col gap-5 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[calc((100%-1.25rem)/2)] lg:auto-cols-[calc((100%-2.5rem)/3)]"
+      className="no-scrollbar mt-[calc(var(--section-gap)-1rem)] grid auto-cols-[85%] grid-flow-col gap-5 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[60%] md:auto-cols-[44%] lg:auto-cols-[calc((min(100vw-4rem,76rem)-2.5rem)/3)]"
+      // Même bande que les karts : pleine largeur de l'écran, cartes calées sur la grille du site,
+      // elles glissent vers la gauche jusqu'au bord quand on fait défiler.
+      style={{ paddingInline: "var(--site-gutter)", scrollPaddingInline: "var(--site-gutter)" }}
     >
       {items.map((item, i) => (
         <Carte key={item.date + (item.op ?? item.label)} item={item} today={today} first={i === 0} />

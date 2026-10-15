@@ -29,8 +29,9 @@ export default function CoursesAVenir({ lienAgenda = true, id }: { lienAgenda?: 
             <RowArrows target="[data-race-bento]" label="Courses" className="flex gap-3" />
           </div>
         </div>
-        <UpcomingRaces />
       </div>
+      {/* Hors du conteneur : la bande court d'un bord à l'autre de l'écran, comme celle des karts. */}
+      <UpcomingRaces />
     </section>
   );
 }
