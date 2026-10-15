@@ -24,8 +24,10 @@ export const LABEL_TONE: Record<Operation["accent"], string> = {
  * simple, l'émoji se déduit des mots clés (ordre = priorité).
  */
 const RULES: [RegExp, string][] = [
-  [/rendez-vous|accueil des|de midi/i, "⏰"],
+  [/rendez-vous|accueil des|de midi|minuit/i, "⏰"],
+  [/nuit|nocturne|éclairé/i, "🌙"],
   [/€/, "💶"],
+  [/sans réservation/i, "🎟️"],
   [/podium|prix|gagner|baptême|troph/i, "🏆"],
   [/repas|chauff/i, "🍽️"],
   [/coaching|moniteur/i, "🧑‍🏫"],

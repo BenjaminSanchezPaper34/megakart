@@ -4,9 +4,7 @@ import MonthPlanner from "@/components/MonthPlanner";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd, agendaJsonLd } from "@/lib/jsonld";
 import PageHero from "@/components/system/PageHero";
-import SectionHeader from "@/components/system/SectionHeader";
-import UpcomingRaces from "@/components/UpcomingRaces";
-import RowArrows from "@/components/RowArrows";
+import CoursesAVenir from "@/components/CoursesAVenir";
 import CtaFinal from "@/components/system/CtaFinal";
 import BonsPlans from "@/components/system/BonsPlans";
 import {
@@ -95,19 +93,8 @@ export default function AgendaPage() {
       </PageHero>
       <div className="kerb" aria-hidden="true" />
 
-      {/* ========== LES COURSES ========== */}
-      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
-        <SectionHeader
-          line1="Les courses"
-          line2="de fin d'année."
-          accent="outline"
-          subtitle="Le rythme est simple : une course adulte et une course enfant par mois, toujours le dimanche. Et le 19 décembre, le circuit passe aux 12 Heures."
-          action={<RowArrows target="[data-race-bento]" label="Courses" className="flex gap-3" />}
-        />
-
-        {/* Mêmes cartes que l'accueil : l'essentiel + inscription directe, date cochée. */}
-        <UpcomingRaces />
-      </section>
+      {/* ========== LES COURSES (même section que l'accueil) ========== */}
+      <CoursesAVenir lienAgenda={false} id="courses" />
 
       <div className="kerb" aria-hidden="true" />
 

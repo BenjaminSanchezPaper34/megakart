@@ -1,22 +1,44 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import {
-  AGENDA,
-  RACES,
-  getOperation,
-  formatDate,
-  lienInscription,
-  pageCourse,
-  type AgendaItem,
-} from "@/lib/agenda";
+import Link from "next/link";
+import { AGENDA, RACES, getOperation, formatDate, lienInscription, pageCourse, type AgendaItem } from "@/lib/agenda";
 import { factEmoji } from "@/components/system/tones";
 
-/** Dates de course confirmées, à date unique — ordre chronologique. */
-const DATED = AGENDA.filter(
-  (a) => a.status === "confirme" && !a.endDate && a.op && RACES.some((r) => r.slug === a.op),
+/**
+ * Les courses et soirées à venir — LA rangée de cartes, identique sur l'accueil et
+ * l'agenda (section CoursesAVenir). Style des fiches karts (15/10) : la date en très
+ * grand en haut à gauche, le kart de la course détouré qui déborde à droite sur le
+ * tracé en filigrane, l'essentiel, puis prix et inscription en pied de carte.
+ * Une carte PAR DATE (deux Course Enfant = deux cartes), Nocturne Halloween comprise.
+ * 3 cartes sur la largeur du site, les suivantes défilent à droite.
+ * Sélection côté client pour rester juste au fil des jours (pages prérendues).
+ */
+
+/** Le kart de chaque course (visuels Sodi officiels de la flotte) ; sinon un émoji. */
+const VISUEL: Record<string, { kart?: { src: string; h?: number; alt: string }; emoji?: string }> = {
+  "course-enfant": { kart: { src: "sodi/sodi-lr6.webp", alt: "Kart Enfant Sodi LR6" } },
+  "100-tours": { kart: { src: "sodi/sodi-rt10.webp", alt: "Kart Sodi RT10 390cc" } },
+  "12-heures": { kart: { src: "sodi/sodi-rt10.webp", alt: "Kart Sodi RT10 390cc" } },
+  "plein-gaz": { emoji: "🏆" },
+};
+
+/** Soirées sans opération (pas d'inscription) : ce qu'on en dit sur la carte. */
+const SOIREES: Record<string, { kicker: string; emoji: string; lignes: string[]; pied: string }> = {
+  "Nocturne Halloween": {
+    kicker: "Soirée spéciale",
+    emoji: "🎃",
+    lignes: ["Ouvert de 14 h à minuit", "Sessions de nuit sur le circuit éclairé", "Sans réservation"],
+    pied: "Sans réservation",
+  },
+};
+
+const ITEMS = AGENDA.filter(
+  (a) =>
+    a.status === "confirme" &&
+    !a.endDate &&
+    ((a.op && RACES.some((r) => r.slug === a.op)) || (a.label && SOIREES[a.label])),
 );
 
 function daysUntil(iso: string, today: string) {
@@ -25,157 +47,130 @@ function daysUntil(iso: string, today: string) {
   return Math.round((Date.UTC(y1, m1 - 1, d1) - Date.UTC(y2, m2 - 1, d2)) / 86_400_000);
 }
 
-/**
- * Les cartes courses — LA présentation d'une course, identique sur l'accueil et
- * l'agenda (15/10) : affiche, date, l'essentiel en 3 lignes, prix, et un bouton
- * qui ouvre directement le formulaire avec la date cochée. Une carte par course,
- * sur sa prochaine date encore ouverte (sinon la prochaine date, marquée complet).
- * Sélection côté client pour rester juste au fil des jours (pages prérendues).
- */
+function Carte({ item, today, first }: { item: AgendaItem; today: string | null; first: boolean }) {
+  const op = item.op ? getOperation(item.op) : undefined;
+  const soiree = !op && item.label ? SOIREES[item.label] : undefined;
+  const f = formatDate(item.date);
+  const j = today ? daysUntil(item.date, today) : null;
+  const complet = item.places === 0;
+  const visuel = (item.op && VISUEL[item.op]) || (soiree ? { emoji: soiree.emoji } : {});
+  const lignes = op?.essentiel ?? soiree?.lignes ?? [];
+  const inscription = op ? lienInscription(op, item.date) : undefined;
+  const page = op ? pageCourse(op) : "/agenda";
+  const badge = complet
+    ? { t: "Complet", c: "bg-chalk text-asphalt" }
+    : item.places === 1
+      ? { t: "Dernière place", c: "bg-flag text-asphalt" }
+      : item.places !== undefined
+        ? { t: `Plus que ${item.places} équipes`, c: "bg-flag text-asphalt" }
+        : soiree
+          ? { t: "Soirée", c: "bg-race text-white" }
+          : null;
+
+  return (
+    <div className="relative flex snap-start pt-4">
+      {badge && (
+        <span className={`absolute left-1/2 top-4 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-bold shadow-lg ${badge.c}`}>
+          {badge.t}
+        </span>
+      )}
+      <article className="race-event-card relative flex w-full flex-col overflow-hidden border border-white/10 bg-gradient-to-br from-asphalt-2 via-asphalt-2 to-asphalt-3 p-5 sm:p-6">
+        {/* Filigrane : le tracé du circuit, comme sur les fiches karts. */}
+        <Image
+          src="/images/TRACECIRCUIT-MEGAKART.svg"
+          alt=""
+          aria-hidden="true"
+          width={161}
+          height={104}
+          className="pointer-events-none absolute -right-6 top-6 w-[60%] opacity-[0.06]"
+        />
+        {/* Le kart de la course (ou l'émoji de la soirée), qui déborde à droite. */}
+        {visuel.kart ? (
+          <Image
+            src={`/images/${visuel.kart.src}`}
+            alt={visuel.kart.alt}
+            width={1200}
+            height={720}
+            sizes="(min-width: 1024px) 220px, 50vw"
+            className="pointer-events-none absolute -right-[10%] top-[30%] w-[58%] object-contain drop-shadow-[0_16px_14px_rgba(0,0,0,0.55)]"
+          />
+        ) : visuel.emoji ? (
+          <span aria-hidden="true" className="pointer-events-none absolute right-4 top-[22%] text-[5.5rem] leading-none drop-shadow-[0_12px_14px_rgba(0,0,0,0.5)] sm:right-6">
+            {visuel.emoji}
+          </span>
+        ) : null}
+
+        {/* La donnée clé : la date, en très grand. */}
+        <div className="relative">
+          <time dateTime={item.date} className="display block leading-none">
+            <span className="text-5xl text-chalk sm:text-6xl">
+              {f.day} {f.month}
+            </span>
+          </time>
+          <p className="mt-2 text-base text-chalk-60">
+            {f.weekday.charAt(0).toUpperCase() + f.weekday.slice(1)}
+            {j === 0 ? " · aujourd'hui" : j === 1 ? " · demain" : j !== null && j > 1 ? ` · dans ${j} jours` : ""}
+          </p>
+          <h3 className="display mt-4 text-2xl leading-tight text-chalk">
+            <Link href={page} className="hover:text-flag">
+              {item.label ?? op?.name}
+            </Link>
+          </h3>
+          <p className="mt-0.5 text-sm text-chalk-60">{op?.kicker ?? soiree?.kicker}</p>
+        </div>
+
+        {/* L'essentiel, à gauche du kart. */}
+        <ul className="relative mt-5 grid max-w-[62%] gap-2">
+          {lignes.map((l) => (
+            <li key={l} className="flex items-start gap-2 text-sm leading-snug text-chalk">
+              <span aria-hidden="true" className="w-5 shrink-0 text-center text-base leading-none">
+                {factEmoji(l)}
+              </span>
+              <span>{l}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* Pied de carte : prix et inscription. */}
+        <div className="relative mt-auto flex items-center justify-between gap-3 border-t border-white/10 pt-4">
+          <span className="display text-xl text-chalk">{op?.price ?? soiree?.pied}</span>
+          {op && !complet && inscription ? (
+            <Link
+              href={inscription}
+              data-track={first ? "inscription-ouverture" : "course-accueil"}
+              className="inline-flex min-h-11 items-center rounded-full bg-race px-5 text-sm font-bold text-white transition-colors hover:bg-race-deep"
+            >
+              {op.signupCta ?? "S’inscrire"}
+            </Link>
+          ) : op ? (
+            <Link href={page} className="link-under text-sm font-semibold text-chalk-60">
+              La course
+            </Link>
+          ) : null}
+        </div>
+      </article>
+    </div>
+  );
+}
+
 export default function UpcomingRaces() {
   const [today, setToday] = useState<string | null>(null);
-
   useEffect(() => {
     const now = new Date();
-    setToday(
-      `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`,
-    );
+    setToday(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`);
   }, []);
 
-  const candidates = today ? DATED.filter((a) => a.date >= today) : DATED;
-  const cards = RACES.map((race) => {
-    const dates = candidates.filter((a) => a.op === race.slug);
-    const item = dates.find((a) => a.places !== 0) ?? dates[0];
-    return item ? { item, autres: dates.filter((a) => a !== item) } : null;
-  })
-    .filter((c): c is { item: AgendaItem; autres: AgendaItem[] } => c !== null)
-    .sort((a, b) => a.item.date.localeCompare(b.item.date));
-  if (cards.length === 0) return null;
+  const items = (today ? ITEMS.filter((a) => a.date >= today) : ITEMS).sort((a, b) => a.date.localeCompare(b.date));
+  if (items.length === 0) return null;
 
   return (
     <div
-      className="bleed-row-mobile no-scrollbar mt-[calc(var(--section-gap)-1.25rem)] grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 pt-5 snap-x snap-mandatory sm:auto-cols-[45%] lg:auto-cols-auto lg:grid-flow-row lg:grid-cols-4 lg:gap-5"
       data-race-bento
+      className="bleed-row-mobile no-scrollbar mt-[calc(var(--section-gap)-1rem)] grid auto-cols-[85%] grid-flow-col gap-5 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[calc((100%-1.25rem)/2)] lg:auto-cols-[calc((100%-2.5rem)/3)]"
     >
-      {cards.map(({ item, autres }, index) => {
-        const op = getOperation(item.op!)!;
-        const date = formatDate(item.date);
-        const countdown = today ? daysUntil(item.date, today) : null;
-        const complet = item.places === 0;
-        const page = pageCourse(op);
-        const inscription = lienInscription(op, item.date);
-        // Affiches officielles sans date (Course Enfant, 100 Tours) : valables pour chaque édition.
-        const poster = item.op === "course-enfant" || item.op === "100-tours" ? op.affiche : undefined;
-        const photo =
-          item.op === "12-heures"
-            ? "/images/galerie-24-aerien-nuit.jpg"
-            : item.op === "plein-gaz"
-              ? "/images/galerie-17-nocturne-action.jpg"
-              : "/images/galerie-01-kart-adulte.jpg";
-
-        return (
-          <div key={item.date + item.op} className="relative flex snap-start">
-            {/* Rareté : label à cheval sur le haut de la carte. */}
-            {item.places !== undefined && (
-              <span
-                className={`absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold shadow-lg ${complet ? "bg-chalk text-asphalt" : "bg-flag text-asphalt"}`}
-              >
-                {complet ? "Complet" : item.places === 1 ? "Dernières inscriptions" : `Plus que ${item.places} équipes`}
-              </span>
-            )}
-            <article className="race-event-card flex w-full flex-col overflow-hidden border border-chalk/15 bg-asphalt">
-              <Link
-                href={page}
-                aria-label={`${item.label} : la course du ${date.day} ${date.monthFull}`}
-                className="relative block aspect-[4/5] w-full shrink-0 bg-asphalt-3"
-              >
-                <Image
-                  src={poster?.src ?? photo}
-                  alt={
-                    poster
-                      ? `Affiche ${item.label}`
-                      : item.op === "12-heures"
-                        ? "Le circuit MegaKart éclairé à la nuit tombée"
-                        : "Kart en piste sur le circuit MegaKart"
-                  }
-                  fill
-                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 85vw"
-                  className="object-cover"
-                />
-              </Link>
-
-              <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
-                <div className="flex items-stretch gap-3">
-                  <time dateTime={item.date} className="shrink-0 border-r border-chalk/25 pr-3 text-flag">
-                    <span className="display block whitespace-nowrap text-2xl leading-tight">
-                      {date.day} {date.month}
-                    </span>
-                    <span className="mt-0.5 block text-sm leading-snug">
-                      {countdown === 0
-                        ? "Aujourd’hui"
-                        : countdown === 1
-                          ? "Demain"
-                          : date.weekday.charAt(0).toUpperCase() + date.weekday.slice(1)}
-                    </span>
-                  </time>
-                  <div className="min-w-0">
-                    <h3 className="display line-clamp-2 min-h-[2lh] text-2xl leading-tight text-chalk">
-                      <Link href={page} className="hover:text-flag">
-                        {item.label}
-                      </Link>
-                    </h3>
-                    <p className="mt-0.5 line-clamp-1 text-sm leading-snug text-chalk-60">{op.kicker}</p>
-                  </div>
-                </div>
-
-                {/* L'essentiel : ce qu'il faut savoir pour s'inscrire, sans ouvrir une autre page. */}
-                {op.essentiel && (
-                  <ul className="mt-4 grid gap-2 border-t border-chalk/15 pt-4">
-                    {op.essentiel.map((line) => (
-                      <li key={line} className="flex items-start gap-2.5 text-sm leading-snug text-chalk">
-                        <span aria-hidden="true" className="w-6 shrink-0 text-center text-xl leading-none">
-                          {factEmoji(line)}
-                        </span>
-                        <span>{line}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                <div className="mt-4 border-t border-chalk/15 pt-4">
-                  <p className="display text-2xl leading-none text-chalk">{op.price ?? "Tarif à venir"}</p>
-                  {op.priceNote && <p className="mt-1 text-sm leading-snug text-chalk-60">{op.priceNote}</p>}
-                  {autres.length > 0 && (
-                    <p className="mt-2 text-sm leading-snug text-chalk-60">
-                      Aussi le{" "}
-                      {autres
-                        .map((a) => {
-                          const f = formatDate(a.date);
-                          return `${f.day} ${f.month}${a.places === 0 ? " (complet)" : ""}`;
-                        })
-                        .join(", ")}
-                    </p>
-                  )}
-                </div>
-
-                <div className="mt-auto pt-5">
-                  {complet || !inscription ? (
-                    <span className="btn btn-ghost w-full cursor-default justify-center opacity-70">Complet</span>
-                  ) : (
-                    <Link
-                      href={inscription}
-                      data-track={index === 0 ? "inscription-ouverture" : "course-accueil"}
-                      className="btn btn-race w-full justify-center"
-                    >
-                      {op.signupCta ?? "S’inscrire"}
-                    </Link>
-                  )}
-                </div>
-              </div>
-            </article>
-          </div>
-        );
-      })}
+      {items.map((item, i) => (
+        <Carte key={item.date + (item.op ?? item.label)} item={item} today={today} first={i === 0} />
+      ))}
     </div>
   );
 }

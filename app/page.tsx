@@ -5,7 +5,6 @@ import HeroVideo from "@/components/HeroVideo";
 import Reviews from "@/components/Reviews";
 import PhotoMosaic from "@/components/PhotoMosaic";
 import CircuitVideo from "@/components/CircuitVideo";
-import RowArrows from "@/components/RowArrows";
 import SectionHeader from "@/components/system/SectionHeader";
 import CtaFinal from "@/components/system/CtaFinal";
 import Faq from "@/components/system/Faq";
@@ -13,7 +12,7 @@ import BonsPlans from "@/components/system/BonsPlans";
 import TrackMap from "@/components/TrackMap";
 import FleetCarousel from "@/components/FleetCarousel";
 import OpenBadge from "@/components/OpenBadge";
-import UpcomingRaces from "@/components/UpcomingRaces";
+import CoursesAVenir from "@/components/CoursesAVenir";
 import TodayOffer from "@/components/TodayOffer";
 import { KARTS } from "@/lib/karts";
 import { SITE } from "@/lib/site";
@@ -109,33 +108,7 @@ export default function HomePage() {
       </p>
 
       {/* ========== AGENDA (temps forts de fin d'année) ========== */}
-      <section id="courses-accueil" className="bg-asphalt-2 py-(--section-y)">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div>
-            <h2 className="display text-[clamp(3rem,9vw,7.5rem)] text-chalk">
-              Cet automne,
-              <br />
-              <span className="text-race">on court.</span>
-            </h2>
-            {/* Sous-titre et lien agenda sur la même ligne, au-dessus des affiches. */}
-            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
-              <p className="max-w-xl text-base leading-relaxed text-chalk md:text-xl">
-                En équipe, en solo ou pour les enfants :
-                trouvez votre prochain départ.
-              </p>
-              {/* Lien + flèches sur la même ligne (flèches seulement si la rangée dépasse). */}
-              <div className="flex w-full items-center justify-between gap-3 md:w-auto">
-                <Link href="/agenda" className="btn btn-ghost">
-                  Voir tout l&rsquo;agenda
-                </Link>
-                <RowArrows target="[data-race-bento]" label="Courses" className="flex gap-3" />
-              </div>
-            </div>
-          </div>
-
-          <UpcomingRaces />
-        </div>
-      </section>
+      <CoursesAVenir id="courses-accueil" />
 
       <div className="kerb" aria-hidden="true" />
 
