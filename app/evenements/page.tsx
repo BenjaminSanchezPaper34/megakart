@@ -77,7 +77,6 @@ export default function EvenementsPage() {
 
       <PageHero
         image={{ src: "/images/galerie-03-drapeau-damier.jpg", alt: "Le drapeau à damier s'abaisse en fin de course chez MegaKart", position: "object-[center_30%]" }}
-        label="Uniquement sur réservation"
         line1="Vos événements,"
         line2="départ lancé."
         subtitle="Anniversaires, enterrements de vie, sorties d'équipe : on construit le format avec vous."
@@ -92,9 +91,6 @@ export default function EvenementsPage() {
         >
           <div className="mx-auto grid max-w-7xl items-center gap-(--section-gap) px-5 md:px-8 lg:grid-cols-[1.2fr_1fr]">
             <div>
-              <p className="mb-5 inline-flex items-center gap-2 rounded-full bg-flag px-4 py-1.5 text-sm font-bold text-asphalt">
-                <span aria-hidden="true">{e.emoji}</span> {e.kicker}
-              </p>
               <SectionHeader line1={e.title} />
               {e.text.map((p) => (
                 <p key={p} data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-lg">

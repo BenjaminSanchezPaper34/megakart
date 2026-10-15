@@ -167,3 +167,4 @@ Claude relit ce journal en reprenant la main.
 - 15/10 (Claude) — FAQ : 6e question (la piste : 1000 m, FFSA, Tecpro, Apex) ; composant Faq en 2 colonnes sur ordinateur, pleine largeur.
 - 15/10 (Claude) — FAQ : `FaqItem` (client), même dépliage animé que les conditions des bons plans.
 - 15/10 (Claude) — Pages courses uniformes : les 12 Heures passent aussi par `PageCourse` (formulaire en tête, Tout savoir, puis ses sections propres via children) ; formulaire sur toute la largeur du site pour toutes les courses.
+- 15/10 (Claude) — Page Événements : pastilles jaunes retirées (label du hero « Uniquement sur réservation » et kicker de chaque formule).
