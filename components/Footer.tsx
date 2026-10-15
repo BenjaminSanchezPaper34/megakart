@@ -10,10 +10,9 @@ const PAGES = [
   { href: "/la-piste", label: "La piste" },
   { href: "/agenda", label: "Agenda" },
   { href: "/12-heures", label: "Les 12 Heures" },
-  { href: "/inscription/100-tours", label: "Inscription 100 Tours" },
-  { href: "/inscription/course-enfant", label: "Inscription Course Enfant" },
-  { href: "/inscription/plein-gaz", label: "Inscription Trophée Plein Gaz" },
-  { href: "/evenements#anniversaire", label: "Anniversaires" },
+  { href: "/inscription/100-tours", label: "Les 100 Tours" },
+  { href: "/inscription/course-enfant", label: "Course Enfant" },
+  { href: "/inscription/plein-gaz", label: "Trophée Plein Gaz" },
   { href: "/evenements", label: "Événements & groupes" },
   { href: "/photos", label: "Photos" },
   { href: "/live", label: "Chrono en direct" },
@@ -21,13 +20,14 @@ const PAGES = [
   { href: "/en", label: "English" },
 ];
 
+/* Réseaux en boutons (ex-section « La course continue en ligne » de la page Contact). */
 const SOCIALS = [
-  { label: "Instagram", href: SITE.social.instagram },
-  { label: "Facebook", href: SITE.social.facebook },
-  { label: "TikTok", href: SITE.social.tiktok },
-  { label: "YouTube", href: SITE.social.youtube },
-  { label: "TripAdvisor", href: SITE.social.tripadvisor },
-];
+  { label: "Instagram", href: SITE.social.instagram, handle: "@karting_megakart", emoji: "📸" },
+  { label: "Facebook", href: SITE.social.facebook, handle: "megakart.karting", emoji: "👍" },
+  { label: "TikTok", href: SITE.social.tiktok, handle: "@megakart34", emoji: "🎵" },
+  { label: "YouTube", href: SITE.social.youtube, handle: "MegaKart", emoji: "▶️" },
+  { label: "TripAdvisor", href: SITE.social.tripadvisor, handle: "Avis voyageurs", emoji: "⭐" },
+].filter((s) => s.href);
 
 export default function Footer() {
   return (
@@ -78,16 +78,20 @@ export default function Footer() {
 
         <div className="text-sm">
           <h3 className="display mb-3 text-lg text-chalk">Suivre MegaKart</h3>
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-2.5">
             {SOCIALS.map((s) => (
               <li key={s.label}>
                 <a
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-under text-chalk-60 transition-colors hover:text-chalk"
+                  className="group flex min-h-12 items-center gap-3 rounded-full border border-white/15 px-4 py-2 transition-colors hover:border-chalk/50 hover:bg-white/5"
                 >
-                  {s.label}
+                  <span aria-hidden="true" className="text-xl leading-none">{s.emoji}</span>
+                  <span className="flex flex-col leading-tight">
+                    <span className="display text-base text-chalk transition-colors group-hover:text-race">{s.label}</span>
+                    <span className="text-sm text-chalk-60">{s.handle}</span>
+                  </span>
                 </a>
               </li>
             ))}

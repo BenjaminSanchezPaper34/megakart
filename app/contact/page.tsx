@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import MapEmbed from "@/components/MapEmbed";
 import OpenBadge from "@/components/OpenBadge";
 import { SITE } from "@/lib/site";
@@ -15,7 +16,11 @@ export const metadata: Metadata = {
 
 
 /* Carte d'info à émoji à cheval sur le haut (même motif que « Les grands jours »). */
-const INFO_CARD = "card relative flex flex-col gap-4 p-6 pt-12 sm:p-7 sm:pt-12";
+const INFO_CARD = "card relative flex flex-col items-center gap-4 p-6 pt-12 text-center sm:p-7 sm:pt-12";
+const INFO_TITLE = "display text-3xl text-chalk";
+const INFO_MAIN = "display text-3xl leading-tight";
+const INFO_TEXT = "text-base leading-relaxed text-chalk-60";
+const INFO_LINK = "link-under mt-auto w-fit text-base font-semibold text-chalk";
 const INFO_EMOJI =
   "absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 text-5xl leading-none drop-shadow-[0_6px_10px_rgb(0_0_0/0.5)]";
 
@@ -44,53 +49,48 @@ export default function ContactPage() {
           accent="flag"
           subtitle="Téléphone, horaires, adresse et itinéraire : tout ce qu'il faut pour venir rouler."
         />
+        {/* Trois cartes au même gabarit : titre, l'info principale en display, une phrase, un lien. */}
         <div className="mt-(--section-gap) grid gap-x-5 gap-y-12 pt-6 lg:grid-cols-3">
           {/* Téléphone */}
           <div data-reveal className={INFO_CARD}>
             <span aria-hidden="true" className={INFO_EMOJI}>📞</span>
-            <h2 className="display text-center text-3xl text-chalk">Téléphone &amp; e-mail</h2>
-            <a href={SITE.phoneHref} className="display text-center text-4xl text-race transition-colors hover:text-chalk">
+            <h2 className={INFO_TITLE}>Téléphone</h2>
+            <a href={SITE.phoneHref} className={`${INFO_MAIN} text-race transition-colors hover:text-chalk`}>
               {SITE.phone}
             </a>
-            <p className="text-base leading-relaxed text-chalk-60">
-              Horaires du jour, événements, créneaux compétition : on répond pendant les heures d&rsquo;ouverture.
+            <p className={INFO_TEXT}>
+              Horaires du jour, événements, courses : on répond pendant les heures d&rsquo;ouverture.
             </p>
-            <a href={`mailto:${SITE.email}`} className="link-under w-fit text-base font-semibold text-chalk">
+            <a href={`mailto:${SITE.email}`} className={INFO_LINK}>
               {SITE.email}
             </a>
-            <p className="text-base leading-relaxed text-chalk-60">
-              Réservation des courses et du Pack Découverte par téléphone ou par e-mail.
-            </p>
           </div>
 
           {/* Horaires */}
           <div data-reveal className={INFO_CARD}>
             <span aria-hidden="true" className={INFO_EMOJI}>🕑</span>
-            <h2 className="display text-center text-3xl text-chalk">Horaires</h2>
-            <OpenBadge withDetail />
-            <p className="text-base leading-relaxed text-chalk-60">
+            <h2 className={INFO_TITLE}>Horaires</h2>
+            <OpenBadge withDetail large />
+            <p className={INFO_TEXT}>
               Hors saison : tous les jours de 14 h à 19 h (en octobre hors vacances : fermé lundi et mardi),
-              fermeture annuelle en janvier et février. Courses et journées spéciales annoncées dans l&rsquo;agenda
-              et sur nos réseaux.
+              fermeture annuelle en janvier et février.
             </p>
+            <Link href="/agenda" className={INFO_LINK}>
+              Le calendrier jour par jour
+            </Link>
           </div>
 
           {/* Adresse */}
           <div data-reveal className={INFO_CARD}>
             <span aria-hidden="true" className={INFO_EMOJI}>📍</span>
-            <h2 className="display text-center text-3xl text-chalk">Adresse</h2>
-            <address className="text-base not-italic leading-relaxed text-chalk">
-              {SITE.address.street}
-              <br />
-              {SITE.address.zip} {SITE.address.city} · {SITE.address.dept}
+            <h2 className={INFO_TITLE}>Adresse</h2>
+            <address className={`${INFO_MAIN} not-italic text-chalk`}>
+              {SITE.address.zip} {SITE.address.city}
             </address>
-            <p className="text-base leading-relaxed text-chalk-60">{SITE.landmark}. Parking gratuit sur place.</p>
-            <a
-              href={SITE.mapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-under w-fit text-base font-semibold text-chalk"
-            >
+            <p className={INFO_TEXT}>
+              {SITE.address.street}. {SITE.landmark}. Parking gratuit sur place.
+            </p>
+            <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className={INFO_LINK}>
               Itinéraire Google Maps
             </a>
           </div>

@@ -18,9 +18,12 @@ const EN_LABELS: Record<string, { label: string; detail: string }> = {
 export default function OpenBadge({
   withDetail = false,
   en = false,
+  large = false,
 }: {
   withDetail?: boolean;
   en?: boolean;
+  /** Version carte (page Contact) : statut en display, comme le téléphone ou l'adresse. */
+  large?: boolean;
 }) {
   const [status, setStatus] = useState<OpenStatus | null>(null);
 
@@ -41,13 +44,13 @@ export default function OpenBadge({
   const dot = status.open ? "bg-emerald-400" : "bg-race";
 
   return (
-    <span className="inline-flex flex-col gap-1">
-      <span className="inline-flex items-center gap-2 text-sm font-medium text-chalk">
-        <span className={`pulse-dot h-2 w-2 rounded-full ${dot}`} aria-hidden="true" />
+    <span className={`inline-flex flex-col gap-1 ${large ? "items-center" : ""}`}>
+      <span className={`inline-flex items-center gap-2 ${large ? "display text-3xl leading-tight text-chalk" : "text-sm font-medium text-chalk"}`}>
+        <span className={`pulse-dot rounded-full ${large ? "h-3 w-3" : "h-2 w-2"} ${dot}`} aria-hidden="true" />
         {status.label}
       </span>
       {withDetail && (
-        <span className="text-sm text-chalk-60">{status.detail}</span>
+        <span className={large ? "text-base text-chalk-60" : "text-sm text-chalk-60"}>{status.detail}</span>
       )}
     </span>
   );

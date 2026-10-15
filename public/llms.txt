@@ -83,17 +83,17 @@
 - /12-heures : Les 12 Heures de MegaKart, endurance par équipes du samedi 19 décembre 2026
   avec l'écurie Vortex — format, paddock, inscription (1 500 € l'équipe)
 - /live : chrono en direct du circuit (live timing Apex Timing, chargement au clic)
-- /inscription/100-tours : formulaire d'inscription d'une équipe de 2 ou 3 pilotes aux 100 Tours
-- /inscription/course-enfant : formulaire d'inscription d'un ou plusieurs enfants (8-14 ans) à la Course Enfant
-- /inscription/plein-gaz : formulaire d'inscription d'un à quatre pilotes au Trophée Plein Gaz
+- /inscription/100-tours : page des 100 Tours — inscription d'une équipe de 2 ou 3 pilotes (date préremplie), puis tout le détail de la course
+- /inscription/course-enfant : page de la Course Enfant — inscription d'un ou plusieurs enfants (8-14 ans), puis le détail
+- /inscription/plein-gaz : page du Trophée Plein Gaz — inscription d'un à quatre pilotes, puis le détail
 - /agenda : le programme de fin d'année 2026 — courses (100 Tours, Trophée Plein Gaz,
   courses enfants) et offres (mercredi à volonté, 2 tickets = 1 offert,
   Pack Découverte coaching), avec toutes les dates
 - /la-piste : caractéristiques techniques, sécurité, chrono, et la frise historique du circuit
   (1992 création, 2012 agrandissement et passage en compétition catégorie 1.1, 2023 reprise par Lucas PAINA)
-- /evenements : les 3 formules privées sur une page — anniversaires (déroulé, dès 7 participants), EVG/EVJF, entreprises & CE (team building, privatisation jusqu'à 60), FAQ
+- /evenements : les 3 formules privées sur une page — anniversaires (déroulé, dès 7 participants), EVG/EVJF, entreprises & CE (team building, privatisation jusqu'à 60), FAQ, formulaire de demande de devis
 - /photos : photos & vidéos — réels verticaux du circuit, galerie (sessions jour et nocturnes, Baby Kart, vues aériennes)
-- /contact : adresse, horaires, accès, réseaux sociaux
+- /contact : téléphone, horaires, adresse, itinéraire et carte (réseaux sociaux dans le pied de page)
 - /en : English summary — prices, opening hours, directions (tourist-friendly)
 - /mentions-legales : éditeur du site (SARL PAINA), hébergeur, propriété intellectuelle
 - /confidentialite : données, mesure d'audience sans cookie, services tiers chargés au clic
