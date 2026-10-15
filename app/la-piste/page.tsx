@@ -4,7 +4,6 @@ import TrackMap from "@/components/TrackMap";
 import Marquee from "@/components/Marquee";
 import Histoire from "@/components/Histoire";
 import RowArrows from "@/components/RowArrows";
-import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import PageHero from "@/components/system/PageHero";
 import SectionHeader from "@/components/system/SectionHeader";

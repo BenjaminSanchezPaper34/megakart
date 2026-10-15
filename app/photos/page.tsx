@@ -76,9 +76,7 @@ export default function PhotosPage() {
       />
 
       <PageHero
-        short
         image={{ src: "/images/galerie-15-nocturne-grande-roue.jpg", alt: "Session nocturne sur le circuit MegaKart, grande roue illuminée en arrière-plan", position: "object-[center_45%]" }}
-        label="Jour & nocturne"
         line1="Le circuit"
         line2="en images."
         subtitle="Sessions de jour, nocturnes sous les projecteurs, premiers tours en Baby Kart et vues du ciel, avec un photographe sur place pour repartir avec vos souvenirs."
@@ -116,6 +114,8 @@ export default function PhotosPage() {
           <GalleryGrid photos={PHOTOS} />
         </div>
       </section>
+
+      <div className="kerb" aria-hidden="true" />
 
       <CtaFinal line1="À votre tour" line2="de rouler." subtitle="Sans réservation : on arrive, on s'équipe, on roule.">
         <a href={SITE.phoneHref} className="btn btn-race">
