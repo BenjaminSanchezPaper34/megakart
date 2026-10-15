@@ -6,7 +6,6 @@ import { SITE, SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { getGaleries } from "@/lib/galeries";
 import CarteGalerie from "@/components/galerie/CarteGalerie";
-import PageHero from "@/components/system/PageHero";
 import SectionHeader from "@/components/system/SectionHeader";
 import CtaFinal from "@/components/system/CtaFinal";
 
@@ -76,16 +75,12 @@ export default function PhotosPage() {
         }}
       />
 
-      <PageHero
-        image={{ src: "/images/galerie-15-nocturne-grande-roue.jpg", alt: "Session nocturne sur le circuit MegaKart, grande roue illuminée en arrière-plan", position: "object-[center_45%]" }}
-        line1="Le circuit"
-        line2="en images."
-        subtitle="Sessions de jour, nocturnes sous les projecteurs, premiers tours en Baby Kart et vues du ciel, avec un photographe sur place pour repartir avec vos souvenirs."
-      />
 
       {/* Les galeries des événements (photos à télécharger) : elles ont leur page, /galeries. */}
-      <section id="galeries" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-(--section-y) md:px-8">
+      {/* Sans hero (choix Benjamin 15/10) : la page s'ouvre directement sur les galeries, titre en h1. */}
+      <section id="galeries" className="mx-auto max-w-7xl scroll-mt-24 px-5 pb-(--section-y) pt-36 md:px-8 md:pt-44">
         <SectionHeader
+          as="h1"
           line1="Vous avez roulé"
           line2="chez nous ?"
           subtitle="Courses, sorties d'entreprise, sessions : retrouvez-vous dans les galeries et téléchargez vos photos en qualité originale."
