@@ -149,9 +149,14 @@ export default function MonthPlanner() {
   const scroller = useRef<HTMLDivElement>(null);
   const detail = useRef<HTMLDivElement>(null);
 
+  // Défilement lancé par le code (ouverture, clic d'onglet) : le swipe ne doit pas
+  // resynchroniser l'onglet pendant ce temps (sinon « Septembre » reste allumé sur octobre).
+  const programmatic = useRef(0);
   const scrollToMonth = (idx: number, smooth: boolean) => {
     const el = scroller.current;
-    if (el) el.scrollTo({ left: idx * el.clientWidth, behavior: smooth ? "smooth" : "auto" });
+    if (!el) return;
+    programmatic.current = Date.now() + 800;
+    el.scrollTo({ left: idx * el.clientWidth, behavior: smooth ? "smooth" : "auto" });
   };
 
   // Après montage (pas de mismatch SSR) : ouvre le mois du jour et le sélectionne.
@@ -208,7 +213,7 @@ export default function MonthPlanner() {
   // Swipe mobile → onglet synchronisé
   const onScroll = () => {
     const el = scroller.current;
-    if (!el || el.clientWidth === 0) return;
+    if (!el || el.clientWidth === 0 || Date.now() < programmatic.current) return;
     const idx = Math.round(el.scrollLeft / el.clientWidth);
     if (idx !== monthIdx && idx >= 0 && idx < months.length) setMonthIdx(idx);
   };
