@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "./Logo";
 import OpenBadge from "./OpenBadge";
 import SocialIcons from "./SocialIcons";
 import PaperSignature from "./PaperSignature";
@@ -8,9 +9,8 @@ import { SITE } from "@/lib/site";
  * Pied de page (15/10, inspirations Mobbin : Cosmos / Zellerfeld pour le nom géant,
  * Monte pour les trois blocs pratiques, Resend pour le statut en direct) :
  * 1. trois blocs utiles — appeler, l'ouverture du jour, venir ;
- * 2. le plan du site en trois familles ;
- * 3. MEGAKART en très grand, fondu vers le bas ;
- * 4. la ligne légale (English, ©, mentions, signature Paper34).
+ * 2. le plan du site en trois familles, logo compact à droite ;
+ * 3. la ligne légale (English, ©, mentions, signature Paper34).
  */
 const PLAN = [
   {
@@ -86,38 +86,29 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* 2. Plan du site */}
-        <nav aria-label="Plan du site" className="mt-(--section-gap) grid grid-cols-2 gap-8 sm:grid-cols-3 lg:w-2/3">
-          {PLAN.map((col) => (
-            <div key={col.title}>
-              <p className="display text-xl text-chalk">{col.title}</p>
-              <ul className="mt-3 flex flex-col">
-                {col.links.map((l) => (
-                  <li key={l.href}>
-                    <Link href={l.href} className="link-under inline-flex min-h-10 items-center text-base text-chalk-60 transition-colors hover:text-chalk">
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </nav>
+        {/* 2. Plan du site, et le logo compact dans l'espace à droite */}
+        <div className="mt-(--section-gap) flex flex-col gap-10 pb-(--section-gap) lg:flex-row lg:items-end lg:justify-between">
+          <nav aria-label="Plan du site" className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:w-2/3">
+            {PLAN.map((col) => (
+              <div key={col.title}>
+                <p className="display text-xl text-chalk">{col.title}</p>
+                <ul className="mt-3 flex flex-col">
+                  {col.links.map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="link-under inline-flex min-h-10 items-center text-base text-chalk-60 transition-colors hover:text-chalk">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
+          <Logo variant="stacked" large className="self-start lg:self-end" />
+        </div>
       </div>
 
-      {/* 3. Le nom en très grand, sur toute la largeur, fondu vers le bas */}
-      <p
-        aria-hidden="true"
-        className="display pointer-events-none mt-(--section-gap) select-none whitespace-nowrap text-center text-[19.5vw] leading-[0.8] text-chalk/[0.07]"
-        style={{
-          maskImage: "linear-gradient(to bottom, #000 35%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, #000 35%, transparent 100%)",
-        }}
-      >
-        MEGA<span className="text-race/40">KART</span>
-      </p>
-
-      {/* 4. Ligne légale */}
+      {/* 3. Ligne légale */}
       <div className="relative border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-5 text-xs text-chalk-60/80 md:flex-row md:px-8">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">

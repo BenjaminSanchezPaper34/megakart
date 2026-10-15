@@ -8,9 +8,12 @@ import Link from "next/link";
 export default function Logo({
   variant = "banner",
   className = "",
+  large = false,
 }: {
   variant?: "banner" | "stacked";
   className?: string;
+  /** Logo empilé en grand (pied de page). */
+  large?: boolean;
 }) {
   const banner = variant === "banner";
   return (
@@ -25,7 +28,7 @@ export default function Logo({
         alt="MegaKart"
         width={banner ? 305 : 187}
         height={banner ? 43 : 91}
-        className={`${banner ? "h-8 md:h-9" : "h-20"} w-auto transition-transform duration-300 group-hover:scale-105`}
+        className={`${banner ? "h-8 md:h-9" : large ? "h-24 md:h-32" : "h-20"} w-auto transition-transform duration-300 group-hover:scale-105`}
       />
     </Link>
   );
