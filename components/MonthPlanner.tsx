@@ -91,21 +91,21 @@ function MonthGrid({
               onClick={() => onSelect({ m: month, d })}
               aria-pressed={isSelected}
               aria-label={`${WEEKDAYS_FULL[d.weekdayIdx]} ${d.day} ${month.name}`}
-              className={`relative flex flex-col items-start gap-1 border-b border-r border-white/5 p-1.5 text-left transition-colors duration-200 hover:bg-white/5 md:min-h-[6rem] md:p-2.5 ${cellState(d)} ${
+              className={`relative flex flex-col items-start gap-1 border-b border-r border-white/5 p-1.5 text-left transition-colors duration-200 hover:bg-white/5 md:min-h-[7.5rem] md:p-3 ${cellState(d)} ${
                 todayIso && d.iso < todayIso ? "opacity-40 saturate-[0.35]" : ""
               } ${
                 isSelected ? "ring-2 ring-inset ring-chalk/70" : ""
               } ${isToday ? "today-glow z-[1]" : ""}`}
             >
               <span
-                className={`display text-base leading-none ${
+                className={`display text-base leading-none md:text-2xl ${
                   isToday ? "rounded-full bg-flag px-1.5 py-0.5 text-asphalt md:ring-1 md:ring-asphalt/40" : ""
                 }`}
               >
                 {d.day}
               </span>
               {/* Desktop : libellés en texte sur la case déjà colorée */}
-              <span className="hidden flex-col items-start gap-0.5 text-sm font-bold leading-tight md:flex">
+              <span className="hidden flex-col items-start gap-0.5 text-base font-bold leading-tight md:flex lg:text-lg">
                 {d.event && (
                   <span>
                     {d.event.label}
@@ -119,7 +119,7 @@ function MonthGrid({
               </span>
               {/* Horaires : compacts sur mobile (la case porte la couleur de l'offre) */}
               {d.open && d.hours && (
-                <span className="whitespace-nowrap text-xs leading-none md:mt-auto md:text-sm">
+                <span className="whitespace-nowrap text-xs leading-none md:mt-auto md:text-base">
                   <span className="md:hidden">{compactHours(d.hours)}</span>
                   <span className="hidden md:inline">{d.hours}</span>
                 </span>
@@ -145,6 +145,7 @@ export default function MonthPlanner() {
   const [selected, setSelected] = useState<Selection>(null);
   const [todayIso, setTodayIso] = useState<string | null>(null);
   const scroller = useRef<HTMLDivElement>(null);
+  const detail = useRef<HTMLDivElement>(null);
 
   const scrollToMonth = (idx: number, smooth: boolean) => {
     const el = scroller.current;
@@ -170,6 +171,38 @@ export default function MonthPlanner() {
     scrollToMonth(idx, true);
   };
 
+  // Jour précédent / suivant, en passant d'un mois à l'autre
+  const neighbour = (delta: -1 | 1): Selection => {
+    if (!selected) return null;
+    const mi = months.findIndex((mm) => mm.month === selected.m.month);
+    const di = months[mi].days.findIndex((dd) => dd.iso === selected.d.iso) + delta;
+    if (di >= 0 && di < months[mi].days.length) return { m: months[mi], d: months[mi].days[di] };
+    const m2 = months[mi + delta];
+    if (!m2) return null;
+    return { m: m2, d: delta > 0 ? m2.days[0] : m2.days[m2.days.length - 1] };
+  };
+  const step = (delta: -1 | 1) => {
+    const next = neighbour(delta);
+    if (!next) return;
+    setSelected(next);
+    const idx = months.indexOf(next.m);
+    if (idx !== monthIdx) goTo(idx);
+  };
+
+  // Au doigt : la fiche est sous la grille, on l'amène à l'écran après un toucher
+  const pick = (sel: Selection) => {
+    setSelected(sel);
+    if (!window.matchMedia("(pointer: coarse)").matches) return;
+    requestAnimationFrame(() => {
+      const el = detail.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.top > window.innerHeight * 0.55) {
+        window.scrollTo({ top: window.scrollY + r.top - 96, behavior: "smooth" });
+      }
+    });
+  };
+
   // Swipe mobile → onglet synchronisé
   const onScroll = () => {
     const el = scroller.current;
@@ -181,7 +214,7 @@ export default function MonthPlanner() {
   return (
     <div>
       {/* Onglets mois */}
-      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Choisir le mois">
+      <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap" role="tablist" aria-label="Choisir le mois">
         {months.map((m, i) => (
           <button
             key={m.month}
@@ -189,7 +222,7 @@ export default function MonthPlanner() {
             role="tab"
             aria-selected={i === monthIdx}
             onClick={() => goTo(i)}
-            className={`display rounded-full px-5 py-2.5 text-base capitalize transition-all duration-300 ${
+            className={`display rounded-full px-5 py-2.5 text-center text-base capitalize transition-all duration-300 ${
               i === monthIdx
                 ? "glow-race bg-race text-white"
                 : "bg-asphalt-3 text-chalk-60 hover:text-chalk"
@@ -208,7 +241,7 @@ export default function MonthPlanner() {
       >
         {months.map((m) => (
           <div key={m.month} className="w-full shrink-0 snap-center px-5">
-            <MonthGrid month={m} selected={selected} todayIso={todayIso} onSelect={setSelected} />
+            <MonthGrid month={m} selected={selected} todayIso={todayIso} onSelect={pick} />
           </div>
         ))}
       </div>
@@ -222,7 +255,7 @@ export default function MonthPlanner() {
           month={months[monthIdx]}
           selected={selected}
           todayIso={todayIso}
-          onSelect={setSelected}
+          onSelect={pick}
         />
       </div>
 
@@ -241,8 +274,16 @@ export default function MonthPlanner() {
       </ul>
 
       {/* Détail du jour sélectionné */}
-      <div aria-live="polite" className="mt-6">
-        {selected ? <DayDetail m={selected.m} d={selected.d} /> : (
+      <div ref={detail} aria-live="polite" className="mt-6">
+        {selected ? (
+          <DayDetail
+            m={selected.m}
+            d={selected.d}
+            isToday={selected.d.iso === todayIso}
+            onStep={step}
+            canStep={(delta) => neighbour(delta) !== null}
+          />
+        ) : (
           <p className="text-sm text-chalk-60">
             Touchez un jour pour voir le détail.
           </p>
@@ -252,100 +293,148 @@ export default function MonthPlanner() {
   );
 }
 
-function DayDetail({ m, d }: { m: CalendarMonth; d: CalendarDay }) {
+/** Bandeau de la fiche du jour : même couleur que la case du calendrier. */
+function dayHeader(d: CalendarDay): { skin: string; label: string } {
+  if (d.event) return { skin: d.event.toConfirm ? "bg-race/45 text-white" : "bg-race text-white", label: "Jour de course" };
+  if (d.aVolonte) return { skin: "bg-flag text-asphalt", label: "Mercredi à volonté" };
+  if (d.packDecouverte) return { skin: "bg-chalk text-asphalt", label: "Pack Découverte" };
+  if (d.promo) return { skin: "bg-promo text-white", label: "2 tickets = 1 offert" };
+  if (d.open) return { skin: "bg-emerald-500/[0.14] text-chalk", label: "Circuit ouvert" };
+  return { skin: "bg-asphalt-3 text-chalk-60", label: "Circuit fermé" };
+}
+
+function Fact({ emoji, children }: { emoji: string; children: ReactNode }) {
+  return (
+    <li className="flex items-center gap-4 text-base leading-snug text-chalk">
+      <span aria-hidden="true" className="w-14 shrink-0 text-center text-5xl leading-none">
+        {emoji}
+      </span>
+      <span>{children}</span>
+    </li>
+  );
+}
+
+function StepButton({ dir, onClick, disabled }: { dir: -1 | 1; onClick: () => void; disabled: boolean }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={dir < 0 ? "Jour précédent" : "Jour suivant"}
+      className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-current/30 text-2xl leading-none transition-colors duration-200 hover:bg-black/10 disabled:opacity-30"
+    >
+      <span aria-hidden="true">{dir < 0 ? "‹" : "›"}</span>
+    </button>
+  );
+}
+
+function DayDetail({
+  m,
+  d,
+  isToday,
+  onStep,
+  canStep,
+}: {
+  m: CalendarMonth;
+  d: CalendarDay;
+  isToday: boolean;
+  onStep: (delta: -1 | 1) => void;
+  canStep: (delta: -1 | 1) => boolean;
+}) {
   const op = d.event?.op ? getOperation(d.event.op) : undefined;
   const weekday = WEEKDAYS_FULL[d.weekdayIdx];
-  const dateLabel = `${weekday.charAt(0).toUpperCase()}${weekday.slice(1)} ${d.day} ${m.name}`;
-  return (
-    <div className="card relative overflow-hidden p-5 md:p-6">
-      <span
-        aria-hidden="true"
-        className={`absolute left-0 top-0 h-full w-1 ${
-          d.event ? "bg-race" : d.aVolonte ? "bg-flag" : d.open ? "bg-chalk/30" : "bg-white/10"
-        }`}
-      />
-      <p className="display text-xl text-chalk">
-        {dateLabel}
-        {d.ferie && <span className="ml-2 text-base text-chalk-60">· férié ({d.ferie})</span>}
-      </p>
+  const { skin, label } = dayHeader(d);
 
-      {d.event ? (
-        <>
-          <p className="mt-2 text-base leading-relaxed text-chalk">
-            <span className="display text-race">{d.event.label}</span>
+  return (
+    <div className="card overflow-hidden p-0">
+      {/* Bandeau à la couleur de la case */}
+      <div className={`flex items-center gap-3 px-5 py-4 md:px-6 ${skin}`}>
+        <StepButton dir={-1} onClick={() => onStep(-1)} disabled={!canStep(-1)} />
+        <div className="min-w-0 flex-1 text-center">
+          <p className="text-sm font-bold uppercase tracking-widest opacity-80">
+            {isToday ? "Aujourd'hui · " : ""}
+            {label}
+          </p>
+          <p className="display mt-1 text-3xl leading-none capitalize md:text-4xl">
+            {weekday} {d.day} {m.name}
+          </p>
+        </div>
+        <StepButton dir={1} onClick={() => onStep(1)} disabled={!canStep(1)} />
+      </div>
+
+      <div className="p-5 md:p-6">
+        {d.event && (
+          <div className="mb-5 text-center">
+            <p className="display text-[clamp(2rem,5vw,3rem)] leading-none text-chalk">{d.event.label}</p>
             {d.event.toConfirm && (
-              <span className="display ml-2 rounded-full border border-flag/60 px-2.5 py-0.5 text-xs tracking-wider text-flag">
+              <span className="mt-3 inline-block rounded-full bg-flag px-3 py-1 text-sm font-bold text-asphalt">
                 Date à confirmer
               </span>
             )}
-          </p>
-          {op && <p className="mt-2 text-sm leading-relaxed text-chalk-60">{op.summary}</p>}
-          {d.event.note && <p className="mt-2 text-sm leading-relaxed text-chalk-60">{d.event.note}</p>}
-          <div className="mt-4 flex flex-wrap items-center gap-4">
-            {op?.price && <span className="display text-2xl text-chalk">{op.price}</span>}
-            {op && (
-              <a href={`#${op.slug}`} className="link-under text-sm font-semibold text-chalk">
-                Voir la fiche complète
-              </a>
-            )}
-            {op?.signup ? (
-              <a href={op.signup} data-track="inscription-ouverture" className="btn btn-race">
-                {op.signupCta ?? "S'inscrire"}
-              </a>
-            ) : (
-              op && (
-                <a href={SITE.phoneHref} className="link-under text-sm font-semibold text-chalk">
-                  Réserver · {SITE.phone}
-                </a>
-              )
-            )}
-            {op && !op.signup && SITE.email && (
-              <a href={`mailto:${SITE.email}`} className="link-under text-sm font-semibold text-chalk">
-                Réserver par e-mail
-              </a>
-            )}
+            {op && <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-chalk-60">{op.summary}</p>}
           </div>
-        </>
-      ) : d.aVolonte ? (
-        <>
-          <p className="mt-2 text-base leading-relaxed text-chalk">
-            <span className="display text-flag">Mercredi à volonté</span> — un tarif unique,
-            du roulage à volonté toute la journée.
-          </p>
-          <p className="mt-2 text-sm text-chalk-60">
-            29€ en kart enfant · 59€ en 280cc · 69€ en 390cc — sans réservation.
-          </p>
-        </>
-      ) : d.open ? (
-        <p className="mt-2 text-base leading-relaxed text-chalk-60">
-          Circuit ouvert {d.hours}{d.vacances ? " (vacances scolaires)" : ""} —
-          sessions sans réservation. Une question ?{" "}
-          <a href={SITE.phoneHref} className="link-under font-semibold text-chalk">
-            {SITE.phone}
-          </a>
-          .
-        </p>
-      ) : (
-        <p className="mt-2 text-base leading-relaxed text-chalk-60">
-          Circuit fermé ce jour-là.
-        </p>
-      )}
-      {d.packDecouverte && (
-        <p className="mt-3 text-sm leading-relaxed text-chalk-60">
-          <span className="display text-chalk">Pack Découverte</span>{" "}
-          {op?.endsAt ? `dans la foulée (course terminée à ${op.endsAt})` : "ce dimanche"} : 3 sessions
-          + coaching privé offert, 49€ au lieu de 76€ —{" "}
-          <a href="#pack-decouverte" className="link-under font-semibold text-chalk">
-            la fiche
-          </a>
-          .
-        </p>
-      )}
-      {d.promo && (
-        <p className="mt-3 text-sm text-chalk-60">
-          Promo du jour : 2 tickets achetés = 1 offert.
-        </p>
-      )}
+        )}
+
+        <ul className="grid gap-4 sm:grid-cols-2">
+          {d.open && d.hours && (
+            <Fact emoji="⏰">
+              {d.event ? "Circuit ouvert " : "Ouvert "}
+              <strong>{d.hours}</strong>
+              {d.vacances ? " · vacances scolaires" : ""}
+            </Fact>
+          )}
+          {!d.open && !d.event && <Fact emoji="🚧">Circuit fermé ce jour-là{d.ferie ? ` (${d.ferie})` : ""}.</Fact>}
+          {d.ferie && d.open && <Fact emoji="🎉">Jour férié : {d.ferie}</Fact>}
+          {op?.price && (
+            <Fact emoji="💶">
+              <strong>{op.price}</strong>
+              {op.priceNote ? ` · ${op.priceNote}` : ""}
+            </Fact>
+          )}
+          {d.event?.note && <Fact emoji="📝">{d.event.note}</Fact>}
+          {d.aVolonte && (
+            <Fact emoji="🔁">
+              Roulage à volonté : <strong>29€</strong> enfant · <strong>59€</strong> 280cc · <strong>69€</strong> 390cc
+            </Fact>
+          )}
+          {d.packDecouverte && (
+            <Fact emoji="🎓">
+              Pack Découverte {op?.endsAt ? `après la course (fin ${op.endsAt})` : ""} : 3 sessions + coaching,{" "}
+              <strong>49€</strong> au lieu de 76€
+            </Fact>
+          )}
+          {d.promo && (
+            <Fact emoji="🎁">
+              <strong>2 tickets achetés = 1 offert</strong>
+            </Fact>
+          )}
+          {d.open && !d.event && <Fact emoji="🏁">Sessions sans réservation, venez directement.</Fact>}
+        </ul>
+
+        {/* Actions */}
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
+          {op?.signup && (
+            <a href={op.signup} data-track="inscription-ouverture" className="btn btn-race">
+              {op.signupCta ?? "S'inscrire"}
+            </a>
+          )}
+          {op && (
+            <a href={`#${op.slug}`} className={`btn ${op.signup ? "btn-ghost" : "btn-race"}`}>
+              Voir la course
+            </a>
+          )}
+          {d.packDecouverte && (
+            <a href="#pack-decouverte" className="btn btn-ghost">
+              Le Pack Découverte
+            </a>
+          )}
+          {(d.open || (op && !op.signup)) && (
+            <a href={SITE.phoneHref} data-track="tel" className="btn btn-ghost">
+              {op && !op.signup ? "Réserver" : "Une question"} · {SITE.phone}
+            </a>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
