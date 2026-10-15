@@ -37,16 +37,21 @@ export default function ContactPage() {
       />
 
       <PageHero
-        short
         image={{ src: "/images/galerie-05-piste.jpg", alt: "La piste du circuit MegaKart bordée de palmiers", position: "object-[center_55%]" }}
-        label="Sans réservation pour rouler"
         line1="On se retrouve"
         line2="sur la grille."
-        subtitle="Le plus simple est de passer. Pour les courses, les événements et les questions : un coup de fil ou un e-mail."
+        subtitle="Sans réservation pour rouler : le plus simple est de passer. Pour les courses, les événements et les questions, un coup de fil ou un e-mail."
       />
 
-      <section className="mx-auto max-w-7xl px-5 pb-(--section-y) md:px-8">
-        <div className="grid gap-x-5 gap-y-12 pt-6 lg:grid-cols-3">
+      {/* Même gabarit que les autres pages : hero plein, puis sections à grand titre. */}
+      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+        <SectionHeader
+          line1="Infos"
+          line2="pratiques."
+          accent="flag"
+          subtitle="Téléphone, horaires, adresse et itinéraire : tout ce qu'il faut pour venir rouler."
+        />
+        <div className="mt-(--section-gap) grid gap-x-5 gap-y-12 pt-6 lg:grid-cols-3">
           {/* Téléphone */}
           <div data-reveal className={INFO_CARD}>
             <span aria-hidden="true" className={INFO_EMOJI}>📞</span>
@@ -54,13 +59,13 @@ export default function ContactPage() {
             <a href={SITE.phoneHref} className="display text-center text-4xl text-race transition-colors hover:text-chalk">
               {SITE.phone}
             </a>
-            <p className="text-sm leading-relaxed text-chalk-60">
+            <p className="text-base leading-relaxed text-chalk-60">
               Horaires du jour, événements, créneaux compétition : on répond pendant les heures d&rsquo;ouverture.
             </p>
             <a href={`mailto:${SITE.email}`} className="link-under w-fit text-base font-semibold text-chalk">
               {SITE.email}
             </a>
-            <p className="text-sm leading-relaxed text-chalk-60">
+            <p className="text-base leading-relaxed text-chalk-60">
               Réservation des courses et du Pack Découverte par téléphone ou par e-mail.
             </p>
           </div>
@@ -70,7 +75,7 @@ export default function ContactPage() {
             <span aria-hidden="true" className={INFO_EMOJI}>🕑</span>
             <h2 className="display text-center text-3xl text-chalk">Horaires</h2>
             <OpenBadge withDetail />
-            <p className="text-sm leading-relaxed text-chalk-60">
+            <p className="text-base leading-relaxed text-chalk-60">
               Hors saison : tous les jours de 14 h à 19 h (en octobre hors vacances : fermé lundi et mardi),
               fermeture annuelle en janvier et février. Courses et journées spéciales annoncées dans l&rsquo;agenda
               et sur nos réseaux.
@@ -86,7 +91,7 @@ export default function ContactPage() {
               <br />
               {SITE.address.zip} {SITE.address.city} · {SITE.address.dept}
             </address>
-            <p className="text-sm leading-relaxed text-chalk-60">{SITE.landmark}. Parking gratuit sur place.</p>
+            <p className="text-base leading-relaxed text-chalk-60">{SITE.landmark}. Parking gratuit sur place.</p>
             <a
               href={SITE.mapsUrl}
               target="_blank"
