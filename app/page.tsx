@@ -9,7 +9,7 @@ import RowArrows from "@/components/RowArrows";
 import SectionHeader from "@/components/system/SectionHeader";
 import CtaFinal from "@/components/system/CtaFinal";
 import Faq from "@/components/system/Faq";
-import { dealSkin } from "@/components/system/tones";
+import DealCard from "@/components/system/DealCard";
 import TrackMap from "@/components/TrackMap";
 import FleetCarousel from "@/components/FleetCarousel";
 import OpenBadge from "@/components/OpenBadge";
@@ -266,30 +266,9 @@ export default function HomePage() {
               2 tickets = 1 offert bleu, dimanche blanc. Pas de bouton : la carte se suffit,
               le lien « Voir les bons plans » mène au détail. */}
           <div data-stagger data-deals-row className="bleed-row-mobile no-scrollbar mt-(--section-gap) grid auto-cols-[85%] grid-flow-col gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0">
-            {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => {
-              const skin = dealSkin(deal);
-              return (
-                <article
-                  key={deal.slug}
-                  className={`race-event-card flex snap-start flex-col items-center gap-0 p-5 text-center sm:p-6 ${skin.card}`}
-                >
-                  {/* Quand : en label. */}
-                  <span className={`rounded-full px-3 py-1 text-sm font-bold ${skin.label}`}>
-                    {deal.kicker}
-                  </span>
-                  <h3 className="display mt-4 text-4xl leading-none md:text-[2.75rem]">{deal.name}</h3>
-                  <p className={`mt-3 line-clamp-2 min-h-[2lh] text-base leading-snug ${skin.soft}`}>
-                    {deal.summary}
-                  </p>
-                  <div className={`mt-auto flex w-full flex-col items-center gap-1 border-t pt-4 ${skin.rule}`}>
-                    <p className="display text-3xl leading-none">{deal.price ?? "3e offerte"}</p>
-                    <p className={`text-sm leading-snug ${skin.soft}`}>
-                      {deal.priceNote ?? "2 sessions achetées, la 3e pour nous"}
-                    </p>
-                  </div>
-                </article>
-              );
-            })}
+            {DEALS.filter((d) => SHOW_PROMOS || d.slug !== "2-plus-1").map((deal) => (
+              <DealCard key={deal.slug} deal={deal} />
+            ))}
           </div>
         </div>
       </section>

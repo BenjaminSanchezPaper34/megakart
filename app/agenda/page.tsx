@@ -9,7 +9,8 @@ import PageHero from "@/components/system/PageHero";
 import SectionHeader from "@/components/system/SectionHeader";
 import EmojiList from "@/components/system/EmojiList";
 import CtaFinal from "@/components/system/CtaFinal";
-import { dealSkin, factEmoji } from "@/components/system/tones";
+import { factEmoji } from "@/components/system/tones";
+import DealCard from "@/components/system/DealCard";
 import RowArrows from "@/components/RowArrows";
 import {
   RACES,
@@ -306,47 +307,11 @@ export default function AgendaPage() {
           <div
             data-stagger
             data-deals-agenda
-            className={`bleed-row-mobile no-scrollbar mt-(--section-gap) grid auto-cols-[85%] grid-flow-col items-start gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:gap-5 md:overflow-visible md:pb-0 ${VISIBLE_DEALS.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`}
+            className="bleed-row-mobile no-scrollbar mt-(--section-gap) grid auto-cols-[85%] grid-flow-col items-start gap-4 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[45%] md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:gap-5 md:overflow-visible md:pb-0"
           >
-            {VISIBLE_DEALS.map((deal) => {
-              const skin = dealSkin(deal);
-              return (
-                <article
-                  key={deal.slug}
-                  id={deal.slug}
-                  className={`race-event-card flex h-full snap-start scroll-mt-28 flex-col items-center p-6 text-center sm:p-7 ${skin.card}`}
-                >
-                  <span className={`rounded-full px-3 py-1 text-sm font-bold ${skin.label}`}>{deal.kicker}</span>
-                  <h3 className="display mt-4 text-4xl leading-none md:text-[2.75rem]">{deal.name}</h3>
-                  <p className={`mt-4 text-base leading-relaxed ${skin.soft}`}>{deal.summary}</p>
-                  {/* Détail et conditions repliés : la carte reste courte, surtout sur mobile. */}
-                  <details className={`group mt-4 w-full border-t pt-3 text-left ${skin.rule}`}>
-                    <summary className="flex cursor-pointer list-none items-center justify-center gap-2 text-sm font-bold [&::-webkit-details-marker]:hidden">
-                      Les conditions
-                      <span aria-hidden="true" className="display text-lg transition-transform duration-300 group-open:rotate-45">+</span>
-                    </summary>
-                    {deal.details.map((p) => (
-                      <p key={p} className={`mt-3 text-sm leading-relaxed ${skin.soft}`}>
-                        {p}
-                      </p>
-                    ))}
-                    <ul className={`mt-3 border-t text-sm ${skin.rule}`}>
-                      {deal.facts.map((fact) => (
-                        <li key={fact} className={`border-b py-2 last:border-b-0 ${skin.rule}`}>
-                          {fact}
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                  {deal.price && (
-                    <div className={`mt-auto flex w-full flex-col items-center gap-1 border-t pt-4 ${skin.rule}`}>
-                      <p className="display text-4xl leading-none">{deal.price}</p>
-                      {deal.priceNote && <p className={`text-sm ${skin.soft}`}>{deal.priceNote}</p>}
-                    </div>
-                  )}
-                </article>
-              );
-            })}
+            {VISIBLE_DEALS.map((deal) => (
+              <DealCard key={deal.slug} deal={deal} expandable />
+            ))}
           </div>
         </div>
       </section>
