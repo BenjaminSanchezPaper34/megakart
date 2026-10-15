@@ -64,24 +64,9 @@ function Carte({ item, today, first }: { item: AgendaItem; today: string | null;
       : item.op === "12-heures"
         ? "Le circuit MegaKart éclairé à la nuit tombée"
         : "Kart en piste sur le circuit MegaKart";
-  const badge = complet
-    ? { t: "Complet", c: "bg-chalk text-asphalt" }
-    : item.places === 1
-      ? { t: "Dernières inscriptions", c: "bg-flag text-asphalt" }
-      : item.places !== undefined
-        ? { t: `Plus que ${item.places} équipes`, c: "bg-flag text-asphalt" }
-        : soiree
-          ? { t: "Soirée", c: "bg-race text-white" }
-          : null;
 
   return (
-    <div className="relative flex snap-start pt-5">
-      {/* Label à cheval sur le haut de la carte. */}
-      {badge && (
-        <span className={`absolute left-1/2 top-5 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold shadow-lg ${badge.c}`}>
-          {badge.t}
-        </span>
-      )}
+    <div className="relative flex snap-start">
       <article className="race-event-card flex w-full flex-col overflow-hidden border border-chalk/15 bg-asphalt">
         <Link href={page} aria-label={`${item.label} : ${date.day} ${date.monthFull}`} className="relative block aspect-[4/5] w-full shrink-0 bg-asphalt-3">
           <Image src={poster?.src ?? photo} alt={alt} fill sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 85vw" className="object-cover" />
