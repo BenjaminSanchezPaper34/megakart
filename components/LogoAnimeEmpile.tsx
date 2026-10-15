@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 /**
  * Logo empilé du pied de page, animé comme celui de l'en-tête (MEGA glisse,
@@ -10,16 +10,16 @@ import { useEffect, useRef, useState } from "react";
  */
 export default function LogoAnimeEmpile({ className = "" }: { className?: string }) {
   const ref = useRef<SVGSVGElement>(null);
-  const [etat, setEtat] = useState<"" | "pret" | "joue">("");
 
   useEffect(() => {
     const el = ref.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    setEtat("pret");
+    // Classes posées directement sur le SVG : aucun rendu React à attendre.
+    el.classList.add("pret");
     // Déclenchement dès qu'un bout du logo est à l'écran ; filet de sécurité au scroll
     // (le logo ne doit jamais rester masqué si l'observateur ne se déclenche pas).
     const jouer = () => {
-      setEtat("joue");
+      el.classList.replace("pret", "joue");
       io.disconnect();
       window.removeEventListener("scroll", verifier);
     };
@@ -45,7 +45,7 @@ export default function LogoAnimeEmpile({ className = "" }: { className?: string
       height={91}
       role="img"
       aria-label="MegaKart"
-      className={`logo-empile ${etat} overflow-visible ${className}`}
+      className={`logo-empile overflow-visible ${className}`}
     >
       <g className="logo-kart" fill="white">
         <path d="M148.27,45.61l-1.43,6.83-1.01,4.48.17.06M145.87,57.06c.04-.08-.06-.12-.09-.05h-10.19s-.76,3.17-.76,3.17l-4.4,20.79-1.94,9.05h-12.51s3.94-18.56,3.94-18.56l2.59-12.32.42-2.13-10.58.02c.07,1.32-.2,2.53-.48,3.81-.76,3.43-2.98,6.82-5.77,8.95-1.02.78-1.97,1.52-3.14,2.13.3.54.35.98.51,1.51l3.61,11.9,1.44,4.67-14.22.03-2.08-7.72-2.19-7.99-1.6-.04-1.11,4.88-1.55,7.28-.67,3.58-20.34.02-4.05-.16-.65-6.22-11.28-.03-1.98,3.65-1.45,2.74h-20.87c-.45,0-.57-.19-.71-.56l-4.26-11.63-1.38-3.69-2.82,2.5-.74,3.04-2.19,10.32-11.07.05c-.48,0-.93.01-1.34-.13l.41-1.91,1.63-7.77.78-3.43,1.46-6.99,2.03-9.59,1.04-4.94.94-4.46.68-3.4.47-1.9,12.35.06-1.74,8.26c-.3,1.41-.49,2.74-.91,4.11-.01.09,0,.19.04.21.08.03.22,0,.31-.09,1.71-1.83,3.54-3.43,5.33-5.19l4.32-4.26,3.1-3.07,15.58.02c-.89,1.09-1.9,1.96-2.89,2.91l-2.57,2.46-7.15,6.8-6.65,6.29,7.19,19.05c.36-.1.52-.38.72-.73l20.51-35.75c.21-.37.38-1,.82-1.04l9.2-.04.38,2.1.47,2.97.53,3.65.49,3.18.47,3.19.51,3.29.49,3.31.5,3.31.48,3.31.47,2.96.5,3.42.46,2.99c.15,1.01.41,1.96.32,3.03.02.14.19.15.22,0l.82-3.71,2.01-9.41,3.64-17.14.17-.71,1.47-7.2.59-2.5h18.33c2.32,0,4.48.53,6.47,1.61,1.21.66,2.18,1.55,3.06,2.58s1.33,2.26,2.01,3.53l.99-4.4.76-3.41,9.76.06,16.4-.05,8.53.07M98.08,62.43c1.15-.84,1.97-2.8,1.27-4.05-.3-.54-.82-1.23-1.65-1.24l-5.62-.04-.65,2.76-.77,3.57h4.99c.9.01,1.7-.46,2.44-1ZM59.04,73l-.35-3.08-.36-3.6-1.44,2.63-2.2,4.09,4.35-.03Z" />
