@@ -185,15 +185,14 @@ export default function AgendaPage() {
         />
 
         <div className="mt-(--section-gap) flex flex-col gap-(--section-y)">
-          {COURSES.map((race, i) => {
+          {COURSES.map((race) => {
             const dates = opDates(race.slug);
             return (
               <article
                 key={race.slug}
                 id={race.slug}
-                className={`grid scroll-mt-28 items-center gap-10 lg:grid-cols-2 ${
-                  i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
-                }`}
+                // Même disposition pour toutes les courses (texte à gauche, affiche et faits à droite) : on compare d'un coup d'œil.
+                className="grid scroll-mt-28 items-center gap-10 lg:grid-cols-2"
               >
                 <div>
                   <h3 data-reveal className="display text-[clamp(2.6rem,6vw,4.75rem)] leading-none text-chalk">
