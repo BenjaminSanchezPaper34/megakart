@@ -106,33 +106,10 @@ export default function PhotosPage() {
 
       <div className="kerb" aria-hidden="true" />
 
-      {/* Les réels du circuit (verticaux, lecture au survol/tap) */}
-      <section className="overflow-hidden bg-asphalt-2 py-(--section-y)">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <SectionHeader
-            line1="Les réels"
-            line2="du circuit."
-            action={
-              <a
-                href={SITE.social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-ghost"
-              >
-                Suivre @karting_megakart
-              </a>
-            }
-          />
-        </div>
-        <div className="mt-(--section-gap)">
-          <ReelsRow />
-        </div>
-      </section>
-
-      {/* Grille masonry + lightbox plein écran */}
+      {/* Le circuit en images, sans titre : 3 réels en colonnes, puis la galerie dans le même alignement. */}
       <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
-        <SectionHeader line1="La" line2="galerie." accent="flag" />
-        <div className="mt-(--section-gap)">
+        <ReelsRow grid limit={3} />
+        <div className="mt-4">
           <GalleryGrid photos={PHOTOS} />
         </div>
       </section>

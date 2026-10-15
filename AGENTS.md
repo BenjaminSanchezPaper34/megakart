@@ -183,3 +183,4 @@ Claude relit ce journal en reprenant la main.
   - Pages `/galeries` et `/galerie/[slug]` (statiques, indexables, sitemap, JSON-LD ImageGallery), mention de retrait sur chaque page + /confidentialite.
   - Page Photos : la frise « Les courses en photos » (Souvenirs) est remplacée par les 3 dernières galeries + lien ; footer « Vos photos à télécharger ».
   - Nouvelle galerie : la préparer avec les scripts paper34 (build-gallery + upload R2), copier le manifest ici et ajouter sa ligne dans META.
+- 15/10 (Claude) — Photos : après les galeries, plus de titres ; 3 réels en grille (ReelsRow `grid limit={3}`, mêmes colonnes que la galerie) suivis directement des photos.

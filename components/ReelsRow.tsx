@@ -18,7 +18,9 @@ const REELS = [
   { src: "reel-5", label: "Réel du 8 juin" },
 ];
 
-export default function ReelsRow() {
+export default function ReelsRow({ grid = false, limit }: { grid?: boolean; limit?: number }) {
+  // `grid` : grille de colonnes alignée sur la galerie photo (page Photos), sinon bande défilante.
+  const reels = limit ? REELS.slice(0, limit) : REELS;
   const playing = useRef<HTMLVideoElement | null>(null);
 
   const play = (v: HTMLVideoElement) => {
@@ -37,12 +39,12 @@ export default function ReelsRow() {
   };
 
   return (
-    <div className="no-scrollbar overflow-x-auto">
-      <div className="mx-auto flex w-max items-stretch gap-4 px-5 md:gap-5 md:px-8">
-        {REELS.map((r) => (
+    <div className={grid ? "" : "no-scrollbar overflow-x-auto"}>
+      <div className={grid ? "grid gap-4 sm:grid-cols-2 lg:grid-cols-3" : "mx-auto flex w-max items-stretch gap-4 px-5 md:gap-5 md:px-8"}>
+        {reels.map((r) => (
           <div
             key={r.src}
-            className="card group relative w-[220px] shrink-0 overflow-hidden !p-0 md:w-[250px]"
+            className={`card group relative overflow-hidden !p-0 ${grid ? "w-full" : "w-[220px] shrink-0 md:w-[250px]"}`}
           >
             <video
               src={`/videos/${r.src}.mp4`}
