@@ -149,9 +149,6 @@ export default function PistePage() {
             <Link href="/#flotte" className="btn btn-race">
               Voir les karts
             </Link>
-            <a href={SITE.phoneHref} className="btn btn-ghost">
-              Créneaux compétition
-            </a>
           </div>
         </div>
       </section>
