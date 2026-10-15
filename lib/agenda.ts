@@ -48,11 +48,12 @@ export const RACES: Operation[] = [
     summary: "Endurance adulte en relais sur les nouveaux Sodi RT10 390cc : équipes de 2 ou 3 pilotes, 100 tours au compteur.",
     details: [
       "Le format le plus long de l'année, et il se court sur les nouveaux Sodi RT10 390cc : vous montez une équipe de deux ou trois pilotes et vous vous relayez sur 100 tours de circuit. Gestion du trafic, régularité, choix des relais — une vraie course d'endurance, chronométrée au dixième par Apex Timing.",
-      "20 minutes d'essais et de qualifications pour installer la grille, puis départ lancé pour 100 tours. Le classement défile en direct sur l'écran géant.",
+      "Rendez-vous à 10h, premiers tours de roue à 10h15 : 20 minutes d'essais et de qualifications pour installer la grille, puis départ lancé pour 100 tours. Le classement défile en direct sur l'écran géant.",
       "Le tarif suit l'équipe, pas le nombre de pilotes : 177€ à trois, soit 59€ chacun ; 176€ à deux, soit 88€ chacun. À deux, on partage la même course en deux relais plus longs.",
       "La course est terminée à 15h30 : l'après-midi reste ouvert. Hors vacances scolaires, le Pack Découverte du dimanche s'enchaîne pour ceux qui veulent prolonger avec un moniteur.",
     ],
     facts: [
+      "Rendez-vous à 10h, roulage dès 10h15",
       "Sur les nouveaux Sodi RT10 390cc",
       "Équipes de 2 ou 3 pilotes",
       "20 min essais + qualifications",

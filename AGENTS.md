@@ -143,3 +143,4 @@ Claude relit ce journal en reprenant la main.
 - 2026-10-14 — Claude : essai d'aimantation au scroll (branche claude/scroll-sections) abandonné à la demande de Benjamin, branche supprimée.
 - 2026-10-14 — Claude : SYSTÈME DE DESIGN — DESIGN.md + components/system/ (PageHero, SectionHeader, EmojiList, EmojiCards, Faq, CtaFinal, tones.ts) appliqués à toutes les pages sur la branche claude/systeme-pages (aperçu, pas encore en prod).
 - 2026-10-14 — Claude : système de design FUSIONNÉ en production (claude/systeme-pages → main), validé par Benjamin. Référence : web/DESIGN.md + components/system/.
+- 2026-10-15 — Claude : 100 Tours — rendez-vous 10h, roulage dès 10h15 (lib/agenda.ts : détails + fait ; factEmoji : ⏰ pour « rendez-vous »).
