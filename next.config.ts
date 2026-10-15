@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
       { source: "/tarifs", destination: "/#flotte", permanent: true },
       // Page Anniversaires fusionnée dans Événements (15/10/2026) : une seule page pour les 3 formules.
       { source: "/anniversaires", destination: "/evenements#anniversaire", permanent: true },
+      // Index des galeries fusionné dans la page Photos (15/10/2026).
+      { source: "/galeries", destination: "/photos#galeries", permanent: true },
     ];
   },
   images: {

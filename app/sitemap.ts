@@ -19,7 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/evenements`, lastModified: LASTMOD, priority: 0.8 },
     { url: `${SITE_URL}/photos`, lastModified: LASTMOD, priority: 0.6 },
     // Galeries publiques des événements (15/10).
-    { url: `${SITE_URL}/galeries`, lastModified: LASTMOD, priority: 0.6 },
     ...getGaleries().map((g) => ({ url: `${SITE_URL}/galerie/${g.path}`, lastModified: LASTMOD, priority: 0.5 })),
     { url: `${SITE_URL}/en`, lastModified: LASTMOD, priority: 0.7 },
     { url: `${SITE_URL}/contact`, lastModified: LASTMOD, priority: 0.7 },

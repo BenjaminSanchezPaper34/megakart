@@ -84,23 +84,17 @@ export default function PhotosPage() {
       />
 
       {/* Les galeries des événements (photos à télécharger) : elles ont leur page, /galeries. */}
-      <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
+      <section id="galeries" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-(--section-y) md:px-8">
         <SectionHeader
           line1="Vous avez roulé"
           line2="chez nous ?"
           subtitle="Courses, sorties d'entreprise, sessions : retrouvez-vous dans les galeries et téléchargez vos photos en qualité originale."
-          action={
-            <Link href="/galeries" className="btn btn-race">
-              Toutes les galeries
-            </Link>
-          }
         />
         <div data-stagger className="mt-(--section-gap) grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {getGaleries()
-            .slice(0, 3)
-            .map((g) => (
-              <CarteGalerie key={g.slug} g={g} />
-            ))}
+          {/* Toutes les galeries ici : pas de page d'index séparée (choix Benjamin 15/10). */}
+          {getGaleries().map((g) => (
+            <CarteGalerie key={g.slug} g={g} />
+          ))}
         </div>
       </section>
 

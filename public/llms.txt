@@ -93,7 +93,7 @@
   (1992 création, 2012 agrandissement et passage en compétition catégorie 1.1, 2023 reprise par Lucas PAINA)
 - /evenements : les 3 formules privées sur une page — anniversaires (déroulé, dès 7 participants), EVG/EVJF, entreprises & CE (team building, privatisation jusqu'à 60), FAQ, formulaire de demande de devis
 - /photos : photos & vidéos — réels verticaux du circuit, galerie (sessions jour et nocturnes, Baby Kart, vues aériennes)
-- /galeries : galeries photos des courses et événements (Course Enfants, sorties d'entreprise, sessions), photos téléchargeables en qualité originale ; une page par galerie (/galerie/<nom>)
+- /galerie/<nom> : galeries photos des courses et événements (Course Enfants, sorties d'entreprise, sessions), photos téléchargeables en qualité originale ; listées sur /photos
 - /contact : téléphone, horaires, adresse, itinéraire et carte (réseaux sociaux dans le pied de page)
 - /en : English summary — prices, opening hours, directions (tourist-friendly)
 - /mentions-legales : éditeur du site (SARL PAINA), hébergeur, propriété intellectuelle

@@ -21,7 +21,7 @@ const PLAN = [
       { href: "/la-piste", label: "La piste" },
       { href: "/live", label: "Chrono en direct" },
       { href: "/photos", label: "Photos" },
-      { href: "/galeries", label: "Vos photos à télécharger" },
+      { href: "/photos#galeries", label: "Vos photos à télécharger" },
     ],
   },
   {

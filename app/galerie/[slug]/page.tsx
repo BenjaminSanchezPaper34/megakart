@@ -46,7 +46,7 @@ export default async function GaleriePage({ params }: Params) {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
             breadcrumbJsonLd([
-              { name: "Vos photos", path: "/galeries" },
+              { name: "Photos", path: "/photos" },
               { name: g.titre, path: `/galerie/${g.path}` },
             ]),
             {
@@ -100,7 +100,7 @@ export default async function GaleriePage({ params }: Params) {
             </div>
           </>
         )}
-        <Link href="/galeries" className="btn btn-ghost mt-10">
+        <Link href="/photos#galeries" className="btn btn-ghost mt-10">
           Toutes les galeries
         </Link>
       </section>

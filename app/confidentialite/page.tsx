@@ -91,7 +91,7 @@ export default function ConfidentialitePage() {
             <h2 className="display mb-3 text-3xl text-chalk">Photos des événements</h2>
             <p>
               Les photos prises lors des courses et des événements du circuit sont publiées dans les{" "}
-              <Link href="/galeries" className="link-under text-chalk">
+              <Link href="/photos#galeries" className="link-under text-chalk">
                 galeries
               </Link>{" "}
               du site, en accès libre, pour que les participants puissent les télécharger. Les fichiers sont
