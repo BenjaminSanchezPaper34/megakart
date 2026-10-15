@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { AGENDA, RACES, getOperation, formatDate, lienInscription, pageCourse, type AgendaItem } from "@/lib/agenda";
 import { factEmoji } from "@/components/system/tones";
-import { useRowNav } from "./useRowNav";
 
 /**
  * Les courses et soirées à venir — LA rangée de cartes, identique sur l'accueil et
@@ -139,15 +138,12 @@ export default function UpcomingRaces() {
   }, []);
 
   const items = (today ? ITEMS.filter((a) => a.date >= today) : ITEMS).sort((a, b) => a.date.localeCompare(b.date));
-  const nav = useRowNav<HTMLDivElement>();
   if (items.length === 0) return null;
 
   return (
-    <>
     <div
-      ref={nav.ref}
       data-race-bento
-      className="no-scrollbar mt-[calc(var(--section-gap)-1rem)] grid auto-cols-[85%] grid-flow-col gap-5 overflow-x-auto overscroll-x-contain pb-4 snap-x snap-mandatory md:cursor-grab sm:auto-cols-[60%] md:auto-cols-[44%] lg:auto-cols-[calc((min(100vw-4rem,76rem)-2.5rem)/3)]"
+      className="no-scrollbar mt-[calc(var(--section-gap)-1rem)] grid auto-cols-[85%] grid-flow-col gap-5 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[60%] md:auto-cols-[44%] lg:auto-cols-[calc((min(100vw-4rem,76rem)-2.5rem)/3)]"
       // Même bande que les karts : pleine largeur de l'écran, cartes calées sur la grille du site,
       // elles glissent vers la gauche jusqu'au bord quand on fait défiler.
       style={{ paddingInline: "var(--site-gutter)", scrollPaddingInline: "var(--site-gutter)" }}
@@ -156,17 +152,5 @@ export default function UpcomingRaces() {
         <Carte key={item.date + (item.op ?? item.label)} item={item} today={today} first={i === 0} />
       ))}
     </div>
-    {/* Barre de progression : où l'on en est dans la rangée (masquée si tout tient). */}
-    {nav.visible < 0.99 && (
-      <div className="mx-auto mt-4 max-w-7xl px-5 md:px-8" aria-hidden="true">
-        <div className="relative h-1 overflow-hidden rounded-full bg-white/10">
-          <div
-            className="absolute inset-y-0 rounded-full bg-race transition-[left] duration-150 ease-out"
-            style={{ width: `${nav.visible * 100}%`, left: `${nav.progress * (1 - nav.visible) * 100}%` }}
-          />
-        </div>
-      </div>
-    )}
-    </>
   );
 }

@@ -64,12 +64,7 @@ export default function RowArrows({
     if (!el) return;
     const card = el.firstElementChild as HTMLElement | null;
     const gap = parseFloat(getComputedStyle(el).columnGap) || 16;
-    // Une « page » de cartes à la fois (3 sur ordinateur, 1 au mobile), calée sur les cartes.
-    const step = card ? card.offsetWidth + gap : el.clientWidth * 0.8;
-    const cs = getComputedStyle(el);
-    const inner = el.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
-    const perPage = Math.max(1, Math.floor((inner + gap + 1) / step));
-    el.scrollBy({ left: dir * step * perPage, behavior: "smooth" });
+    el.scrollBy({ left: dir * (card ? card.offsetWidth + gap : el.clientWidth * 0.8), behavior: "smooth" });
   };
 
   const arrow = (dir: 1 | -1, disabled: boolean) => (
