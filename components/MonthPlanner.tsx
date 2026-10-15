@@ -60,19 +60,31 @@ function MonthGrid({
   selected,
   todayIso,
   onSelect,
+  onMonth,
+  hasPrev,
+  hasNext,
 }: {
   month: CalendarMonth;
   selected: Selection;
   todayIso: string | null;
   onSelect: (sel: Selection) => void;
+  onMonth: (delta: -1 | 1) => void;
+  hasPrev: boolean;
+  hasNext: boolean;
 }) {
   return (
     <div className="overflow-hidden rounded-2xl border border-white/10 bg-asphalt-2">
+      {/* Ligne d'en-tête agrandie : mois précédent / suivant, mêmes flèches que la fiche du jour. */}
+      <div className="flex items-center gap-2 bg-asphalt-3/60 px-3 pt-3 text-chalk md:px-4">
+        <StepButton dir={-1} onClick={() => onMonth(-1)} disabled={!hasPrev} label="Mois précédent" />
+        <p className="display flex-1 text-center text-2xl capitalize leading-none md:text-3xl">{month.name}</p>
+        <StepButton dir={1} onClick={() => onMonth(1)} disabled={!hasNext} label="Mois suivant" />
+      </div>
       <div className="grid grid-cols-7 border-b border-white/10 bg-asphalt-3/60">
         {WEEKDAYS.map((w) => (
           <div
             key={w}
-            className="py-2 text-center text-xs font-semibold uppercase tracking-widest text-chalk-60"
+            className="py-3 text-center text-xs font-semibold uppercase tracking-widest text-chalk-60"
           >
             {w}
           </div>
@@ -257,9 +269,17 @@ export default function MonthPlanner() {
         onScroll={onScroll}
         className="no-scrollbar -mx-5 mt-6 flex snap-x snap-mandatory overflow-x-auto md:hidden"
       >
-        {months.map((m) => (
+        {months.map((m, i) => (
           <div key={m.month} className="w-full shrink-0 snap-center px-5">
-            <MonthGrid month={m} selected={selected} todayIso={todayIso} onSelect={pick} />
+            <MonthGrid
+              month={m}
+              selected={selected}
+              todayIso={todayIso}
+              onSelect={pick}
+              onMonth={(delta) => goTo(i + delta)}
+              hasPrev={i > 0}
+              hasNext={i < months.length - 1}
+            />
           </div>
         ))}
       </div>
@@ -274,6 +294,9 @@ export default function MonthPlanner() {
           selected={selected}
           todayIso={todayIso}
           onSelect={pick}
+          onMonth={(delta) => goTo(monthIdx + delta)}
+          hasPrev={monthIdx > 0}
+          hasNext={monthIdx < months.length - 1}
         />
       </div>
 
@@ -319,13 +342,23 @@ function Fact({ emoji, children }: { emoji: string; children: ReactNode }) {
   );
 }
 
-function StepButton({ dir, onClick, disabled }: { dir: -1 | 1; onClick: () => void; disabled: boolean }) {
+function StepButton({
+  dir,
+  onClick,
+  disabled,
+  label,
+}: {
+  dir: -1 | 1;
+  onClick: () => void;
+  disabled: boolean;
+  label?: string;
+}) {
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      aria-label={dir < 0 ? "Jour précédent" : "Jour suivant"}
+      aria-label={label ?? (dir < 0 ? "Jour précédent" : "Jour suivant")}
       className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-current/30 text-2xl leading-none transition-colors duration-200 hover:bg-black/10 disabled:opacity-30"
     >
       <span aria-hidden="true">{dir < 0 ? "‹" : "›"}</span>
