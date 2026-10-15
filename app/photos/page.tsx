@@ -7,7 +7,6 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 import PageHero from "@/components/system/PageHero";
 import { getGaleries } from "@/lib/galeries";
 import CarteGalerie from "@/components/galerie/CarteGalerie";
-import SectionHeader from "@/components/system/SectionHeader";
 import CtaFinal from "@/components/system/CtaFinal";
 
 export const metadata: Metadata = {
@@ -78,25 +77,23 @@ export default function PhotosPage() {
 
 
       {/* Les galeries des événements (photos à télécharger) : elles ont leur page, /galeries. */}
-      {/* Hero photo seule, sans texte (choix Benjamin 15/10) ; le titre de page (h1) est celui des galeries. */}
-      <PageHero
-        image={{ src: "/images/galerie-15-nocturne-grande-roue.jpg", alt: "Session nocturne sur le circuit MegaKart, grande roue illuminée en arrière-plan", position: "object-[center_45%]" }}
-      />
-
-      <section id="galeries" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-(--section-y) md:px-8">
-        <SectionHeader
-          as="h1"
+      {/* Hero photo, le titre des galeries calé à la même hauteur que les autres pages
+          (Événements, Agenda) ; les galeries suivent dessous. */}
+      <div id="galeries" className="scroll-mt-24">
+        <PageHero
+          image={{ src: "/images/galerie-15-nocturne-grande-roue.jpg", alt: "Session nocturne sur le circuit MegaKart, grande roue illuminée en arrière-plan", position: "object-[center_45%]" }}
           line1="Vous avez roulé"
           line2="chez nous ?"
           subtitle="Courses, sorties d'entreprise, sessions : retrouvez-vous dans les galeries et téléchargez vos photos en qualité originale."
-        />
-        <div data-stagger className="mt-(--section-gap) grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {/* Toutes les galeries ici : pas de page d'index séparée (choix Benjamin 15/10). */}
-          {getGaleries().map((g) => (
-            <CarteGalerie key={g.slug} g={g} />
-          ))}
-        </div>
-      </section>
+        >
+          <div data-stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Toutes les galeries ici : pas de page d'index séparée (choix Benjamin 15/10). */}
+            {getGaleries().map((g) => (
+              <CarteGalerie key={g.slug} g={g} />
+            ))}
+          </div>
+        </PageHero>
+      </div>
 
       <div className="kerb" aria-hidden="true" />
 
