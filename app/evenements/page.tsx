@@ -138,14 +138,12 @@ export default function EvenementsPage() {
                     {p}
                   </p>
                 ))}
-              </div>
-              <div>
-                <EmojiList items={e.facts} />
                 {/* Pré-coche la formule dans le formulaire du bas (écouté par DemandeEvenement). */}
                 <a href="#demande" data-formule={e.id} className="btn btn-race mt-8">
-                  Demander une date
+                  Demander un devis
                 </a>
               </div>
+              <EmojiList items={e.facts} />
             </div>
           </div>
         </section>
