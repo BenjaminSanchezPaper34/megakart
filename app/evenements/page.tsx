@@ -128,16 +128,19 @@ export default function EvenementsPage() {
           id={e.id}
           className={`scroll-mt-24 py-(--section-y) ${i % 2 === 1 ? "bg-asphalt-2" : ""}`}
         >
-          <div className="mx-auto grid max-w-7xl items-center gap-(--section-gap) px-5 md:px-8 lg:grid-cols-[1.2fr_1fr]">
-            <div>
-              <SectionHeader line1={e.title} />
-              {e.text.map((p) => (
-                <p key={p} data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-lg">
-                  {p}
-                </p>
-              ))}
+          {/* Titre en tête, puis texte et émojis côte à côte, alignés en haut sous le titre. */}
+          <div className="mx-auto max-w-7xl px-5 md:px-8">
+            <SectionHeader line1={e.title} />
+            <div className="mt-6 grid items-start gap-(--section-gap) lg:grid-cols-[1.2fr_1fr]">
+              <div>
+                {e.text.map((p) => (
+                  <p key={p} data-reveal className="mt-5 max-w-xl text-base leading-relaxed text-chalk first:mt-0 md:text-lg">
+                    {p}
+                  </p>
+                ))}
+              </div>
+              <EmojiList items={e.facts} />
             </div>
-            <EmojiList items={e.facts} />
           </div>
         </section>
       ))}
