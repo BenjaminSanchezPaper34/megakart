@@ -34,7 +34,8 @@ export default function PistePage() {
       />
 
       <PageHero
-        image={{ src: "/images/galerie-23-aerien-nuit.jpg", alt: "Le circuit MegaKart illuminé de nuit, vu du ciel au cœur de la zone de loisirs de Vias-plage" }}
+        image={{ src: "/images/piste-drone.jpg", alt: "Vol de drone au ras de la piste du circuit MegaKart, kart en pleine courbe" }}
+        video={{ desktop: "/videos/piste-drone.mp4", mobile: "/videos/piste-drone-mobile.mp4" }}
         line1="La piste."
         line2="1000 m de pilotage."
         subtitle="Esses, épingles, relances et vraies lignes droites, sur un tracé large de 8,5 m."

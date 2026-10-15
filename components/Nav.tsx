@@ -17,6 +17,7 @@ import { SITE } from "@/lib/site";
  */
 const LINKS = [
   { href: "/#flotte", label: "Tarifs" },
+  { href: "/la-piste", label: "La piste" },
   { href: "/agenda", label: "Agenda" },
   { href: "/evenements", label: "Événements" },
   { href: "/photos", label: "Photos" },

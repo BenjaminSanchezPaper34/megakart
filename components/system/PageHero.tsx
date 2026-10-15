@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import SectionHeader from "./SectionHeader";
+import HeroVideo from "./HeroVideo";
 
 /**
  * Ouverture de page du système MegaKart : photo plein cadre, label en pastille
@@ -20,8 +21,11 @@ export default function PageHero({
   action,
   short = false,
   children,
+  video,
 }: {
   image: { src: string; alt: string; position?: string };
+  /** Vidéo de fond (la photo sert d'affiche et de repli). */
+  video?: { desktop: string; mobile: string };
   label?: ReactNode;
   line1: ReactNode;
   line2?: ReactNode;
@@ -63,6 +67,7 @@ export default function PageHero({
           sizes="100vw"
           className={`object-cover ${image.position ?? "object-center"}`}
         />
+        {video && <HeroVideo desktop={video.desktop} mobile={video.mobile} />}
         <div aria-hidden="true" className="absolute inset-0 bg-asphalt/45" />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-asphalt/80 via-transparent to-asphalt/40" />
       </div>
