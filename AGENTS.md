@@ -190,3 +190,4 @@ Claude relit ce journal en reprenant la main.
 - 15/10 (Claude) — Logo footer : animation identique à l'en-tête (mêmes durées/retards, damier découpé en 8 bandes clipPath pour le case par case).
 - 15/10 (Claude) — Courses à venir : section commune `components/CoursesAVenir.tsx` (accueil + agenda, titre « Cet automne, on court. »), cartes au style des fiches karts (date géante, kart Sodi de la course détouré, essentiel, prix + S'inscrire), une carte PAR DATE, Nocturne Halloween incluse (SOIREES), 3 cartes sur la largeur puis défilement à droite.
 - 15/10 (Claude) — Cartes courses : sans labels, bande pleine largeur comme les karts (paddingInline --site-gutter, cartes = 1/3 de la grille), elles glissent jusqu'au bord gauche au défilement.
+- 15/10 (Claude) — Rangée des courses : glisser à la souris avec élan + calage (`components/useRowNav.ts`), barre de progression rouge sous la rangée, flèches (RowArrows) qui avancent d'une page de cartes (3 sur ordinateur).
