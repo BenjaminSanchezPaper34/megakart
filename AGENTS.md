@@ -163,3 +163,4 @@ Claude relit ce journal en reprenant la main.
   - Pages `/inscription/*` = pages des courses via `components/system/PageCourse.tsx` : formulaire directement sous le titre (sur la photo), puis « Tout savoir » (affiche, texte, faits, prix). Désormais indexables + sitemap. JSON-LD des événements pointe vers ces pages.
   - Pop-up Course Enfant → `#formulaire`, bouton « Inscrire mon enfant ».
   - Calendrier : flèches mois précédent/suivant dans l'en-tête de la grille.
+- 15/10 (Claude) — Affiche 100 Tours sans date : `public/images/popup/100-tours-sans-date.jpg` (date effacée + flou), utilisée pour la carte et la page course ; le pop-up du 18/10 garde l'affiche datée.

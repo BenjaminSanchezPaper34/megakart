@@ -48,7 +48,8 @@ export type Operation = {
 export const RACES: Operation[] = [
   {
     slug: "100-tours",
-    affiche: { src: "/images/popup/100-tours-post.jpg", width: 1440, height: 1920 },
+    // Affiche sans date (date du 18/10 effacée le 15/10) : valable pour toutes les éditions.
+    affiche: { src: "/images/popup/100-tours-sans-date.jpg", width: 1440, height: 1920 },
     kicker: "Endurance par équipes",
     name: "Les 100 Tours",
     accent: "race",

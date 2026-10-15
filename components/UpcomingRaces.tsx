@@ -64,9 +64,8 @@ export default function UpcomingRaces() {
         const complet = item.places === 0;
         const page = pageCourse(op);
         const inscription = lienInscription(op, item.date);
-        // L'affiche 100 Tours porte le 18 octobre : ne jamais la réutiliser pour une autre date.
-        const poster =
-          item.op === "course-enfant" || (item.op === "100-tours" && item.date === "2026-10-18") ? op.affiche : undefined;
+        // Affiches officielles sans date (Course Enfant, 100 Tours) : valables pour chaque édition.
+        const poster = item.op === "course-enfant" || item.op === "100-tours" ? op.affiche : undefined;
         const photo =
           item.op === "12-heures"
             ? "/images/galerie-24-aerien-nuit.jpg"
