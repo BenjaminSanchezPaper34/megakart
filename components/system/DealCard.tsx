@@ -22,8 +22,8 @@ export default function DealCard({ deal, expandable = false }: { deal: Operation
       // Toute la carte déplie « Les conditions » (le bouton reste là pour le clavier) ;
       // au survol, elle se soulève légèrement.
       onClick={expandable ? () => setOpen((o) => !o) : undefined}
-      className={`race-event-card flex h-full scroll-mt-28 flex-col items-center gap-0 p-5 text-center transition-[transform,box-shadow] duration-300 ease-out sm:p-6 ${
-        expandable ? "cursor-pointer hover:-translate-y-1.5 hover:shadow-[0_22px_44px_-12px_rgb(0_0_0/0.55)]" : ""
+      className={`race-event-card flex h-full scroll-mt-28 flex-col items-center gap-0 p-5 text-center transition-[transform,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform sm:p-6 ${
+        expandable ? "cursor-pointer hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgb(0_0_0/0.45)] motion-reduce:transition-none motion-reduce:hover:translate-y-0" : ""
       } ${skin.card}`}
     >
       <span className={`rounded-full px-3 py-1 text-sm font-bold ${skin.label}`}>{deal.kicker}</span>
