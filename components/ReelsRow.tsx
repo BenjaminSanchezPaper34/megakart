@@ -11,6 +11,7 @@ import { SITE } from "@/lib/site";
  */
 
 const REELS = [
+  { src: "reel-6", label: "Réel du 14 octobre" },
   { src: "reel-1", label: "Réel du 14 août" },
   { src: "reel-2", label: "Réel du 30 juillet" },
   { src: "reel-3", label: "Réel du 6 juillet" },
