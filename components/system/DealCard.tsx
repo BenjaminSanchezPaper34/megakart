@@ -14,12 +14,15 @@ export default function DealCard({ deal, expandable = false }: { deal: Operation
   const skin = dealSkin(deal);
   const [open, setOpen] = useState(false);
   return (
+    // Enveloppe = l'élément animé par la cascade GSAP (data-stagger) ; le survol se joue sur la
+    // carte dedans, sinon le transform posé par GSAP annule le soulèvement.
+    <div className="snap-start">
     <article
       id={expandable ? deal.slug : undefined}
       // Toute la carte déplie « Les conditions » (le bouton reste là pour le clavier) ;
       // au survol, elle se soulève légèrement.
       onClick={expandable ? () => setOpen((o) => !o) : undefined}
-      className={`race-event-card flex scroll-mt-28 snap-start flex-col items-center gap-0 p-5 text-center transition-[transform,box-shadow] duration-300 ease-out sm:p-6 ${
+      className={`race-event-card flex h-full scroll-mt-28 flex-col items-center gap-0 p-5 text-center transition-[transform,box-shadow] duration-300 ease-out sm:p-6 ${
         expandable ? "cursor-pointer hover:-translate-y-1.5 hover:shadow-[0_22px_44px_-12px_rgb(0_0_0/0.55)]" : ""
       } ${skin.card}`}
     >
@@ -53,5 +56,6 @@ export default function DealCard({ deal, expandable = false }: { deal: Operation
         />
       )}
     </article>
+    </div>
   );
 }

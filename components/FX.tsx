@@ -19,12 +19,36 @@ gsap.registerPlugin(ScrollTrigger);
 export default function FX() {
   const pathname = usePathname();
 
+  // Liens vers un endroit de la même page (« #calendrier », « /agenda#courses » depuis l'agenda…) :
+  // on voit la page défiler jusqu'à la cible au lieu d'y sauter (Lenis si actif, sinon natif).
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>("a[href*='#']");
+      if (!a || a.target === "_blank") return;
+      const url = new URL(a.href, location.href);
+      if (url.origin !== location.origin || url.pathname !== location.pathname || !url.hash) return;
+      const el = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      if (!el) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const offset = -(parseFloat(getComputedStyle(el).scrollMarginTop) || 96);
+      const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
+      if (lenis) lenis.scrollTo(el, { offset, duration: 1.1 });
+      else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset, behavior: "smooth" });
+      history.pushState(null, "", url.hash);
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, []);
+
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let lenis: Lenis | null = null;
     if (!reduced) {
       lenis = new Lenis({ lerp: 0.12, wheelMultiplier: 1 });
+      (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
       lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.add((time) => lenis!.raf(time * 1000));
       gsap.ticker.lagSmoothing(0);
@@ -136,6 +160,7 @@ export default function FX() {
       if (lenis) {
         gsap.ticker.remove((time) => lenis!.raf(time * 1000));
         lenis.destroy();
+        (window as unknown as { __lenis?: Lenis }).__lenis = undefined;
       }
     };
   }, [pathname]);
