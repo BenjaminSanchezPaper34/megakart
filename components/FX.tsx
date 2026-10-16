@@ -24,14 +24,16 @@ export default function FX() {
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      // Menu mobile ouvert : Nav.tsx referme d'abord le menu puis fait défiler lui-même.
+      if (document.documentElement.style.overflow === "hidden") return;
       const a = (e.target as HTMLElement).closest<HTMLAnchorElement>("a[href*='#']");
       if (!a || a.target === "_blank") return;
       const url = new URL(a.href, location.href);
       if (url.origin !== location.origin || url.pathname !== location.pathname || !url.hash) return;
       const el = document.getElementById(decodeURIComponent(url.hash.slice(1)));
       if (!el) return;
+      // preventDefault suffit : le Link de Next voit l'événement annulé et ne saute pas.
       e.preventDefault();
-      e.stopPropagation();
       const offset = -(parseFloat(getComputedStyle(el).scrollMarginTop) || 96);
       const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
       if (lenis) lenis.scrollTo(el, { offset, duration: 1.1 });
