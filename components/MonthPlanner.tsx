@@ -229,7 +229,7 @@ export default function MonthPlanner() {
   };
 
   return (
-    <div>
+    <div id="calendrier" className="scroll-mt-28">
       {/* Onglets mois */}
       <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:justify-center" role="tablist" aria-label="Choisir le mois">
         {months.map((m, i) => (

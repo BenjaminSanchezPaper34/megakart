@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import type { Operation } from "@/lib/agenda";
 import { dealSkin } from "./tones";
 import DealConditions from "./DealConditions";
@@ -9,10 +12,16 @@ import DealConditions from "./DealConditions";
  */
 export default function DealCard({ deal, expandable = false }: { deal: Operation; expandable?: boolean }) {
   const skin = dealSkin(deal);
+  const [open, setOpen] = useState(false);
   return (
     <article
       id={expandable ? deal.slug : undefined}
-      className={`race-event-card flex scroll-mt-28 snap-start flex-col items-center gap-0 p-5 text-center sm:p-6 ${skin.card}`}
+      // Toute la carte déplie « Les conditions » (le bouton reste là pour le clavier) ;
+      // au survol, elle se soulève légèrement.
+      onClick={expandable ? () => setOpen((o) => !o) : undefined}
+      className={`race-event-card flex scroll-mt-28 snap-start flex-col items-center gap-0 p-5 text-center transition-[transform,box-shadow] duration-300 ease-out sm:p-6 ${
+        expandable ? "cursor-pointer hover:-translate-y-1.5 hover:shadow-[0_22px_44px_-12px_rgb(0_0_0/0.55)]" : ""
+      } ${skin.card}`}
     >
       <span className={`rounded-full px-3 py-1 text-sm font-bold ${skin.label}`}>{deal.kicker}</span>
       <h3 className="display mt-4 text-4xl leading-none md:text-[2.75rem]">
@@ -34,7 +43,14 @@ export default function DealCard({ deal, expandable = false }: { deal: Operation
         </p>
       </div>
       {expandable && (
-        <DealConditions details={deal.details} facts={deal.facts} rule={skin.rule} soft={skin.soft} />
+        <DealConditions
+          details={deal.details}
+          facts={deal.facts}
+          rule={skin.rule}
+          soft={skin.soft}
+          open={open}
+          onToggle={() => setOpen((o) => !o)}
+        />
       )}
     </article>
   );

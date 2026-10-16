@@ -1,3 +1,4 @@
+import Link from "next/link";
 import RowArrows from "@/components/RowArrows";
 import { DEALS, SHOW_PROMOS } from "@/lib/agenda";
 import DealCard from "./DealCard";
@@ -20,7 +21,15 @@ export default function BonsPlans() {
           line2="qui reviennent."
           accent="flag"
           subtitle="Sans réservation pour la plupart : choisissez votre jour, on s'occupe du reste."
-          action={<RowArrows target="[data-deals-row]" label="Bons plans" className="flex gap-3" />}
+          action={
+            <div className="flex w-full items-center justify-between gap-3 md:w-auto">
+              {/* Les jours de chaque offre sont colorés dans le calendrier de l'agenda. */}
+              <Link href="/agenda#calendrier" className="btn btn-ghost">
+                Les jours dans le calendrier
+              </Link>
+              <RowArrows target="[data-deals-row]" label="Bons plans" className="flex gap-3" />
+            </div>
+          }
         />
         <div
           data-stagger

@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId } from "react";
 
 /**
  * « Les conditions » d'une carte bon plan : dépliage animé (hauteur en
@@ -12,13 +12,17 @@ export default function DealConditions({
   facts,
   rule,
   soft,
+  open,
+  onToggle,
 }: {
   details: string[];
   facts: string[];
   rule: string;
   soft: string;
+  /** Piloté par la carte : un clic n'importe où sur la carte déplie (DealCard). */
+  open: boolean;
+  onToggle: () => void;
 }) {
-  const [open, setOpen] = useState(false);
   const id = useId();
   const lines = [...details.map((text) => ({ text, fact: false })), ...facts.map((text) => ({ text, fact: true }))];
 
@@ -28,7 +32,10 @@ export default function DealConditions({
         type="button"
         aria-expanded={open}
         aria-controls={id}
-        onClick={() => setOpen((o) => !o)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggle();
+        }}
         className="flex min-h-11 w-full items-center justify-center gap-2 text-base font-bold md:text-lg"
       >
         Les conditions
