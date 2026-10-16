@@ -22,7 +22,8 @@ export default function ReelsRow({ grid = false, limit }: { grid?: boolean; limi
   // `grid` : grille de colonnes alignée sur la galerie photo (page Photos), sinon bande défilante.
   // En `grid`, sous 640 px les réels passent en bande à faire glisser (bord du suivant visible)
   // au lieu de s'empiler sur trois écrans.
-  const reels = limit ? REELS.slice(0, limit) : REELS;
+  // En `grid`, la limite ne vaut qu'à partir de 640 px : sur mobile la bande à glisser montre tous les réels.
+  const reels = limit && !grid ? REELS.slice(0, limit) : REELS;
   const playing = useRef<HTMLVideoElement | null>(null);
 
   const play = (v: HTMLVideoElement) => {
@@ -43,10 +44,10 @@ export default function ReelsRow({ grid = false, limit }: { grid?: boolean; limi
   return (
     <div className={grid ? "no-scrollbar -mx-5 overflow-x-auto px-5 scroll-px-5 snap-x snap-mandatory sm:mx-0 sm:overflow-visible sm:px-0" : "no-scrollbar overflow-x-auto"}>
       <div className={grid ? "grid auto-cols-[68%] grid-flow-col gap-3 sm:auto-cols-auto sm:grid-flow-row sm:grid-cols-2 sm:gap-4 lg:grid-cols-3" : "mx-auto flex w-max items-stretch gap-4 px-5 md:gap-5 md:px-8"}>
-        {reels.map((r) => (
+        {reels.map((r, i) => (
           <div
             key={r.src}
-            className={`card group relative overflow-hidden !p-0 ${grid ? "w-full snap-start" : "w-[220px] shrink-0 md:w-[250px]"}`}
+            className={`card group relative overflow-hidden !p-0 ${grid ? `w-full snap-start ${limit && i >= limit ? "sm:hidden" : ""}` : "w-[220px] shrink-0 md:w-[250px]"}`}
           >
             <video
               src={`/videos/${r.src}.mp4`}
