@@ -48,7 +48,7 @@ export default function ReelsRow({ grid = false, limit }: { grid?: boolean; limi
         {reels.map((r, i) => (
           <div
             key={r.src}
-            className={`card group relative overflow-hidden !p-0 ${grid ? `w-full snap-start ${limit && i >= limit ? "sm:hidden" : ""}` : "w-[220px] shrink-0 md:w-[250px]"}`}
+            className={`card card-static group relative overflow-hidden !p-0 ${grid ? `w-full snap-start ${limit && i >= limit ? "sm:hidden" : ""}` : "w-[220px] shrink-0 md:w-[250px]"}`}
           >
             <video
               src={`/videos/${r.src}.mp4`}

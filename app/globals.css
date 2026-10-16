@@ -252,6 +252,9 @@ body {
   border-color: color-mix(in srgb, var(--color-chalk) 22%, transparent);
   box-shadow: 0 18px 48px rgb(0 0 0 / 0.45);
 }
+/* Carte sans soulèvement (réels) : dans une bande à défilement, le soulèvement
+   au toucher coupait le haut de la carte. */
+.card.card-static:hover { transform: none; }
 
 /* ---------- Marquee ---------- */
 .marquee-track {
