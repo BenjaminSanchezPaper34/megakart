@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useRef, useState } from "react";
 import Image from "next/image";
 
 export type GalleryPhoto = { src: string; alt: string };
@@ -9,8 +9,14 @@ export type GalleryPhoto = { src: string; alt: string };
  * Grille masonry + lightbox plein écran : clic (ou Entrée) pour ouvrir,
  * flèches / molette de navigation, Échap ou clic sur le fond pour fermer.
  */
+/** Sur mobile, nombre de photos montrées avant « Voir les N autres » (ordinateur : tout). */
+const MOBILE_INITIAL = 12;
+
 export default function GalleryGrid({ photos }: { photos: GalleryPhoto[] }) {
   const [current, setCurrent] = useState<number | null>(null);
+  const [all, setAll] = useState(false);
+  const touchX = useRef<number | null>(null);
+  const hidden = photos.length - MOBILE_INITIAL;
 
   const close = useCallback(() => setCurrent(null), []);
   const step = useCallback(
@@ -40,21 +46,24 @@ export default function GalleryGrid({ photos }: { photos: GalleryPhoto[] }) {
 
   return (
     <>
-      <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
+      {/* Mobile : 2 colonnes (la hauteur du mur est divisée par deux) ; 3 colonnes sur ordinateur. */}
+      <div className="columns-2 gap-3 lg:columns-3 sm:gap-4 [&>*]:mb-3 sm:[&>*]:mb-4">
         {photos.map((p, i) => (
           <button
             key={p.src}
             type="button"
             onClick={() => setCurrent(i)}
             aria-label={`Afficher en plein écran : ${p.alt}`}
-            className="card block w-full cursor-zoom-in overflow-hidden !p-0 text-left"
+            className={`card block w-full cursor-zoom-in overflow-hidden !p-0 text-left ${
+              !all && i >= MOBILE_INITIAL ? "max-sm:hidden" : ""
+            }`}
           >
             <Image
               src={`/images/${p.src}`}
               alt={p.alt}
               width={1200}
               height={800}
-              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              sizes="(min-width: 1024px) 33vw, 50vw"
               priority={i < 3}
               className="h-auto w-full transition-transform duration-700 hover:scale-105"
             />
@@ -62,7 +71,15 @@ export default function GalleryGrid({ photos }: { photos: GalleryPhoto[] }) {
         ))}
       </div>
 
-      {/* Lightbox plein écran */}
+      {!all && hidden > 0 && (
+        <div className="mt-2 flex justify-center sm:hidden">
+          <button type="button" onClick={() => setAll(true)} className="btn btn-ghost">
+            Voir les {hidden} autres photos
+          </button>
+        </div>
+      )}
+
+      {/* Lightbox plein écran — au doigt, glisser à gauche / à droite change de photo. */}
       {current !== null && (
         <div
           role="dialog"
@@ -70,6 +87,15 @@ export default function GalleryGrid({ photos }: { photos: GalleryPhoto[] }) {
           aria-label={photos[current].alt}
           className="fixed inset-0 z-[90] flex items-center justify-center bg-asphalt/[0.97]"
           onClick={close}
+          onTouchStart={(e) => {
+            touchX.current = e.touches[0].clientX;
+          }}
+          onTouchEnd={(e) => {
+            if (touchX.current === null) return;
+            const dx = e.changedTouches[0].clientX - touchX.current;
+            touchX.current = null;
+            if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+          }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
