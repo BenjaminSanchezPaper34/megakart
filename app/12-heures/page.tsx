@@ -93,7 +93,7 @@ const ACCUEIL = [
   { emoji: "🍽️", text: "Pilotes nourris toute la journée : petit-déjeuner, déjeuner, goûter et dîner" },
   { emoji: "🥤", text: "Boissons en libre-service pour tous" },
   { emoji: "⛑️", text: "Équipement non fourni : casque et combinaison disponibles sur place" },
-  { emoji: "🏆", text: "Trophée, podium et lots RSS en fin de course" },
+  { emoji: "🏆", text: "Pour l'équipe gagnante : une énorme coupe et un baptême en voiture Vortex, et d'autres lots à gagner" },
 ];
 
 const PUBLICS = [
