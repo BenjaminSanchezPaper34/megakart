@@ -134,7 +134,10 @@ export default function Nav() {
               <Link
                 href={l.href}
                 onClick={onMenuLink(l.href)}
-                className={`display block py-1 text-[clamp(2rem,9vw,3rem)] leading-[1.1] ${pathname === l.href ? "text-race" : "text-chalk"}`}
+                // Taille selon la largeur ET la hauteur de l'écran : les 7 onglets tiennent toujours
+                // au-dessus du bloc du bas (réseaux, horaires, appel ≈ 26rem avec l'en-tête), du petit
+                // iPhone SE au grand écran ; 7,7 = 7 lignes × interligne 1,1.
+                className={`display block py-1 text-[clamp(1.75rem,min(11vw,calc((100svh-26rem)/7.7)),3.5rem)] leading-[1.1] ${pathname === l.href ? "text-race" : "text-chalk"}`}
               >
                 {l.label}
               </Link>
