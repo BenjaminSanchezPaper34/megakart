@@ -134,7 +134,7 @@ export default function Nav() {
               <Link
                 href={l.href}
                 onClick={onMenuLink(l.href)}
-                className={`display block py-1.5 text-[clamp(2.75rem,13vw,4rem)] leading-tight ${pathname === l.href ? "text-race" : "text-chalk"}`}
+                className={`display block py-1 text-[clamp(2rem,9vw,3rem)] leading-[1.1] ${pathname === l.href ? "text-race" : "text-chalk"}`}
               >
                 {l.label}
               </Link>
