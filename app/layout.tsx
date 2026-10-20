@@ -39,9 +39,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     siteName: "MegaKart",
-    title: "MegaKart — Karting à Vias-plage · Circuit outdoor 1000 m",
-    description:
-      "1000 m de piste homologuée FFSA entre Fabrikus et Europark Indoor. Karts dès 3 ans, sans réservation.",
+    // Pas de title/description ici : Next reprend ceux de chaque page pour l'aperçu de
+    // partage (Facebook, WhatsApp…). Les fixer ici donnait le titre de l'accueil partout.
     // L'image OG est générée par app/opengraph-image.tsx (photo + logo).
   },
   twitter: {
