@@ -24,6 +24,16 @@ export const metadata: Metadata = {
   title: `Les 12 Heures — endurance par équipes avec Vortex, ${DATE_LABEL}`,
   description: `Douze heures d'endurance par équipes de ${DOUZE_H.pilotesMin} à ${DOUZE_H.pilotesMax} pilotes au circuit MegaKart de Vias, avec l'écurie Vortex. ${DATE_LABEL}, de ${DOUZE_H.depart} à ${DOUZE_H.arrivee}. ${DOUZE_H.placesMax} équipes maximum.`,
   alternates: { canonical: "/12-heures" },
+  // Image de partage : app/12-heures/opengraph-image.jpg (visuel événement 1,91:1, comme
+  // l'événement Facebook). Titre et texte propres à la page, sinon ceux de l'accueil.
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: "MegaKart",
+    url: "/12-heures",
+    title: "Les 12 Heures MegaKart × Vortex — samedi 19 décembre",
+    description: "12 heures d'endurance par équipes, de midi à minuit, à Vias-plage. Une énorme coupe et un baptême en voiture Vortex pour l'équipe gagnante. 15 équipes maximum.",
+  },
 };
 
 const EVENT_JSONLD = {
@@ -31,16 +41,21 @@ const EVENT_JSONLD = {
   "@type": "SportsEvent",
   name: "Les 12 Heures de MegaKart — endurance par équipes avec l'écurie Vortex",
   startDate: `${DOUZE_H.date}T12:00:00+01:00`,
-  endDate: `${DOUZE_H.date}T23:59:00+01:00`,
+  // Arrivée à minuit pile : le lendemain à 00:00 (même heure que l'événement Facebook).
+  endDate: "2026-12-20T00:00:00+01:00",
   eventStatus: "https://schema.org/EventScheduled",
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   url: `${SITE_URL}/12-heures`,
-  image: [`${SITE_URL}/images/galerie-17-nocturne-action.jpg`, `${SITE_URL}/images/og.jpg`],
-  description: `Course d'endurance de 12 heures par équipes sur le circuit outdoor de 1000 m de MegaKart à Vias-plage, coorganisée avec l'écurie Vortex. Un ravitaillement par heure, changement de kart à chaque ravitaillement, espace chauffé par équipe, repas compris, chronométrage Apex Timing en direct. ${DOUZE_H.placesMax} équipes maximum.`,
+  // Affiche officielle (3:4) + visuel événement (1,91:1) : Google choisit selon l'affichage.
+  image: [`${SITE_URL}/images/popup/12-heures-evenement.jpg`, `${SITE_URL}/images/popup/12-heures.jpg`],
+  description: `Course d'endurance de 12 heures par équipes sur le circuit outdoor de 1000 m de MegaKart à Vias-plage, coorganisée avec l'écurie Vortex. Un ravitaillement par heure, changement de kart à chaque ravitaillement, espace chauffé par équipe, repas compris, chronométrage Apex Timing en direct. Pour l'équipe gagnante, une énorme coupe et un baptême en voiture Vortex. ${DOUZE_H.placesMax} équipes maximum.`,
   // Search Console (09/10) : chaque organisateur doit avoir une URL, et un
-  // « performer » est attendu. Vortex n'a pas d'URL connue : nommé dans la
-  // description, pas en organisateur. Performer = le circuit, comme l'agenda.
-  organizer: { "@type": "Organization", "@id": `${SITE_URL}/#business`, name: SITE.name, url: SITE_URL },
+  // « performer » est attendu. Vortex SAS (Pézenas) a sa Page Facebook depuis le 20/10 :
+  // coorganisateur, comme sur l'événement Facebook. Performer = le circuit, comme l'agenda.
+  organizer: [
+    { "@type": "Organization", "@id": `${SITE_URL}/#business`, name: SITE.name, url: SITE_URL },
+    { "@type": "Organization", name: "Vortex SAS", url: "https://www.facebook.com/Vortexsas" },
+  ],
   performer: { "@type": "Organization", "@id": `${SITE_URL}/#business`, name: SITE.name, url: SITE_URL },
   location: {
     "@type": "Place",
