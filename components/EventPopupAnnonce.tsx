@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import EventPopup from "@/components/EventPopup";
-import { campagneDuJour } from "@/lib/popup";
+import { campagnesDuJour } from "@/lib/popup";
 
 /**
  * Garde-fou au build : le pop-up n'existe que si ses deux visuels sont
@@ -11,11 +11,11 @@ import { campagneDuJour } from "@/lib/popup";
  * suivant, sans une ligne de code à changer.
  */
 export default function EventPopupAnnonce() {
-  const campagne = campagneDuJour(new Date().toISOString().slice(0, 10));
-  if (!campagne) return null;
-
   const present = (p: string) => existsSync(join(process.cwd(), "public", p));
-  if (!present(campagne.wide) || !present(campagne.tall)) return null;
+  const campagnes = campagnesDuJour(new Date().toISOString().slice(0, 10)).filter(
+    (c) => present(c.wide) && present(c.tall)
+  );
+  if (campagnes.length === 0) return null;
 
-  return <EventPopup campagne={campagne} />;
+  return <EventPopup campagnes={campagnes} />;
 }

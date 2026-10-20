@@ -17,15 +17,19 @@ import { FORMATS, type PopupCampagne } from "@/lib/popup";
  * Le rapport entre les deux dit si le visuel convertit — c'est toute la
  * raison de mesurer.
  */
-type Props = { campagne: PopupCampagne & { until: string } };
+type Campagne = PopupCampagne & { until: string };
+/** Campagnes en cours, la plus proche d'abord : on montre la première pas encore fermée. */
+type Props = { campagnes: Campagne[] };
 
 /* Le temps de laisser voir la page d'abord. Plus long sur mobile : l'écran
    est petit, un voile immédiat y est vécu comme une agression. Le pop-up
    attend en plus le premier geste du visiteur (voir plus bas). */
 const DELAI_MOBILE = 2600;
 const DELAI_DESKTOP = 1000;
+const VU_CETTE_VISITE = "megakart-popup-vu";
 
-export default function EventPopup({ campagne }: Props) {
+export default function EventPopup({ campagnes }: Props) {
+  const [campagne, setCampagne] = useState<Campagne | null>(null);
   const [open, setOpen] = useState(false);
   const [mobile, setMobile] = useState(false);
   const pathname = usePathname();
@@ -33,30 +37,38 @@ export default function EventPopup({ campagne }: Props) {
 
   const close = useCallback(() => {
     setOpen(false);
+    if (!campagne) return;
     try {
       localStorage.setItem(campagne.key, "closed");
     } catch {}
-  }, [campagne.key]);
+  }, [campagne]);
 
   /** Le visuel et le bouton mènent au même endroit et se mesurent pareil. */
   const go = useCallback(() => {
-    track("popup-clic", { campagne: campagne.op });
+    if (campagne) track("popup-clic", { campagne: campagne.op });
     close();
-  }, [campagne.op, close]);
+  }, [campagne, close]);
 
   useEffect(() => {
     // Jamais sur une page d'inscription, la sienne ou celle d'une autre course :
     // un parent venu inscrire son enfant n'a pas à se voir vendre les 100 Tours.
-    if (pathname === campagne.href || pathname.startsWith("/inscription/")) return;
-    // La campagne est terminée : plus rien à annoncer.
-    if (new Date().toISOString().slice(0, 10) >= campagne.until) return;
+    if (pathname.startsWith("/inscription/")) return;
+    const today = new Date().toISOString().slice(0, 10);
+    let choix: Campagne | undefined;
     try {
-      if (localStorage.getItem(campagne.key) === "closed") return;
+      // La première campagne en cours, pas encore fermée, qui ne pointe pas vers la page affichée.
+      // Une seule annonce par visite : la campagne suivante attend la prochaine visite.
+      if (sessionStorage.getItem(VU_CETTE_VISITE)) return;
+      choix = campagnes.find(
+        (c) => today < c.until && pathname !== c.href && localStorage.getItem(c.key) !== "closed"
+      );
     } catch {
       // Navigateur sans stockage : on n'insiste pas, plutôt que de
       // représenter le pop-up à chaque page.
       return;
     }
+    if (!choix) return;
+    setCampagne(choix);
     const petit = window.matchMedia("(max-width: 767px)").matches;
     setMobile(petit);
     // Ouverture au premier geste (défilement, toucher, clic, touche) APRÈS le
@@ -79,12 +91,15 @@ export default function EventPopup({ campagne }: Props) {
       clearTimeout(t);
       GESTES.forEach((g) => window.removeEventListener(g, ouvrir));
     };
-  }, [campagne, pathname]);
+  }, [campagnes, pathname]);
 
   // Échap pour fermer, fond figé, et le focus qui part sur la croix.
   useEffect(() => {
-    if (!open) return;
+    if (!open || !campagne) return;
     track("popup-vu", { campagne: campagne.op });
+    try {
+      sessionStorage.setItem(VU_CETTE_VISITE, "1");
+    } catch {}
     closeRef.current?.focus();
     document.documentElement.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
@@ -95,9 +110,9 @@ export default function EventPopup({ campagne }: Props) {
       window.removeEventListener("keydown", onKey);
       document.documentElement.style.overflow = "";
     };
-  }, [open, close, campagne.op]);
+  }, [open, close, campagne]);
 
-  if (!open) return null;
+  if (!open || !campagne) return null;
 
   const formats = campagne.formats ?? FORMATS;
   const format = mobile ? formats.tall : formats.wide;

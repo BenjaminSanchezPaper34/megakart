@@ -68,6 +68,18 @@ export const CAMPAGNES: PopupCampagne[] = [
     formats: { wide: { width: 2250, height: 3000 }, tall: { width: 2250, height: 3000 } },
     key: "megakart-popup-course-enfant-2026-11",
   },
+  {
+    // Affiche 3:4 (1500 × 2000), même traitement que la Course Enfants.
+    op: "12-heures",
+    href: "/12-heures",
+    cta: "Inscrire mon équipe",
+    alt: "Les 12 Heures, samedi 19 décembre chez MegaKart, avec Vortex — un pilote casqué de dos, entre le jour et la nuit. Infos et inscriptions.",
+    wide: "/images/popup/12-heures.jpg",
+    tall: "/images/popup/12-heures.jpg",
+    formats: { wide: { width: 1500, height: 2000 }, tall: { width: 1500, height: 2000 } },
+    dates: ["2026-12-19"],
+    key: "megakart-popup-12-heures-2026",
+  },
 ];
 
 /**
@@ -81,18 +93,20 @@ export const FORMATS = {
 } as const;
 
 /**
- * La campagne à montrer aujourd'hui : celle dont la prochaine date confirmée
- * est la plus proche (à égalité, l'ordre de CAMPAGNES tranche). `until` est
- * cette date — le pop-up disparaît le jour de la course, quand il n'y a plus
- * rien à réserver, et la campagne suivante prend le relais d'elle-même.
+ * Les campagnes en cours aujourd'hui, de la plus proche à la plus lointaine
+ * (à égalité, l'ordre de CAMPAGNES tranche). `until` est la prochaine date
+ * confirmée — la campagne disparaît le jour de la course, quand il n'y a plus
+ * rien à réserver. Le navigateur montre la première que le visiteur n'a pas
+ * encore fermée : une fois la Course Enfants fermée, il verra les 12 Heures
+ * à la visite suivante (choix Benjamin 20/10).
  */
-export function campagneDuJour(today: string): (PopupCampagne & { until: string }) | null {
-  let choix: (PopupCampagne & { until: string }) | null = null;
+export function campagnesDuJour(today: string): (PopupCampagne & { until: string })[] {
+  const liste: (PopupCampagne & { until: string })[] = [];
   for (const c of CAMPAGNES) {
     const prochaine = AGENDA.filter(
       (a) => a.op === c.op && a.status === "confirme" && !a.endDate && a.date > today && a.places !== 0 && (!c.dates || c.dates.includes(a.date))
     ).map((a) => a.date).sort()[0];
-    if (prochaine && (!choix || prochaine < choix.until)) choix = { ...c, until: prochaine };
+    if (prochaine) liste.push({ ...c, until: prochaine });
   }
-  return choix;
+  return liste.sort((a, b) => a.until.localeCompare(b.until));
 }
