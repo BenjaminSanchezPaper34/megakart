@@ -48,8 +48,9 @@ function Carte({ item, today, first }: { item: AgendaItem; today: string | null;
   const page = op ? pageCourse(op) : "/agenda";
   const inscription = op ? lienInscription(op, item.date) : undefined;
   const lignes = op?.essentiel ?? soiree?.lignes ?? [];
-  // Affiches officielles sans date (Course Enfant, 100 Tours) : valables pour chaque édition.
-  const poster = item.op === "course-enfant" || item.op === "100-tours" ? op?.affiche : undefined;
+  // Affiche officielle quand la course en a une (Course Enfant et 100 Tours : sans date, valables
+  // pour chaque édition ; 12 Heures : édition unique du 19/12).
+  const poster = op?.affiche;
   const photo = soiree
     ? soiree.photo
     : item.op === "12-heures"

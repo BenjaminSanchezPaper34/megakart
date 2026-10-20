@@ -131,6 +131,7 @@ export const RACES: Operation[] = [
     kicker: "L'endurance de fin d'année, avec Vortex",
     name: "Les 12 Heures",
     accent: "flag",
+    affiche: { src: "/images/popup/12-heures.jpg", width: 1500, height: 2000 },
     summary: "Douze heures d'endurance par équipes, de midi à minuit, coorganisées avec l'écurie Vortex. 15 équipes maximum.",
     details: [
       "Le plus grand format jamais couru sur le circuit : douze heures de relais par équipes de 2 à 6 pilotes, de midi à minuit, sur les 1000 m de Vias-plage. L'écurie Vortex et son équipe technique coorganisent l'épreuve avec l'équipe MegaKart.",
