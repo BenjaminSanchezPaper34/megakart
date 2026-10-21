@@ -84,20 +84,20 @@ export const RACES: Operation[] = [
     accent: "flag",
     summary: "Essais, qualifs, course et finale — avec un baptême en voiture Vortex à gagner.",
     details: [
-      "Le grand rendez-vous du 15 novembre : un vrai week-end de Grand Prix condensé en une journée. 8 minutes d'essais, 8 minutes de qualifications, une course de 12 tours, puis une finale de 10 minutes entre les meilleurs.",      "Et pour le vainqueur, un prix qui ne se gagne nulle part ailleurs : un baptême à bord d'une voiture Vortex. Ouvert dès 15 ans.",
+      "Le grand rendez-vous du 15 novembre : un vrai week-end de Grand Prix condensé en une journée. 8 minutes d'essais, 8 minutes de qualifications, une course de 12 tours, puis une finale de 10 minutes entre les meilleurs.",      "Et pour le vainqueur, un prix qui ne se gagne nulle part ailleurs : un baptême à bord d'une voiture Vortex. Rendez-vous à 14h, ouvert dès 15 ans.",
     ],
     facts: [
       "8 min essais + 8 min qualifications",
       "Course de 12 tours",
       "Finale de 10 minutes",
       "À gagner : un baptême en voiture Vortex",
-      "Dès 15 ans",
+      "Début à 14h · dès 15 ans",
     ],
     price: "85€ / pilote",
     priceValue: 85,
     reservation: true,
     signup: "/inscription/plein-gaz",
-    essentiel: ["Essais, qualifs et course de 12 tours, dès 15 ans", "Finale de 10 minutes", "À gagner : un baptême en voiture Vortex"],
+    essentiel: ["Rendez-vous à 14h, dès 15 ans", "Essais, qualifs et course de 12 tours", "À gagner : un baptême en voiture Vortex"],
     signupCta: "Inscrire mes pilotes",
   },
   {
