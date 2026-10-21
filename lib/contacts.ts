@@ -8,6 +8,7 @@
  *
  * Jamais bloquant : une erreur ici est journalisée, l'inscription part quand
  * même. Un contact déjà désinscrit le reste (on ne touche pas à `unsubscribed`).
+ * Le formulaire newsletter de l'accueil (/api/newsletter) passe par ici aussi.
  */
 const API = "https://api.resend.com";
 
@@ -22,13 +23,18 @@ export const TOPICS = {
 
 export type Evenement = keyof typeof TOPICS;
 
-export async function ajouterContact(email: string, nom: string, evenement: Evenement) {
+/** Renvoie false si Resend a refusé (utile au formulaire newsletter, qui l'affiche). */
+export async function ajouterContact(
+  email: string,
+  nom: string,
+  evenements: Evenement | Evenement[]
+): Promise<boolean> {
   // Clé « full access » dédiée : la clé d'envoi du site ne gère pas les contacts.
   const key = process.env.RESEND_CONTACTS_KEY;
-  if (!key) return;
+  if (!key) return false;
   const headers = { Authorization: `Bearer ${key}`, "Content-Type": "application/json" };
   const adresse = email.trim().toLowerCase();
-  const topic = { id: TOPICS[evenement], subscription: "opt_in" };
+  const topics = [evenements].flat().map((e) => ({ id: TOPICS[e], subscription: "opt_in" }));
 
   const enc = encodeURIComponent(adresse);
   try {
@@ -36,22 +42,24 @@ export async function ajouterContact(email: string, nom: string, evenement: Even
     // 21/10/2026) : on regarde donc d'abord si le contact existe.
     const existe = (await fetch(`${API}/contacts/${enc}`, { headers })).ok;
     if (!existe) {
-      await fetch(`${API}/contacts`, {
+      const res = await fetch(`${API}/contacts`, {
         method: "POST",
         headers,
         body: JSON.stringify({
           email: adresse,
           first_name: nom,
           segments: [{ id: SEGMENT_TOUS }],
-          topics: [topic],
+          topics,
         }),
       });
-      return;
+      return res.ok;
     }
     // Contact déjà connu : on ajoute seulement le segment et le topic.
     await fetch(`${API}/contacts/${enc}/segments/${SEGMENT_TOUS}`, { method: "POST", headers });
-    await fetch(`${API}/contacts/${enc}/topics`, { method: "PATCH", headers, body: JSON.stringify([topic]) });
+    const res = await fetch(`${API}/contacts/${enc}/topics`, { method: "PATCH", headers, body: JSON.stringify(topics) });
+    return res.ok;
   } catch (err) {
     console.error("[contacts] ajout impossible :", err);
+    return false;
   }
 }

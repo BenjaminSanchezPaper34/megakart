@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { track } from "@vercel/analytics/react";
 import { FORMATS, type PopupCampagne } from "@/lib/popup";
+import { useOuvertureAuGeste, VU_CETTE_VISITE } from "@/components/useOuvertureAuGeste";
 
 /**
  * Pop-up d'annonce d'un événement. Une seule apparition par visiteur : une
@@ -20,13 +21,6 @@ import { FORMATS, type PopupCampagne } from "@/lib/popup";
 type Campagne = PopupCampagne & { until: string };
 /** Campagnes en cours, la plus proche d'abord : on montre la première pas encore fermée. */
 type Props = { campagnes: Campagne[] };
-
-/* Le temps de laisser voir la page d'abord. Plus long sur mobile : l'écran
-   est petit, un voile immédiat y est vécu comme une agression. Le pop-up
-   attend en plus le premier geste du visiteur (voir plus bas). */
-const DELAI_MOBILE = 2600;
-const DELAI_DESKTOP = 1000;
-const VU_CETTE_VISITE = "megakart-popup-vu";
 
 export default function EventPopup({ campagnes }: Props) {
   const [campagne, setCampagne] = useState<Campagne | null>(null);
@@ -50,6 +44,8 @@ export default function EventPopup({ campagnes }: Props) {
   }, [campagne, close]);
 
   useEffect(() => {
+    // Nouveau choix à chaque page : l'ancien est oublié (ses écouteurs de geste tombent avec).
+    setCampagne(null);
     // Jamais sur une page d'inscription, la sienne ou celle d'une autre course :
     // un parent venu inscrire son enfant n'a pas à se voir vendre les 100 Tours.
     if (pathname.startsWith("/inscription/")) return;
@@ -69,29 +65,12 @@ export default function EventPopup({ campagnes }: Props) {
     }
     if (!choix) return;
     setCampagne(choix);
-    const petit = window.matchMedia("(max-width: 767px)").matches;
-    setMobile(petit);
-    // Ouverture au premier geste (défilement, toucher, clic, touche) APRÈS le
-    // délai. Le navigateur fige la mesure « plus grand affichage » (LCP) dès
-    // le premier geste : sans cette attente, le pop-up devenait l'élément LCP
-    // de la page et plombait la note de vitesse (agenda : 4 s au lieu de ~1,5).
-    let pret = false;
-    const GESTES = ["scroll", "pointerdown", "keydown", "touchstart"] as const;
-    const ouvrir = () => {
-      if (!pret) return;
-      setOpen(true);
-      GESTES.forEach((g) => window.removeEventListener(g, ouvrir));
-    };
-    GESTES.forEach((g) => window.addEventListener(g, ouvrir, { passive: true }));
-    const t = setTimeout(() => {
-      pret = true;
-      // Déjà défilé pendant le délai : on ouvre au prochain geste, pas avant.
-    }, petit ? DELAI_MOBILE : DELAI_DESKTOP);
-    return () => {
-      clearTimeout(t);
-      GESTES.forEach((g) => window.removeEventListener(g, ouvrir));
-    };
+    setMobile(window.matchMedia("(max-width: 767px)").matches);
   }, [campagnes, pathname]);
+
+  // Délai puis premier geste du visiteur (voir useOuvertureAuGeste).
+  const ouvrir = useCallback(() => setOpen(true), []);
+  useOuvertureAuGeste(campagne !== null, ouvrir);
 
   // Échap pour fermer, fond figé, et le focus qui part sur la croix.
   useEffect(() => {

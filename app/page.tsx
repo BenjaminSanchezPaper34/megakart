@@ -13,6 +13,7 @@ import TrackMap from "@/components/TrackMap";
 import FleetCarousel from "@/components/FleetCarousel";
 import OpenBadge from "@/components/OpenBadge";
 import CoursesAVenir from "@/components/CoursesAVenir";
+import Newsletter from "@/components/Newsletter";
 import TodayOffer from "@/components/TodayOffer";
 import { KARTS } from "@/lib/karts";
 import { SITE } from "@/lib/site";
@@ -109,6 +110,9 @@ export default function HomePage() {
 
       {/* ========== AGENDA (temps forts de fin d'année) ========== */}
       <CoursesAVenir id="courses-accueil" />
+
+      {/* ========== NEWSLETTER (pas encore sa date ? on prévient) ========== */}
+      <Newsletter />
 
       <div className="kerb" aria-hidden="true" />
 

@@ -3,8 +3,8 @@
  * Inscription individuelle : un responsable (le contact du circuit) inscrit
  * de 1 à 4 pilotes dans le même envoi, chacun paie sa place. Le tarif est
  * celui de l'opération dans lib/agenda.ts, jamais recopié ailleurs.
- * Aucune condition d'âge ou de taille n'est appliquée ici : le circuit ne
- * nous en a pas communiqué pour ce trophée.
+ * Âge minimum : 15 ans (Benjamin, 21/10), affiché dans l'agenda ; il n'est pas
+ * contrôlé ici (vérification à l'accueil, comme pour les autres courses).
  */
 import { datesOuvertes, formatDate, getOperation } from "./agenda";
 

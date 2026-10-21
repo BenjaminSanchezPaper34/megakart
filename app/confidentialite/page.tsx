@@ -160,13 +160,15 @@ export default function ConfidentialitePage() {
             <p className="mt-2">
               <strong className="text-chalk">Prochaines courses.</strong> Si vous
               laissez cochée la case « Me prévenir des prochaines courses » d&rsquo;un
-              formulaire d&rsquo;inscription, votre nom, votre e-mail et la course à
-              laquelle vous vous êtes inscrit sont enregistrés dans notre liste de
+              formulaire d&rsquo;inscription, ou si vous laissez votre e-mail dans le
+              bloc « Premier sur la grille » de l&rsquo;accueil, votre nom (le cas
+              échéant), votre e-mail et les courses qui vous intéressent sont enregistrés dans notre liste de
               contacts, hébergée chez Resend (Union européenne). Le circuit vous écrit
               alors, de temps en temps, pour annoncer les prochaines éditions des
               courses MegaKart — base légale : notre intérêt légitime à informer nos
               participants de courses comparables (article L.34-5 du Code des
-              postes et des communications électroniques). Chaque message contient un
+              postes et des communications électroniques), ou votre consentement
+              quand vous vous inscrivez depuis l&rsquo;accueil. Chaque message contient un
               lien de désinscription en un clic, course par course ou pour tout ; vous
               pouvez aussi écrire à {SITE.email}. Vos coordonnées sont supprimées
               de la liste trois ans après votre dernière course chez nous. Les
