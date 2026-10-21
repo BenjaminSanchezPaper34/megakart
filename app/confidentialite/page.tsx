@@ -154,8 +154,24 @@ export default function ConfidentialitePage() {
               sous-traitant dont les serveurs utilisés sont situés dans l&rsquo;Union
               européenne (Irlande). Le site ne conserve aucune copie ; le circuit
               garde vos coordonnées le temps d&rsquo;organiser la course et au plus
-              douze mois après celle-ci, puis les supprime. Elles ne sont ni
-              cédées, ni utilisées pour de la prospection.
+              douze mois après celle-ci, puis les supprime. Elles ne sont jamais
+              cédées.
+            </p>
+            <p className="mt-2">
+              <strong className="text-chalk">Prochaines courses.</strong> Si vous
+              laissez cochée la case « Me prévenir des prochaines courses » d&rsquo;un
+              formulaire d&rsquo;inscription, votre nom, votre e-mail et la course à
+              laquelle vous vous êtes inscrit sont enregistrés dans notre liste de
+              contacts, hébergée chez Resend (Union européenne). Le circuit vous écrit
+              alors, de temps en temps, pour annoncer les prochaines éditions des
+              courses MegaKart — base légale : notre intérêt légitime à informer nos
+              participants de courses comparables (article L.34-5 du Code des
+              postes et des communications électroniques). Chaque message contient un
+              lien de désinscription en un clic, course par course ou pour tout ; vous
+              pouvez aussi écrire à {SITE.email}. Vos coordonnées sont supprimées
+              de la liste trois ans après votre dernière course chez nous. Les
+              données des enfants n&rsquo;y figurent jamais : seul le parent qui
+              inscrit est concerné.
             </p>
           </div>
 

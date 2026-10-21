@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
+import { CaseInfos } from "@/components/CaseInfos";
 import { provenance } from "@/lib/provenance";
 import { track } from "@vercel/analytics/react";
 import { SITE } from "@/lib/site";
@@ -55,6 +56,7 @@ export default function InscriptionDouzeHeures({ dateLabel }: { dateLabel: strin
   const [accompagnants, setAccompagnants] = useState(0);
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
+  const [infos, setInfos] = useState(true); // prochaines courses (lib/contacts.ts)
   const [website, setWebsite] = useState(""); // piège à robots
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -80,6 +82,7 @@ export default function InscriptionDouzeHeures({ dateLabel }: { dateLabel: strin
           accompagnants,
           message,
           consent,
+          infos,
           website,
         }),
       });
@@ -341,6 +344,8 @@ export default function InscriptionDouzeHeures({ dateLabel }: { dateLabel: strin
           </p>
         )}
       </div>
+
+      <CaseInfos checked={infos} onChange={setInfos} disabled={disabled} />
 
       {status === "error" && (
         <p role="alert" className="border border-race/40 bg-race/10 px-4 py-3 text-base leading-relaxed text-chalk">

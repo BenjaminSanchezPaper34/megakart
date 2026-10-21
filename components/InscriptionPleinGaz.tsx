@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
+import { CaseInfos } from "@/components/CaseInfos";
 import { provenance } from "@/lib/provenance";
 import { track } from "@vercel/analytics/react";
 import { SITE } from "@/lib/site";
@@ -49,6 +50,7 @@ export default function InscriptionPleinGaz({ dates }: { dates: DateOption[] }) 
   const [responsable, setResponsable] = useState({ name: "", phone: "", email: "" });
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
+  const [infos, setInfos] = useState(true); // prochaines courses (lib/contacts.ts)
   const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -73,7 +75,7 @@ export default function InscriptionPleinGaz({ dates }: { dates: DateOption[] }) 
           type: PLEIN_GAZ_SLUG,
           date,
           pilotes,
-          responsable, message, consent, website,
+          responsable, message, consent, infos, website,
         }),
       });
       const json = (await res.json()) as { ok: boolean; errors?: Record<string, string> };
@@ -216,6 +218,8 @@ export default function InscriptionPleinGaz({ dates }: { dates: DateOption[] }) 
         </label>
         {errors.consent && <p role="alert" className="text-sm font-medium text-race">{errors.consent}</p>}
       </div>
+
+      <CaseInfos checked={infos} onChange={setInfos} disabled={disabled} />
 
       {status === "error" && (
         <p role="alert" className="border border-race/40 bg-race/10 px-4 py-3 text-base leading-relaxed text-chalk">

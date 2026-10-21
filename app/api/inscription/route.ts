@@ -20,6 +20,7 @@ import {
   type InscriptionPleinGaz,
 } from "@/lib/inscription-plein-gaz";
 
+import { ajouterContact } from "@/lib/contacts";
 import { EVENEMENT_SLUG, FORMULES, parseDemandeEvenement, type DemandeEvenement } from "@/lib/demande-evenement";
 
 export const runtime = "nodejs";
@@ -29,7 +30,8 @@ export const runtime = "nodejs";
  * (parent + enfants), Trophée Plein Gaz (responsable + pilotes), selon `type`. Deux e-mails partent à chaque fois : la fiche
  * complète au circuit (SITE.email), avec « répondre à » = la personne qui
  * s'inscrit ; un accusé de réception à cette personne, avec « répondre à »
- * = circuit. Rien n'est stocké côté site : la boîte du circuit est la seule copie.
+ * = circuit. Rien n'est stocké côté site ; si la case « prochaines courses »
+ * est cochée (`infos`), la personne entre dans la base contacts Resend (lib/contacts.ts).
  */
 const FROM = process.env.MAIL_FROM ?? `MegaKart <inscriptions@megakart.fr>`;
 const TO = process.env.MAIL_TO ?? SITE.email;
@@ -53,6 +55,9 @@ const shell = (inner: string) =>
 
 const encart = (inner: string) =>
   `<div style="margin-top:20px;padding:14px 16px;background:#f5f5f3;border-radius:10px;font-size:14px;line-height:1.55;color:#444">${inner}</div>`;
+
+/* Case « me prévenir des prochaines courses » : stricte, absente = non. */
+const veutInfos = (raw: unknown) => (raw as { infos?: unknown })?.infos === true;
 
 const delai = `Le circuit revient vers vous <strong>sous 48 heures</strong>, par téléphone ou par e-mail, pour confirmer la place. Si quelque chose change d'ici là, répondez simplement à ce message.`;
 
@@ -97,6 +102,7 @@ async function envoyerCentTours(resend: Resend, raw: unknown) {
       ${recapCentTours(d, dateLabel)}
       ${encart(`<strong style="color:#111">Le format</strong> — ${esc(op?.facts.join(" · ") ?? "")}.<br><strong style="color:#111">Votre tarif</strong> — équipe de ${d.teamSize} : ${t.perPilot}€ par pilote, soit ${t.total}€ l'équipe.`)}`),
   });
+  if (veutInfos(raw)) await ajouterContact(d.captain.email, d.captain.name, "100-tours");
   return { status: 200, body: { ok: true } };
 }
 
@@ -148,6 +154,7 @@ async function envoyerEnfant(resend: Resend, raw: unknown) {
       ${recapEnfant(d, dateLabel)}
       ${encart(`<strong style="color:#111">Le jour J</strong> — rendez-vous à ${ENFANT.debut} au circuit ; casque fourni, baskets obligatoires, vêtements flottants interdits. Prévoir une pièce d'identité de l'enfant : l'âge et la taille sont vérifiés à l'accueil.<br><strong style="color:#111">Le format</strong> — ${esc(op?.facts.join(" · ") ?? "")}.<br><strong style="color:#111">Tarif</strong> — ${ENFANT.prix}€ par enfant, réglé sur place.`)}`),
   });
+  if (veutInfos(raw)) await ajouterContact(d.parent.email, d.parent.name, "course-enfant");
   return { status: 200, body: { ok: true } };
 }
 
@@ -197,6 +204,7 @@ async function envoyerPleinGaz(resend: Resend, raw: unknown) {
       ${recapPleinGaz(d, dateLabel)}
       ${encart(`<strong style="color:#111">Le format</strong> : ${esc(op?.facts.join(" · ") ?? "")}.<br><strong style="color:#111">Tarif</strong> : ${PLEIN_GAZ.prix}€ par pilote, réglé sur place le jour de la course. Aucun paiement en ligne.`)}`),
   });
+  if (veutInfos(raw)) await ajouterContact(d.responsable.email, d.responsable.name, "plein-gaz");
   return { status: 200, body: { ok: true } };
 }
 
@@ -241,6 +249,7 @@ async function envoyerDouzeH(resend: Resend, raw: unknown) {
       ${recapDouzeH(d, dateLabel)}
       ${encart(`<strong style="color:#111">Et ensuite</strong> — accueil des équipes à ${DOUZE_H.accueil}, essais et qualifications à ${DOUZE_H.essais}, départ à ${DOUZE_H.depart}. Repas des pilotes compris ; tout se règle sur place, sans acompte. Casque et combinaison disponibles sur place si besoin. Les noms des pilotes peuvent être complétés jusqu'au jour J.`)}`),
   });
+  if (veutInfos(raw)) await ajouterContact(d.captain.email, d.captain.name, "12-heures");
   return { status: 200, body: { ok: true } };
 }
 
