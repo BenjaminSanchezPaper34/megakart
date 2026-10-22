@@ -20,6 +20,12 @@ const DIR = join(process.cwd(), "content", "galeries");
 
 /** Présentation côté MegaKart : adresse courte, étiquette, accroche. */
 const META: Record<string, { path: string; kicker: string; title: string; text: string }> = {
+  "megakart-100-tours": {
+    path: "100-tours-octobre-2026",
+    kicker: "Les 100 Tours",
+    title: "Cent tours en relais",
+    text: "L'endurance par équipes du 18 octobre : relais, dépassements et podium sur le 1000 m de Vias-plage.",
+  },
   "megakart-course-enfants": {
     path: "course-enfants-octobre-2026",
     kicker: "Course Enfants",
