@@ -5,6 +5,7 @@ import type { Gallery } from "@/lib/gallery-shared";
 import { assetUrl, formatBytes } from "@/lib/gallery-shared";
 import { track } from "@vercel/analytics/react";
 import AvisInvite from "@/components/galerie/AvisInvite";
+import InstaInvite, { instaDejaDemande } from "@/components/galerie/InstaInvite";
 
 type Props = { gallery: Gallery };
 
@@ -19,6 +20,8 @@ type Props = { gallery: Gallery };
  * de la visionneuse, `galerie-telechargement` par photo (galerie + photo),
  * `galerie-zip` pour « Tout télécharger ». Après un téléchargement réussi,
  * une invitation à laisser un avis Google (AvisInvite) — jamais une condition.
+ * Pendant la navigation : invitation discrète à suivre l'Instagram (InstaInvite),
+ * après 4 photos regardées ou 40 s sur la page, toujours visionneuse fermée.
  */
 export default function ClientGallery({ gallery }: Props) {
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -26,6 +29,9 @@ export default function ClientGallery({ gallery }: Props) {
   const [zipProgress, setZipProgress] = useState(0);
   const [savingIndex, setSavingIndex] = useState<number | null>(null);
   const [avis, setAvis] = useState(false);
+  const [insta, setInsta] = useState(false);
+  const photosVues = useRef(0);
+  const instaFait = useRef(false);
 
   // Carrousel lightbox : translation du rail en % (−100 = photo centrée)
   const [tx, setTx] = useState(-100);
@@ -109,6 +115,27 @@ export default function ClientGallery({ gallery }: Props) {
   useEffect(() => {
     if (ouvert) track("galerie-agrandie", { galerie: gallery.slug });
   }, [ouvert, gallery.slug]);
+
+  /* ─── Invitation Instagram : jamais par-dessus une photo ouverte ─── */
+  const proposerInsta = useCallback(() => {
+    if (instaFait.current || instaDejaDemande()) return;
+    instaFait.current = true;
+    setInsta(true);
+  }, []);
+  // Photos regardées dans la visionneuse ; à la fermeture, au-delà de 4, on propose.
+  useEffect(() => {
+    if (lightbox !== null) photosVues.current += 1;
+    else if (photosVues.current >= 4 && !avis) proposerInsta();
+  }, [lightbox]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Ou après 40 s sur la galerie, si aucune photo n'est ouverte à ce moment-là.
+  const etat = useRef({ ouvert, avis });
+  etat.current = { ouvert, avis };
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (!etat.current.ouvert && !etat.current.avis) proposerInsta();
+    }, 40000);
+    return () => clearTimeout(t);
+  }, [proposerInsta]);
 
   /* ─── Téléchargement ZIP (sans compression) ─── */
   async function downloadAll() {
@@ -668,6 +695,7 @@ export default function ClientGallery({ gallery }: Props) {
       )}
 
       {avis && <AvisInvite galerie={gallery.slug} onClose={() => setAvis(false)} />}
+      {insta && !avis && <InstaInvite galerie={gallery.slug} onClose={() => setInsta(false)} />}
     </>
   );
 }
