@@ -11,7 +11,7 @@ import { track } from "@vercel/analytics/react";
  * Envoi vers /api/newsletter → base contacts Resend.
  */
 const INPUT =
-  "w-full min-w-0 border border-white/10 bg-asphalt-3 px-4 py-3 text-base text-chalk placeholder:text-chalk-60/60 transition-colors focus:border-race focus:outline-none aria-[invalid=true]:border-race";
+  "w-full min-w-0 rounded-full border border-white/10 bg-asphalt-3 px-5 py-3 text-base text-chalk placeholder:text-chalk-60/60 transition-colors focus:border-race focus:outline-none aria-[invalid=true]:border-race";
 
 function Pastille({ actif, onClick, children }: { actif: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
