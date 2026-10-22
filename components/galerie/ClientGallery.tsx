@@ -6,6 +6,7 @@ import { assetUrl, formatBytes } from "@/lib/gallery-shared";
 import { track } from "@vercel/analytics/react";
 import AvisInvite from "@/components/galerie/AvisInvite";
 import InstaInvite, { instaDejaDemande } from "@/components/galerie/InstaInvite";
+import InstaPastille from "@/components/galerie/InstaPastille";
 
 type Props = { gallery: Gallery };
 
@@ -614,6 +615,10 @@ export default function ClientGallery({ gallery }: Props) {
               <span className="text-sm font-medium tabular-nums tracking-wide">
                 {lightbox + 1} <span className="text-white/50">/ {photos.length}</span>
               </span>
+              {/* Instagram pendant la navigation, à partir de la 3e photo regardée. */}
+              <div className="flex min-w-0 flex-1 justify-center px-3">
+                {photosVues.current >= 2 && <InstaPastille galerie={gallery.slug} />}
+              </div>
               <button
                 onClick={close}
                 className="pointer-events-auto w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-sm text-white flex items-center justify-center transition-colors shrink-0"
