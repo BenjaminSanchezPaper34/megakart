@@ -25,8 +25,9 @@ export const DOUZE_H = {
   pilotesMax: 6,
   /** Réunion : 15 équipes max (25 karts dont 5 prêtés par Sodi). */
   placesMax: 15,
-  /** Groupe WhatsApp 21/10 (Lucas, Emma) : 10 équipes (8 + 2 inscrites en ligne : RND Racing, Démolition team). À mettre à jour au fil des inscriptions. */
-  placesPrises: 10,
+  /** Groupe WhatsApp 21/10 (Lucas, Emma) : 10 équipes (8 + 2 inscrites en ligne : RND Racing, Démolition team) ;
+   *  22/10 (Emma) : + Les Pet au casque → 11. À mettre à jour au fil des inscriptions. */
+  placesPrises: 11,
   /** Repas accompagnant (matin, midi, soir), environ 40 € ; boissons en libre-service. */
   repasAccompagnant: 40 as number | null,
   karts: "Sodi RT10 390cc",
