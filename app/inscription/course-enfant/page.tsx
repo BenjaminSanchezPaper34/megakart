@@ -44,7 +44,8 @@ export default function InscriptionCourseEnfantPage() {
       <PageCourse
         op={op}
         ouvert={DATES.length > 0}
-        image={{ src: "/images/galerie-16-jeune-pilote.jpg", alt: "Jeune pilote casqué prêt à s'élancer sur le circuit MegaKart", position: "object-[center_35%]" }}
+        // En-tête tiré de la galerie de la Journée du 11/10 (Benjamin, 22/10) : la grille de départ des enfants.
+        image={{ src: "https://pub-054d5e4ec36144bea38e07a1452fe2b0.r2.dev/galeries/megakart-course-enfants/display/A7501534-DxO_DeepPRIME%20XD3.jpg", alt: "Grille de départ de la Journée des enfants chez MegaKart : jeunes pilotes casqués alignés dans leurs karts", position: "object-[center_40%]" }}
         label={<>{op.name} · {DATES.map((d) => d.label).join(" · ")}</>}
         line1="Inscrivez"
         line2="votre enfant."
