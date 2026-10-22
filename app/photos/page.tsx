@@ -89,7 +89,7 @@ export default function PhotosPage() {
         >
           {/* Bande à faire défiler à toutes les tailles depuis la 4e galerie (Benjamin 22/10) :
               la page ne s'allonge plus à chaque nouvel événement. */}
-          <RangeeDefilante label="Galeries">
+          <RangeeDefilante label="Albums photo" id="galeries">
             {/* Toutes les galeries ici : pas de page d'index séparée (choix Benjamin 15/10). */}
             {getGaleries().map((g) => (
               <CarteGalerie key={g.slug} g={g} />

@@ -109,8 +109,9 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* 3. Ligne légale */}
-      <div className="relative border-t border-white/10">
+      {/* 3. Ligne légale — surtout pas « relative » : la fumée de la signature
+          Paper34 se cale sur l'ancêtre positionné, qui doit rester le <footer>. */}
+      <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-5 text-xs text-chalk-60/80 md:flex-row md:px-8">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
             {/* Version anglaise : touristes de Vias-plage. */}
