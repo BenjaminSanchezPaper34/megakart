@@ -61,12 +61,14 @@ export const CAMPAGNES: PopupCampagne[] = [
     op: "course-enfant",
     href: "/inscription/course-enfant#formulaire",
     cta: "Inscrire mon enfant",
-    alt: "Course Enfants chez MegaKart — un jeune pilote casqué au volant d'un kart Sodi. Infos et inscriptions.",
-    // Affiche sans date : valable pour toutes les Course Enfant à venir.
-    wide: "/images/popup/course-enfant-sans-date.jpg",
-    tall: "/images/popup/course-enfant-sans-date.jpg",
-    formats: { wide: { width: 2250, height: 3000 }, tall: { width: 2250, height: 3000 } },
-    key: "megakart-popup-course-enfant-2026-11",
+    alt: "Journée des enfants, dimanche 8 novembre chez MegaKart — une jeune pilote casquée au volant d'un kart Sodi n° 1. Infos et inscriptions.",
+    // Affiche datée du 8/11 (Benjamin, 22/10) : jamais pour une autre date.
+    wide: "/images/popup/journee-enfants-2026-11-08.jpg",
+    tall: "/images/popup/journee-enfants-2026-11-08.jpg",
+    formats: { wide: { width: 1500, height: 2000 }, tall: { width: 1500, height: 2000 } },
+    dates: ["2026-11-08"],
+    // Nouvelle clé : nouvelle campagne, elle réapparaît chez ceux qui avaient fermé l'ancienne.
+    key: "megakart-popup-journee-enfants-2026-11-08",
   },
   {
     // Affiche 3:4 (1500 × 2000), même traitement que la Course Enfants.

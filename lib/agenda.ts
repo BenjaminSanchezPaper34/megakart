@@ -104,11 +104,12 @@ export const RACES: Operation[] = [
     slug: "course-enfant",
     affiche: { src: "/images/popup/course-enfant-sans-date.jpg", width: 2250, height: 3000 },
     kicker: "La relève en piste",
-    name: "Course Enfant",
+    // Renommée « Journée des enfants » le 22/10 (Lucas et Emma, groupe WhatsApp du 21/10 ; affiche du 8/11).
+    name: "Journée des enfants",
     accent: "race",
-    summary: "Une vraie course pour les 8-14 ans en Kart Enfant : essais, grille de départ et podium.",
+    summary: "Une journée rien que pour les 8-14 ans en Kart Enfant : chronos, manches et podium.",
     details: [
-      "Le dimanche, la piste appartient à la relève : une vraie course réservée aux enfants, avec essais, grille de départ, drapeau à damier et podium — comme les grands, chrono Apex Timing compris.",
+      "Le dimanche, la piste appartient à la relève : une journée rien qu'aux enfants, avec essais, grille de départ, drapeau à damier et podium — comme les grands, chrono Apex Timing compris.",
       "Trois manches de 8 minutes en Kart Enfant 160cc — pas d'endurance, du rythme et des départs. Rendez-vous à 14h, casque fourni, baskets obligatoires.",
       "Ouvert de 8 à 14 ans, à partir de 1,40 m : c'est la taille qui permet d'atteindre les pédales du Kart Enfant en toute sécurité.",
     ],
@@ -226,6 +227,19 @@ export const DEALS: Operation[] = [
 
 export const OPERATIONS: Operation[] = [...RACES, ...DEALS];
 
+/**
+ * Affiche à montrer pour une opération : celle de la date donnée si elle en a
+ * une (visuel daté), sinon celle de la prochaine date qui en a une, sinon
+ * l'affiche générale de l'opération.
+ */
+export function afficheDe(op: Operation, date?: string, today = new Date().toISOString().slice(0, 10)) {
+  const dates = AGENDA.filter((a) => a.op === op.slug && a.affiche);
+  const exacte = date ? dates.find((a) => a.date === date) : undefined;
+  if (date) return exacte?.affiche ?? op.affiche;
+  const prochaine = dates.filter((a) => a.date >= today).sort((a, b) => a.date.localeCompare(b.date))[0];
+  return prochaine?.affiche ?? op.affiche;
+}
+
 export function getOperation(slug: string): Operation | undefined {
   return OPERATIONS.find((o) => o.slug === slug);
 }
@@ -245,6 +259,8 @@ export type AgendaItem = {
   places?: number;
   /** Annonce courte affichée sur la date (agenda, page d'inscription). */
   badge?: string;
+  /** Affiche propre à cette date (visuel daté) ; sinon celle de l'opération. */
+  affiche?: { src: string; width: number; height: number };
 };
 
 /** Les temps forts datés, ordre chronologique. */
@@ -257,7 +273,7 @@ export const AGENDA: AgendaItem[] = [
     status: "confirme",
     note: "Tous les jeudis et vendredis jusqu'au 31 décembre, et tous les jours pendant les vacances scolaires",
   },
-  { date: "2026-10-11", op: "course-enfant", label: "Course Enfant", status: "confirme" },
+  { date: "2026-10-11", op: "course-enfant", label: "Course Enfants", status: "confirme" },
   // Reportée du 4 au 18 octobre (client, 15/09/2026) — donc pendant les
   // vacances de la Toussaint : ce jour-là le Pack Découverte ne court pas.
   { date: "2026-10-18", op: "100-tours", label: "Les 100 Tours", status: "confirme", places: 0 }, // Emma, 14/10 : complet
@@ -267,10 +283,16 @@ export const AGENDA: AgendaItem[] = [
     status: "confirme",
     note: "Ouvert de 14 h à minuit — sessions sans réservation",
   },
-  { date: "2026-11-08", op: "course-enfant", label: "Course Enfant", status: "confirme" },
+  {
+    date: "2026-11-08",
+    op: "course-enfant",
+    label: "Journée des enfants",
+    status: "confirme",
+    affiche: { src: "/images/popup/journee-enfants-2026-11-08.jpg", width: 1500, height: 2000 },
+  },
   { date: "2026-11-15", op: "plein-gaz", label: "Trophée Plein Gaz", status: "confirme" }, // reporté du 1/11 (Benjamin, 14/10)
   { date: "2026-12-06", op: "100-tours", label: "Les 100 Tours", status: "confirme" },
-  { date: "2026-12-13", op: "course-enfant", label: "Course Enfant", status: "confirme" },
+  { date: "2026-12-13", op: "course-enfant", label: "Journée des enfants", status: "confirme" },
   { date: "2026-12-19", op: "12-heures", label: "Les 12 Heures", status: "confirme" },
 ];
 

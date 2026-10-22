@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AGENDA, RACES, getOperation, formatDate, lienInscription, pageCourse, type AgendaItem } from "@/lib/agenda";
+import { AGENDA, RACES, afficheDe, getOperation, formatDate, lienInscription, pageCourse, type AgendaItem } from "@/lib/agenda";
 import { factEmoji } from "@/components/system/tones";
 
 /**
@@ -48,9 +48,9 @@ function Carte({ item, today, first }: { item: AgendaItem; today: string | null;
   const page = op ? pageCourse(op) : "/agenda";
   const inscription = op ? lienInscription(op, item.date) : undefined;
   const lignes = op?.essentiel ?? soiree?.lignes ?? [];
-  // Affiche officielle quand la course en a une (Course Enfant et 100 Tours : sans date, valables
-  // pour chaque édition ; 12 Heures : édition unique du 19/12).
-  const poster = op?.affiche;
+  // Affiche officielle quand la course en a une : celle de la date si elle est datée (Journée des
+  // enfants du 8/11), sinon l'affiche générale de l'opération (100 Tours sans date, 12 Heures).
+  const poster = op ? afficheDe(op, item.date) : undefined;
   const photo = soiree
     ? soiree.photo
     : item.op === "12-heures"

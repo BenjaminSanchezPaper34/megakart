@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/site";
 import { getGaleries } from "@/lib/galeries";
 
 // Mettre à jour la date à chaque modification de contenu d'une page.
-const LASTMOD = "2026-10-21";
+const LASTMOD = "2026-10-22";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

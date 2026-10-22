@@ -118,7 +118,7 @@ function recapEnfant(d: InscriptionEnfant, dateLabel: string) {
     })
     .join("");
   return table(
-    row("Course", `Course Enfant — ${dateLabel}, début ${ENFANT.debut}`) +
+    row("Course", `Journée des enfants — ${dateLabel}, début ${ENFANT.debut}`) +
       enfants +
       row("Tarif", `${ENFANT.prix}€ par enfant · ${ENFANT.prix * d.enfants.length}€ au total`) +
       row("Parent", d.parent.name) +
@@ -141,16 +141,16 @@ async function envoyerEnfant(resend: Resend, raw: unknown) {
 
   await resend.emails.send({
     from: FROM, to: TO, replyTo: d.parent.email,
-    subject: `Inscription Course Enfant · ${dateLabel} · ${prenoms} (${d.enfants.length})`,
-    html: shell(`<h2 style="margin:0 0 6px;font-size:22px">Nouvelle inscription à la Course Enfant</h2>
+    subject: `Inscription Journée des enfants · ${dateLabel} · ${prenoms} (${d.enfants.length})`,
+    html: shell(`<h2 style="margin:0 0 6px;font-size:22px">Nouvelle inscription à la Journée des enfants</h2>
       <p style="margin:0 0 14px;color:#555">Reçue depuis le formulaire du site. Âge et taille ci-dessous sont déclarés par le parent : à vérifier à l'accueil.</p>
       ${aFaire(d.parent.name)}${recapEnfant(d, dateLabel)}`),
   });
   await resend.emails.send({
     from: FROM, to: d.parent.email, replyTo: TO,
-    subject: `${prenoms} : pré-inscription à la Course Enfant — ${dateLabel}`,
+    subject: `${prenoms} : pré-inscription à la Journée des enfants — ${dateLabel}`,
     html: shell(`<h2 style="margin:0 0 6px;font-size:22px">C'est noté, ${esc(d.parent.name)} !</h2>
-      <p style="margin:0 0 18px;color:#555;line-height:1.55"><strong>${esc(prenoms)}</strong> ${d.enfants.length > 1 ? "sont pré-inscrits" : "est pré-inscrit·e"} à la Course Enfant du <strong>${esc(dateLabel)}</strong>. ${delai}</p>
+      <p style="margin:0 0 18px;color:#555;line-height:1.55"><strong>${esc(prenoms)}</strong> ${d.enfants.length > 1 ? "sont pré-inscrits" : "est pré-inscrit·e"} à la Journée des enfants du <strong>${esc(dateLabel)}</strong>. ${delai}</p>
       ${recapEnfant(d, dateLabel)}
       ${encart(`<strong style="color:#111">Le jour J</strong> — rendez-vous à ${ENFANT.debut} au circuit ; casque fourni, baskets obligatoires, vêtements flottants interdits. Prévoir une pièce d'identité de l'enfant : l'âge et la taille sont vérifiés à l'accueil.<br><strong style="color:#111">Le format</strong> — ${esc(op?.facts.join(" · ") ?? "")}.<br><strong style="color:#111">Tarif</strong> — ${ENFANT.prix}€ par enfant, réglé sur place.`)}`),
   });

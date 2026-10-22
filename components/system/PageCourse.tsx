@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Affiche from "@/components/Affiche";
-import type { Operation } from "@/lib/agenda";
+import { afficheDe, type Operation } from "@/lib/agenda";
 import { SITE } from "@/lib/site";
 import EmojiList from "./EmojiList";
 import PageHero from "./PageHero";
@@ -71,7 +71,7 @@ export default function PageCourse({
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <SectionHeader line1="Tout savoir" line2={op.name + "."} accent="flag" />
           <div
-            className={`mt-(--section-gap) ${op.affiche ? "grid gap-10 md:grid-cols-[minmax(0,1fr)_320px] md:items-start" : ""}`}
+            className={`mt-(--section-gap) ${afficheDe(op) ? "grid gap-10 md:grid-cols-[minmax(0,1fr)_320px] md:items-start" : ""}`}
           >
             <Affiche op={op} className="mx-auto w-full max-w-[300px] md:order-2 md:max-w-none" />
             <div className="max-w-3xl">

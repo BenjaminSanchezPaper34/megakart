@@ -51,7 +51,7 @@
   Tarif à l'équipe : 177 € à trois (59 €/pilote) ou 176 € à deux (88 €/pilote).
   Inscription en ligne : https://megakart.fr/inscription/100-tours (le circuit confirme la place).
   Course terminée à 15 h 30 : le Pack Découverte du dimanche s'enchaîne l'après-midi
-- Course Enfant : dimanches 11 octobre, 8 novembre et 13 décembre — de 8 à 14 ans, 1,40 m minimum,
+- Journée des enfants (ex-Course Enfant) : dimanches 11 octobre, 8 novembre et 13 décembre — de 8 à 14 ans, 1,40 m minimum,
   Kart Enfant 160cc, 3 manches de 8 minutes, début 14 h, podium, 32 €/enfant.
   Inscription en ligne : https://megakart.fr/inscription/course-enfant (le circuit confirme la place)
 - Les 12 Heures : samedi 19 décembre — endurance de 12 h par équipes de 2 à 6 pilotes, organisée avec
@@ -71,7 +71,7 @@
   mercredis compris : pendant les vacances, une seule offre par jour, le 2+1
 - Pack Découverte : les dimanches hors vacances scolaires, jusqu'en décembre — 3 sessions de 8 min
   (390cc, 390cc, RX250 16 CV) avec coaching privé offert par un moniteur, 49 € au lieu de 76 €
-- Réservation des courses et du Pack Découverte : par téléphone ou par e-mail ; les 100 Tours, la Course Enfant et le Trophée Plein Gaz aussi en ligne
+- Réservation des courses et du Pack Découverte : par téléphone ou par e-mail ; les 100 Tours, la Journée des enfants et le Trophée Plein Gaz aussi en ligne
 
 ## Événements (sur réservation, dès 7 participants)
 - Anniversaires : courses et défis sur mesure, terrasse ombragée, tables de pique-nique
@@ -85,7 +85,7 @@
   avec l'écurie Vortex — format, paddock, inscription (1 500 € l'équipe)
 - /live : chrono en direct du circuit (live timing Apex Timing, chargement au clic)
 - /inscription/100-tours : page des 100 Tours — inscription d'une équipe de 2 ou 3 pilotes (date préremplie), puis tout le détail de la course
-- /inscription/course-enfant : page de la Course Enfant — inscription d'un ou plusieurs enfants (8-14 ans), puis le détail
+- /inscription/course-enfant : page de la Journée des enfants — inscription d'un ou plusieurs enfants (8-14 ans), puis le détail
 - /inscription/plein-gaz : page du Trophée Plein Gaz — inscription d'un à quatre pilotes, puis le détail
 - /agenda : le programme de fin d'année 2026 — courses (100 Tours, Trophée Plein Gaz,
   courses enfants) et offres (mercredi à volonté, 2 tickets = 1 offert,

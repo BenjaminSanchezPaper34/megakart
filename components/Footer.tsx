@@ -29,7 +29,7 @@ const PLAN = [
     links: [
       { href: "/agenda", label: "Agenda" },
       { href: "/inscription/100-tours", label: "Les 100 Tours" },
-      { href: "/inscription/course-enfant", label: "Course Enfant" },
+      { href: "/inscription/course-enfant", label: "Journée des enfants" },
       { href: "/inscription/plein-gaz", label: "Trophée Plein Gaz" },
       { href: "/12-heures", label: "Les 12 Heures" },
     ],

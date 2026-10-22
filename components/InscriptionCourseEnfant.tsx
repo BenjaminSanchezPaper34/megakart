@@ -236,7 +236,7 @@ export default function InscriptionCourseEnfant({ dates }: { dates: DateOption[]
       <div className="flex flex-col gap-4">
         <label className="flex cursor-pointer items-start gap-3 text-base leading-relaxed text-chalk-60">
           <input type="checkbox" checked={autorisation} onChange={(e) => setAutorisation(e.target.checked)} className="mt-1.5 size-4 shrink-0 accent-[var(--color-race)]" aria-invalid={Boolean(errors.autorisation)} disabled={disabled} />
-          <span>Je suis le responsable légal {enfants.length > 1 ? "de ces enfants" : "de cet enfant"} et j&rsquo;autorise sa participation à la Course Enfant. Je serai présent au circuit ou joignable pendant la course.</span>
+          <span>Je suis le responsable légal {enfants.length > 1 ? "de ces enfants" : "de cet enfant"} et j&rsquo;autorise sa participation à la Journée des enfants. Je serai présent au circuit ou joignable pendant la course.</span>
         </label>
         {errors.autorisation && <p role="alert" className="text-sm font-medium text-race">{errors.autorisation}</p>}
         <label className="flex cursor-pointer items-start gap-3 text-base leading-relaxed text-chalk-60">

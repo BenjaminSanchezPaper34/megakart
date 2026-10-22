@@ -9,9 +9,9 @@ import { COURSE_ENFANT_SLUG, ENFANT } from "@/lib/inscription-enfant";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Inscrire mon enfant à la Course Enfant",
+  title: "Inscrire mon enfant à la Journée des enfants",
   description:
-    "Inscription en ligne à la Course Enfant de MegaKart à Vias : de 8 à 14 ans, 1,40 m minimum, 3 manches de 8 minutes en Kart Enfant, 32 € par enfant. Le circuit confirme la place sous 48 h.",
+    "Inscription en ligne à la Journée des enfants de MegaKart à Vias : de 8 à 14 ans, 1,40 m minimum, 3 manches de 8 minutes en Kart Enfant, 32 € par enfant. Le circuit confirme la place sous 48 h.",
   alternates: { canonical: "/inscription/course-enfant" },
   // Page de la course (15/10) : formulaire + tout le détail, donc indexable.
 };
@@ -33,7 +33,7 @@ export default function InscriptionCourseEnfantPage() {
             breadcrumbJsonLd([
               { name: "Agenda", path: "/agenda" },
               {
-                name: "Inscription à la Course Enfant",
+                name: "Inscription à la Journée des enfants",
                 path: "/inscription/course-enfant",
               },
             ]),

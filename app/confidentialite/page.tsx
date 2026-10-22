@@ -115,7 +115,7 @@ export default function ConfidentialitePage() {
               si vous les renseignez, votre niveau d&rsquo;expérience et un message.
               Le formulaire{" "}
               <Link href="/inscription/course-enfant" className="link-under text-chalk">
-                d&rsquo;inscription à la Course Enfant
+                d&rsquo;inscription à la Journée des enfants
               </Link>{" "}
               recueille, pour chaque enfant, le prénom, le nom, la date de
               naissance et la taille — uniquement pour vérifier les conditions
