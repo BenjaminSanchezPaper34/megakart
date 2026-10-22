@@ -33,6 +33,8 @@ export type PopupCampagne = {
    * (FORMATS). Seul le rapport largeur/hauteur compte pour la mise en page.
    */
   formats?: { wide: Dimensions; tall: Dimensions };
+  /** Première date d'affichage (ISO) : la campagne attend son tour (ex. 13/12 après le 8/11). */
+  des?: string;
   /** Dates couvertes par le visuel (affiche datée) ; absent = toutes les dates de l'opération. */
   dates?: string[];
   /**
@@ -61,14 +63,27 @@ export const CAMPAGNES: PopupCampagne[] = [
     op: "course-enfant",
     href: "/inscription/course-enfant#formulaire",
     cta: "Inscrire mon enfant",
-    alt: "Journée des enfants, dimanche 8 novembre chez MegaKart — une jeune pilote casquée au volant d'un kart Sodi n° 1. Infos et inscriptions.",
+    alt: "Journée des enfants, dimanche 8 novembre chez MegaKart — une jeune pilote au casque rose au volant d'un kart Sodi n° 4. Infos et inscriptions.",
     // Affiche datée du 8/11 (Benjamin, 22/10) : jamais pour une autre date.
-    wide: "/images/popup/journee-enfants-2026-11-08.jpg",
-    tall: "/images/popup/journee-enfants-2026-11-08.jpg",
+    wide: "/images/popup/journee-enfants-2026-11-08-v2.jpg",
+    tall: "/images/popup/journee-enfants-2026-11-08-v2.jpg",
     formats: { wide: { width: 1500, height: 2000 }, tall: { width: 1500, height: 2000 } },
     dates: ["2026-11-08"],
     // Nouvelle clé : nouvelle campagne, elle réapparaît chez ceux qui avaient fermé l'ancienne.
     key: "megakart-popup-journee-enfants-2026-11-08",
+  },
+  {
+    // Même formule pour la Journée des enfants du 13/12, prend le relais après le 8/11.
+    op: "course-enfant",
+    href: "/inscription/course-enfant#formulaire",
+    cta: "Inscrire mon enfant",
+    alt: "Journée des enfants, dimanche 13 décembre chez MegaKart — un jeune pilote au casque bleu et jaune au volant d'un kart Sodi n° 7. Infos et inscriptions.",
+    wide: "/images/popup/journee-enfants-2026-12-13.jpg",
+    tall: "/images/popup/journee-enfants-2026-12-13.jpg",
+    formats: { wide: { width: 1500, height: 2000 }, tall: { width: 1500, height: 2000 } },
+    dates: ["2026-12-13"],
+    des: "2026-11-09", // pas avant que la Journée du 8/11 soit passée
+    key: "megakart-popup-journee-enfants-2026-12-13",
   },
   {
     // Affiche 3:4 (1500 × 2000), même traitement que la Course Enfants.

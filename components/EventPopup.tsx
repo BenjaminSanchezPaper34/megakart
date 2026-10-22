@@ -56,7 +56,8 @@ export default function EventPopup({ campagnes }: Props) {
       // Une seule annonce par visite : la campagne suivante attend la prochaine visite.
       if (sessionStorage.getItem(VU_CETTE_VISITE)) return;
       choix = campagnes.find(
-        (c) => today < c.until && pathname !== c.href && localStorage.getItem(c.key) !== "closed"
+        // `des` se vérifie ici, côté visiteur : la page est construite à l'avance, la date du jour non.
+        (c) => today < c.until && (!c.des || today >= c.des) && pathname !== c.href && localStorage.getItem(c.key) !== "closed"
       );
     } catch {
       // Navigateur sans stockage : on n'insiste pas, plutôt que de
