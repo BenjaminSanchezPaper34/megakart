@@ -49,6 +49,8 @@ export const SITE = {
   },
   geo: { lat: 43.3008507, lng: 3.412867 },
   mapsUrl: "https://goo.gl/maps/EQbS3j9zknnM32bb7",
+  /** Lien direct « Laisser un avis » de la fiche Google (place_id vérifié le 22/10/2026 = fiche « Mega Kart »). */
+  googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJU0BsSdwXsRIRHX_XRTkXfUk",
   /** Live timing public du circuit (aucun identifiant requis). */
   apexLive: "https://live.apex-timing.com/megakart-vias/",
   landmark: "Entre Fabrikus World et Europark Indoor, route de Vias-plage",

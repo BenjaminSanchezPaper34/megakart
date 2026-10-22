@@ -10,6 +10,8 @@ import ClientGallery from "@/components/galerie/ClientGallery";
 import GalleryIntro from "@/components/galerie/GalleryIntro";
 import CopyLinkButton from "@/components/galerie/CopyLinkButton";
 import CarteGalerie from "@/components/galerie/CarteGalerie";
+import NewsletterForm from "@/components/NewsletterForm";
+import SectionHeader from "@/components/system/SectionHeader";
 
 /* Une page statique par galerie ; adresse inconnue = 404. */
 export const dynamicParams = false;
@@ -79,6 +81,25 @@ export default async function GaleriePage({ params }: Params) {
       <div className="mt-(--section-gap)">
         <ClientGallery gallery={g} />
       </div>
+
+      {/* Celui qui télécharge ses photos vient de courir : on lui propose la suivante (22/10). */}
+      <section className="mt-(--section-y) bg-asphalt-2 py-(--section-y)">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 md:px-8 lg:grid-cols-2 lg:items-end">
+          <SectionHeader
+            line1="Et la prochaine,"
+            line2="vous la courez ?"
+            subtitle="Courses adultes et enfants jusqu'en décembre : les dates arrivent d'abord par e-mail."
+            action={
+              <Link href="/agenda" className="btn btn-ghost">
+                Voir les prochaines courses
+              </Link>
+            }
+          />
+          <div className="lg:pb-2">
+            <NewsletterForm source="galerie" />
+          </div>
+        </div>
+      </section>
 
       <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">
         <p className="max-w-3xl text-base leading-relaxed text-chalk-60">

@@ -29,7 +29,7 @@ function Pastille({ actif, onClick, children }: { actif: boolean; onClick: () =>
   );
 }
 
-export default function NewsletterForm({ source, onDone }: { source: "accueil" | "popup"; onDone?: () => void }) {
+export default function NewsletterForm({ source, onDone }: { source: "accueil" | "popup" | "galerie"; onDone?: () => void }) {
   const [email, setEmail] = useState("");
   const [adultes, setAdultes] = useState(true);
   const [enfants, setEnfants] = useState(false);

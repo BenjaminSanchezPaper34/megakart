@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Gallery } from "@/lib/gallery-shared";
 import { assetUrl, formatBytes } from "@/lib/gallery-shared";
+import { track } from "@vercel/analytics/react";
+import AvisInvite from "@/components/galerie/AvisInvite";
 
 type Props = { gallery: Gallery };
 
@@ -12,12 +14,18 @@ type Props = { gallery: Gallery };
  * Téléchargement individuel : lien direct vers l'original (même origine →
  * octets intacts, aucune recompression). « Tout télécharger » : JSZip en
  * mode STORE (archivage sans compression → bytes identiques aux originaux).
+ *
+ * Mesure (Vercel Analytics, anonyme, 22/10) : `galerie-agrandie` à l'ouverture
+ * de la visionneuse, `galerie-telechargement` par photo (galerie + photo),
+ * `galerie-zip` pour « Tout télécharger ». Après un téléchargement réussi,
+ * une invitation à laisser un avis Google (AvisInvite) — jamais une condition.
  */
 export default function ClientGallery({ gallery }: Props) {
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [zipping, setZipping] = useState(false);
   const [zipProgress, setZipProgress] = useState(0);
   const [savingIndex, setSavingIndex] = useState<number | null>(null);
+  const [avis, setAvis] = useState(false);
 
   // Carrousel lightbox : translation du rail en % (−100 = photo centrée)
   const [tx, setTx] = useState(-100);
@@ -61,6 +69,7 @@ export default function ClientGallery({ gallery }: Props) {
         if (nav.canShare && nav.canShare({ files: [file] })) {
           try {
             await nav.share({ files: [file] });
+            apres(p.id);
             return;
           } catch (err) {
             // Annulation utilisateur → on ne fait rien
@@ -78,6 +87,7 @@ export default function ClientGallery({ gallery }: Props) {
         a.click();
         a.remove();
         URL.revokeObjectURL(objUrl);
+        apres(p.id);
       } catch (e) {
         console.error(e);
         window.open(url, "_blank");
@@ -85,8 +95,20 @@ export default function ClientGallery({ gallery }: Props) {
         setSavingIndex(null);
       }
     },
-    [photos, gallery.slug]
+    [photos, gallery.slug] // eslint-disable-line react-hooks/exhaustive-deps
   );
+
+  /** Téléchargement réussi : on le compte, puis on invite (une fois) à laisser un avis. */
+  function apres(photo: string) {
+    track("galerie-telechargement", { galerie: gallery.slug, photo });
+    setAvis(true);
+  }
+
+  // Visionneuse ouverte : on compte l'ouverture (pas chaque photo balayée).
+  const ouvert = lightbox !== null;
+  useEffect(() => {
+    if (ouvert) track("galerie-agrandie", { galerie: gallery.slug });
+  }, [ouvert, gallery.slug]);
 
   /* ─── Téléchargement ZIP (sans compression) ─── */
   async function downloadAll() {
@@ -118,6 +140,8 @@ export default function ClientGallery({ gallery }: Props) {
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
+      track("galerie-zip", { galerie: gallery.slug, photos: downloadable.length });
+      setAvis(true);
     } catch (e) {
       console.error(e);
       alert("Erreur lors de la préparation du ZIP. Réessayez.");
@@ -642,6 +666,8 @@ export default function ClientGallery({ gallery }: Props) {
           </div>
         </div>
       )}
+
+      {avis && <AvisInvite galerie={gallery.slug} onClose={() => setAvis(false)} />}
     </>
   );
 }
