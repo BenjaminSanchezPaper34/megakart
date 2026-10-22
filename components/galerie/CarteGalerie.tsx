@@ -19,10 +19,11 @@ export default function CarteGalerie({ g }: { g: Galerie }) {
         className="object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-asphalt via-asphalt/30 to-transparent" />
-      {/* La date en pastille, comme une page de calendrier : on retrouve sa course d'un coup d'œil (Benjamin, 22/10). */}
+      {/* La date en ruban épinglé au bord haut, pointe en bas comme un marque-page :
+          on retrouve sa course d'un coup d'œil (Benjamin, 22/10). */}
       <time
         dateTime={g.date}
-        className="absolute left-4 top-4 flex min-w-16 flex-col items-center bg-race px-3 pb-2 pt-2.5 text-white shadow-[0_8px_24px_-8px_rgb(0_0_0/0.6)] sm:left-5 sm:top-5"
+        className="absolute left-5 top-0 flex min-w-16 flex-col items-center bg-race px-3 pb-5 pt-3 text-white [clip-path:polygon(0_0,100%_0,100%_100%,50%_calc(100%-10px),0_100%)] sm:left-6"
       >
         <span className="display text-4xl leading-none">{f.day}</span>
         <span className="display mt-1 text-sm leading-none">{f.month}</span>
