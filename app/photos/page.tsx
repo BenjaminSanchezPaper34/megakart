@@ -7,6 +7,7 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 import PageHero from "@/components/system/PageHero";
 import { getGaleries } from "@/lib/galeries";
 import CarteGalerie from "@/components/galerie/CarteGalerie";
+import RangeeDefilante from "@/components/system/RangeeDefilante";
 import CtaFinal from "@/components/system/CtaFinal";
 
 export const metadata: Metadata = {
@@ -86,15 +87,14 @@ export default function PhotosPage() {
           line2="chez nous ?"
           subtitle="Courses, sorties d'entreprise, sessions : retrouvez-vous dans les galeries et téléchargez vos photos en qualité originale."
         >
-          {/* Mobile : bande à faire glisser (bord de la suivante visible), comme les réels ; grille dès 640 px. */}
-          <div className="no-scrollbar -mx-5 overflow-x-auto px-5 scroll-px-5 snap-x snap-mandatory sm:mx-0 sm:overflow-visible sm:px-0">
-          <div data-stagger className="grid auto-cols-[78%] grid-flow-col gap-3 sm:auto-cols-auto sm:grid-flow-row sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 [&>*]:snap-start">
+          {/* Bande à faire défiler à toutes les tailles depuis la 4e galerie (Benjamin 22/10) :
+              la page ne s'allonge plus à chaque nouvel événement. */}
+          <RangeeDefilante label="Galeries">
             {/* Toutes les galeries ici : pas de page d'index séparée (choix Benjamin 15/10). */}
             {getGaleries().map((g) => (
               <CarteGalerie key={g.slug} g={g} />
             ))}
-          </div>
-          </div>
+          </RangeeDefilante>
         </PageHero>
       </div>
 
