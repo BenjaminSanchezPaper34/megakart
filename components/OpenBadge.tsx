@@ -14,6 +14,11 @@ const EN_LABELS: Record<string, { label: string; detail: string }> = {
   "offseason-closed": { label: "Opens at 2 pm", detail: "Off season: every day, 2 pm – 7 pm." },
   "winter-closed": { label: "Closed for winter", detail: "Closed in January and February — reopening on 1 March." },
 };
+/** Dès le 2/11 (lib/hours.ts) : mercredi → dimanche, 13 h – 18 h. */
+const EN_HIVER: Record<string, { label: string; detail: string }> = {
+  "offseason-open": { label: "Open now", detail: "Wednesday to Sunday, 1 pm – 6 pm. Closed Monday and Tuesday." },
+  "offseason-closed": { label: "Closed now", detail: "Wednesday to Sunday, 1 pm – 6 pm. Closed Monday and Tuesday." },
+};
 
 export default function OpenBadge({
   withDetail = false,
@@ -37,8 +42,9 @@ export default function OpenBadge({
 
   if (en) {
     const key = `${status.season}-${status.open ? "open" : "closed"}`;
-    status.label = EN_LABELS[key].label;
-    status.detail = EN_LABELS[key].detail;
+    const hiver = new Date().toISOString().slice(0, 10) >= "2026-11-02" ? EN_HIVER[key] : undefined;
+    status.label = (hiver ?? EN_LABELS[key]).label;
+    status.detail = (hiver ?? EN_LABELS[key]).detail;
   }
 
   const dot = status.open ? "bg-emerald-400" : "bg-race";

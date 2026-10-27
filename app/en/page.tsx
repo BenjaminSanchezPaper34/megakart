@@ -116,7 +116,8 @@ export default function EnglishPage() {
             <div className="mt-4"><OpenBadge withDetail en /></div>
             <p className="mt-4 text-base leading-relaxed text-chalk-60">
               Summer season: every day, 10 am to 12:30 am, non-stop.
-              Rest of the year: every day, 2 pm to 7 pm. Closed in January and February.
+              From 2 November: Wednesday to Sunday, 1 pm to 6 pm (closed Monday and Tuesday).
+              Closed in January and February.
             </p>
           </div>
           <div data-reveal>

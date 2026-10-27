@@ -72,8 +72,8 @@ export default function ContactPage() {
             <h2 className={INFO_TITLE}>Horaires</h2>
             <OpenBadge withDetail large />
             <p className={INFO_TEXT}>
-              Hors saison : tous les jours de 14 h à 19 h (en octobre hors vacances : fermé lundi et mardi),
-              fermeture annuelle en janvier et février.
+              À partir du 2 novembre : du mercredi au dimanche, de 13 h à 18 h (fermé lundi et mardi).
+              Fermeture annuelle en janvier et février.
             </p>
             <Link href="/agenda" className={INFO_LINK}>
               Le calendrier jour par jour

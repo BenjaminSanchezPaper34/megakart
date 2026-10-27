@@ -1,4 +1,4 @@
-import { isFermetureHebdo } from "./hours";
+import { horairesDu, isFermetureHebdo } from "./hours";
 /**
  * Agenda de fin d'année 2026 — opérations & temps forts.
  * Source : brief communication client (août 2026) + planning mural.
@@ -369,8 +369,11 @@ const FERIES: Record<string, string> = {
   "2026-12-25": "Noël",
 };
 
-/** Horaires hors saison (fiche Google) et exceptions datées. */
-const DEFAULT_HOURS = "14h – 19h";
+/** Horaires du jour (lib/hours.ts : 14h – 19h, puis 13h – 18h dès le 2/11) et exceptions datées. */
+const heuresDu = (iso: string) => {
+  const { opens, closes } = horairesDu(iso);
+  return `${opens}h – ${closes}h`;
+};
 const SPECIAL_HOURS: Record<string, string> = {
   "2026-10-31": "14h – minuit",
 };
@@ -394,8 +397,8 @@ const PACK_FROM = "2026-09-06";
 const PACK_TO = "2026-12-27";
 
 /**
- * Jours d'ouverture hors saison : tous les jours, 14 h – 19 h, sauf la
- * fermeture lundi + mardi d'octobre hors vacances (règle dans lib/hours.ts).
+ * Jours d'ouverture hors saison : tous les jours, sauf la fermeture lundi + mardi
+ * d'octobre hors vacances et à partir du 2/11 (règle dans lib/hours.ts).
  */
 function isOpen(iso: string, weekdayIdx: number): boolean {
   return !isFermetureHebdo(iso, (weekdayIdx + 1) % 7);
@@ -465,7 +468,7 @@ export function buildCalendar(): CalendarMonth[] {
         day,
         weekdayIdx,
         open,
-        hours: open ? (SPECIAL_HOURS[iso] ?? DEFAULT_HOURS) : undefined,
+        hours: open ? (SPECIAL_HOURS[iso] ?? heuresDu(iso)) : undefined,
         vacances,
         aVolonte,
         // Hors vacances, la promo ne court que jeudi/vendredi ; en vacances, tous les jours.
