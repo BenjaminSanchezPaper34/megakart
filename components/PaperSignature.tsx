@@ -21,6 +21,10 @@ const SMOKE = [
 
 export default function PaperSignature() {
   const [active, setActive] = useState(false);
+  // Le voile capte les clics pendant les 3 premières secondes (l'onde d'accueil),
+  // puis les laisse passer : les liens du footer redeviennent cliquables sous la fumée.
+  const [bloquant, setBloquant] = useState(false);
+  const bloqueTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const logoRef = useRef<HTMLAnchorElement>(null);
   const emitRef = useRef(true);
   const api = useRef<{
@@ -55,6 +59,9 @@ export default function PaperSignature() {
     clearTimeout(stopTimer.current);
     emitRef.current = true;
     setActive(true);
+    setBloquant(true);
+    clearTimeout(bloqueTimer.current);
+    bloqueTimer.current = setTimeout(() => setBloquant(false), 3000);
     // Le canvas doit être monté avant l'éruption
     requestAnimationFrame(() => setTimeout(burst, 60));
   }, [burst]);
@@ -74,6 +81,7 @@ export default function PaperSignature() {
     () => () => {
       clearTimeout(offTimer.current);
       clearTimeout(stopTimer.current);
+      clearTimeout(bloqueTimer.current);
     },
     []
   );
@@ -82,7 +90,10 @@ export default function PaperSignature() {
     <>
       {/* Voile fluide sur tout le footer (ancêtre positionné = <footer>) */}
       {active && (
-        <div className="absolute inset-0 z-10 overflow-hidden" aria-hidden="true">
+        <div
+          className={`absolute inset-0 z-10 overflow-hidden ${bloquant ? "" : "pointer-events-none"}`}
+          aria-hidden="true"
+        >
           <SplashCursor
             colors={SMOKE}
             emitRef={emitRef}
