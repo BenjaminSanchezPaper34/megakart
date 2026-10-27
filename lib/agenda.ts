@@ -79,6 +79,8 @@ export const RACES: Operation[] = [
   },
   {
     slug: "plein-gaz",
+    // Affiche du 15/11 livrée par Benjamin le 27/10 (édition unique).
+    affiche: { src: "/images/popup/plein-gaz-2026-11-15.jpg", width: 1500, height: 2000 },
     kicker: "Le grand trophée d'automne",
     name: "Trophée Plein Gaz",
     accent: "flag",

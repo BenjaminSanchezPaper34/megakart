@@ -86,6 +86,18 @@ export const CAMPAGNES: PopupCampagne[] = [
     key: "megakart-popup-journee-enfants-2026-12-13",
   },
   {
+    // Trophée Plein Gaz du 15/11 : affiche 3:4 livrée le 27/10.
+    op: "plein-gaz",
+    href: "/inscription/plein-gaz#formulaire",
+    cta: "Inscrire mes pilotes",
+    alt: "Trophée Plein Gaz, dimanche 15 novembre chez MegaKart — deux pilotes casqués côte à côte dans leurs karts Sodi n° 14 et n° 39. Infos et inscriptions.",
+    wide: "/images/popup/plein-gaz-2026-11-15.jpg",
+    tall: "/images/popup/plein-gaz-2026-11-15.jpg",
+    formats: { wide: { width: 1500, height: 2000 }, tall: { width: 1500, height: 2000 } },
+    dates: ["2026-11-15"],
+    key: "megakart-popup-plein-gaz-2026-11-15",
+  },
+  {
     // Affiche 3:4 (1500 × 2000), même traitement que la Course Enfants.
     op: "12-heures",
     href: "/12-heures",
