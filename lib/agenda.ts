@@ -290,7 +290,7 @@ export const AGENDA: AgendaItem[] = [
     op: "course-enfant",
     label: "Journée des enfants",
     status: "confirme",
-    affiche: { src: "/images/popup/journee-enfants-2026-11-08-v2.jpg", width: 1500, height: 2000 },
+    affiche: { src: "/images/popup/journee-enfants-2026-11-08-v3.jpg", width: 1500, height: 2000 },
   },
   { date: "2026-11-15", op: "plein-gaz", label: "Trophée Plein Gaz", status: "confirme" }, // reporté du 1/11 (Benjamin, 14/10)
   { date: "2026-12-06", op: "100-tours", label: "Les 100 Tours", status: "confirme" },
@@ -299,7 +299,7 @@ export const AGENDA: AgendaItem[] = [
     op: "course-enfant",
     label: "Journée des enfants",
     status: "confirme",
-    affiche: { src: "/images/popup/journee-enfants-2026-12-13.jpg", width: 1500, height: 2000 },
+    affiche: { src: "/images/popup/journee-enfants-2026-12-13-v2.jpg", width: 1500, height: 2000 },
   },
   { date: "2026-12-19", op: "12-heures", label: "Les 12 Heures", status: "confirme" },
 ];

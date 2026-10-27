@@ -65,8 +65,8 @@ export const CAMPAGNES: PopupCampagne[] = [
     cta: "Inscrire mon enfant",
     alt: "Journée des enfants, dimanche 8 novembre chez MegaKart — une jeune pilote au casque rose au volant d'un kart Sodi n° 4. Infos et inscriptions.",
     // Affiche datée du 8/11 (Benjamin, 22/10) : jamais pour une autre date.
-    wide: "/images/popup/journee-enfants-2026-11-08-v2.jpg",
-    tall: "/images/popup/journee-enfants-2026-11-08-v2.jpg",
+    wide: "/images/popup/journee-enfants-2026-11-08-v3.jpg",
+    tall: "/images/popup/journee-enfants-2026-11-08-v3.jpg",
     formats: { wide: { width: 1500, height: 2000 }, tall: { width: 1500, height: 2000 } },
     dates: ["2026-11-08"],
     // Nouvelle clé : nouvelle campagne, elle réapparaît chez ceux qui avaient fermé l'ancienne.
@@ -78,8 +78,8 @@ export const CAMPAGNES: PopupCampagne[] = [
     href: "/inscription/course-enfant#formulaire",
     cta: "Inscrire mon enfant",
     alt: "Journée des enfants, dimanche 13 décembre chez MegaKart — un jeune pilote au casque bleu et jaune au volant d'un kart Sodi n° 7. Infos et inscriptions.",
-    wide: "/images/popup/journee-enfants-2026-12-13.jpg",
-    tall: "/images/popup/journee-enfants-2026-12-13.jpg",
+    wide: "/images/popup/journee-enfants-2026-12-13-v2.jpg",
+    tall: "/images/popup/journee-enfants-2026-12-13-v2.jpg",
     formats: { wide: { width: 1500, height: 2000 }, tall: { width: 1500, height: 2000 } },
     dates: ["2026-12-13"],
     des: "2026-11-09", // pas avant que la Journée du 8/11 soit passée
