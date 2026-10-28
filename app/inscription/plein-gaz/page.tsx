@@ -11,7 +11,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Inscrire mes pilotes au Trophée Plein Gaz",
   description:
-    `Inscription en ligne au Trophée Plein Gaz de MegaKart à Vias, dimanche 15 novembre : essais, qualifications, course de 12 tours et finale, ${PLEIN_GAZ.prix} € par pilote. Le circuit confirme la place sous 48 h.`,
+    `Inscription en ligne au Trophée Plein Gaz de MegaKart à Vias, dimanche 15 novembre : qualifs et course en 390cc, dernière course en RX250 pour tous, ${PLEIN_GAZ.prix} € par pilote. Le circuit confirme la place sous 48 h.`,
   alternates: { canonical: "/inscription/plein-gaz" },
   // Page de la course (15/10) : formulaire + tout le détail, donc indexable.
 };
@@ -48,7 +48,7 @@ export default function InscriptionPleinGazPage() {
         label={<>{op.name} · {DATES.map((d) => d.label).join(" · ")}</>}
         line1="Inscrivez"
         line2="vos pilotes."
-        subtitle={`Essais, qualifs, course de 12 tours et finale, ${op.price}. Un contact, de un à quatre pilotes : c'est tout ce qu'il faut.`}
+        subtitle={`Qualifs et course en 390cc, dernière course en RX250 pour tous, ${op.price}. Un contact, de un à quatre pilotes : c'est tout ce qu'il faut.`}
         badges={DATES.filter((d) => d.badge).map((d) => (
           <span key={d.iso} className="rounded-full bg-race px-4 py-2 text-base font-bold text-white">
             {d.label} : {d.badge}
