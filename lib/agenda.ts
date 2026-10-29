@@ -291,6 +291,7 @@ export const AGENDA: AgendaItem[] = [
     op: "course-enfant",
     label: "Journée des enfants",
     status: "confirme",
+    places: 0, // Benjamin, 29/10 : complet
     affiche: { src: "/images/popup/journee-enfants-2026-11-08-v3.jpg", width: 1500, height: 2000 },
   },
   { date: "2026-11-15", op: "plein-gaz", label: "Trophée Plein Gaz", status: "confirme" }, // reporté du 1/11 (Benjamin, 14/10)

@@ -73,7 +73,7 @@ export const CAMPAGNES: PopupCampagne[] = [
     key: "megakart-popup-journee-enfants-2026-11-08",
   },
   {
-    // Même formule pour la Journée des enfants du 13/12, prend le relais après le 8/11.
+    // Même formule pour la Journée des enfants du 13/12.
     op: "course-enfant",
     href: "/inscription/course-enfant#formulaire",
     cta: "Inscrire mon enfant",
@@ -82,7 +82,7 @@ export const CAMPAGNES: PopupCampagne[] = [
     tall: "/images/popup/journee-enfants-2026-12-13-v2.jpg",
     formats: { wide: { width: 1500, height: 2000 }, tall: { width: 1500, height: 2000 } },
     dates: ["2026-12-13"],
-    des: "2026-11-09", // pas avant que la Journée du 8/11 soit passée
+    // Le 8/11 étant complet (29/10), le 13/12 prend le relais tout de suite.
     key: "megakart-popup-journee-enfants-2026-12-13",
   },
   {
