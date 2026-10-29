@@ -239,7 +239,8 @@ export function afficheDe(op: Operation, date?: string, today = new Date().toISO
   const dates = AGENDA.filter((a) => a.op === op.slug && a.affiche);
   const exacte = date ? dates.find((a) => a.date === date) : undefined;
   if (date) return exacte?.affiche ?? op.affiche;
-  const prochaine = dates.filter((a) => a.date >= today).sort((a, b) => a.date.localeCompare(b.date))[0];
+  // Une date complète ne fait plus la promo : l'affiche passe à la suivante.
+  const prochaine = dates.filter((a) => a.date >= today && a.places !== 0).sort((a, b) => a.date.localeCompare(b.date))[0];
   return prochaine?.affiche ?? op.affiche;
 }
 
