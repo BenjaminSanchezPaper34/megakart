@@ -14,6 +14,8 @@ type Highlight = {
   /** Fond du bandeau + couleur du texte. */
   tone: string;
   cta: string;
+  /** Lien du bandeau quand l'offre n'a pas de fiche dans l'agenda. */
+  href?: string;
 };
 
 /** Ce qui prime quand plusieurs offres tombent le même jour. */
@@ -31,6 +33,20 @@ function highlightFor(d: CalendarDay): Highlight | null {
       detail: `${op?.summary ?? ""}${alsoPack}`,
       tone: "bg-race text-white",
       cta: "Le détail de la course",
+    };
+  }
+  // Soirée spéciale sans fiche course (Nocturne Halloween) : elle prime sur la
+  // promo du jour, rappelée dans la phrase.
+  if (d.event) {
+    return {
+      slug: "calendrier",
+      title: d.event.label,
+      short: d.event.note ?? "Soirée spéciale",
+      detail: `${d.event.note ?? ""}.${d.promo ? " Et toujours 2 tickets = 1 offert." : ""}`,
+      // Orange citrouille : couleur d'un soir, hors palette comme le bleu du 2+1.
+      tone: "bg-[#f26b1d] text-white",
+      cta: "Voir l'agenda",
+      href: "/agenda#calendrier",
     };
   }
   if (d.aVolonte) {
@@ -104,7 +120,7 @@ export default function TodayOffer() {
 
   return (
     <Link
-      href={`/agenda#${shown.slug}`}
+      href={shown.href ?? `/agenda#${shown.slug}`}
       aria-label={`${when} : ${shown.title}. Voir le détail`}
       data-track="offre-du-jour"
       className={`group block ${shown.tone}`}
