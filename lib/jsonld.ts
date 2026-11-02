@@ -158,6 +158,8 @@ export function agendaJsonLd(
     price?: number;
     /** Chemin d'image depuis /images (sinon l'OG du site). */
     image?: string;
+    /** Plus de place : l'offre passe en SoldOut. */
+    complet?: boolean;
   }[]
 ) {
   // Google ne résout pas un simple { "@id" } pour l'organisateur : il veut
@@ -209,7 +211,7 @@ export function agendaJsonLd(
               "@type": "Offer",
               price: e.price,
               priceCurrency: "EUR",
-              availability: "https://schema.org/InStock",
+              availability: e.complet ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
               url: `${SITE_URL}${e.path ?? "/agenda"}`,
             },
           }),

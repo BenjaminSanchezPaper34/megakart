@@ -14,22 +14,29 @@ import {
 } from "@/lib/agenda";
 
 
-/* Événements JSON-LD : uniquement les dates confirmées à jour unique. */
-const JSONLD_EVENTS = AGENDA.filter(
-  (a) => a.status === "confirme" && !a.endDate,
-).map((a) => {
-  const op = a.op ? getOperation(a.op) : undefined;
-  return {
-    date: a.date,
-    name: a.label ?? op?.name ?? "",
-    slug: a.op,
-    path: op ? pageCourse(op) : undefined,
-    description: op ? `${op.summary} ${op.facts.join(" · ")}.` : (a.note ?? ""),
-    price: op?.priceValue,
-    image:
-      a.label === "Nocturne Halloween" ? "galerie-08-nocturne.jpg" : undefined,
-  };
-});
+/*
+ * Événements JSON-LD : uniquement les dates confirmées à jour unique ET à venir.
+ * Calculé au rendu (page régénérée chaque jour), pas au chargement du module :
+ * une course passée sort du schéma d'elle-même, l'agenda visible la garde grisée.
+ */
+function jsonldEvents(today = new Date().toISOString().slice(0, 10)) {
+  return AGENDA.filter(
+    (a) => a.status === "confirme" && !a.endDate && a.date >= today,
+  ).map((a) => {
+    const op = a.op ? getOperation(a.op) : undefined;
+    return {
+      date: a.date,
+      name: a.label ?? op?.name ?? "",
+      slug: a.op,
+      path: op ? pageCourse(op) : undefined,
+      description: op ? `${op.summary} ${op.facts.join(" · ")}.` : (a.note ?? ""),
+      price: op?.priceValue,
+      image:
+        a.label === "Nocturne Halloween" ? "galerie-08-nocturne.jpg" : undefined,
+      complet: a.places === 0,
+    };
+  });
+}
 
 export const metadata: Metadata = {
   title: "Agenda — courses, trophées & offres de fin d'année 2026",
@@ -49,7 +56,7 @@ export default function AgendaPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
             breadcrumbJsonLd([{ name: "Agenda", path: "/agenda" }]),
-            agendaJsonLd(JSONLD_EVENTS),
+            agendaJsonLd(jsonldEvents()),
           ]),
         }}
       />
