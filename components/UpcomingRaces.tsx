@@ -110,6 +110,11 @@ function Carte({ item, today, first }: { item: AgendaItem; today: string | null;
           <div className="mt-4 border-t border-chalk/15 pt-4">
             <p className="display text-2xl leading-none text-chalk">{op?.price ?? soiree?.pied ?? "Tarif à venir"}</p>
             {op?.priceNote && <p className="mt-1 text-sm leading-snug text-chalk-60">{op.priceNote}</p>}
+            {item.badge && !complet && (
+              <p className="mt-2 text-sm font-semibold leading-snug text-race">
+                {item.badge.charAt(0).toUpperCase() + item.badge.slice(1)}
+              </p>
+            )}
           </div>
 
           <div className="mt-auto pt-5">
