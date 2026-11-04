@@ -43,8 +43,8 @@ export default function OpenBadge({
   if (en) {
     const key = `${status.season}-${status.open ? "open" : "closed"}`;
     const hiver = new Date().toISOString().slice(0, 10) >= "2026-11-02" ? EN_HIVER[key] : undefined;
-    status.label = (hiver ?? EN_LABELS[key]).label;
-    status.detail = (hiver ?? EN_LABELS[key]).detail;
+    status.label = (status.en ?? hiver ?? EN_LABELS[key]).label;
+    status.detail = (status.en ?? hiver ?? EN_LABELS[key]).detail;
   }
 
   const dot = status.open ? "bg-emerald-400" : "bg-race";

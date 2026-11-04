@@ -3,6 +3,8 @@ export type OpenStatus = {
   season: "summer" | "offseason" | "winter";
   label: string;
   detail: string;
+  /** Texte anglais imposé (fermeture exceptionnelle), sinon les libellés de OpenBadge. */
+  en?: { label: string; detail: string };
 };
 
 /**
@@ -23,6 +25,27 @@ const SUMMER_DETAIL = "En saison : tous les jours, 10 h – minuit trente, non-s
 const EXCEPTIONS: Record<string, { opens: number; closes: number; label: string }> = {
   "2026-10-31": { opens: 14, closes: 24, label: "Nocturne Halloween" },
 };
+/**
+ * Fermetures exceptionnelles (météo, etc.) : badge, bandeau de l'accueil et calendrier.
+ * Lucas, groupe WhatsApp du 04/11 : fermé les 4 et 5/11, temps trop mauvais.
+ */
+const FERMETURES: Record<string, { titre: string; detail: string; en: { label: string; detail: string } }> = {
+  "2026-11-04": {
+    titre: "Fermé aujourd'hui et demain",
+    detail: "À cause de la pluie. On rouvre vendredi 6 novembre à 13 h.",
+    en: { label: "Closed today and tomorrow", detail: "Because of the rain. Reopening Friday 6 November at 1 pm." },
+  },
+  "2026-11-05": {
+    titre: "Fermé aujourd'hui",
+    detail: "À cause de la pluie. On rouvre demain à 13 h.",
+    en: { label: "Closed today", detail: "Because of the rain. Reopening tomorrow at 1 pm." },
+  },
+};
+
+export function fermetureDu(iso: string) {
+  return FERMETURES[iso];
+}
+
 const OFFSEASON_DETAIL = "Hors saison : tous les jours, 14 h – 19 h.";
 
 /** Régime d'hiver, du 2/11 au 31/12/2026 (vacances de Noël comprises, faute d'autre consigne). */
@@ -76,6 +99,11 @@ export function getOpenStatus(now: Date = new Date()): OpenStatus {
   }
 
   const iso = `${now.getFullYear()}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+  const fermeture = fermetureDu(iso);
+  if (fermeture) {
+    return { open: false, season: "offseason", label: fermeture.titre, detail: fermeture.detail, en: fermeture.en };
+  }
+
   const exc = EXCEPTIONS[iso];
   if (exc) {
     const open = h >= exc.opens && h < exc.closes;

@@ -1,4 +1,4 @@
-import { horairesDu, isFermetureHebdo } from "./hours";
+import { horairesDu, isFermetureHebdo, fermetureDu } from "./hours";
 /**
  * Agenda de fin d'année 2026 — opérations & temps forts.
  * Source : brief communication client (août 2026) + planning mural.
@@ -465,9 +465,10 @@ export function buildCalendar(): CalendarMonth[] {
       const weekdayIdx = (new Date(Date.UTC(year, month - 1, day)).getUTCDay() + 6) % 7;
       const vacances = VACANCES.some((r) => inRange(iso, r));
       const event = events.get(iso);
+      const ferme = Boolean(fermetureDu(iso));
       const aVolonte =
-        weekdayIdx === 2 && !vacances && iso >= A_VOLONTE_FROM && iso <= A_VOLONTE_TO;
-      const open = isOpen(iso, weekdayIdx) || Boolean(event) || aVolonte;
+        !ferme && weekdayIdx === 2 && !vacances && iso >= A_VOLONTE_FROM && iso <= A_VOLONTE_TO;
+      const open = !ferme && (isOpen(iso, weekdayIdx) || Boolean(event) || aVolonte);
       days.push({
         iso,
         day,
@@ -479,6 +480,7 @@ export function buildCalendar(): CalendarMonth[] {
         // Hors vacances, la promo ne court que jeudi/vendredi ; en vacances, tous les jours.
         promo:
           SHOW_PROMOS &&
+          !ferme &&
           !event &&
           promoRanges.some((r) => inRange(iso, r)) &&
           (vacances || weekdayIdx === 3 || weekdayIdx === 4),

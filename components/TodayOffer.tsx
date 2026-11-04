@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { buildCalendar, getOperation, formatDate, type CalendarDay } from "@/lib/agenda";
+import { fermetureDu } from "@/lib/hours";
 
 type Highlight = {
   slug: string;
@@ -108,7 +109,19 @@ export default function TodayOffer() {
   const day = days.find((d) => d.iso === today);
   if (!day) return null;
 
-  const todays = highlightFor(day);
+  // Fermeture exceptionnelle : elle passe avant toute offre.
+  const fermeture = fermetureDu(today);
+  const todays: Highlight | null = fermeture
+    ? {
+        slug: "fermeture",
+        title: fermeture.titre,
+        short: fermeture.detail,
+        detail: fermeture.detail,
+        tone: "bg-race text-white",
+        cta: "Nous contacter",
+        href: "/contact",
+      }
+    : highlightFor(day);
   const nextDay = todays ? null : days.find((d) => d.iso > today && highlightFor(d) !== null);
   const shown = todays ?? (nextDay ? highlightFor(nextDay) : null);
   if (!shown) return null;
