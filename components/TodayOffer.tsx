@@ -122,7 +122,8 @@ export default function TodayOffer() {
         href: "/contact",
       }
     : highlightFor(day);
-  const nextDay = todays ? null : days.find((d) => d.iso > today && highlightFor(d) !== null);
+  // Une course complète ne s'annonce pas à l'avance : le bandeau passe à l'offre suivante.
+  const nextDay = todays ? null : days.find((d) => d.iso > today && !d.event?.full && highlightFor(d) !== null);
   const shown = todays ?? (nextDay ? highlightFor(nextDay) : null);
   if (!shown) return null;
 
