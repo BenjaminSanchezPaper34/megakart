@@ -152,9 +152,9 @@ export default function DouzeHeuresPage() {
             {RESTANTES > 0 ? `Plus que ${RESTANTES} places sur ${DOUZE_H.placesMax}` : "Complet, liste d'attente par téléphone"}
           </span>
         }
-        intro="Pas d'acompte : tout se règle sur place. Le circuit vous rappelle pour confirmer l'inscription de l'équipe."
+        intro={`Un acompte de ${DOUZE_H.acompte} € par virement bloque votre place${new Date().toISOString().slice(0, 10) < DOUZE_H.remboursableAvant ? ", remboursable si vous annulez avant le 19 novembre" : ""}. Le solde se règle sur place et le circuit vous rappelle pour confirmer.`}
         form={<InscriptionDouzeHeures dateLabel={DATE_LABEL} />}
-        priceNote="repas compris, réglé sur place"
+        priceNote={`repas compris, acompte de ${DOUZE_H.acompte} € puis solde sur place`}
       >
         {/* Le format */}
         <section className="mx-auto max-w-7xl px-5 py-(--section-y) md:px-8">

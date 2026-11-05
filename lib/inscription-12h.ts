@@ -17,8 +17,13 @@ export const DOUZE_H = {
   arrivee: "minuit",
   accueil: "10h" as string | null,
   essais: "10h30",
-  /** Repas des pilotes compris (petit-déjeuner, midi, goûter, soir). Réglé sur place, sans acompte. */
+  /** Repas des pilotes compris (petit-déjeuner, midi, goûter, soir). Tarif par équipe, de 2 à 6 pilotes. */
   prixEquipe: 1500,
+  /** Emma et Benjamin, 04/11 : acompte par virement sous 7 jours, solde sur place. Le RIB vit dans les
+   *  variables Vercel (DOUZE_H_TITULAIRE, DOUZE_H_IBAN, DOUZE_H_BIC) : ce dépôt est public. */
+  acompte: 300,
+  /** Acompte rendu si l'équipe annule avant cette date. */
+  remboursableAvant: "2026-11-19",
   /** Ouvert dès 14 ans. */
   ageMin: 14,
   pilotesMin: 2,
@@ -43,6 +48,11 @@ export const DOUZE_H = {
  */
 export function prixEquipe() {
   return `${String(DOUZE_H.prixEquipe).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0")}\u00a0€`;
+}
+
+/** Solde réglé sur place le jour de la course. */
+export function soldeEquipe() {
+  return DOUZE_H.prixEquipe - DOUZE_H.acompte;
 }
 
 export function placesRestantes() {

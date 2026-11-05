@@ -140,7 +140,7 @@ export const RACES: Operation[] = [
     summary: "Douze heures d'endurance par équipes, de midi à minuit, coorganisées avec l'écurie Vortex. 15 équipes maximum.",
     details: [
       "Le plus grand format jamais couru sur le circuit : douze heures de relais par équipes de 2 à 6 pilotes, de midi à minuit, sur les 1000 m de Vias-plage. L'écurie Vortex et son équipe technique coorganisent l'épreuve avec l'équipe MegaKart.",
-      "Un ravitaillement imposé par heure, et à chaque ravitaillement l'équipe repart sur un autre kart : personne ne garde « le bon » toute la journée. Accueil à 10h, essais et qualifications à 10h30 ; un grand hangar chauffé avec écran et restauration, un espace par équipe, repas des pilotes compris. Ouvert dès 14 ans, tout se règle sur place.",
+      "Un ravitaillement imposé par heure, et à chaque ravitaillement l'équipe repart sur un autre kart : personne ne garde « le bon » toute la journée. Accueil à 10h, essais et qualifications à 10h30 ; un grand hangar chauffé avec écran et restauration, un espace par équipe, repas des pilotes compris. Ouvert dès 14 ans.",
       "Pour l'équipe gagnante, une énorme coupe et un baptême en voiture Vortex ; d'autres lots sont à gagner.",
     ],
     facts: [

@@ -108,8 +108,8 @@ export default function InscriptionDouzeHeures({ dateLabel }: { dateLabel: strin
         </h2>
         <p className="mt-4 text-base leading-relaxed text-chalk-60">
           Un récapitulatif part à l&rsquo;instant sur <strong className="text-chalk">{captain.email}</strong>. Le circuit
-          revient vers vous sous 48 heures pour confirmer votre place aux 12 Heures du {dateLabel}. Tout se règle sur place
-          le jour de la course, sans acompte. Une question d&rsquo;ici là ? Le {SITE.phone} répond aux heures d&rsquo;ouverture.
+          revient vers vous sous 48 heures pour confirmer votre place aux 12 Heures du {dateLabel}. Pour bloquer la place,
+          un acompte de {DOUZE_H.acompte} € par virement : le RIB est dans l&rsquo;e-mail. Une question d&rsquo;ici là ? Le {SITE.phone} répond aux heures d&rsquo;ouverture.
         </p>
         <div className="mt-6 flex flex-wrap gap-4">
           <Link href="/agenda" className="btn btn-ghost">
@@ -365,7 +365,7 @@ export default function InscriptionDouzeHeures({ dateLabel }: { dateLabel: strin
         <button type="submit" className="btn btn-race" disabled={disabled}>
           {disabled ? "Envoi…" : "Inscrire l'équipe"}
         </button>
-        <p className="text-sm text-chalk-60">Pas d&rsquo;acompte : tout se règle sur place le jour de la course.</p>
+        <p className="text-sm text-chalk-60">Acompte de {DOUZE_H.acompte} € par virement, solde sur place. Le RIB arrive par e-mail.</p>
       </div>
     </form>
   );

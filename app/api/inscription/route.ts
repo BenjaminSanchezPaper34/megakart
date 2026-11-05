@@ -11,7 +11,7 @@ import {
   parseInscriptionEnfant,
   type InscriptionEnfant,
 } from "@/lib/inscription-enfant";
-import { DOUZE_H, DOUZE_H_SLUG, parseInscriptionDouzeH, prixEquipe, type InscriptionDouzeH } from "@/lib/inscription-12h";
+import { DOUZE_H, DOUZE_H_SLUG, parseInscriptionDouzeH, prixEquipe, soldeEquipe, type InscriptionDouzeH } from "@/lib/inscription-12h";
 import {
   PLEIN_GAZ,
   PLEIN_GAZ_SLUG,
@@ -226,6 +226,19 @@ function recapDouzeH(d: InscriptionDouzeH, dateLabel: string) {
   );
 }
 
+/** Encart acompte de l'e-mail au capitaine. Sans RIB configuré, le circuit le transmet lui-même. */
+function encartAcompte(team: string) {
+  const { DOUZE_H_TITULAIRE: titulaire, DOUZE_H_IBAN: iban, DOUZE_H_BIC: bic } = process.env;
+  const virement = iban
+    ? `<br>Titulaire : <strong style="color:#111">${esc(titulaire ?? "")}</strong><br>IBAN : <strong style="color:#111;white-space:nowrap">${esc(iban)}</strong><br>BIC : <strong style="color:#111">${esc(bic ?? "")}</strong><br>Référence à indiquer : <strong style="color:#111">12H ${esc(team)}</strong>`
+    : ` Le circuit vous transmet le RIB en confirmant votre inscription.`;
+  const remboursable =
+    new Date().toISOString().slice(0, 10) < DOUZE_H.remboursableAvant
+      ? `<br><br><strong style="color:#111">Votre acompte est remboursable :</strong> si vous annulez avant le 19 novembre, nous vous rendons les ${DOUZE_H.acompte} €.`
+      : "";
+  return encart(`<strong style="color:#111">Pour bloquer votre place</strong> : un acompte de ${DOUZE_H.acompte} €, à régler par virement sous 7 jours.${virement}<br><br>Le solde de ${soldeEquipe().toLocaleString("fr-FR").replace(/\s/g, " ")} € se règle sur place le jour de la course.${remboursable}<br><br><strong style="color:#111">Un pilote en moins n'est pas une annulation.</strong> Tant qu'au moins 2 pilotes de l'équipe sont là le jour J et règlent le solde, votre place est maintenue.`);
+}
+
 async function envoyerDouzeH(resend: Resend, raw: unknown) {
   const parsed = parseInscriptionDouzeH(raw);
   if (!parsed.ok) return { status: 422, body: { ok: false, errors: parsed.errors } };
@@ -238,7 +251,7 @@ async function envoyerDouzeH(resend: Resend, raw: unknown) {
     from: FROM, to: TO, replyTo: d.captain.email,
     subject: `Inscription 12 Heures · équipe ${d.team} (${d.nbPilotes} pilotes)${d.societe ? ` · ${d.societe}` : ""}`,
     html: shell(`<h2 style="margin:0 0 6px;font-size:22px">Nouvelle équipe pour les 12 Heures</h2>
-      <p style="margin:0 0 14px;color:#555">Reçue depuis le formulaire du site. Pensez à mettre à jour le compteur de places (lib/inscription-12h.ts) une fois l'équipe confirmée.</p>
+      <p style="margin:0 0 14px;color:#555">Reçue depuis le formulaire du site. Pensez à mettre à jour le compteur de places (lib/inscription-12h.ts) une fois l'équipe confirmée. Acompte de ${DOUZE_H.acompte} € en attente : le RIB part dans l'e-mail au capitaine.</p>
       ${aFaire(d.captain.name)}${recapDouzeH(d, dateLabel)}`),
   });
   await resend.emails.send({
@@ -246,8 +259,9 @@ async function envoyerDouzeH(resend: Resend, raw: unknown) {
     subject: `Votre équipe est pré-inscrite aux 12 Heures — ${dateLabel}`,
     html: shell(`<h2 style="margin:0 0 6px;font-size:22px">C'est noté, ${esc(d.captain.name)} !</h2>
       <p style="margin:0 0 18px;color:#555;line-height:1.55">Votre équipe <strong>${esc(d.team)}</strong> est pré-inscrite aux 12 Heures du <strong>${esc(dateLabel)}</strong>, organisées avec l'écurie Vortex. ${delai}</p>
+      ${encartAcompte(d.team)}
       ${recapDouzeH(d, dateLabel)}
-      ${encart(`<strong style="color:#111">Et ensuite</strong> — accueil des équipes à ${DOUZE_H.accueil}, essais et qualifications à ${DOUZE_H.essais}, départ à ${DOUZE_H.depart}. Repas des pilotes compris ; tout se règle sur place, sans acompte. Casque et combinaison disponibles sur place si besoin. Les noms des pilotes peuvent être complétés jusqu'au jour J.`)}`),
+      ${encart(`<strong style="color:#111">Et ensuite</strong> : accueil des équipes à ${DOUZE_H.accueil}, essais et qualifications à ${DOUZE_H.essais}, départ à ${DOUZE_H.depart}. Repas des pilotes compris. Casque et combinaison disponibles sur place si besoin. Les noms des pilotes peuvent être complétés jusqu'au jour J.`)}`),
   });
   if (veutInfos(raw)) await ajouterContact(d.captain.email, d.captain.name, "12-heures");
   return { status: 200, body: { ok: true } };
