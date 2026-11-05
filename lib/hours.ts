@@ -15,9 +15,9 @@ export type OpenStatus = {
  *  - hors saison : tous les jours, 14 h – 19 h (horaires déclarés sur Google)
  *  - fermeture annuelle : janvier et février, réouverture le 1er mars
  *    (décision du gérant, réunion du 03/09/2026)
- *  - après la Toussaint (dès le lundi 2/11/2026) : du mercredi au dimanche,
- *    13 h – 18 h, fermé lundi et mardi (Lucas, groupe WhatsApp du 27/10 ;
- *    jeudi et vendredi « à l'essai », ajustables selon le flux)
+ *  - régime d'hiver (dès le 2/11/2026) : mercredi, samedi et dimanche,
+ *    14 h – 18 h (Chantal, vu avec Lucas, groupe WhatsApp du 05/11, annule
+ *    le « mercredi → dimanche, 13 h – 18 h » du 27/10).
  */
 const SUMMER_DETAIL = "En saison : tous les jours, 10 h – minuit trente, non-stop.";
 
@@ -27,20 +27,9 @@ const EXCEPTIONS: Record<string, { opens: number; closes: number; label: string 
 };
 /**
  * Fermetures exceptionnelles (météo, etc.) : badge, bandeau de l'accueil et calendrier.
- * Lucas, groupe WhatsApp du 04/11 : fermé les 4 et 5/11, temps trop mauvais.
+ * Forme d'une entrée : "2026-11-04": { titre, detail, en: { label, detail } } (dernier usage : pluie du 4/11).
  */
-const FERMETURES: Record<string, { titre: string; detail: string; en: { label: string; detail: string } }> = {
-  "2026-11-04": {
-    titre: "Fermé aujourd'hui et demain",
-    detail: "À cause de la pluie. On rouvre vendredi 6 novembre à 13 h.",
-    en: { label: "Closed today and tomorrow", detail: "Because of the rain. Reopening Friday 6 November at 1 pm." },
-  },
-  "2026-11-05": {
-    titre: "Fermé aujourd'hui",
-    detail: "À cause de la pluie. On rouvre demain à 13 h.",
-    en: { label: "Closed today", detail: "Because of the rain. Reopening tomorrow at 1 pm." },
-  },
-};
+const FERMETURES: Record<string, { titre: string; detail: string; en: { label: string; detail: string } }> = {};
 
 export function fermetureDu(iso: string) {
   return FERMETURES[iso];
@@ -50,11 +39,11 @@ const OFFSEASON_DETAIL = "Hors saison : tous les jours, 14 h – 19 h.";
 
 /** Régime d'hiver, du 2/11 au 31/12/2026 (vacances de Noël comprises, faute d'autre consigne). */
 const HIVER: [string, string] = ["2026-11-02", "2026-12-31"];
-const HIVER_DETAIL = "Du mercredi au dimanche, 13 h – 18 h. Fermé le lundi et le mardi.";
+const HIVER_DETAIL = "Mercredi, samedi et dimanche, 14 h – 18 h.";
 
 /** Horaires d'ouverture ordinaires d'un jour (hors exceptions datées), heures pleines. */
 export function horairesDu(iso: string): { opens: number; closes: number } {
-  return iso >= HIVER[0] && iso <= HIVER[1] ? { opens: 13, closes: 18 } : { opens: 14, closes: 19 };
+  return iso >= HIVER[0] && iso <= HIVER[1] ? { opens: 14, closes: 18 } : { opens: 14, closes: 19 };
 }
 
 /**
@@ -67,9 +56,15 @@ const FERME_DETAIL = "En octobre hors vacances : fermé le lundi et le mardi, ou
 
 /** Lundi ou mardi fermé (iso AAAA-MM-JJ, jour JS 0 = dimanche). */
 export function isFermetureHebdo(iso: string, jsDay: number): boolean {
+  if (iso >= HIVER[0] && iso <= HIVER[1]) return ![0, 3, 6].includes(jsDay);
   if (jsDay !== 1 && jsDay !== 2) return false;
-  return (iso >= FERME_LUNDI_MARDI[0] && iso <= FERME_LUNDI_MARDI[1]) || (iso >= HIVER[0] && iso <= HIVER[1]);
+  return iso >= FERME_LUNDI_MARDI[0] && iso <= FERME_LUNDI_MARDI[1];
 }
+
+/** Régime d'hiver : prochain jour ouvert, vu d'un jour donné (jour JS 0 = dimanche). */
+const PROCHAINE_OUVERTURE_HIVER: Record<number, string> = {
+  0: "mercredi", 1: "mercredi", 2: "demain", 3: "samedi", 4: "samedi", 5: "demain", 6: "demain",
+};
 
 export function getOpenStatus(now: Date = new Date()): OpenStatus {
   const month = now.getMonth(); // 0-11
@@ -120,22 +115,24 @@ export function getOpenStatus(now: Date = new Date()): OpenStatus {
   const detailFerme = hiver ? HIVER_DETAIL : FERME_DETAIL;
 
   if (isFermetureHebdo(iso, now.getDay())) {
+    const suite = hiver
+      ? PROCHAINE_OUVERTURE_HIVER[now.getDay()]
+      : now.getDay() === 1 ? "mercredi" : "demain";
     return {
       open: false,
       season: "offseason",
-      label: now.getDay() === 1 ? `Fermé · ouvre mercredi ${opens} h` : `Fermé · ouvre demain ${opens} h`,
+      label: `Fermé · ouvre ${suite} ${opens} h`,
       detail: detailFerme,
     };
   }
 
   const inFermePeriod = hiver || (iso >= FERME_LUNDI_MARDI[0] && iso <= FERME_LUNDI_MARDI[1]);
   const open = h >= opens && h < closes;
-  // Le dimanche soir de la période, « demain » serait un lundi fermé. Le dimanche 1/11 au soir,
-  // on passe au régime d'hiver : réouverture mercredi 13 h.
-  const lendemainHiver = iso === "2026-11-01";
-  const reopen =
-    (inFermePeriod || lendemainHiver) && now.getDay() === 0
-      ? `Fermé · ouvre mercredi ${lendemainHiver ? 13 : opens} h`
+  // Après la fermeture du soir : le prochain jour ouvert n'est pas toujours demain.
+  const reopen = hiver
+    ? `Fermé · ouvre ${PROCHAINE_OUVERTURE_HIVER[now.getDay()]} ${opens} h`
+    : inFermePeriod && now.getDay() === 0
+      ? `Fermé · ouvre mercredi ${opens} h`
       : `Fermé · ouvre demain ${opens} h`;
   return {
     open,

@@ -14,10 +14,10 @@ const EN_LABELS: Record<string, { label: string; detail: string }> = {
   "offseason-closed": { label: "Opens at 2 pm", detail: "Off season: every day, 2 pm – 7 pm." },
   "winter-closed": { label: "Closed for winter", detail: "Closed in January and February — reopening on 1 March." },
 };
-/** Dès le 2/11 (lib/hours.ts) : mercredi → dimanche, 13 h – 18 h. */
+/** Dès le 2/11 (lib/hours.ts) : mercredi, samedi et dimanche, 14 h – 18 h. */
 const EN_HIVER: Record<string, { label: string; detail: string }> = {
-  "offseason-open": { label: "Open now", detail: "Wednesday to Sunday, 1 pm – 6 pm. Closed Monday and Tuesday." },
-  "offseason-closed": { label: "Closed now", detail: "Wednesday to Sunday, 1 pm – 6 pm. Closed Monday and Tuesday." },
+  "offseason-open": { label: "Open now", detail: "Wednesday, Saturday and Sunday, 2 pm – 6 pm." },
+  "offseason-closed": { label: "Closed now", detail: "Wednesday, Saturday and Sunday, 2 pm – 6 pm." },
 };
 
 export default function OpenBadge({

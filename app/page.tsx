@@ -343,8 +343,8 @@ export default function HomePage() {
                 <OpenBadge withDetail />
               </div>
               <p className="mt-4 text-base leading-relaxed text-chalk-60">
-                À partir du 2 novembre, ouvert du mercredi au dimanche de 13 h à
-                18 h (fermé lundi et mardi) — jusqu&rsquo;à minuit trente en été.
+                En ce moment, ouvert le mercredi, le samedi et le dimanche de 14 h à
+                18 h, et jusqu&rsquo;à minuit trente en été.
                 Fermeture annuelle en janvier et février.
               </p>
             </div>

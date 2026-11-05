@@ -72,7 +72,7 @@ export default function ContactPage() {
             <h2 className={INFO_TITLE}>Horaires</h2>
             <OpenBadge withDetail large />
             <p className={INFO_TEXT}>
-              À partir du 2 novembre : du mercredi au dimanche, de 13 h à 18 h (fermé lundi et mardi).
+              En ce moment : mercredi, samedi et dimanche, de 14 h à 18 h.
               Fermeture annuelle en janvier et février.
             </p>
             <Link href="/agenda" className={INFO_LINK}>

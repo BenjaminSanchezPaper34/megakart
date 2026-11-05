@@ -43,7 +43,7 @@ const FAQ = [
   },
   {
     q: "C'est possible toute l'année ?",
-    a: "Oui, sur réservation : le circuit est ouvert tous les jours de 10 h à minuit trente en saison estivale ; à partir du 2 novembre, du mercredi au dimanche de 13 h à 18 h.",
+    a: "Oui, sur réservation : le circuit est ouvert tous les jours de 10 h à minuit trente en saison estivale ; en ce moment, le mercredi, le samedi et le dimanche de 14 h à 18 h.",
   },
   {
     q: "Faut-il un équipement particulier ?",

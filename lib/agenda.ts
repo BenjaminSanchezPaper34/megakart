@@ -194,13 +194,13 @@ export const DEALS: Operation[] = [
     // Conditions calées sur le gabarit du mercredi : 2 paragraphes courts + 4 faits.
     details: [
       "Deux tickets achetés, le troisième offert : de quoi enchaîner les sessions et faire tomber le chrono, sans réservation.",
-      "Tous les jeudis et vendredis jusqu'au 31 décembre, et tous les jours pendant les vacances scolaires, mercredis compris.",
+      "Les jours d'ouverture des vacances de Noël, du 19 au 31 décembre.",
     ],
     facts: [
-      "Jeudis et vendredis",
-      "Tous les jours en vacances",
-      "Toussaint : 17–31 octobre",
-      "Noël : 19–31 décembre",
+      "Vacances de Noël",
+      "Du 19 au 31 décembre",
+      "Mercredi, samedi et dimanche",
+      "Sans réservation",
     ],
     reservation: false,
   },
@@ -275,7 +275,7 @@ export const AGENDA: AgendaItem[] = [
     op: "2-plus-1",
     label: "2 tickets = 1 offert",
     status: "confirme",
-    note: "Tous les jeudis et vendredis jusqu'au 31 décembre, et tous les jours pendant les vacances scolaires",
+    note: "Les jours d'ouverture des vacances de Noël, du 19 au 31 décembre",
   },
   { date: "2026-10-11", op: "course-enfant", label: "Course Enfants", status: "confirme" },
   // Reportée du 4 au 18 octobre (client, 15/09/2026) — donc pendant les
@@ -374,7 +374,7 @@ const FERIES: Record<string, string> = {
   "2026-12-25": "Noël",
 };
 
-/** Horaires du jour (lib/hours.ts : 14h – 19h, puis 13h – 18h dès le 2/11) et exceptions datées. */
+/** Horaires du jour (lib/hours.ts : 14h – 19h, puis 14h – 18h dès le 2/11) et exceptions datées. */
 const heuresDu = (iso: string) => {
   const { opens, closes } = horairesDu(iso);
   return `${opens}h – ${closes}h`;
@@ -477,10 +477,10 @@ export function buildCalendar(): CalendarMonth[] {
         hours: open ? (SPECIAL_HOURS[iso] ?? heuresDu(iso)) : undefined,
         vacances,
         aVolonte,
-        // Hors vacances, la promo ne court que jeudi/vendredi ; en vacances, tous les jours.
+        // Hors vacances, la promo ne court que jeudi/vendredi (fermés dès le 5/11) ; en vacances, tous les jours d'ouverture.
         promo:
           SHOW_PROMOS &&
-          !ferme &&
+          open &&
           !event &&
           promoRanges.some((r) => inRange(iso, r)) &&
           (vacances || weekdayIdx === 3 || weekdayIdx === 4),

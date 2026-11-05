@@ -71,11 +71,11 @@ export function localBusinessJsonLd() {
         validFrom: "2026-09-01",
         validThrough: "2026-11-01",
       },
-      // Dès le 2/11/2026 : mercredi → dimanche, 13 h – 18 h (lib/hours.ts).
+      // Dès le 2/11/2026 : mercredi, samedi et dimanche, 14 h – 18 h (lib/hours.ts).
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        opens: "13:00",
+        dayOfWeek: ["Wednesday", "Saturday", "Sunday"],
+        opens: "14:00",
         closes: "18:00",
         validFrom: "2026-11-02",
         validThrough: "2026-12-31",
