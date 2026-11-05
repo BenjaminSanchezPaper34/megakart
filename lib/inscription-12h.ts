@@ -19,7 +19,7 @@ export const DOUZE_H = {
   essais: "10h30",
   /** Repas des pilotes compris (petit-déjeuner, midi, goûter, soir). Tarif par équipe, de 2 à 6 pilotes. */
   prixEquipe: 1500,
-  /** Emma et Benjamin, 04/11 : acompte par virement sous 7 jours, solde sur place. Le RIB vit dans les
+  /** Emma et Benjamin, 04/11 : acompte par virement avant le 19/11, solde sur place. Le RIB vit dans les
    *  variables Vercel (DOUZE_H_TITULAIRE, DOUZE_H_IBAN, DOUZE_H_BIC) : ce dépôt est public. */
   acompte: 300,
   /** Acompte rendu si l'équipe annule avant cette date. */

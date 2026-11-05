@@ -232,11 +232,13 @@ function encartAcompte(team: string) {
   const virement = iban
     ? `<br>Titulaire : <strong style="color:#111">${esc(titulaire ?? "")}</strong><br>IBAN : <strong style="color:#111;white-space:nowrap">${esc(iban)}</strong><br>BIC : <strong style="color:#111">${esc(bic ?? "")}</strong><br>Référence à indiquer : <strong style="color:#111">12H ${esc(team)}</strong>`
     : ` Le circuit vous transmet le RIB en confirmant votre inscription.`;
+  const avantLimite = new Date().toISOString().slice(0, 10) < DOUZE_H.remboursableAvant;
+  const delai = avantLimite ? "avant le 19 novembre" : "dans les prochains jours";
   const remboursable =
-    new Date().toISOString().slice(0, 10) < DOUZE_H.remboursableAvant
+    avantLimite
       ? `<br><br><strong style="color:#111">Votre acompte est remboursable :</strong> si vous annulez avant le 19 novembre, nous vous rendons les ${DOUZE_H.acompte} €.`
       : "";
-  return encart(`<strong style="color:#111">Pour bloquer votre place</strong> : un acompte de ${DOUZE_H.acompte} €, à régler par virement sous 7 jours.${virement}<br><br>Le solde de ${soldeEquipe().toLocaleString("fr-FR").replace(/\s/g, " ")} € se règle sur place le jour de la course.${remboursable}<br><br><strong style="color:#111">Un pilote en moins n'est pas une annulation.</strong> Tant qu'au moins 2 pilotes de l'équipe sont là le jour J et règlent le solde, votre place est maintenue.`);
+  return encart(`<strong style="color:#111">Pour bloquer votre place</strong> : un acompte de ${DOUZE_H.acompte} €, à régler par virement ${delai}.${virement}<br><br>Le solde de ${soldeEquipe().toLocaleString("fr-FR").replace(/\s/g, " ")} € se règle sur place le jour de la course.${remboursable}<br><br><strong style="color:#111">Un pilote en moins n'est pas une annulation.</strong> Tant qu'au moins 2 pilotes de l'équipe sont là le jour J et règlent le solde, votre place est maintenue.`);
 }
 
 async function envoyerDouzeH(resend: Resend, raw: unknown) {
