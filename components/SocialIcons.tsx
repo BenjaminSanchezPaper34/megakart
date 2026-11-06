@@ -21,6 +21,11 @@ const ICONS = {
       <path fill="currentColor" d="M16.6 3c.3 2.2 1.6 3.7 3.9 3.9v2.6c-1.4.1-2.7-.3-3.9-1.1v5.9c0 3.7-2.9 6-6.1 5.6-2.5-.3-4.4-2.4-4.4-5 0-3.1 2.8-5.5 6-5v2.7c-1.5-.4-3.2.6-3.2 2.2 0 1.3 1 2.3 2.3 2.3 1.4 0 2.4-1 2.4-2.6V3h3z" />
     </svg>
   ),
+  LinkedIn: (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={ICON}>
+      <path fill="currentColor" d="M6.9 8.8H3.6V20h3.3V8.8zM5.2 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8zM20.4 13.6c0-3-1.6-5-4.2-5-1.5 0-2.5.8-3 1.6V8.8H10V20h3.3v-5.6c0-1.5.7-2.8 2.2-2.8s2 1.3 2 2.8V20h3v-6.4z" />
+    </svg>
+  ),
 } as const;
 
 /**
@@ -32,6 +37,7 @@ export default function SocialIcons({ className = "", size = "md" }: { className
     { label: "Instagram", href: SITE.social.instagram },
     { label: "Facebook", href: SITE.social.facebook },
     { label: "TikTok", href: SITE.social.tiktok },
+    { label: "LinkedIn", href: SITE.social.linkedin },
   ].filter((l) => l.href) as { label: keyof typeof ICONS; href: string }[];
   return (
     <ul className={`flex items-center ${lg ? "gap-3" : "gap-0"} ${className}`}>
