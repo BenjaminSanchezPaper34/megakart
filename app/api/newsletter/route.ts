@@ -7,7 +7,7 @@ export const runtime = "nodejs";
  * Inscription à la newsletter (section de l'accueil et pop-up de repli).
  * Le visiteur choisit ses courses : « adultes » abonne aux topics 100 Tours,
  * Plein Gaz et 12 Heures, « enfants » au topic Courses Enfants. Le contact
- * entre dans le segment « Tous les participants » (lib/contacts.ts).
+ * entre dans le segment des intéressés, à part des participants (lib/contacts.ts).
  */
 const ADULTES: Evenement[] = ["100-tours", "plein-gaz", "12-heures"];
 
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
   if (topics.length === 0)
     return NextResponse.json({ ok: false, error: "Choisissez au moins un type de course." }, { status: 422 });
 
-  const ok = await ajouterContact(email, "", topics);
+  const ok = await ajouterContact(email, "", topics, "interesses");
   return ok
     ? NextResponse.json({ ok: true })
     : NextResponse.json({ ok: false, error: "Inscription impossible pour le moment, réessayez plus tard." }, { status: 502 });

@@ -8,11 +8,17 @@
  *
  * Jamais bloquant : une erreur ici est journalisée, l'inscription part quand
  * même. Un contact déjà désinscrit le reste (on ne touche pas à `unsubscribed`).
- * Le formulaire newsletter de l'accueil (/api/newsletter) passe par ici aussi.
+ * Le formulaire newsletter (/api/newsletter) passe par ici aussi, mais range ses
+ * inscrits à part : « Tous les participants » = ceux qui ont déjà couru,
+ * « Newsletter (site) » = les intéressés (Benjamin, 14/11). Un intéressé qui
+ * s'inscrit ensuite à une course passe chez les participants.
  */
 const API = "https://api.resend.com";
 
 const SEGMENT_TOUS = "94f6b631-f4bc-43be-8db2-c3decc03f939";
+/** Segment « MegaKart · Newsletter (site) ». À créer quand une place se libère (plafond de
+ *  3 segments) ; en attendant, les intéressés restent chez les participants. */
+const SEGMENT_INTERESSES: string | null = null;
 
 export const TOPICS = {
   "100-tours": "5cf5dd0b-b2fe-429a-a468-8e2e767428ec",
@@ -27,7 +33,9 @@ export type Evenement = keyof typeof TOPICS;
 export async function ajouterContact(
   email: string,
   nom: string,
-  evenements: Evenement | Evenement[]
+  evenements: Evenement | Evenement[],
+  /** « interesses » pour le formulaire newsletter, sinon participant à une course. */
+  liste: "participants" | "interesses" = "participants"
 ): Promise<boolean> {
   // Clé « full access » dédiée : la clé d'envoi du site ne gère pas les contacts.
   const key = process.env.RESEND_CONTACTS_KEY;
@@ -37,6 +45,7 @@ export async function ajouterContact(
   const topics = [evenements].flat().map((e) => ({ id: TOPICS[e], subscription: "opt_in" }));
 
   const enc = encodeURIComponent(adresse);
+  const segment = liste === "interesses" && SEGMENT_INTERESSES ? SEGMENT_INTERESSES : SEGMENT_TOUS;
   try {
     // POST /contacts sur une adresse connue écrase `unsubscribed` à false (testé le
     // 21/10/2026) : on regarde donc d'abord si le contact existe.
@@ -48,14 +57,17 @@ export async function ajouterContact(
         body: JSON.stringify({
           email: adresse,
           first_name: nom,
-          segments: [{ id: SEGMENT_TOUS }],
+          segments: [{ id: segment }],
           topics,
         }),
       });
       return res.ok;
     }
-    // Contact déjà connu : on ajoute seulement le segment et le topic.
-    await fetch(`${API}/contacts/${enc}/segments/${SEGMENT_TOUS}`, { method: "POST", headers });
+    // Contact déjà connu : on ajoute seulement le segment et le topic. Un intéressé
+    // qui court devient participant : il quitte la liste newsletter.
+    await fetch(`${API}/contacts/${enc}/segments/${segment}`, { method: "POST", headers });
+    if (segment === SEGMENT_TOUS && SEGMENT_INTERESSES)
+      await fetch(`${API}/contacts/${enc}/segments/${SEGMENT_INTERESSES}`, { method: "DELETE", headers });
     const res = await fetch(`${API}/contacts/${enc}/topics`, { method: "PATCH", headers, body: JSON.stringify(topics) });
     return res.ok;
   } catch (err) {
