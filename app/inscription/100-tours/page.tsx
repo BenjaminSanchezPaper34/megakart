@@ -6,7 +6,7 @@ import { AGENDA, datesOuvertes, formatDate, getOperation } from "@/lib/agenda";
 import { CENT_TOURS_SLUG } from "@/lib/inscription";
 
 /* Les dates passées disparaissent d'elles-mêmes : page régénérée chaque jour. */
-export const revalidate = 86400;
+export const revalidate = 3600; // une heure : une date passée disparaît dans l'heure, pas le lendemain
 
 export const metadata: Metadata = {
   title: "Inscrire mon équipe aux 100 Tours",

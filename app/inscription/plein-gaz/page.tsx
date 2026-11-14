@@ -6,7 +6,7 @@ import { datesOuvertes, formatDate, getOperation } from "@/lib/agenda";
 import { PLEIN_GAZ, PLEIN_GAZ_SLUG } from "@/lib/inscription-plein-gaz";
 
 /* Les dates passées disparaissent d'elles-mêmes : page régénérée chaque jour. */
-export const revalidate = 86400;
+export const revalidate = 3600; // une heure : une date passée disparaît dans l'heure, pas le lendemain
 
 export const metadata: Metadata = {
   title: "Inscrire mes pilotes au Trophée Plein Gaz",

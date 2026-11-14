@@ -6,7 +6,7 @@ import { datesOuvertes, formatDate, getOperation } from "@/lib/agenda";
 import { COURSE_ENFANT_SLUG, ENFANT } from "@/lib/inscription-enfant";
 
 /* Les dates passées disparaissent d'elles-mêmes : page régénérée chaque jour. */
-export const revalidate = 86400;
+export const revalidate = 3600; // une heure : une date passée disparaît dans l'heure, pas le lendemain
 
 export const metadata: Metadata = {
   title: "Inscrire mon enfant à la Journée des enfants",

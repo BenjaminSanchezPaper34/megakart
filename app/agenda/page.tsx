@@ -14,12 +14,17 @@ import {
 } from "@/lib/agenda";
 
 
+/** Date du jour à Vias (le serveur tourne en UTC : à 0 h 30 à Paris, il est encore la veille). */
+function jourParis() {
+  return new Intl.DateTimeFormat("fr-CA", { timeZone: "Europe/Paris" }).format(new Date());
+}
+
 /*
  * Événements JSON-LD : uniquement les dates confirmées à jour unique ET à venir.
- * Calculé au rendu (page régénérée chaque jour), pas au chargement du module :
+ * Calculé au rendu (page régénérée toutes les heures), pas au chargement du module :
  * une course passée sort du schéma d'elle-même, l'agenda visible la garde grisée.
  */
-function jsonldEvents(today = new Date().toISOString().slice(0, 10)) {
+function jsonldEvents(today = jourParis()) {
   return AGENDA.filter(
     (a) => a.status === "confirme" && !a.endDate && a.date >= today,
   ).map((a) => {
@@ -45,8 +50,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/agenda" },
 };
 
-/* Dates passées grisées : la page est régénérée chaque jour. */
-export const revalidate = 86400;
+/* Dates passées grisées : la page est régénérée toutes les heures. */
+export const revalidate = 3600;
 
 export default function AgendaPage() {
   return (
