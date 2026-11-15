@@ -16,7 +16,7 @@ import { campagnesDuJour } from "@/lib/popup";
  */
 export default function EventPopupAnnonce() {
   const present = (p: string) => existsSync(join(process.cwd(), "public", p));
-  const campagnes = campagnesDuJour(new Date().toISOString().slice(0, 10)).filter(
+  const campagnes = campagnesDuJour(new Date().toLocaleDateString("fr-CA")).filter(
     (c) => present(c.wide) && present(c.tall)
   );
   if (campagnes.length === 0) return <NewsletterPopup />;

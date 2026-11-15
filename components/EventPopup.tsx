@@ -49,7 +49,7 @@ export default function EventPopup({ campagnes }: Props) {
     // Jamais sur une page d'inscription, la sienne ou celle d'une autre course :
     // un parent venu inscrire son enfant n'a pas à se voir vendre les 100 Tours.
     if (pathname.startsWith("/inscription/")) return;
-    const today = new Date().toISOString().slice(0, 10);
+    const today = new Date().toLocaleDateString("fr-CA");
     let choix: Campagne | undefined;
     try {
       // La première campagne en cours, pas encore fermée, qui ne pointe pas vers la page affichée.
@@ -57,7 +57,7 @@ export default function EventPopup({ campagnes }: Props) {
       if (sessionStorage.getItem(VU_CETTE_VISITE)) return;
       choix = campagnes.find(
         // `des` se vérifie ici, côté visiteur : la page est construite à l'avance, la date du jour non.
-        (c) => today < c.until && (!c.des || today >= c.des) && pathname !== c.href && localStorage.getItem(c.key) !== "closed"
+        (c) => today <= c.until && (!c.des || today >= c.des) && pathname !== c.href && localStorage.getItem(c.key) !== "closed"
       );
     } catch {
       // Navigateur sans stockage : on n'insiste pas, plutôt que de

@@ -129,11 +129,12 @@ export const FORMATS = {
  * encore fermée : une fois la Course Enfants fermée, il verra les 12 Heures
  * à la visite suivante (choix Benjamin 20/10).
  */
+/** Le jour même de la course, la campagne reste affichée (Benjamin, 15/11). */
 export function campagnesDuJour(today: string): (PopupCampagne & { until: string })[] {
   const liste: (PopupCampagne & { until: string })[] = [];
   for (const c of CAMPAGNES) {
     const prochaine = AGENDA.filter(
-      (a) => a.op === c.op && a.status === "confirme" && !a.endDate && a.date > today && a.places !== 0 && (!c.dates || c.dates.includes(a.date))
+      (a) => a.op === c.op && a.status === "confirme" && !a.endDate && a.date >= today && a.places !== 0 && (!c.dates || c.dates.includes(a.date))
     ).map((a) => a.date).sort()[0];
     if (prochaine) liste.push({ ...c, until: prochaine });
   }
