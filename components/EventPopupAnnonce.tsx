@@ -15,7 +15,12 @@ import { campagnesDuJour } from "@/lib/popup";
  * (choix Benjamin 21/10).
  */
 export default function EventPopupAnnonce() {
-  const present = (p: string) => existsSync(join(process.cwd(), "public", p));
+  // Au build, `public/` est sur le disque et on vérifie les visuels. Lors d'une régénération
+  // en ligne (pages à revalidate), le dossier est absent du serveur : on fait alors confiance
+  // à la liste, déjà vérifiée au build, sinon le pop-up retombait sur la newsletter.
+  const racine = join(process.cwd(), "public");
+  const verifiable = existsSync(racine);
+  const present = (p: string) => !verifiable || existsSync(join(racine, p));
   const campagnes = campagnesDuJour(new Date().toLocaleDateString("fr-CA")).filter(
     (c) => present(c.wide) && present(c.tall)
   );
