@@ -21,6 +21,8 @@ export type Kart = {
   ageLabel?: string;
   /** Repère de prix affiché sous le tarif */
   priceHint?: string;
+  /** Tarif étudiant (université), sur présentation de la carte étudiante */
+  studentPrice?: number;
   accent: "yellow" | "red" | "white";
 };
 
@@ -79,12 +81,14 @@ export const KARTS: Kart[] = [
     name: "Kart 280cc",
     tagline: "L'entrée dans la cour des grands",
     price: 17,
+    studentPrice: 14,
     session: "8 min",
     age: "Dès 14 ans",
     minAge: 14,
     minHeight: 160,
     engine: "280 cm³ · 4 temps",
     image: "sodi/uniforme-280.webp",
+    model: "Sodi RT8",
     priceHint: "Le point d'entrée des karts adultes",
     note: "Taille minimum : 1,60 m.",
     accent: "white",
@@ -94,6 +98,7 @@ export const KARTS: Kart[] = [
     name: "Kart 390cc",
     tagline: "Puissance et adhérence : le kart des habitués",
     price: 22,
+    studentPrice: 17,
     session: "8 min",
     age: "Adultes",
     minAge: 18,

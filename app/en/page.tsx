@@ -96,6 +96,9 @@ export default function EnglishPage() {
               <p className="display shrink-0 text-3xl text-chalk">
                 {k.price}€
                 <span className="ml-1 text-sm text-chalk-60">/ {k.session.replace("min", "min")}</span>
+                {k.studentPrice && (
+                  <span className="mt-1 block text-right text-sm text-flag">Students: {k.studentPrice}€</span>
+                )}
               </p>
             </article>
           ))}

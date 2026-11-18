@@ -56,6 +56,12 @@ export default function KartWidget({ kart }: { kart: Kart }) {
         </p>
         <h3 className="display mt-3 text-2xl text-chalk">{kart.name}</h3>
         <p className="mt-1 max-w-[55%] text-sm text-chalk-60">{kart.age}</p>
+        {kart.studentPrice && (
+          <p className="mt-2 max-w-[55%] text-sm font-semibold text-flag">
+            Étudiant : {kart.studentPrice} €
+            <span className="block font-normal text-chalk-60">sur carte étudiante</span>
+          </p>
+        )}
       </div>
 
       <div className="relative mt-4 flex items-center justify-between gap-3 text-sm">

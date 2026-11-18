@@ -13,6 +13,10 @@ export const FAQ = [
     a: "De 5€ (Baby Kart, 5 min) à 45€ (250 RX 30cv compétition, 8 min). Le kart adulte standard 280cc est à 17€ et le 390cc à 22€ les 8 minutes.",
   },
   {
+    q: "Y a-t-il un tarif étudiant ?",
+    a: "Oui, pour les étudiants d'université, sur présentation de la carte étudiante : le 280cc (Sodi RT8) passe à 14€ au lieu de 17€, et le 390cc (Sodi RT10) à 17€ au lieu de 22€.",
+  },
+  {
     q: "Quels moyens de paiement sont acceptés ?",
     a: "Cartes bancaires, espèces et chèques-vacances.",
   },

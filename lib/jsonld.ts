@@ -99,12 +99,21 @@ export function localBusinessJsonLd() {
         validThrough: d,
       })),
     ],
-    makesOffer: KARTS.map((k) => ({
-      "@type": "Offer",
-      name: `Session ${k.name} (${k.session})`,
-      price: k.price,
-      priceCurrency: "EUR",
-    })),
+    makesOffer: [
+      ...KARTS.map((k) => ({
+        "@type": "Offer",
+        name: `Session ${k.name} (${k.session})`,
+        price: k.price,
+        priceCurrency: "EUR",
+      })),
+      // Tarif étudiant (université), sur présentation de la carte étudiante
+      ...KARTS.filter((k) => k.studentPrice).map((k) => ({
+        "@type": "Offer",
+        name: `Session ${k.name} (${k.session}), tarif étudiant sur carte étudiante`,
+        price: k.studentPrice,
+        priceCurrency: "EUR",
+      })),
+    ],
   };
 }
 
