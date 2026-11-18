@@ -58,6 +58,18 @@ export const CAMPAGNES: PopupCampagne[] = [
     dates: ["2026-10-18"],
   },
   {
+    // Les 100 Tours du 6/12 : affiche datée 3:4 livrée le 18/11.
+    op: "100-tours",
+    href: "/inscription/100-tours#formulaire",
+    cta: "Inscrire mon équipe",
+    alt: "Course Les 100 Tours, dimanche 6 décembre chez MegaKart : trois pilotes casqués derrière un kart Sodi RT10. Infos et inscriptions.",
+    wide: "/images/popup/100-tours-2026-12-06.jpg",
+    tall: "/images/popup/100-tours-2026-12-06.jpg",
+    formats: { wide: { width: 1500, height: 2000 }, tall: { width: 1500, height: 2000 } },
+    dates: ["2026-12-06"],
+    key: "megakart-popup-100-tours-2026-12-06",
+  },
+  {
     // Un seul visuel, le post 3:4 : sur ordinateur il s'affiche en portrait
     // (la boîte se resserre), sur mobile c'est le format natif.
     op: "course-enfant",

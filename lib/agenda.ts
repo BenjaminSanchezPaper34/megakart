@@ -296,7 +296,14 @@ export const AGENDA: AgendaItem[] = [
     affiche: { src: "/images/popup/journee-enfants-2026-11-08-v3.jpg", width: 1500, height: 2000 },
   },
   { date: "2026-11-15", op: "plein-gaz", label: "Trophée Plein Gaz", status: "confirme", badge: "plus que 7 places" }, // Benjamin, 02/11 : 7 places restantes // reporté du 1/11 (Benjamin, 14/10)
-  { date: "2026-12-06", op: "100-tours", label: "Les 100 Tours", status: "confirme" },
+  {
+    date: "2026-12-06",
+    op: "100-tours",
+    label: "Les 100 Tours",
+    status: "confirme",
+    // Affiche datée livrée par Benjamin le 18/11.
+    affiche: { src: "/images/popup/100-tours-2026-12-06.jpg", width: 1500, height: 2000 },
+  },
   {
     date: "2026-12-13",
     op: "course-enfant",
