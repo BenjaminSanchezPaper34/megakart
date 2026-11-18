@@ -62,8 +62,9 @@ export default function HomePage() {
               <span className="text-race">plein gaz.</span>
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-chalk md:text-xl">
-              Le circuit de karting outdoor de Vias-plage, homologué FFSA.
-              Dès 3 ans, sans réservation : on arrive, on s'équipe, on roule.
+              Le circuit de karting outdoor de Vias-plage, homologué FFSA, à
+              20 min de Béziers. Dès 3 ans, sans réservation : on arrive, on
+              s'équipe, on roule.
             </p>
             <div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap md:mt-9 md:gap-4">
               <Link href="/#flotte" className="btn btn-race justify-center">

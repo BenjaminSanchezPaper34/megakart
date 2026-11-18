@@ -97,7 +97,7 @@ const EVENTS = [
     facts: [
       { emoji: "👥", text: "Privatisation jusqu'à 60 personnes" },
       { emoji: "⏱️", text: "Classements par équipe, chrono Apex Timing" },
-      { emoji: "📍", text: "À 15 min de Béziers et d'Agde" },
+      { emoji: "📍", text: "À 10 min d'Agde, 20 min de Béziers" },
     ],
   },
 ];

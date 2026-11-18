@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s · MegaKart Vias",
   },
   description:
-    "Circuit de karting outdoor de 1000 m à Vias-plage (Hérault), homologué FFSA. Karts dès 3 ans, sessions sans réservation, anniversaires, EVG/EVJF et team building. Ouvert 7j/7 en été.",
+    "Circuit de karting outdoor de 1000 m à Vias-plage, à 10 min d'Agde et 20 min de Béziers. Homologué FFSA, karts dès 3 ans sans réservation, anniversaires, EVG/EVJF et team building.",
   robots: PRE_PROD ? { index: false, follow: false } : { index: true, follow: true },
   alternates: {
     canonical: "/",
