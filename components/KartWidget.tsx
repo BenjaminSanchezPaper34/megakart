@@ -59,7 +59,7 @@ export default function KartWidget({ kart }: { kart: Kart }) {
         {kart.studentPrice && (
           <p className="mt-2 max-w-[55%] text-sm font-semibold text-flag">
             Étudiant : {kart.studentPrice} €
-            <span className="block font-normal text-chalk-60">sur carte étudiante</span>
+            <span className="block font-normal text-chalk-60">{"sur présentation de la carte d'étudiant"}</span>
           </p>
         )}
       </div>

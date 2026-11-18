@@ -21,7 +21,7 @@ export type Kart = {
   ageLabel?: string;
   /** Repère de prix affiché sous le tarif */
   priceHint?: string;
-  /** Tarif étudiant (université), sur présentation de la carte étudiante */
+  /** Tarif étudiant (université), sur présentation de la carte d'étudiant */
   studentPrice?: number;
   accent: "yellow" | "red" | "white";
 };

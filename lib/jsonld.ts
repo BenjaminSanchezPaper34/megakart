@@ -106,10 +106,10 @@ export function localBusinessJsonLd() {
         price: k.price,
         priceCurrency: "EUR",
       })),
-      // Tarif étudiant (université), sur présentation de la carte étudiante
+      // Tarif étudiant (université), sur présentation de la carte d'étudiant
       ...KARTS.filter((k) => k.studentPrice).map((k) => ({
         "@type": "Offer",
-        name: `Session ${k.name} (${k.session}), tarif étudiant sur carte étudiante`,
+        name: `Session ${k.name} (${k.session}), tarif étudiant sur présentation de la carte d'étudiant`,
         price: k.studentPrice,
         priceCurrency: "EUR",
       })),

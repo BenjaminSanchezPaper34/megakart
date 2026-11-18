@@ -14,7 +14,7 @@ export const FAQ = [
   },
   {
     q: "Y a-t-il un tarif étudiant ?",
-    a: "Oui, pour les étudiants d'université, sur présentation de la carte étudiante : le 280cc (Sodi RT8) passe à 14€ au lieu de 17€, et le 390cc (Sodi RT10) à 17€ au lieu de 22€.",
+    a: "Oui, pour les étudiants d'université, sur présentation de la carte d'étudiant : le 280cc (Sodi RT8) passe à 14€ au lieu de 17€, et le 390cc (Sodi RT10) à 17€ au lieu de 22€.",
   },
   {
     q: "Quels moyens de paiement sont acceptés ?",
