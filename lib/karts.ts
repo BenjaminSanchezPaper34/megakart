@@ -54,7 +54,7 @@ export const KARTS: Kart[] = [
     minHeight: 130,
     engine: "160 cm³ · 4 temps",
     image: "sodi/sodi-lr6.webp",
-    model: "Sodi LR6",
+    model: "Sodi LR5",
     priceHint: "L'étape après le Baby Kart",
     note: "Taille minimum : 1,30 m.",
     accent: "white",
