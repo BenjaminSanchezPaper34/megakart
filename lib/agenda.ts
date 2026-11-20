@@ -263,6 +263,8 @@ export type AgendaItem = {
   places?: number;
   /** Annonce courte affichée sur la date (agenda, page d'inscription). */
   badge?: string;
+  /** Heure de départ (HH:MM, heure de Paris), reprise dans le JSON-LD Event. */
+  heure?: string;
   /** Affiche propre à cette date (visuel daté) ; sinon celle de l'opération. */
   affiche?: { src: string; width: number; height: number };
 };
@@ -301,6 +303,7 @@ export const AGENDA: AgendaItem[] = [
     op: "100-tours",
     label: "Les 100 Tours",
     status: "confirme",
+    heure: "10:15", // équipe, 20/11 : le matin, rendez-vous 10h, départ 10h15
     // Affiche datée livrée par Benjamin le 18/11.
     affiche: { src: "/images/popup/100-tours-2026-12-06.jpg", width: 1500, height: 2000 },
   },
@@ -311,7 +314,7 @@ export const AGENDA: AgendaItem[] = [
     status: "confirme",
     affiche: { src: "/images/popup/journee-enfants-2026-12-13-v2.jpg", width: 1500, height: 2000 },
   },
-  { date: "2026-12-19", op: "12-heures", label: "Les 12 Heures", status: "confirme" },
+  { date: "2026-12-19", op: "12-heures", label: "Les 12 Heures", status: "confirme", heure: "12:00" },
 ];
 
 /**

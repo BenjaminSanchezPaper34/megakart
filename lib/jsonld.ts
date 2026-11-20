@@ -159,6 +159,8 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
 export function agendaJsonLd(
   items: {
     date: string;
+    /** Heure de départ HH:MM (Paris, heure d'hiver pour les dates de fin d'année). */
+    heure?: string;
     name: string;
     slug?: string;
     /** Page de la course (sinon l'agenda). */
@@ -203,7 +205,7 @@ export function agendaJsonLd(
         item: {
           "@type": "Event",
           name: `${e.name} — MegaKart Vias`,
-          startDate: e.date,
+          startDate: e.heure ? `${e.date}T${e.heure}:00+01:00` : e.date,
           // Toutes ces dates sont des journées uniques.
           endDate: e.date,
           eventStatus: "https://schema.org/EventScheduled",

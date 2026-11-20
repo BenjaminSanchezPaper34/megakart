@@ -31,6 +31,7 @@ function jsonldEvents(today = jourParis()) {
     const op = a.op ? getOperation(a.op) : undefined;
     return {
       date: a.date,
+      heure: a.heure,
       name: a.label ?? op?.name ?? "",
       slug: a.op,
       path: op ? pageCourse(op) : undefined,
