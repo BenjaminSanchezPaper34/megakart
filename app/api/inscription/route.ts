@@ -35,6 +35,8 @@ export const runtime = "nodejs";
  */
 const FROM = process.env.MAIL_FROM ?? `MegaKart <inscriptions@megakart.fr>`;
 const TO = process.env.MAIL_TO ?? SITE.email;
+/** Copie cachée des notifications internes (Benjamin, 20/11), jamais sur les confirmations aux inscrits. */
+const BCC = process.env.MAIL_BCC || undefined;
 
 const esc = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
@@ -88,7 +90,7 @@ async function envoyerCentTours(resend: Resend, raw: unknown) {
   const t = teamPricing(d.teamSize);
 
   await resend.emails.send({
-    from: FROM, to: TO, replyTo: d.captain.email,
+    from: FROM, to: TO, bcc: BCC, replyTo: d.captain.email,
     subject: `Inscription 100 Tours · ${dateLabel} · équipe ${d.team}`,
     html: shell(`<h2 style="margin:0 0 6px;font-size:22px">Nouvelle équipe pour les 100 Tours</h2>
       <p style="margin:0 0 14px;color:#555">Reçue depuis le formulaire du site.</p>
@@ -140,7 +142,7 @@ async function envoyerEnfant(resend: Resend, raw: unknown) {
   const prenoms = d.enfants.map((e) => e.prenom).join(" et ");
 
   await resend.emails.send({
-    from: FROM, to: TO, replyTo: d.parent.email,
+    from: FROM, to: TO, bcc: BCC, replyTo: d.parent.email,
     subject: `Inscription Journée des enfants · ${dateLabel} · ${prenoms} (${d.enfants.length})`,
     html: shell(`<h2 style="margin:0 0 6px;font-size:22px">Nouvelle inscription à la Journée des enfants</h2>
       <p style="margin:0 0 14px;color:#555">Reçue depuis le formulaire du site. Âge et taille ci-dessous sont déclarés par le parent : à vérifier à l'accueil.</p>
@@ -190,7 +192,7 @@ async function envoyerPleinGaz(resend: Resend, raw: unknown) {
   const prenoms = d.pilotes.map((p) => p.prenom).join(" et ");
 
   await resend.emails.send({
-    from: FROM, to: TO, replyTo: d.responsable.email,
+    from: FROM, to: TO, bcc: BCC, replyTo: d.responsable.email,
     subject: `Inscription Trophée Plein Gaz · ${dateLabel} · ${prenoms} (${d.pilotes.length})`,
     html: shell(`<h2 style="margin:0 0 6px;font-size:22px">Nouvelle inscription au Trophée Plein Gaz</h2>
       <p style="margin:0 0 14px;color:#555">Reçue depuis le formulaire du site.</p>
@@ -250,7 +252,7 @@ async function envoyerDouzeH(resend: Resend, raw: unknown) {
   const dateLabel = `${f.weekday} ${f.day} ${f.monthFull}`;
 
   await resend.emails.send({
-    from: FROM, to: TO, replyTo: d.captain.email,
+    from: FROM, to: TO, bcc: BCC, replyTo: d.captain.email,
     subject: `Inscription 12 Heures · équipe ${d.team} (${d.nbPilotes} pilotes)${d.societe ? ` · ${d.societe}` : ""}`,
     html: shell(`<h2 style="margin:0 0 6px;font-size:22px">Nouvelle équipe pour les 12 Heures</h2>
       <p style="margin:0 0 14px;color:#555">Reçue depuis le formulaire du site. Pensez à mettre à jour le compteur de places (lib/inscription-12h.ts) une fois l'équipe confirmée. Acompte de ${DOUZE_H.acompte} € en attente : le RIB part dans l'e-mail au capitaine.</p>
@@ -294,7 +296,7 @@ async function envoyerEvenement(resend: Resend, raw: unknown) {
   const dateLabel = `${f.weekday} ${f.day} ${f.monthFull}`;
 
   await resend.emails.send({
-    from: FROM, to: TO, replyTo: d.contact.email,
+    from: FROM, to: TO, bcc: BCC, replyTo: d.contact.email,
     subject: `Demande ${formuleLabel} · ${dateLabel} · ${d.participants} pers. · ${d.contact.name}`,
     html: shell(`<h2 style="margin:0 0 6px;font-size:22px">Nouvelle demande d'événement : ${esc(formuleLabel)}</h2>
       <p style="margin:0 0 14px;color:#555">Reçue depuis le formulaire de la page Événements.</p>
