@@ -246,19 +246,19 @@ export default function HomePage() {
             {
               emoji: "🎂",
               title: "Anniversaires",
-              href: "/evenements#anniversaire",
+              href: "/anniversaire",
               text: "Une course d'endurance à son nom, le podium, la terrasse ombragée pour le gâteau : l'anniversaire dont on parle encore à la rentrée. Dès 7 participants.",
             },
             {
               emoji: "🥂",
               title: "EVG · EVJF",
-              href: "/evenements#evg-evjf",
+              href: "/evg-evjf",
               text: "Avant le grand oui, un grand prix. Défis sur mesure, grille de départ complète et remise de prix pour enterrer une vie de célibataire à pleine vitesse.",
             },
             {
               emoji: "🏆",
               title: "Entreprises & CE",
-              href: "/evenements#entreprise",
+              href: "/team-building",
               text: "Le team building qui met tout le monde d'accord : mêmes machines, même piste, un seul chrono. Formats course ou endurance, privatisation possible.",
             },
           ].map((e) => (

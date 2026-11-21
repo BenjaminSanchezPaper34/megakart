@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/jsonld";
 import Faq from "@/components/system/Faq";
@@ -54,6 +55,8 @@ const FAQ = [
 const EVENTS = [
   {
     id: "anniversaire",
+    page: "/anniversaire",
+    more: "Tout sur les anniversaires",
     kicker: "Le grand jour",
     title: "Anniversaires",
     text: [
@@ -72,6 +75,8 @@ const EVENTS = [
   },
   {
     id: "evg-evjf",
+    page: "/evg-evjf",
+    more: "Tout sur les EVG et EVJF",
     kicker: "Avant le grand oui",
     title: "EVG & EVJF",
     text: [
@@ -87,6 +92,8 @@ const EVENTS = [
   },
   {
     id: "entreprise",
+    page: "/team-building",
+    more: "Tout sur le team building",
     kicker: "Team building",
     title: "Entreprises & CE",
     text: [
@@ -139,9 +146,15 @@ export default function EvenementsPage() {
                   </p>
                 ))}
                 {/* Pré-coche la formule dans le formulaire du bas (écouté par DemandeEvenement). */}
-                <a href="#demande" data-formule={e.id} className="btn btn-race mt-8">
-                  Demander un devis
-                </a>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a href="#demande" data-formule={e.id} className="btn btn-race">
+                    Demander un devis
+                  </a>
+                  {/* Pages dédiées (21/11) : détail, déroulé, FAQ par formule. */}
+                  <Link href={e.page} className="btn btn-ghost">
+                    {e.more}
+                  </Link>
+                </div>
               </div>
               <EmojiList items={e.facts} />
             </div>

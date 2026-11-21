@@ -24,7 +24,7 @@ const LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-const EVENT_PATHS = ["/evenements"];
+const EVENT_PATHS = ["/evenements", "/anniversaire", "/evg-evjf", "/team-building"];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);

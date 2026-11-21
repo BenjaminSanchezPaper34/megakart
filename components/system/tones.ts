@@ -2,11 +2,14 @@ import type { Operation } from "@/lib/agenda";
 
 /**
  * Couleurs des bons plans, alignées sur le calendrier de l'agenda :
- * mercredi à volonté = jaune, 2 tickets = 1 offert = bleu, dimanche = blanc.
+ * mercredi à volonté = jaune, 2 tickets = 1 offert = bleu, dimanche = blanc,
+ * tarif étudiant = rouge (offre permanente, hors calendrier).
  */
 export function dealSkin(deal: Operation) {
   if (deal.slug === "2-plus-1")
     return { card: "bg-promo text-white", soft: "text-white/80", rule: "border-white/30", label: "bg-white text-promo" };
+  if (deal.slug === "etudiant")
+    return { card: "bg-race text-white", soft: "text-white/80", rule: "border-white/30", label: "bg-white text-race" };
   if (deal.accent === "flag")
     return { card: "bg-flag text-asphalt", soft: "text-asphalt/75", rule: "border-asphalt/20", label: "bg-asphalt text-flag" };
   return { card: "bg-chalk text-asphalt", soft: "text-asphalt/70", rule: "border-asphalt/15", label: "bg-asphalt text-chalk" };

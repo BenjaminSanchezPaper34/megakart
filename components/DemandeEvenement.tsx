@@ -37,8 +37,9 @@ function Field({ id, label, error, hint, children }: { id: string; label: string
   );
 }
 
-export default function DemandeEvenement() {
-  const [formule, setFormule] = useState<FormuleId | "">("");
+/** `formuleInitiale` : page dédiée à une formule (ex. /anniversaire), elle arrive cochée. */
+export default function DemandeEvenement({ formuleInitiale }: { formuleInitiale?: FormuleId } = {}) {
+  const [formule, setFormule] = useState<FormuleId | "">(formuleInitiale ?? "");
   const [date, setDate] = useState("");
   const [flexible, setFlexible] = useState(false);
   const [participants, setParticipants] = useState("");

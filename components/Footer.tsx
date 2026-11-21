@@ -37,9 +37,9 @@ const PLAN = [
   {
     title: "Fêter",
     links: [
-      { href: "/evenements#anniversaire", label: "Anniversaires" },
-      { href: "/evenements#evg-evjf", label: "EVG · EVJF" },
-      { href: "/evenements#entreprise", label: "Entreprises & CE" },
+      { href: "/anniversaire", label: "Anniversaires" },
+      { href: "/evg-evjf", label: "EVG · EVJF" },
+      { href: "/team-building", label: "Entreprises & CE" },
       { href: "/contact", label: "Contact" },
     ],
   },

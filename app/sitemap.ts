@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/site";
 import { getGaleries } from "@/lib/galeries";
 
 // Mettre à jour la date à chaque modification de contenu d'une page.
-const LASTMOD = "2026-10-27";
+const LASTMOD = "2026-11-21";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -17,6 +17,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/live`, lastModified: LASTMOD, priority: 0.7 },
     { url: `${SITE_URL}/la-piste`, lastModified: LASTMOD, priority: 0.8 },
     { url: `${SITE_URL}/evenements`, lastModified: LASTMOD, priority: 0.8 },
+    // Pages dédiées par formule (21/11).
+    { url: `${SITE_URL}/anniversaire`, lastModified: LASTMOD, priority: 0.8 },
+    { url: `${SITE_URL}/evg-evjf`, lastModified: LASTMOD, priority: 0.8 },
+    { url: `${SITE_URL}/team-building`, lastModified: LASTMOD, priority: 0.8 },
     { url: `${SITE_URL}/photos`, lastModified: LASTMOD, priority: 0.6 },
     // Galeries publiques des événements (15/10).
     ...getGaleries().map((g) => ({ url: `${SITE_URL}/galerie/${g.path}`, lastModified: LASTMOD, priority: 0.5 })),

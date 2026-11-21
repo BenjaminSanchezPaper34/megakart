@@ -226,6 +226,28 @@ export const DEALS: Operation[] = [
     priceNote: "au lieu de 76€ — coaching offert",
     reservation: true,
   },
+  {
+    // Tarif étudiant (Benjamin, 20/11) : karts 280cc et 390cc, université, carte d'étudiant.
+    slug: "etudiant",
+    kicker: "Étudiants d'université",
+    name: "Tarif étudiant",
+    nameLines: ["Tarif", "étudiant"],
+    accent: "race",
+    summary: "Le 280cc et le 390cc moins chers, sur présentation de la carte d'étudiant.",
+    details: [
+      "Pour les étudiants d'université, sur présentation de la carte d'étudiant à l'accueil : le Kart 280cc (Sodi RT8) passe à 14 € au lieu de 17 €, le Kart 390cc (Sodi RT10) à 17 € au lieu de 22 €.",
+      "Aux horaires d'ouverture habituels, sans réservation : venez entre amis, chacun avec sa carte.",
+    ],
+    facts: [
+      "280cc à 14€ au lieu de 17€",
+      "390cc à 17€ au lieu de 22€",
+      "Carte d'étudiant obligatoire",
+      "Sans réservation",
+    ],
+    price: "dès 14€",
+    priceNote: "la session, carte d'étudiant à présenter",
+    reservation: false,
+  },
 ];
 
 export const OPERATIONS: Operation[] = [...RACES, ...DEALS];
