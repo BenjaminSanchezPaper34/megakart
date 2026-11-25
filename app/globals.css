@@ -13,6 +13,8 @@
   --color-flag: #fbba00;
   /* Bleu « bon plan » de l'agenda (2 tickets = 1 offert) */
   --color-promo: #2e7cf6;
+  /* Rose violet du tarif étudiant (Benjamin, 25/11/2026) */
+  --color-student: #b5179e;
 
   --font-display: var(--font-saira), "Arial Narrow", sans-serif;
   --font-body: var(--font-archivo), system-ui, sans-serif;
